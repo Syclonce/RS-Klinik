@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             RolePermissionSeeder::class,
             UserSeeder::class,
             SetwebSeeder::class,
+            RoleRedirectsSeeder::class,
         ]);
     }
 }
