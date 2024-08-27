@@ -28,6 +28,13 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/superadmin', [SuperAdminController::class, 'index'])->name('superadmin');
 
     Route::get('/doctor', [DoctorController::class, 'index'])->name('doctor');
+    Route::post('/doctor/add', [DoctorController::class, 'doctoradd'])->name('doctor.add');
+
+    Route::get('/doctor/spesiali', [DoctorController::class, 'spesiali'])->name('doctor.spesiali');
+    Route::post('/doctor/spesiali/add', [DoctorController::class, 'spesialiadd'])->name('doctor.spesiali.add');
+
+    Route::get('/doctor/visit', [DoctorController::class, 'visitdocter'])->name('doctor.visit');
+    Route::post('/doctor/visit', [DoctorController::class, 'visitdocteradd'])->name('doctor.visit.add');
 
 
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');

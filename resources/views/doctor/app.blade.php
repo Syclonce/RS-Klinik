@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title ?? 'Rs_app' }}</title>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -276,61 +278,7 @@
                 <span class="brand-text font-weight-light">{{ $setweb->name_app }}</span>
             </a>
 
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="{{ asset('storage/' . Auth::user()->profile) }}" class="img-circle elevation-2"
-                            alt="Profile Photo">
-                    </div>
-                    <div class="info">
-                        @if (Auth::check())
-                            <a href="#" class="d-block">{{ Auth::user()->name }}</a>
-                        @endif
-                    </div>
-                </div>
-
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-                        <li class="nav-item">
-                            <a href="{{ route('superadmin') }}"
-                                class="nav-link {{ \Route::is('superadmin') ? 'active' : '' }}">
-                                <i class="fas fa-fw fa-tachometer-alt"></i>
-                                <p>Dashboard</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('setweb') }}"
-                                class="nav-link {{ \Route::is('setweb') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-cogs"></i>
-                                <p>
-                                    Web Seting
-                                </p>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
+            @include('template.sidebar')
         </aside>
 
 
@@ -409,14 +357,64 @@
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <!-- Toastr -->
     <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+    <!-- InputMask -->
+    <script src="{{ asset('plugins/inputmask/jquery.inputmask.min.js')}}"></script>
 
 
+    <script>
+        $(document).ready(function() {
+             $("spesialidata").DataTable({
+                 "responsive": true,
+                 "autoWidth": false,
+                 "buttons": false,
+                 "lengthChange": true, // Corrected: Removed conflicting lengthChange option
+                 "language": {
+                     "lengthMenu": "Tampil  _MENU_",
+                     "info": "Menampilkan _START_ - _END_ dari _TOTAL_ entri",
+                     "search": "Cari :",
+                     "paginate": {
+                         "previous": "Sebelumnya",
+                         "next": "Berikutnya"
+                     }
+                 }
+             });
+         });
 
+     </script>
+  <script>
+    $(document).ready(function() {
+        // Apply Inputmask
+        $('#harga').inputmask({
+            alias: 'numeric',
+            groupSeparator: '.',
+            autoGroup: true,
+            digits: 0,
+            digitsOptional: false,
+            prefix: 'Rp ',
+            rightAlign: false,
+            removeMaskOnSubmit: true
+        });
 
+        // Apply Inputmask for phone number
+        $('#telepon').inputmask({
+                mask: '(99) 999-999-9999',
+                placeholder: ' ',
+                showMaskOnHover: false,
+                showMaskOnFocus: false
+            });
+    });
+</script>
     <!-- Page specific script -->
     <script>
+        $(function() {
+            $('.select2').select2()
 
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
 
+            $('[data-mask]').inputmask()
+        })
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -493,218 +491,9 @@
 
 
     {{-- CURD Pemsion --}}
-    <script>
-       $(document).ready(function() {
-            $("permissiontbl").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-                "buttons": false,
-                "lengthChange": true, // Corrected: Removed conflicting lengthChange option
-                "language": {
-                    "lengthMenu": "Tampil  _MENU_",
-                    "info": "Menampilkan _START_ - _END_ dari _TOTAL_ entri",
-                    "search": "Cari :",
-                    "paginate": {
-                        "previous": "Sebelumnya",
-                        "next": "Berikutnya"
-                    }
-                }
-            });
-        });
 
 
 
-        $('#addFormpermesion').on('submit', function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
-                data: $(this).serialize(),
-                success: function(response) {
-                    $('#addpermesionModal').modal('hide');
-                    alert.fire({
-                        icon: 'success',
-                        title: response.message
-                    });
-                    $('#addFormpermesion')[0].reset();
-                    window.location.href = '{{ route('permissions') }}';
-                },
-                error: function(xhr) {
-                    toastr.error('Terjadi kesalahan saat menyimpan kendaraan.');
-                }
-            });
-        });
-
-
-        $(document).on('click', '.edit-data-permesion', function() {
-        var id = $(this).data('id');
-        var nama = $(this).data('nama-permission');
-
-        $('#permissionsid').val(id);
-        $('#permissionnames').val(nama);
-        });
-
-        $('#editFormpermesion').on('submit', function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
-                data: $(this).serialize(),
-                success: function(response) {
-                    $('#editpermesionModal').modal('hide');
-                    alert.fire({
-                        icon: 'success',
-                        title: response.message
-                    });
-                    window.location.href = '{{ route('permissions') }}';
-                },
-                error: function(xhr) {
-                    toastr.error('Terjadi kesalahan saat menyimpan kendaraan.');
-                }
-            });
-        });
-
-        $(document).on('click', '.delete-data-permesion', function() {
-            var id = $(this).data('id');
-            var name = $(this).data('nama-permission');
-
-            $('#permissionsids').val(id);
-            $('#deleteTextpermissions').html(
-                "<span>Apa anda yakin ingin menghapus data Permession <b>" + name +
-                "</b></span>");
-
-        });
-
-        $('#deleteFormpermesion').on('submit', function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
-                data: $(this).serialize(),
-                success: function(response) {
-                    $('#deletepermesionModal').modal('hide');
-                    window.location.href = '{{ route('permissions') }}';
-                    alert.fire({
-                        icon: 'success',
-                        title: response.message
-                    });
-                },
-                error: function(xhr) {
-                    toastr.error('Terjadi kesalahan saat menyimpan kendaraan.');
-                }
-            });
-        });
-    </script>
-
-    {{-- CURD role --}}
-    <script>
-       $(document).ready(function() {
-            $("roletbl").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-                "buttons": false,
-                "lengthChange": true, // Corrected: Removed conflicting lengthChange option
-                "language": {
-                    "lengthMenu": "Tampil  _MENU_",
-                    "info": "Menampilkan _START_ - _END_ dari _TOTAL_ entri",
-                    "search": "Cari :",
-                    "paginate": {
-                        "previous": "Sebelumnya",
-                        "next": "Berikutnya"
-                    }
-                }
-            });
-        });
-
-
-
-        $('#addFormrole').on('submit', function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
-                data: $(this).serialize(),
-                success: function(response) {
-                    $('#addroleModal').modal('hide');
-                    alert.fire({
-                        icon: 'success',
-                        title: response.message
-                    });
-                    $('#addFormrole')[0].reset();
-                    window.location.href = '{{ route('role') }}';
-                },
-                error: function(xhr) {
-                    toastr.error('Terjadi kesalahan saat menyimpan kendaraan.');
-                }
-            });
-        });
-
-
-        $(document).on('click', '.edit-data-role', function() {
-        var id = $(this).data('id');
-        var nama = $(this).data('nama-role');
-
-        $('#roleid').val(id);
-        $('#rolenames').val(nama);
-        });
-
-        $('#editFormrole').on('submit', function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
-                data: $(this).serialize(),
-                success: function(response) {
-                    $('#editroleModal').modal('hide');
-                    alert.fire({
-                        icon: 'success',
-                        title: response.message
-                    });
-                    window.location.href = '{{ route('role') }}';
-                },
-                error: function(xhr) {
-                    toastr.error('Terjadi kesalahan saat menyimpan kendaraan.');
-                }
-            });
-        });
-
-        $(document).on('click', '.delete-data-role', function() {
-            var id = $(this).data('id');
-            var name = $(this).data('nama-role');
-
-            $('#roleids').val(id);
-            $('#deleteTextrole').html(
-                "<span>Apa anda yakin ingin menghapus data Permession <b>" + name +
-                "</b></span>");
-
-        });
-
-        $('#deleteFormrole').on('submit', function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
-                data: $(this).serialize(),
-                success: function(response) {
-                    $('#deleteroleModal').modal('hide');
-                    window.location.href = '{{ route('role') }}';
-                    alert.fire({
-                        icon: 'success',
-                        title: response.message
-                    });
-                },
-                error: function(xhr) {
-                    toastr.error('Terjadi kesalahan saat menyimpan kendaraan.');
-                }
-            });
-        });
-    </script>
 
 </body>
 

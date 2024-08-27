@@ -27,34 +27,23 @@
                                     <thead>
                                         <tr>
                                             <th>Nama</th>
-                                            <th>email</th>
+                                            <th>Alamat</th>
+                                            <th>Spesialis</th>
                                             <th>Telepon</th>
-                                            <th>profile</th>
-                                            <th width="40%">Pilihan</th>
+                                            <th>Email</th>
+                                            <th width="20%">Pilihan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php $index = 1; @endphp
-                                        {{-- @foreach ($permissions as $permission)
+                                        @foreach ($doctors as $doctor)
                                             <tr>
-                                                <td>{{ $permission->id }}</td>
-                                                <td>{{ $permission->name }}</td>
-                                                <td class="text-center">
-                                                    <a href="#" data-toggle="modal"
-                                                    data-target="#editpermesionModal"
-                                                    data-id="{{ $permission->id }}"
-                                                    data-nama-permission="{{ $permission->name }}"
-                                                    class="edit-data-permesion"><i class="fa fa-edit text-secondary"></i></a>
-
-                                                    <a href="#" data-toggle="modal"
-                                                    data-target="#deletepermesionModal"
-                                                        data-id="{{ $permission->id }}"
-                                                        data-nama-permission="{{ $permission->name }}"
-                                                        class="delete-data-permesion">
-                                                        <i class="fa fa-trash-can text-secondary"></i></a>
-                                                </td>
+                                                <td>{{ $doctor->nama }}</td>
+                                                <td>{{ $doctor->Alamat }}</td>
+                                                <td>{{ implode(', ', json_decode($doctor->spesialis)) }}</td>
+                                                <td>{{ $doctor->telepon }}</td>
+                                                <td>{{ $doctor->user->email }}</td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -83,13 +72,59 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addFormpermesion" action="{{ route('permissions.store') }}" method="POST">
+                    <form id="addFormpermesion" action="{{ route('doctor.add') }}" method="POST">
                         @csrf
                         <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Nama </label>
+                                    <input type="text" class="form-control" id="nama" name="nama">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Username </label>
+                                    <input type="text" class="form-control" id="username" name="username">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Email </label>
+                                    <input type="Email" class="form-control" id="email" name="email">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Password </label>
+                                    <input type="password" class="form-control" id="password" name="password" autocomplete >
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Alamat </label>
+                                    <input type="text" class="form-control" id="Alamat" name="Alamat">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Spesialis</label>
+                                  <select class="select2bs4" multiple="multiple"  style="width: 100%;"  id="spesialis" name="spesialis[]">
+                                    @foreach ($data as $spesiali)
+                                    <option value="{{$spesiali->kode}}">{{$spesiali->nama}}</option>
+                                    @endforeach
+                                  </select>
+                                </div>
+                            </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Nama Permission</label>
-                                    <input type="text" class="form-control" id="permissionname" name="permissionname">
+                                    <label>Telepon  </label>
+                                    <input type="text" class="form-control" id="telepon" name="telepon">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Harga </label>
+                                    <input type="text" class="form-control" id="harga" name="harga">
                                 </div>
                             </div>
                         </div>
