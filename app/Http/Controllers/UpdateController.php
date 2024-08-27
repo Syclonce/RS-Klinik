@@ -10,7 +10,7 @@ class UpdateController extends Controller
 {
     public function update(Request $request)
     {
-        $repositoryUrl = 'https://github.com/your-repo/your-app.git';
+        $repositoryUrl = 'https://github.com/Syclonce/RS-Klinik.git';
         $deployPath = base_path();
 
         // Pull the latest changes from the Git repository
