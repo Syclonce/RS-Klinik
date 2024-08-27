@@ -8,6 +8,7 @@
         "php": "^8.2",
         "barryvdh/laravel-debugbar": "^3.13",
         "barryvdh/laravel-dompdf": "^2.2",
+        "codedge/laravel-selfupdater": "^3.9",
         "laravel/breeze": "^2.0",
         "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",
@@ -63,7 +64,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true
         }
     },
     "minimum-stability": "stable",
