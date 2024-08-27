@@ -7,12 +7,14 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\websetController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UpdateController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/update-app', [UpdateController::class, 'update'])->name('update.app');
 
 
 Route::middleware('auth')->group(function () {

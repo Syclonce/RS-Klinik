@@ -79,6 +79,13 @@
                     </p>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <form action="{{ route('update.app') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-primary">Update Application</button>
+                </form>
+            </li>
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
