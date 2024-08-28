@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\modules\DoctorController;
+use App\Http\Controllers\modules\PatientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\websetController;
@@ -37,6 +38,8 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/doctor/visit', [DoctorController::class, 'visitdocter'])->name('doctor.visit');
     Route::post('/doctor/visit', [DoctorController::class, 'visitdocteradd'])->name('doctor.visit.add');
+
+    Route::get('/patient', [PatientController::class, 'index'])->name('patient');
 
 
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');

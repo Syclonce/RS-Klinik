@@ -66,7 +66,25 @@
                     </a>
                   </li>
                 </ul>
-              </li>
+            </li>
+
+            <li class="nav-item {{ \Route::is('patient*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('patient*') ? 'active' : '' }}">
+                    <i class="fas fa-fw fa-solid fa-hospital-user" style="color: #63E6BE;"></i>
+                  <p>
+                    Pasien
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('patient') }}" class="nav-link {{ \Route::is('patient') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
+                      <p>tambah Pasien</p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
 
 
 

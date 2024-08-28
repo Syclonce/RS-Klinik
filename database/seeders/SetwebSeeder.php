@@ -15,8 +15,8 @@ class SetwebSeeder extends Seeder
     {
         setweb::create(
             [
-                'name_app' => 'Smart Dashboard',
-                'logo_app' => 'app-logo.png'
+                'name_app' => 'Smart RS',
+                'logo_app' => 'Dolphin-logo.png'
             ]
         );
     }
