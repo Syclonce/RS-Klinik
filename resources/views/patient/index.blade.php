@@ -130,10 +130,24 @@
                                   </select>
                                 </div>
                             </div>
-                            <div class="col-sm-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Harga </label>
-                                    <input type="text" class="form-control" id="harga" name="harga">
+                                    <label>Seks </label>
+                                    <select class="form-control select2bs4"  style="width: 100%;"  id="seks" name="seks">
+                                        @foreach ($seks as $seks)
+                                        <option value="{{$seks->kode}}">{{$seks->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Golongan Darah </label>
+                                    <select class="form-control select2bs4"  style="width: 100%;"  id="goldar" name="goldar">
+                                        @foreach ($goldar as $goldar)
+                                        <option value="{{$goldar->id}}">{{$goldar->nama}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>

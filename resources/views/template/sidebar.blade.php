@@ -83,6 +83,18 @@
                       <p>tambah Pasien</p>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="{{ route('patient.seks') }}" class="nav-link {{ \Route::is('patient.seks') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
+                      <p>tambah seks</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('patient.goldar') }}" class="nav-link {{ \Route::is('patient.goldar') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
+                      <p>tambah goldar</p>
+                    </a>
+                  </li>
                 </ul>
             </li>
 

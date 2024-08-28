@@ -40,6 +40,10 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::post('/doctor/visit', [DoctorController::class, 'visitdocteradd'])->name('doctor.visit.add');
 
     Route::get('/patient', [PatientController::class, 'index'])->name('patient');
+    Route::get('/patient/seks', [PatientController::class, 'seks'])->name('patient.seks');
+    Route::post('/patient/seks/add', [PatientController::class, 'seksadd'])->name('patient.seks.add');
+    Route::get('/patient/goldar', [PatientController::class, 'goldar'])->name('patient.goldar');
+    Route::post('/patient/goldar/add', [PatientController::class, 'goldaradd'])->name('patient.goldar.add');
 
 
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');
