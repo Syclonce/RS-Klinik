@@ -12,7 +12,7 @@
                     <div class="col-12 mt-3">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title mb-0">Dokter</h3>
+                                <h3 class="card-title mb-0">Pasien</h3>
                                 <div class="card-tools text-right">
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#adddoctor">
@@ -27,23 +27,30 @@
                                     <thead>
                                         <tr>
                                             <th>Nama</th>
-                                            <th>Alamat</th>
-                                            <th>Spesialis</th>
                                             <th>Telepon</th>
+                                            <th>Alamat</th>
                                             <th>Email</th>
+                                            <th>Tanggal Lahir</th>
+                                            <th>Kelamin</th>
+                                            <th>Golongan Darah</th>
+                                            <th>Nama Dokter</th>
                                             <th width="20%">Pilihan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($doctors as $doctor)
+                                        @foreach ($pasien as $pasien)
                                             <tr>
-                                                <td>{{ $doctor->nama }}</td>
-                                                <td>{{ $doctor->Alamat }}</td>
-                                                <td>{{ implode(', ', json_decode($doctor->spesialis)) }}</td>
-                                                <td>{{ $doctor->telepon }}</td>
-                                                <td>{{ $doctor->user->email }}</td>
+                                                <td>{{ $pasien->nama }}</td>
+                                                <td>{{ $pasien->telepon }}</td>
+                                                <td>{{ $pasien->Alamat }}</td>
+                                                <td>{{ $pasien->user->email }}</td>
+                                                <td>{{ $pasien->tgl }}</td>
+                                                <td>{{ $pasien->seks }}</td>
+                                                <td>{{ $pasien->goldar->nama }}</td>
+                                                <td>{{ $pasien->doctor->nama }}</td>
+                                                <td></td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -72,7 +79,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addFormpermesion" action="{{ route('doctor.add') }}" method="POST">
+                    <form id="addFormpermesion" action="{{ route('patient.add') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-sm-6">
@@ -109,7 +116,7 @@
                                 <div class="form-group">
                                     <label>Tanggal Lahir</label>
                                     <div class="input-group">
-                                      <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                      <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask id="tgl" name="tgl">
                                     </div>
                                     <!-- /.input group -->
                                   </div>
@@ -122,8 +129,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                  <label>Nama DOkter</label>
-                                  <select class="form-control select2bs4"  style="width: 100%;"  id="spesialis" name="spesialis">
+                                  <label>Nama Dokter</label>
+                                  <select class="form-control select2bs4"  style="width: 100%;"  id="dokter" name="dokter">
                                     @foreach ($docter as $docter)
                                     <option value="{{$docter->id}}">{{$docter->nama}}</option>
                                     @endforeach

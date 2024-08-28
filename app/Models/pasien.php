@@ -5,32 +5,32 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class doctor extends Model
+class pasien extends Model
 {
     use HasFactory;
-    protected $table = 'doctors';
+    protected $table = 'pasiens';
     protected $fillable = [
         'nama',
         'Alamat',
-        'spesialis',
-        'harga',
+        'tgl',
+        'doctor_id',
         'telepon',
+        'seks',
+        'goldar_id',
     ];
-
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-
-    public function doctorvisit()
+    public function doctor()
     {
-        return $this->hasOne(doctor_visit::class);
+        return $this->belongsTo(doctor::class);
     }
 
-    public function pasien()
+    public function goldar()
     {
-        return $this->hasOne(pasien::class);
+        return $this->belongsTo(goldar::class);
     }
 }

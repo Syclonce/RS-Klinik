@@ -12,4 +12,9 @@ class goldar extends Model
     protected $fillable = [
         'nama',
     ];
+
+    public function pasien()
+    {
+        return $this->hasOne(pasien::class);
+    }
 }
