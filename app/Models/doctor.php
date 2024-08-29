@@ -33,4 +33,8 @@ class doctor extends Model
     {
         return $this->hasOne(pasien::class);
     }
+    public function schedule()
+    {
+        return $this->hasOne(schedule::class);
+    }
 }

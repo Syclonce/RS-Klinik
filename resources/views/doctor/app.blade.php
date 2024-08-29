@@ -414,6 +414,13 @@
             })
 
             $('[data-mask]').inputmask()
+
+            $('#awalacara').datetimepicker({
+                format: 'LT'
+            })
+            $('#akhiracara').datetimepicker({
+                format: 'LT'
+            })
         })
         const Toast = Swal.mixin({
             toast: true,

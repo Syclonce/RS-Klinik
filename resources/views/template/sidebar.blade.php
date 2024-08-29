@@ -98,6 +98,24 @@
                 </ul>
             </li>
 
+            <li class="nav-item {{ \Route::is('schedule*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('schedule*') ? 'active' : '' }}">
+                    <i class="fas fa-fw fa-solid fa-hospital-user" style="color: #63E6BE;"></i>
+                  <p>
+                    Susunan Acara
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('schedule') }}" class="nav-link {{ \Route::is('schedule') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
+                      <p>Semua Susunan Acara</p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
+
 
 
             <li class="nav-item">

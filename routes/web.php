@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\modules\DoctorController;
 use App\Http\Controllers\modules\PatientController;
+use App\Http\Controllers\modules\ScheduleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\websetController;
@@ -47,7 +48,9 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/patient/goldar', [PatientController::class, 'goldar'])->name('patient.goldar');
     Route::post('/patient/goldar/add', [PatientController::class, 'goldaradd'])->name('patient.goldar.add');
-
+    
+    Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule');
+    Route::post('/schedule/add', [ScheduleController::class, 'scheduleadd'])->name('schedule.add');
 
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');
     Route::post('setweb/update', [websetController::class, 'updates'])->name('setweb.update');
