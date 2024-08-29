@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\setweb;
 use App\Models\doctor;
 use App\Models\schedule;
+use App\Models\liburan;
 use App\Http\Controllers\Controller;
 
 class ScheduleController extends Controller
@@ -69,5 +70,28 @@ class ScheduleController extends Controller
         $schedule->save();
 
         return redirect()->route('doctor.doctor',['id' => $data['dokter']])->with('success', 'schedule berhasi di tambahkan');
+    }
+
+    public function liburan()
+    {
+        $setweb = setweb::first();
+        $data = doctor::all();
+        $liburan = liburan::all();
+        $title = $setweb->name_app ." - ". "Susunan Acara";
+        return view('schedule.liburan', compact('title','data','liburan'));
+    }
+
+    public function liburanadd(Request $request)
+    {
+        $data = $request->validate([
+            "dokter" => 'required',
+            "liburan" => 'required',
+        ]);
+        $liburan = new liburan();
+        $liburan->liburan = date('Y-m-d', strtotime($data['liburan']));
+        $liburan->doctor_id = $data['dokter'];
+        $liburan->save();
+
+        return redirect()->route('schedule.liburan')->with('success', 'jadwal liburan berhasi di tambahkan');
     }
 }

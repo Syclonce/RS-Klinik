@@ -100,7 +100,7 @@
 
             <li class="nav-item {{ \Route::is('schedule*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('schedule*') ? 'active' : '' }}">
-                    <i class="fas fa-fw fa-solid fa-hospital-user" style="color: #63E6BE;"></i>
+                  <i class="fas fa-fw fa-solid fa-clock" style="color: #63E6BE;"></i>
                   <p>
                     Susunan Acara
                     <i class="right fas fa-angle-left"></i>
@@ -109,8 +109,14 @@
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
                     <a href="{{ route('schedule') }}" class="nav-link {{ \Route::is('schedule') ? 'active' : '' }}">
-                        <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
                       <p>Semua Susunan Acara</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('schedule.liburan') }}" class="nav-link {{ \Route::is('schedule.liburan') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>Liburan</p>
                     </a>
                   </li>
                 </ul>
