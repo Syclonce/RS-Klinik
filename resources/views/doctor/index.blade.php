@@ -20,10 +20,9 @@
                                     </button>
                                 </div>
                             </div>
-
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="permissiontbl" class="table table-bordered table-striped">
+                                <table id="doctortbl" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Nama</th>
@@ -42,6 +41,8 @@
                                                 <td>{{ implode(', ', json_decode($doctor->spesialis)) }}</td>
                                                 <td>{{ $doctor->telepon }}</td>
                                                 <td>{{ $doctor->user->email }}</td>
+                                                <td><a href="{{ route('doctor.doctor', ['id' =>  $doctor->id ]) }}" class="edit-data-permesion"><i class="fa fa-edit text-secondary"></i></a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -72,7 +73,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addFormpermesion" action="{{ route('doctor.add') }}" method="POST">
+                    <form action="{{ route('doctor.add') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-sm-6">
@@ -138,4 +139,23 @@
         </div>
     </div>
 
+    <script>
+        $(document).ready(function() {
+            $("#doctortbl").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+                "buttons": false,
+                "lengthChange": true, // Corrected: Removed conflicting lengthChange option
+                "language": {
+                    "lengthMenu": "Tampil  _MENU_",
+                    "info": "Menampilkan _START_ - _END_ dari _TOTAL_ entri",
+                    "search": "Cari :",
+                    "paginate": {
+                        "previous": "Sebelumnya",
+                        "next": "Berikutnya"
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

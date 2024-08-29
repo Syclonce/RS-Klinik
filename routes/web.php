@@ -48,9 +48,12 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/patient/goldar', [PatientController::class, 'goldar'])->name('patient.goldar');
     Route::post('/patient/goldar/add', [PatientController::class, 'goldaradd'])->name('patient.goldar.add');
-    
+
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule');
     Route::post('/schedule/add', [ScheduleController::class, 'scheduleadd'])->name('schedule.add');
+
+    Route::get('/schedule/docter/{id}', [ScheduleController::class, 'scheduledoctor'])->name('doctor.doctor');
+    Route::post('/schedule/docter/add', [ScheduleController::class, 'scheduledoctoradd'])->name('doctor.doctor.add');
 
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');
     Route::post('setweb/update', [websetController::class, 'updates'])->name('setweb.update');
@@ -67,9 +70,6 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::post('role/destroy', [RoleController::class, 'destroy'])->name('role.destroy');
     Route::get('role/{roleId}/give', [RoleController::class, 'addPermissionToRole'])->name('role.give');
     Route::put('role/{roleId}/give', [RoleController::class, 'givePermissionToRole'])->name('role.give.put');
-
-
-
 
     Route::get('user/role-premesion', [SuperAdminController::class, 'userrolepremesion'])->name('user.role-premesion');
     Route::get('user/role-premesion/{user}/edit', [SuperAdminController::class, 'edit'])->name('user.role-premesions');

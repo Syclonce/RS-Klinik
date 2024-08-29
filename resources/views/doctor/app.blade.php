@@ -360,68 +360,48 @@
     <!-- InputMask -->
     <script src="{{ asset('plugins/inputmask/jquery.inputmask.min.js')}}"></script>
 
-
-    <script>
-        $(document).ready(function() {
-             $("spesialidata").DataTable({
-                 "responsive": true,
-                 "autoWidth": false,
-                 "buttons": false,
-                 "lengthChange": true, // Corrected: Removed conflicting lengthChange option
-                 "language": {
-                     "lengthMenu": "Tampil  _MENU_",
-                     "info": "Menampilkan _START_ - _END_ dari _TOTAL_ entri",
-                     "search": "Cari :",
-                     "paginate": {
-                         "previous": "Sebelumnya",
-                         "next": "Berikutnya"
-                     }
-                 }
-             });
-         });
-
-     </script>
   <script>
-    $(document).ready(function() {
-        // Apply Inputmask
-        $('#harga').inputmask({
-            alias: 'numeric',
-            groupSeparator: '.',
-            autoGroup: true,
-            digits: 0,
-            digitsOptional: false,
-            prefix: 'Rp ',
-            rightAlign: false,
-            removeMaskOnSubmit: true
+        $(document).ready(function() {
+            // Apply Inputmask
+            $('#harga').inputmask({
+                alias: 'numeric',
+                groupSeparator: '.',
+                autoGroup: true,
+                digits: 0,
+                digitsOptional: false,
+                prefix: 'Rp ',
+                rightAlign: false,
+                removeMaskOnSubmit: true
+            });
+
+            // Apply Inputmask for phone number
+            $('#telepon').inputmask({
+                    mask: '(99) 999-999-9999',
+                    placeholder: ' ',
+                    showMaskOnHover: false,
+                    showMaskOnFocus: false
+                });
         });
 
-        // Apply Inputmask for phone number
-        $('#telepon').inputmask({
-                mask: '(99) 999-999-9999',
-                placeholder: ' ',
-                showMaskOnHover: false,
-                showMaskOnFocus: false
-            });
-    });
-</script>
+        $(function() {
+                $('.select2').select2()
+
+                $('.select2bs4').select2({
+                    theme: 'bootstrap4'
+                })
+
+                $('[data-mask]').inputmask()
+
+                $('#awalacara').datetimepicker({
+                    format: 'LT'
+                })
+                $('#akhiracara').datetimepicker({
+                    format: 'LT'
+                })
+            })
+    </script>
     <!-- Page specific script -->
     <script>
-        $(function() {
-            $('.select2').select2()
-
-            $('.select2bs4').select2({
-                theme: 'bootstrap4'
-            })
-
-            $('[data-mask]').inputmask()
-
-            $('#awalacara').datetimepicker({
-                format: 'LT'
-            })
-            $('#akhiracara').datetimepicker({
-                format: 'LT'
-            })
-        })
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -495,13 +475,6 @@
             });
         });
     </script>
-
-
-    {{-- CURD Pemsion --}}
-
-
-
-
 </body>
 
 </html>
