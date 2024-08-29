@@ -83,38 +83,6 @@
                         <!-- /.card -->
                     </div>
                     <!-- /.col -->
-
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <label for="toggleWarnings">Aktifkan peringatan pajak jatuh tempo</label>
-                                <input type="checkbox" id="toggleWarnings">
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <label for="toggleWarnings1">Aktifkan peringatan STNK jatuh tempo</label>
-                                <input type="checkbox" id="toggleWarnings1">
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <label>
-                                    Set Reminder Time: <input type="time" id="reminderTime">
-                                </label>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
                 </div>
                 <!-- /.row (main row) -->
             </div><!-- /.container-fluid -->
@@ -122,34 +90,4 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var toggleWarningsCheckbox = document.getElementById('toggleWarnings');
-            var toggleWarningsCheckbox1 = document.getElementById('toggleWarnings1');
-            var reminderTimeInput = document.getElementById('reminderTime');
-
-            // Ambil status peringatan dari local storage
-            var warningsEnabled = localStorage.getItem('warningsEnabled') === 'true';
-            var warningsEnabled1 = localStorage.getItem('warningsEnabled1') === 'true';
-            var reminderTime = localStorage.getItem('reminderTime') || '08:00';
-
-            // Setel status checkbox sesuai dengan nilai yang disimpan di local storage
-            toggleWarningsCheckbox.checked = warningsEnabled;
-            toggleWarningsCheckbox1.checked = warningsEnabled1;
-            reminderTimeInput.value = reminderTime;
-
-            // Tambahkan event listener untuk menyimpan status ke local storage saat checkbox diubah
-            toggleWarningsCheckbox.addEventListener('change', function() {
-                localStorage.setItem('warningsEnabled', toggleWarningsCheckbox.checked);
-            });
-            toggleWarningsCheckbox1.addEventListener('change', function() {
-                localStorage.setItem('warningsEnabled1', toggleWarningsCheckbox1.checked);
-            });
-            reminderTimeInput.addEventListener('change', function() {
-                localStorage.setItem('reminderTime', reminderTimeInput.value);
-            });
-        });
-    </script>
 @endsection
