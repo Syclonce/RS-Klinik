@@ -64,6 +64,7 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::post('/schedule/liburan/docter/add', [ScheduleController::class, 'liburandoctoradd'])->name('doctor.doctor.liburan.add');
 
     Route::get('/sdm', [SumberdayamController::class, 'index'])->name('sdm');
+    Route::post('/sdm/add', [SumberdayamController::class, 'suberdayaadd'])->name('sdm.add');
 
     Route::get('/janji', [JanjiController::class, 'index'])->name('janji');
 

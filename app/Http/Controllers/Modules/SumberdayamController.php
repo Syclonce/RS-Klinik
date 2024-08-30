@@ -5,6 +5,7 @@ namespace App\Http\Controllers\modules;
 use Illuminate\Http\Request;
 use App\Models\setweb;
 use App\Http\Controllers\Controller;
+use App\Models\suberdaya;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,7 +15,8 @@ class SumberdayamController extends Controller
     {
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "Susunan Acara";
-        return view('sumdm.index', compact('title'));
+        $prawat = suberdaya::with('user')->get();
+        return view('sumdm.index', compact('title','prawat'));
     }
 
     public function suberdayaadd(Request $request)
@@ -41,15 +43,13 @@ class SumberdayamController extends Controller
         $user->save();
         $user->assignRole('User');
 
-        $doctor = new Doctor();
-        $doctor->nama = $data['nama'];
-        $doctor->alamat = $data['Alamat'];
-        $doctor->spesialis = json_encode($data['spesialis']); // Encode the array to JSON
-        $doctor->harga = $data['harga'];
-        $doctor->telepon = $data['telepon'];
-        $doctor->user_id = $user->id;
-        $doctor->save();
+        $sumberdaya = new suberdaya();
+        $sumberdaya->nama = $data['nama'];
+        $sumberdaya->alamat = $data['Alamat'];
+        $sumberdaya->telepon = $data['telepon'];
+        $sumberdaya->user_id = $user->id;
+        $sumberdaya->save();
 
-        return redirect()->route('doctor')->with('success', 'dokter berhasi di tambahkan');
+        return redirect()->route('sdm')->with('success', 'dokter berhasi di tambahkan');
     }
 }

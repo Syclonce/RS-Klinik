@@ -27,25 +27,22 @@
                                         <tr>
                                             <th>Nama</th>
                                             <th>Alamat</th>
-                                            <th>Spesialis</th>
                                             <th>Telepon</th>
                                             <th>Email</th>
                                             <th width="20%">Pilihan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($doctors as $doctor)
+                                        @foreach ($prawat as $prawat)
                                             <tr>
-                                                <td>{{ $doctor->nama }}</td>
-                                                <td>{{ $doctor->Alamat }}</td>
-                                                <td>{{ implode(', ', json_decode($doctor->spesialis)) }}</td>
-                                                <td>{{ $doctor->telepon }}</td>
-                                                <td>{{ $doctor->user->email }}</td>
-                                                <td><a href="{{ route('doctor.doctor', ['id' =>  $doctor->id ]) }}" class="edit-data-permesion"><i class="fa fa-edit text-secondary"></i></a>
-                                                <td><a href="{{ route('doctor.doctor.liburan', ['id' =>  $doctor->id ]) }}" class="edit-data-permesion"><i class="fa fa-edit text-secondary"></i></a>
+                                                <td>{{ $prawat->nama }}</td>
+                                                <td>{{ $prawat->Alamat }}</td>
+                                                <td>{{ $prawat->telepon }}</td>
+                                                <td>{{ $prawat->user->email }}</td>
+                                                <td>
                                                 </td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -74,7 +71,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('doctor.add') }}" method="POST">
+                    <form action="{{ route('sdm.add') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-sm-6">
