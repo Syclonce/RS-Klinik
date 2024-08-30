@@ -140,6 +140,25 @@
                 </ul>
             </li>
 
+
+            <li class="nav-item {{ \Route::is('sdm*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('sdm*') ? 'active' : '' }}">
+                  <i class="fas fa-fw fa-solid fa-clock" style="color: #63E6BE;"></i>
+                  <p>
+                    Sumberdaya Manusia
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('sdm') }}" class="nav-link {{ \Route::is('sdm') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>Perawat</p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
+
             <li class="nav-item">
                 <a href="{{ route('setweb') }}"
                     class="nav-link {{ \Route::is('setweb') ? 'active' : '' }}">

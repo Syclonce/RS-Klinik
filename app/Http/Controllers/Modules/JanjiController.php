@@ -17,7 +17,7 @@ class JanjiController extends Controller
         $title = $setweb->name_app ." - ". "Janji";
         $data_pasien = pasien::all();
         $data_dokter = doctor::all();
-        return view('janji.index', compact('title','data_pasien','data_pasien'));
+        return view('janji.index', compact('title','data_pasien','data_dokter'));
     }
 
 }

@@ -401,6 +401,9 @@
                 $('#tglliburan').datetimepicker({
                     format: 'L'
                 });
+                $('#tgljanji').datetimepicker({
+                    format: 'L'
+                });
             })
     </script>
     <!-- Page specific script -->

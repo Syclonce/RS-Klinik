@@ -67,7 +67,7 @@
                                 <div class="form-group">
                                   <label>Pasien</label>
                                   <select class="form-control select2bs4" style="width: 100%;"  id="pasien" name="pasien">
-                                    @foreach ($data as $pasien)
+                                    @foreach ($data_pasien as $pasien)
                                     <option value="{{$pasien->id}}">{{$pasien->nama}}</option>
                                     @endforeach
                                   </select>
@@ -75,39 +75,54 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                  <label>Hari</label>
-                                  <select class="form-control select2bs4" style="width: 100%;"  id="hari" name="hari">
-                                    <option value="senin">Senin</option>
-                                    <option value="selasa">Selasa</option>
-                                    <option value="rabu">Rabu</option>
-                                    <option value="kamis">Kamis</option>
-                                    <option value="jumat">Jumat</option>
-                                    <option value="sabtu">Sabtu</option>
-                                    <option value="minggu">Minggu</option>
+                                  <label>Dokter</label>
+                                  <select class="form-control select2bs4" style="width: 100%;"  id="dokter" name="dokter">
+                                    @foreach ($data_dokter as $dokter)
+                                    <option value="{{$dokter->id}}">{{$dokter->nama}}</option>
+                                    @endforeach
+                                  </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tanggal</label>
+                                      <div class="input-group date" id="tgljanji" data-target-input="nearest">
+                                          <input type="text" class="form-control datetimepicker-input" data-target="#tgljanji" data-toggle="datetimepicker" id="tanggal" name="tanggal"/>
+                                      </div>
+                                  </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Available Slots</label>
+                                  <select class="form-control select2bs4" style="width: 100%;"  id="slot" name="slot">
+                                    <option value="bingung">Bingung isinya</option>
+                                  </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Janji Status</label>
+                                  <select class="form-control select2bs4" style="width: 100%;"  id="status" name="status">
+                                    <option value="tunda">Konfirmasi Tertunda</option>
+                                    <option value="konfirm">Dikonfirmasi</option>
+                                    <option value="obati">Diobati</option>
+                                    <option value="batal">Dibatalkan</option>
                                   </select>
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="bootstrap-timepicker">
-                                    <div class="form-group">
-                                      <label>Waktu Mulai</label>
-
-                                      <div class="input-group date" id="awalacara" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#awalacara" data-toggle="datetimepicker" id="awal" name="awal"/>
-                                        </div>
-                                    </div>
-                                  </div>
+                                <div class="form-group">
+                                    <label>Catatan </label>
+                                    <input type="text" class="form-control" id="catatan" name="catatan">
+                                </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="bootstrap-timepicker">
-                                    <div class="form-group">
-                                      <label>Akhir Waktu</label>
-
-                                      <div class="input-group date" id="akhiracara" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#akhiracara" data-toggle="datetimepicker" id="akhir" name="akhir"/>
-                                        </div>
-                                    </div>
-                                  </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                  <label>Mengunjungi Deskripsi</label>
+                                  <select class="form-control select2bs4" style="width: 100%;"  id="deskripsi" name="deskripsi">
+                                    <option value="bingung">Bingung isinya</option>
+                                  </select>
+                                </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
