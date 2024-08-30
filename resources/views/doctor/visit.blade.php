@@ -23,7 +23,7 @@
 
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="spesialidata" class="table table-bordered table-striped dataTable ">
+                                <table id="visittbl" class="table table-bordered table-striped dataTable ">
                                     <thead>
                                         <tr>
                                             <th>Nama</th>
@@ -124,5 +124,25 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#visittbl").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+                "buttons": false,
+                "lengthChange": true, // Corrected: Removed conflicting lengthChange option
+                "language": {
+                    "lengthMenu": "Tampil  _MENU_",
+                    "info": "Menampilkan _START_ - _END_ dari _TOTAL_ entri",
+                    "search": "Cari :",
+                    "paginate": {
+                        "previous": "Sebelumnya",
+                        "next": "Berikutnya"
+                    }
+                }
+            });
+        });
+    </script>
 
 @endsection

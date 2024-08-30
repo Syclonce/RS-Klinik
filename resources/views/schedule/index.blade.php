@@ -22,7 +22,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                              <table id="example1" class="table table-bordered table-striped">
+                              <table id="scheduletbl" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                   <th class="text-center">Dokter</th>
@@ -100,7 +100,7 @@
                                 <div class="bootstrap-timepicker">
                                     <div class="form-group">
                                       <label>Waktu Mulai</label>
-                  
+
                                       <div class="input-group date" id="awalacara" data-target-input="nearest">
                                         <input type="text" class="form-control datetimepicker-input" data-target="#awalacara" data-toggle="datetimepicker" id="awal" name="awal"/>
                                         </div>
@@ -111,7 +111,7 @@
                                 <div class="bootstrap-timepicker">
                                     <div class="form-group">
                                       <label>Akhir Waktu</label>
-                  
+
                                       <div class="input-group date" id="akhiracara" data-target-input="nearest">
                                         <input type="text" class="form-control datetimepicker-input" data-target="#akhiracara" data-toggle="datetimepicker" id="akhir" name="akhir"/>
                                         </div>
@@ -131,7 +131,7 @@
                                         ?>
                                     </select>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -142,5 +142,25 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#scheduletbl").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+                "buttons": false,
+                "lengthChange": true, // Corrected: Removed conflicting lengthChange option
+                "language": {
+                    "lengthMenu": "Tampil  _MENU_",
+                    "info": "Menampilkan _START_ - _END_ dari _TOTAL_ entri",
+                    "search": "Cari :",
+                    "paginate": {
+                        "previous": "Sebelumnya",
+                        "next": "Berikutnya"
+                    }
+                }
+            });
+        });
+    </script>
 
 @endsection

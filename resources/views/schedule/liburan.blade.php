@@ -22,7 +22,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                              <table id="example1" class="table table-bordered table-striped">
+                              <table id="liburantbl" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                   <th class="text-center">Dokter</th>
@@ -83,7 +83,7 @@
                                           <input type="text" class="form-control datetimepicker-input" data-target="#tglliburan" data-toggle="datetimepicker" id="liburan" name="liburan"/>
                                       </div>
                                   </div>
-                            </div>                           
+                            </div>
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -94,5 +94,25 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#liburantbl").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+                "buttons": false,
+                "lengthChange": true, // Corrected: Removed conflicting lengthChange option
+                "language": {
+                    "lengthMenu": "Tampil  _MENU_",
+                    "info": "Menampilkan _START_ - _END_ dari _TOTAL_ entri",
+                    "search": "Cari :",
+                    "paginate": {
+                        "previous": "Sebelumnya",
+                        "next": "Berikutnya"
+                    }
+                }
+            });
+        });
+    </script>
 
 @endsection
