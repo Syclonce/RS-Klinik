@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\modules\DoctorController;
-use App\Http\Controllers\modules\PatientController;
-use App\Http\Controllers\modules\ScheduleController;
-use App\Http\Controllers\modules\JanjiController;
-use App\Http\Controllers\modules\SumberdayamController;
+use App\Http\Controllers\Modules\DoctorController;
+use App\Http\Controllers\Modules\PatientController;
+use App\Http\Controllers\Modules\ScheduleController;
+use App\Http\Controllers\Modules\JanjiController;
+use App\Http\Controllers\Modules\SumberdayamController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\websetController;
@@ -63,6 +63,7 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/schedule/liburan/docter/{id}', [ScheduleController::class, 'liburandoctor'])->name('doctor.doctor.liburan');
     Route::post('/schedule/liburan/docter/add', [ScheduleController::class, 'liburandoctoradd'])->name('doctor.doctor.liburan.add');
 
+    Route::get('/sdm', [SumberdayamController::class, 'index'])->name('sdm');
     Route::get('/sdm', [SumberdayamController::class, 'index'])->name('sdm');
     Route::post('/sdm/add', [SumberdayamController::class, 'suberdayaadd'])->name('sdm.add');
 
