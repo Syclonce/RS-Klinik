@@ -12,6 +12,7 @@
         "laravel/breeze": "^2.0",
         "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",
+        "laravel/telescope": "^5.2",
         "laravel/tinker": "^2.9",
         "spatie/laravel-permission": "^6.4"
     },
