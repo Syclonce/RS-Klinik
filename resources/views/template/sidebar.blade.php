@@ -122,7 +122,23 @@
                 </ul>
             </li>
 
-
+            <li class="nav-item {{ \Route::is('janji*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('janji*') ? 'active' : '' }}">
+                  <i class="fas fa-fw fa-solid fa-clock" style="color: #63E6BE;"></i>
+                  <p>
+                    Janji
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('janji') }}" class="nav-link {{ \Route::is('janji') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>Konfirmasi Tertunda</p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
 
             <li class="nav-item">
                 <a href="{{ route('setweb') }}"

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\modules\DoctorController;
 use App\Http\Controllers\modules\PatientController;
 use App\Http\Controllers\modules\ScheduleController;
+use App\Http\Controllers\modules\JanjiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\websetController;
@@ -57,6 +58,8 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/schedule/liburan', [ScheduleController::class, 'liburan'])->name('schedule.liburan');
     Route::post('/schedule/liburan/add', [ScheduleController::class, 'liburanadd'])->name('schedule.liburan.add');
+
+    Route::get('/janji', [JanjiController::class, 'index'])->name('janji');
 
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');
     Route::post('setweb/update', [websetController::class, 'updates'])->name('setweb.update');
