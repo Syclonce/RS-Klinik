@@ -398,6 +398,9 @@
                 $('#akhiracara').datetimepicker({
                     format: 'LT'
                 })
+                $('#tglliburan').datetimepicker({
+                    format: 'L'
+                });
             })
     </script>
     <!-- Page specific script -->
