@@ -22,7 +22,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                              <table id="liburantbl" class="table table-bordered table-striped">
+                              <table id="liburandtbl" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                   <th class="text-center">Dokter</th>
@@ -63,19 +63,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addFormpermesion" action="{{ route('schedule.liburan') }}" method="POST">
+                    <form id="addFormpermesion" action="{{ route('doctor.doctor.liburan.add') }}" method="POST">
                         @csrf
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                  <label>Dokter</label>
-                                  <select class="form-control select2bs4" style="width: 100%;"  id="dokter" name="dokter">
-                                    @foreach ($data as $doctor)
-                                    <option value="{{$doctor->id}}">{{$doctor->nama}}</option>
-                                    @endforeach
-                                  </select>
-                                </div>
-                            </div>
+                            <input type="hidden" class="form-control" id="dokter" name="dokter" value="{{ $dataid }}">
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Tanggal</label>
@@ -97,7 +89,7 @@
 
     <script>
         $(document).ready(function() {
-            $("#liburantbl").DataTable({
+            $("#liburandtbl").DataTable({
                 "responsive": true,
                 "autoWidth": false,
                 "buttons": false,

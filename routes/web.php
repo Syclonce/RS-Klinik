@@ -58,6 +58,9 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/schedule/liburan', [ScheduleController::class, 'liburan'])->name('schedule.liburan');
     Route::post('/schedule/liburan/add', [ScheduleController::class, 'liburanadd'])->name('schedule.liburan.add');
 
+    Route::get('/schedule/liburan/docter/{id}', [ScheduleController::class, 'liburandoctor'])->name('doctor.doctor.liburan');
+    Route::post('/schedule/liburan/docter/add', [ScheduleController::class, 'liburandoctoradd'])->name('doctor.doctor.liburan.add');
+
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');
     Route::post('setweb/update', [websetController::class, 'updates'])->name('setweb.update');
 

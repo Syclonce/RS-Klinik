@@ -42,6 +42,7 @@
                                                 <td>{{ $doctor->telepon }}</td>
                                                 <td>{{ $doctor->user->email }}</td>
                                                 <td><a href="{{ route('doctor.doctor', ['id' =>  $doctor->id ]) }}" class="edit-data-permesion"><i class="fa fa-edit text-secondary"></i></a>
+                                                <td><a href="{{ route('doctor.doctor.liburan', ['id' =>  $doctor->id ]) }}" class="edit-data-permesion"><i class="fa fa-edit text-secondary"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -72,6 +72,8 @@ class ScheduleController extends Controller
         return redirect()->route('doctor.doctor',['id' => $data['dokter']])->with('success', 'schedule berhasi di tambahkan');
     }
 
+
+
     public function liburan()
     {
         $setweb = setweb::first();
@@ -93,5 +95,32 @@ class ScheduleController extends Controller
         $liburan->save();
 
         return redirect()->route('schedule.liburan')->with('success', 'jadwal liburan berhasi di tambahkan');
+    }
+
+
+
+
+    public function liburandoctor($id)
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Susunan Acara";
+        $data = doctor::all();
+        $liburan = liburan::all();
+        $dataid = $id;
+        return view('schedule.liburand', compact('title','data','liburan','dataid'));
+    }
+
+    public function liburandoctoradd(Request $request)
+    {
+        $data = $request->validate([
+            "dokter" => 'required',
+            "liburan" => 'required',
+        ]);
+        $liburan = new liburan();
+        $liburan->liburan = date('Y-m-d', strtotime($data['liburan']));
+        $liburan->doctor_id = $data['dokter'];
+        $liburan->save();
+
+        return redirect()->route('doctor.doctor.liburan',['id' => $data['dokter']])->with('success', 'jadwal liburan berhasi di tambahkan');
     }
 }
