@@ -21,6 +21,7 @@ class UpdateController extends Controller
             Artisan::call('migrate', ['--force' => true]);
             Artisan::call('config:cache');
             Artisan::call('route:cache');
+            Artisan::call('optimize:clear');
 
             return back()->with('success', 'Application updated successfully!');
         } else {
