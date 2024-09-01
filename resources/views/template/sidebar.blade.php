@@ -156,6 +156,30 @@
                       <p>Perawat</p>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="{{ route('sdm.apoteker') }}" class="nav-link {{ \Route::is('sdm.apoteker') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>Apoteker</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('sdm.laboratorium') }}" class="nav-link {{ \Route::is('sdm.laboratorium') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>laboratorium</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('sdm.akuntan') }}" class="nav-link {{ \Route::is('sdm.akuntan') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>Akuntan</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('sdm.resepsionis') }}" class="nav-link {{ \Route::is('sdm.resepsionis') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>Resepsionis</p>
+                    </a>
+                  </li>
                 </ul>
             </li>
 
