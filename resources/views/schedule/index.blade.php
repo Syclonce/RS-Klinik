@@ -9,11 +9,11 @@
             <div class="container-fluid">
                 <!-- Main row -->
                 <div class="row">
-                    <div class="col-12 mt-3">
+                    <div class="mt-3 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title mb-0">Jadwal Waktu</h3>
-                                <div class="card-tools text-right">
+                                <h3 class="mb-0 card-title">Jadwal Waktu</h3>
+                                <div class="text-right card-tools">
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#adddoctor">
                                         <i class="fas fa-plus"></i> Tambah Baru
@@ -86,13 +86,13 @@
                                 <div class="form-group">
                                   <label>Hari</label>
                                   <select class="form-control select2bs4" style="width: 100%;"  id="hari" name="hari">
-                                    <option value="senin">Senin</option>
-                                    <option value="selasa">Selasa</option>
-                                    <option value="rabu">Rabu</option>
-                                    <option value="kamis">Kamis</option>
-                                    <option value="jumat">Jumat</option>
-                                    <option value="sabtu">Sabtu</option>
-                                    <option value="minggu">Minggu</option>
+                                    <option value="1">Senin</option>
+                                    <option value="2">Selasa</option>
+                                    <option value="3">Rabu</option>
+                                    <option value="4">Kamis</option>
+                                    <option value="5">Jumat</option>
+                                    <option value="6">Sabtu</option>
+                                    <option value="7">Minggu</option>
                                   </select>
                                 </div>
                             </div>
