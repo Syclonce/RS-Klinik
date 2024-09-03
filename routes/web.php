@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Modules\FinecController;
 use App\Http\Controllers\Modules\DoctorController;
 use App\Http\Controllers\Modules\PatientController;
 use App\Http\Controllers\Modules\ScheduleController;
@@ -78,7 +79,15 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/sdm/resepsionis', [SumberdayamController::class, 'resepsionis'])->name('sdm.resepsionis');
     Route::post('/sdm/resepsionis/add', [SumberdayamController::class, 'resepsionisadd'])->name('sdm.resepsionis.add');
 
+
+    Route::get('/finance', [FinecController::class, 'index'])->name('finance');
+
+    Route::get('/finance/daig', [FinecController::class, 'pemeriksaan'])->name('finance.daig');
+    Route::post('/finance/daig/add', [FinecController::class, 'pemeriksaanadd'])->name('finance.daig.add');
+
     Route::get('/janji', [JanjiController::class, 'index'])->name('janji');
+    Route::get('/janji/get-visit-descriptions/{id}', [JanjiController::class, 'getVisitDescriptions'])->name('janji.visit');
+
 
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');
     Route::post('setweb/update', [websetController::class, 'updates'])->name('setweb.update');

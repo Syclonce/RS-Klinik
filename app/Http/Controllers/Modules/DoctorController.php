@@ -86,7 +86,8 @@ class DoctorController extends Controller
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "Doctor";
         $doctors = Doctor::all();
-        return view('doctor.visit', compact('title','doctors'));
+        $visit = doctor_visit::with('doctor')->get();
+        return view('doctor.visit', compact('title','doctors','visit'));
     }
 
     public function visitdocteradd(Request $request)

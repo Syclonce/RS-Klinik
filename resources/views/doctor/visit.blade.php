@@ -8,12 +8,12 @@
         <section class="content">
             <div class="container-fluid">
                 <!-- Main row -->
-                <div class="row ">
-                    <div class="col-12 mt-3">
+                <div class="row">
+                    <div class="mt-3 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title mb-0">Kunjungan</h3>
-                                <div class="card-tools text-right">
+                                <h3 class="mb-0 card-title">Kunjungan</h3>
+                                <div class="text-right card-tools">
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#adddoctor">
                                         <i class="fas fa-plus"></i> Tambah Baru
@@ -23,20 +23,24 @@
 
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="visittbl" class="table table-bordered table-striped dataTable ">
+                                <table id="visittbl" class="table table-bordered table-striped dataTable">
                                     <thead>
                                         <tr>
-                                            <th>Nama</th>
-                                            <th>Kode</th>
+                                            <th>Dokter</th>
+                                            <th>Mengunjungi Deskripsi</th>
+                                            <th>Mengunjungi Biaya</th>
+                                            <th>Status</th>
                                             <th width="40%">Pilihan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @php $index = 1; @endphp
-                                        @foreach ($data as $spesiali)
+                                        @php $index = 1; @endphp
+                                        @foreach ($visit as $visit)
                                             <tr>
-                                                <td>{{ $spesiali->nama }}</td>
-                                                <td>{{ $spesiali->kode }}</td>
+                                                <td>{{ $visit->doctor->nama }}</td>
+                                                <td>{{ $visit->deskripsi }}</td>
+                                                <td>{{ $visit->harga }}</td>
+                                                <td>{{ $visit->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
                                                 <td class="text-center">
                                                     <a href="#" data-toggle="modal"
                                                     data-target="#editpermesionModal"
@@ -50,7 +54,7 @@
                                                         <i class="fa fa-trash-can text-secondary"></i></a>
                                                 </td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

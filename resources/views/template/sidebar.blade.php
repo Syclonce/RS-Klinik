@@ -1,7 +1,7 @@
  <!-- Sidebar -->
  <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="pb-3 mt-3 mb-3 user-panel d-flex">
         <div class="image">
             <img src="{{ asset('storage/' . Auth::user()->profile) }}" class="img-circle elevation-2"
                 alt="Profile Photo">
@@ -40,7 +40,7 @@
 
             <li class="nav-item {{ \Route::is('doctor*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('doctor*') ? 'active' : '' }}">
-                    <i class="fas fa-fw  fa-solid fa-user-doctor" style="color: #63E6BE;"></i>
+                    <i class="fas fa-fw fa-solid fa-user-doctor" style="color: #63E6BE;"></i>
                   <p>
                     Dokter
                     <i class="right fas fa-angle-left"></i>
@@ -55,7 +55,7 @@
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('doctor.spesiali') }}" class="nav-link {{ \Route::is('doctor.spesiali') ? 'active' : '' }}">
-                        <i class="fas fa-fw  fa-solid fa-book-medical" style="color: #63E6BE;"></i>
+                        <i class="fas fa-fw fa-solid fa-book-medical" style="color: #63E6BE;"></i>
                       <p>Tambah Spesiali</p>
                     </a>
                   </li>
@@ -138,6 +138,22 @@
                     </a>
                   </li>
                 </ul>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('janji') }}" class="nav-link {{ \Route::is('janji') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>Dikonfirmasi</p>
+                    </a>
+                  </li>
+                </ul>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('janji') }}" class="nav-link {{ \Route::is('janji') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>Diobati</p>
+                    </a>
+                  </li>
+                </ul>
             </li>
 
 
@@ -182,11 +198,35 @@
                   </li>
                 </ul>
             </li>
+            <li class="nav-item {{ \Route::is('finance*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('finance*') ? 'active' : '' }}">
+                  <i class="fas fa-fw fa-solid fa-clock" style="color: #63E6BE;"></i>
+                  <p>
+                    Aktivitas Keuangan
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('finance') }}" class="nav-link {{ \Route::is('finance') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>pembayaran</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="{{ route('finance.daig') }}" class="nav-link {{ \Route::is('finance.daig') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>tipe pemeriksaan</p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
 
             <li class="nav-item">
                 <a href="{{ route('setweb') }}"
                     class="nav-link {{ \Route::is('setweb') ? 'active' : '' }}">
-                    <i class="fas fa-fw  fa-cogs"></i>
+                    <i class="fas fa-fw fa-cogs"></i>
                     <p>
                         Web Seting
                     </p>

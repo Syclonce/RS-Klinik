@@ -9,11 +9,11 @@
             <div class="container-fluid">
                 <!-- Main row -->
                 <div class="row">
-                    <div class="col-12 mt-3">
+                    <div class="mt-3 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title mb-0">Janji - Konfirmasi Tertunda</h3>
-                                <div class="card-tools text-right">
+                                <h3 class="mb-0 card-title">Janji - Konfirmasi Tertunda</h3>
+                                <div class="text-right card-tools">
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#adddoctor">
                                         <i class="fas fa-plus"></i> Tambah Baru
@@ -75,12 +75,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                  <label>Dokter</label>
-                                  <select class="form-control select2bs4" style="width: 100%;"  id="dokter" name="dokter">
-                                    @foreach ($data_dokter as $dokter)
-                                    <option value="{{$dokter->id}}">{{$dokter->nama}}</option>
-                                    @endforeach
-                                  </select>
+                                    <label>Dokter</label>
+                                    <select class="form-control select2bs4" style="width: 100%;" id="dokter" name="dokter">
+                                        <option value="">Pilih Dokter</option>
+                                        @foreach ($data_dokter as $dokter)
+                                        <option value="{{$dokter->id}}">{{$dokter->nama}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -91,14 +92,16 @@
                                       </div>
                                   </div>
                             </div>
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="form-group">
                                   <label>Available Slots</label>
-                                  <select class="form-control select2bs4" style="width: 100%;"  id="slot" name="slot">
-                                    <option value="bingung">Bingung isinya</option>
+                                  <select class="form-control select2bs4" style="width: 100%;"  id="dokter" name="dokter">
+                                    @foreach ($data_dokter as $dokter)
+                                    <option value="{{$dokter->id}}">{{$dokter->nama}}</option>
+                                    @endforeach
                                   </select>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-md-6">
                                 <div class="form-group">
                                   <label>Janji Status</label>
@@ -119,25 +122,30 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                   <label>Mengunjungi Deskripsi</label>
-                                  <select class="form-control select2bs4" style="width: 100%;"  id="deskripsi" name="deskripsi">
-                                    <option value="bingung">Bingung isinya</option>
+                                  <select class="form-control select2bs4" style="width: 100%;"  id="deskripsi" name="deskripsi" disabled>
+                                    <option value="">Pilih Deskripsi</option>
                                   </select>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Menit</label>
-                                    <select class="form-control select2bs4" style="width: 100%;" id="menit" name="menit">
-                                        <?php
-                                        for ($i = 0; $i <= 60; $i += 5) {
-                                            // Format angka menjadi dua digit
-                                            $minute = str_pad($i, 2, '0', STR_PAD_LEFT);
-                                            echo "<option value=\"$i\">$minute Minutes </option>";
-                                        }
-                                        ?>
-                                    </select>
+                                    <label>Mengunjungi biaya </label>
+                                    <input type="text" class="form-control" id="harga" name="harga" disabled>
                                 </div>
                             </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>diskon</label>
+                                    <input type="number" class="form-control" id="diskon" name="diskon" >
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>total Keseluruhan</label>
+                                    <input type="text" class="form-control" id="total" name="total" disabled>
+                                </div>
+                            </div>
+
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -148,9 +156,81 @@
             </div>
         </div>
     </div>
-
     <script>
         $(document).ready(function() {
+           // Handle doctor selection change
+    $('#dokter').on('change', function() {
+        var dokterId = $(this).val();
+
+        if (dokterId) {
+            $('#deskripsi').prop('disabled', false);
+
+            $.ajax({
+                url: '/janji/get-visit-descriptions/' + dokterId,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    console.log("Received data:", data);
+
+                    $('#deskripsi').empty(); // Clear previous options
+
+                    if (data.descriptions && Array.isArray(data.descriptions)) {
+                        $.each(data.descriptions, function(index, visit) {
+                            $('#deskripsi').append('<option value="'+ visit.id +'" data-harga="'+ visit.harga +'">'+ visit.deskripsi +'</option>');
+                        });
+
+                        // Set the first option as selected
+                        if (data.descriptions.length > 0) {
+                            var firstVisit = data.descriptions[0];
+                            $('#harga').val("Rp " + parseFloat(firstVisit.harga).toLocaleString());
+                        } else {
+                            $('#harga').val("Harga tidak tersedia");
+                        }
+                    } else {
+                        $('#deskripsi').append('<option value="">Tidak ada deskripsi</option>');
+                        $('#harga').val("Harga tidak tersedia");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX error: " + status + " - " + error);
+                }
+            });
+        } else {
+            $('#deskripsi').prop('disabled', true).empty().append('<option value="">Pilih Deskripsi</option>');
+            $('#harga').val(""); // Clear the input value
+        }
+    });
+  // Function to update total price
+  function updateTotal() {
+        var hargaText = $('#harga').val();
+        var harga = parseFloat(hargaText.replace(/Rp\s|\./g, '')) || 0; // Convert formatted price to number
+        var diskonPercent = parseFloat($('#diskon').val()) || 0; // Get the discount percentage
+
+        // Calculate the discount amount
+        var discountAmount = (harga * diskonPercent) / 100;
+        var total = harga - discountAmount; // Calculate the total
+        $('#total').val(total > 0 ? "Rp " + total.toLocaleString() : "Rp 0");
+    }
+
+    // Handle description selection change
+    $('#deskripsi').on('change', function() {
+        var selectedOption = $(this).find('option:selected');
+        var harga = selectedOption.data('harga'); // Get the harga from the selected option
+
+        if (harga !== undefined && harga !== null) {
+            $('#harga').val("Rp " + parseFloat(harga).toLocaleString());
+            updateTotal(); // Update the total when price changes
+        } else {
+            $('#harga').val("Harga tidak tersedia");
+            $('#total').val("Rp 0"); // Clear total if price is not available
+        }
+    });
+
+    // Handle discount change
+    $('#diskon').on('input', function() {
+        updateTotal(); // Update the total when discount percentage changes
+    });
+
             $("#janjitbl").DataTable({
                 "responsive": true,
                 "autoWidth": false,
@@ -168,5 +248,6 @@
             });
         });
     </script>
+
 
 @endsection
