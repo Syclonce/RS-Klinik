@@ -50,7 +50,7 @@
                   <li class="nav-item">
                     <a href="{{ route('doctor') }}" class="nav-link {{ \Route::is('doctor') ? 'active' : '' }}">
                         <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
-                      <p>tambah dokter</p>
+                      <p>Tambah dokter</p>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -80,25 +80,25 @@
                   <li class="nav-item">
                     <a href="{{ route('patient') }}" class="nav-link {{ \Route::is('patient') ? 'active' : '' }}">
                         <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
-                      <p>tambah Pasien</p>
+                      <p>Tambah Pasien</p>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('patient.seks') }}" class="nav-link {{ \Route::is('patient.seks') ? 'active' : '' }}">
                         <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
-                      <p>tambah seks</p>
+                      <p>Tambah seks</p>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('patient.goldar') }}" class="nav-link {{ \Route::is('patient.goldar') ? 'active' : '' }}">
                         <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
-                      <p>tambah goldar</p>
+                      <p>Tambah goldar</p>
                     </a>
                   </li>
                 </ul>
             </li>
 
-            <li class="nav-item {{ \Route::is('schedule*') ? 'menu-open' : '' }}">
+            {{-- <li class="nav-item {{ \Route::is('schedule*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('schedule*') ? 'active' : '' }}">
                   <i class="fas fa-fw fa-solid fa-clock" style="color: #63E6BE;"></i>
                   <p>
@@ -154,7 +154,7 @@
                     </a>
                   </li>
                 </ul>
-            </li>
+            </li> --}}
 
 
             <li class="nav-item {{ \Route::is('sdm*') ? 'menu-open' : '' }}">
@@ -181,7 +181,7 @@
                   <li class="nav-item">
                     <a href="{{ route('sdm.laboratorium') }}" class="nav-link {{ \Route::is('sdm.laboratorium') ? 'active' : '' }}">
                       <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
-                      <p>laboratorium</p>
+                      <p>Laboratorium</p>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -210,14 +210,22 @@
                   <li class="nav-item">
                     <a href="{{ route('finance') }}" class="nav-link {{ \Route::is('finance') ? 'active' : '' }}">
                       <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
-                      <p>pembayaran</p>
+                      <p>Pembayaran</p>
                     </a>
                   </li>
 
                   <li class="nav-item">
                     <a href="{{ route('finance.daig') }}" class="nav-link {{ \Route::is('finance.daig') ? 'active' : '' }}">
                       <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
-                      <p>tipe pemeriksaan</p>
+                      <p>Tipe Pemeriksaan</p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
+                  <li class="nav-item">
+                    <a href="{{ route('finance.daig') }}" class="nav-link {{ \Route::is('finance.daig') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>Prosedur Pembayaran</p>
                     </a>
                   </li>
                 </ul>
