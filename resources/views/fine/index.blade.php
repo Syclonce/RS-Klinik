@@ -8,12 +8,12 @@
         <section class="content">
             <div class="container-fluid">
                 <!-- Main row -->
-                <div class="row ">
-                    <div class="col-12 mt-3">
+                <div class="row">
+                    <div class="mt-3 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title mb-0">Dokter</h3>
-                                <div class="card-tools text-right">
+                                <h3 class="mb-0 card-title">Dokter</h3>
+                                <div class="text-right card-tools">
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#adddoctor">
                                         <i class="fas fa-plus"></i> Tambah Baru
@@ -25,11 +25,18 @@
                                 <table id="doctortbl" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Nama</th>
-                                            <th>Alamat</th>
-                                            <th>Spesialis</th>
-                                            <th>Telepon</th>
-                                            <th>Email</th>
+                                            <th>ID Faktur</th>
+                                            <th>Pasien</th>
+                                            <th>Dokter</th>
+                                            <th>Tanggal</th>
+                                            <th>Dari</th>
+                                            <th>Sub Total</th>
+                                            <th>Diskon</th>
+                                            <th>Total Keseluruhan</th>
+                                            <th>Dibayar Jumlah</th>
+                                            <th>Jatuh Tempo</th>
+                                            <th>Catatan</th>
+                                            <th>Pilihan</th>
                                             <th width="20%">Pilihan</th>
                                         </tr>
                                     </thead>
