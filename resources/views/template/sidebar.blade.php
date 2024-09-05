@@ -222,14 +222,6 @@
                   </li>
                 </ul>
             </li>
-                  <li class="nav-item">
-                    <a href="{{ route('finance.daig') }}" class="nav-link {{ \Route::is('finance.daig') ? 'active' : '' }}">
-                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
-                      <p>Prosedur Pembayaran</p>
-                    </a>
-                  </li>
-                </ul>
-            </li>
 
             <li class="nav-item">
                 <a href="{{ route('setweb') }}"
