@@ -17,6 +17,7 @@
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#adddoctor">
                                         <i class="fas fa-plus"></i> Tambah Baru
+                                        {{-- <form action="{{ route('finance.add') }}" method="POST"> --}}
                                     </button>
                                 </div>
                             </div>
@@ -70,12 +71,12 @@
 
 
 
-    <div class="modal fade" id="adddoctor" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+<div class="modal fade" id="adddoctor" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Tambah Dokter</h5>
+                    <h5 class="modal-title" id="addModalLabel">Tambahkan Pembayaran Baru</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -84,10 +85,14 @@
                     <form action="{{ route('doctor.add') }}" method="POST">
                         @csrf
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Nama </label>
-                                    <input type="text" class="form-control" id="nama" name="nama">
+                                    <label>Pasien </label>
+                                    <select class="form-control select2bs4"  style="width: 100%;"  id="seks" name="seks">
+                                        {{-- @foreach ($seks as $seks)
+                                        <option value="{{$seks->kode}}">{{$seks->nama}}</option>
+                                        @endforeach --}}
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -96,12 +101,27 @@
                                     <input type="text" class="form-control" id="username" name="username">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Email </label>
-                                    <input type="Email" class="form-control" id="email" name="email">
+                            {{-- <div class="card-body">
+                                <div class="row">
+                                  <div class="col-12">
+                                    <div class="form-group">
+                                      <label>Multiple</label>
+                                      <select class="duallistbox" multiple="multiple">
+                                        <option selected>Alabama</option>
+                                        <option>Alaska</option>
+                                        <option>California</option>
+                                        <option>Delaware</option>
+                                        <option>Tennessee</option>
+                                        <option>Texas</option>
+                                        <option>Washington</option>
+                                      </select>
+                                    </div>
+                                    <!-- /.form-group -->
+                                  </div>
+                                  <!-- /.col -->
                                 </div>
-                            </div>
+                                <!-- /.row -->
+                            </div> --}}
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Password </label>
@@ -146,7 +166,6 @@
             </div>
         </div>
     </div>
-
     <script>
         $(document).ready(function() {
             $("#doctortbl").DataTable({

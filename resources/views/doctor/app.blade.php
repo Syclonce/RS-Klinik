@@ -234,7 +234,7 @@
             </ul>
 
             <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
+            <ul class="ml-auto navbar-nav">
                 <!-- Navbar Search -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
@@ -403,7 +403,6 @@
                 });
                 $('#tgljanji').datetimepicker({
                     format: 'L'
-                });
             })
     </script>
     <!-- Page specific script -->

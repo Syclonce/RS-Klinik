@@ -12,4 +12,9 @@ class tipepemeriksa extends Model
     protected $fillable = [
         'nama',
     ];
+
+    public function prosedur()
+    {
+        return $this->hasOne(prosedur::class);
+    }
 }

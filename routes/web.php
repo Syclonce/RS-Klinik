@@ -85,6 +85,9 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/finance/daig', [FinecController::class, 'pemeriksaan'])->name('finance.daig');
     Route::post('/finance/daig/add', [FinecController::class, 'pemeriksaanadd'])->name('finance.daig.add');
 
+    Route::get('/finance/prosedur', [FinecController::class, 'prosedur'])->name('finance.prosedur');
+    Route::post('/finance/prosedur/add', [FinecController::class, 'proseduradd'])->name('finance.prosedur.add');
+
     Route::get('/janji', [JanjiController::class, 'index'])->name('janji');
     Route::get('/janji/get-visit-descriptions/{id}', [JanjiController::class, 'getVisitDescriptions'])->name('janji.visit');
 
