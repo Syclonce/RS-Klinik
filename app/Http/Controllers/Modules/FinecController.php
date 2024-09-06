@@ -5,8 +5,11 @@ namespace App\Http\Controllers\modules;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\setweb;
+use App\Models\doctor;
+use App\Models\pasien;
 use App\Models\tipepemeriksa;
 use App\Models\prosedur;
+use App\Models\kategori;
 
 class FinecController extends Controller
 {
@@ -14,7 +17,10 @@ class FinecController extends Controller
     {
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "Doctor";
-        return view('fine.index', compact('title'));
+        $dokter = doctor::all();
+        $pasien = pasien::all();
+        $pilih = prosedur::all();
+        return view('fine.index', compact('title','dokter','pasien','pilih'));
 
     }
 
@@ -59,5 +65,23 @@ class FinecController extends Controller
 
         prosedur::create($data);
         return redirect()->route('finance.prosedur')->with('success', 'dokter berhasi di tambahkan');
+    }
+
+    public function kategori()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "kategori";
+        $data = kategori::all();
+        return view('fine.kategori', compact('title','data'));
+    }
+
+    public function kategoriadd(Request $request)
+    {
+        $data = $request->validate([
+            "kategori" => 'required',
+            "deskripsi" => 'required',
+        ]);
+        kategori::create($data);
+        return redirect()->route('finance.kategori')->with('success', 'dokter berhasi di tambahkan');
     }
 }

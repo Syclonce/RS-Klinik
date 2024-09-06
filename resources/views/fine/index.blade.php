@@ -73,7 +73,7 @@
 
 <div class="modal fade" id="adddoctor" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addModalLabel">Tambahkan Pembayaran Baru</h5>
@@ -84,79 +84,66 @@
                 <div class="modal-body">
                     <form action="{{ route('doctor.add') }}" method="POST">
                         @csrf
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Pasien </label>
-                                    <select class="form-control select2bs4"  style="width: 100%;"  id="seks" name="seks">
-                                        {{-- @foreach ($seks as $seks)
-                                        <option value="{{$seks->kode}}">{{$seks->nama}}</option>
-                                        @endforeach --}}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Username </label>
-                                    <input type="text" class="form-control" id="username" name="username">
-                                </div>
-                            </div>
-                            {{-- <div class="card-body">
-                                <div class="row">
-                                  <div class="col-12">
+                        <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Pertama</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Kedua</a>
+                        </li>
+                        </ul>
+                        <div class="tab-content" id="custom-content-above-tabContent">
+                        <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <div class="form-group">
-                                      <label>Multiple</label>
-                                      <select class="duallistbox" multiple="multiple">
-                                        <option selected>Alabama</option>
-                                        <option>Alaska</option>
-                                        <option>California</option>
-                                        <option>Delaware</option>
-                                        <option>Tennessee</option>
-                                        <option>Texas</option>
-                                        <option>Washington</option>
-                                      </select>
+                                        <label>Pasien </label>
+                                        <select class="form-control select2bs4"  style="width: 100%;"  id="pasien" name="pasi">
+                                            @foreach ($pasien as $pasien)
+                                            <option value="{{$pasien->id}}">{{$pasien->nama}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                    <!-- /.form-group -->
-                                  </div>
-                                  <!-- /.col -->
+                                    <div class="form-group">
+                                        <label>Dokter </label>
+                                        <select class="form-control select2bs4"  style="width: 100%;"  id="dokter" name="dokter">
+                                            @foreach ($dokter as $docter)
+                                            <option value="{{$docter->id}}">{{$docter->nama}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Pilih </label>
+                                        <select class="select2bs4" multiple="multiple" style="width: 100%;"  id="pilih" name="pilih">
+                                            @foreach ($pilih as $pilih)
+                                            <option value="{{$pilih->id}}">{{$pilih->kode}} - {{$pilih->pembayaran}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                                <!-- /.row -->
-                            </div> --}}
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Password </label>
-                                    <input type="password" class="form-control" id="password" name="password" autocomplete >
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Alamat </label>
-                                    <input type="text" class="form-control" id="Alamat" name="Alamat">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                  <label>Spesialis</label>
-                                  <select class="select2bs4" multiple="multiple"  style="width: 100%;"  id="spesialis" name="spesialis[]">
-                                    {{-- @foreach ($data as $spesiali)
-                                    <option value="{{$spesiali->kode}}">{{$spesiali->nama}}</option>
-                                    @endforeach --}}
-                                  </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Telepon  </label>
-                                    <input type="text" class="form-control" id="telepon" name="telepon">
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Harga </label>
-                                    <input type="text" class="form-control" id="harga" name="harga">
+                                <div class="col-sm-6">
+                                    <br>
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                          <tr>
+                                            <th>Task</th>
+                                            <th>Progress</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td>Update software</td>
+                                            <td>Update software</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
                                 </div>
                             </div>
                         </div>
+                        <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
+                            Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam.
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>

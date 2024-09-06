@@ -20,13 +20,13 @@
                                  alt="User profile picture">
                           </div>
 
-                          <h3 class="profile-username text-center">
+                          <h3 class="text-center profile-username">
                             @if (Auth::check())
                             {{ Auth::user()->name }}
                         @endif
                           </h3>
 
-                          <ul class="list-group list-group-unbordered mb-3 text-center">
+                          <ul class="mb-3 text-center list-group list-group-unbordered">
                             <li class="list-group-item">
                               <b>
                                 @if (Auth::check())
@@ -52,7 +52,7 @@
                     <!-- /.col -->
                     <div class="col-md-9">
                         <div class="card card-primary card-outline card-tabs">
-                            <div class="card-header p-0 pt-1 border-bottom-0">
+                            <div class="p-0 pt-1 card-header border-bottom-0">
                               <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
                                 <li class="nav-item">
                                   <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">Profile Information</a>
@@ -72,7 +72,7 @@
                                     <form action="{{ route('profile.update') }}" method="post">
                                             @csrf
                                             @method('patch')
-                                        <div class="input-group mb-3">
+                                        <div class="mb-3 input-group">
                                             <input type="text" class="form-control" name="name" id="name"
                                             value="{{ old('name', $user->name) }}" required autofocus autocomplete="name" placeholder="name">
                                             <div class="input-group-append">
@@ -82,7 +82,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="input-group mb-3">
+                                        <div class="mb-3 input-group">
                                             <input type="text" class="form-control" name="email" id="email"
                                             value="{{ old('name', $user->email) }}"  required autofocus autocomplete="email" placeholder="Email">
                                             <div class="input-group-append">
@@ -92,7 +92,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="input-group mb-3">
+                                        <div class="mb-3 input-group">
                                             <input type="text" class="form-control" name="username" id="username"
                                             value="{{ old('name', $user->username) }}"  required autofocus autocomplete="username" placeholder="username">
                                             <div class="input-group-append">
@@ -115,7 +115,7 @@
                                     <form action="{{ route('password.update') }}" method="post">
                                         @csrf
                                         @method('put')
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <input type="password" class="form-control" name="current_password" id="update_password_current_password"
                                          required autofocus autocomplete="current-password" placeholder="current password">
                                         <div class="input-group-append">
@@ -125,7 +125,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <input type="password" class="form-control" name="password" id="update_password_password"
                                          required autofocus autocomplete="new-password" placeholder="New password">
                                         <div class="input-group-append">
@@ -135,7 +135,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <input type="password" class="form-control" name="password_confirmation" id="update_password_password_confirmation"
                                          required autofocus autocomplete="new-password" placeholder="Confirm Password">
                                         <div class="input-group-append">
@@ -172,7 +172,7 @@
                                                         <div class="modal-body">
                                                             <p>{{ __('Are you sure you want to delete your account?') }}</p>
                                                             <p>{{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}</p>
-                                                            <div class="form-group mt-3">
+                                                            <div class="mt-3 form-group">
                                                                 <label for="password">{{ __('Password') }}</label>
                                                                 <input id="password" name="password" type="password" class="form-control" placeholder="{{ __('Password') }}">
                                                                 @if($errors->userDeletion->has('password'))
@@ -193,7 +193,7 @@
                               </div>
                             </div>
                             <!-- /.card -->
-                          </div>
+                        </div>
                     </div>
                     <!-- /.col -->
                   </div>

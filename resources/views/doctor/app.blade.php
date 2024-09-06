@@ -218,6 +218,17 @@
             border-radius: 50%;
         }
     </style>
+
+    <style>
+        table {
+            border: 1px solid black;
+        }
+
+        table th, table td {
+            border: 1px solid black;
+        }
+    </style>
+    
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -404,6 +415,7 @@
                 $('#tgljanji').datetimepicker({
                     format: 'L'
             })
+        });
     </script>
     <!-- Page specific script -->
     <script>

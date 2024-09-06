@@ -12,7 +12,7 @@
                     <div class="mt-3 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="mb-0 card-title">Prosedur Pembayaran</h3>
+                                <h3 class="mb-0 card-title">Biaya</h3>
                                 <div class="text-right card-tools">
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#adddoctor">
@@ -36,7 +36,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($prosedur as $prosedur)
+                                        {{-- @foreach ($prosedur as $prosedur)
                                             <tr>
                                                 <td>{{ $prosedur->kode }}</td>
                                                 <td>{{ $prosedur->pembayaran }}</td>
@@ -45,7 +45,7 @@
                                                 <td>{{ $prosedur->komisi}}%</td>
                                                 <td>{{ $prosedur->tipepemeriksa->nama}}</td>
                                             </tr>
-                                        @endforeach
+                                        @endforeach --}}
                                     </tbody>
                                 </table>
                             </div>
