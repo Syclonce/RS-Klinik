@@ -110,13 +110,13 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                   <label>Tipe</label>
-                                  <select class="select2bs4" style="width: 100%;"  id="tipepemeriksas_id" name="tipepemeriksas_id">
+                                  <select class="select2bs4" style="width: 100%;"  id="tipepemeriksa_id" name="tipepemeriksa_id">
                                     @foreach ($data as $tipe)
                                     <option value="{{$tipe->id}}">{{$tipe->nama}}</option>
                                     @endforeach
                                   </select>
                                 </div>
-                            </div>/home/user/RS-Klinik/resources/views/profile
+                            </div>
                         </div>
                 </div>
                 <div class="modal-footer">

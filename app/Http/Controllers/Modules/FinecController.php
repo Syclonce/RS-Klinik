@@ -61,7 +61,7 @@ class FinecController extends Controller
             "deskripsi" => 'required',
             "harga" => 'required',
             "komisi" => 'required',
-            "tipepemeriksas_id" => 'required',
+            "tipepemeriksa_id" => 'required',
         ]);
 
         prosedur::create($data);

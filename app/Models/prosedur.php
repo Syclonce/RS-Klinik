@@ -15,11 +15,11 @@ class prosedur extends Model
         'deskripsi',
         'harga',
         'komisi',
-        'tipepemeriksas_id',
+        'tipepemeriksa_id',
     ];
 
     public function tipepemeriksa()
     {
-        return $this->belongsTo(tipepemeriksa::class ,'id');
+        return $this->belongsTo(tipepemeriksa::class);
     }
 }
