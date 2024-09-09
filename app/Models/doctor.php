@@ -41,4 +41,9 @@ class doctor extends Model
     {
         return $this->hasOne(liburan::class);
     }
+    public function laptes()
+    {
+        return $this->hasOne(laptes::class);
+    }
+
 }

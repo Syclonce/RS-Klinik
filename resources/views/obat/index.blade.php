@@ -106,13 +106,13 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Harga Pembelian </label>
-                                    <input type="number" class="form-control" id="pembelian" name="pembelian">
+                                    <input type="text" class="form-control" id="pembelian" name="pembelian">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Harga Penjualan</label>
-                                    <input type="number" class="form-control" id="penjualan" name="penjualan">
+                                    <input type="text" class="form-control" id="penjualan" name="penjualan">
                                 </div>
                             </div>
                             <div class="col-sm-4">

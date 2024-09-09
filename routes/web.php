@@ -3,11 +3,13 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Modules\FinecController;
 use App\Http\Controllers\Modules\DoctorController;
+use App\Http\Controllers\modules\FarmasiController;
 use App\Http\Controllers\Modules\PatientController;
 use App\Http\Controllers\Modules\ScheduleController;
 use App\Http\Controllers\Modules\JanjiController;
 use App\Http\Controllers\Modules\SumberdayamController;
 use App\Http\Controllers\Modules\ObatController;
+use App\Http\Controllers\Modules\LaporanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\websetController;
@@ -99,11 +101,28 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/janji', [JanjiController::class, 'index'])->name('janji');
     Route::get('/janji/get-visit-descriptions/{id}', [JanjiController::class, 'getVisitDescriptions'])->name('janji.visit');
 
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
+    Route::post('/laporan/add', [LaporanController::class, 'laporanadd'])->name('laporan.add');
+
+    Route::get('/laporan/template', [LaporanController::class, 'laporantemplate'])->name('laporan.template');
+    Route::post('/laporan/template/add', [LaporanController::class, 'laporantemplateadd'])->name('laporan.template.add');
+
+    Route::get('/get-template-by-id/{id}', [LaporanController::class, 'getTemplateById'])->name('get.template.by.id');
+
     Route::get('/obat', [ObatController::class, 'index'])->name('obat');
     Route::post('/obat/add', [ObatController::class, 'obatadd'])->name('obat.add');
 
     Route::get('/obat/kategori', [ObatController::class, 'obatkategori'])->name('obat.kategori');
     Route::post('/obat/kategori/add', [ObatController::class, 'obatkategoriadd'])->name('obat.kategori.add');
+
+    Route::get('/farmasi', [FarmasiController::class, 'index'])->name('farmasi');
+    Route::get('/farmasi/get-all-data', [FarmasiController::class, 'getAllData'])->name('farmasi.get.all.data');
+
+    Route::get('/farmasi/biaya', [FarmasiController::class, 'farmasi'])->name('farmasi.biaya');
+    Route::post('/farmasi/biaya/add', [FarmasiController::class, 'farmasiadd'])->name('farmasi.biaya.add');
+
+    Route::get('/farmasi/kategori', [FarmasiController::class, 'katgobi'])->name('farmasi.kategori');
+    Route::post('/farmasi/kategori/add', [FarmasiController::class, 'katgobiadd'])->name('farmasi.kategori.add');
 
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');
     Route::post('setweb/update', [websetController::class, 'updates'])->name('setweb.update');

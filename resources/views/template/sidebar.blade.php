@@ -1,4 +1,5 @@
- <!-- Sidebar -->
+
+<!-- Sidebar -->
  <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
     <div class="pb-3 mt-3 mb-3 user-panel d-flex">
@@ -98,9 +99,9 @@
                 </ul>
             </li>
 
-            {{-- <li class="nav-item {{ \Route::is('schedule*') ? 'menu-open' : '' }}">
+            <li class="nav-item {{ \Route::is('schedule*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('schedule*') ? 'active' : '' }}">
-                  <i class="fas fa-fw fa-solid fa-clock" style="color: #63E6BE;"></i>
+                <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
                   <p>
                     Susunan Acara
                     <i class="right fas fa-angle-left"></i>
@@ -124,7 +125,7 @@
 
             <li class="nav-item {{ \Route::is('janji*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('janji*') ? 'active' : '' }}">
-                  <i class="fas fa-fw fa-solid fa-clock" style="color: #63E6BE;"></i>
+                  <i class="fa-solid fa-calendar-check" style="color: #63E6BE;"></i>
                   <p>
                     Janji
                     <i class="right fas fa-angle-left"></i>
@@ -154,14 +155,13 @@
                     </a>
                   </li>
                 </ul>
-            </li> --}}
-
+            </li>
 
             <li class="nav-item {{ \Route::is('sdm*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('sdm*') ? 'active' : '' }}">
                   <i class="fas fa-fw fa-solid fa-clock" style="color: #63E6BE;"></i>
                   <p>
-                    Sumberdaya Manusia
+                    Sumber Daya Manusia
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
@@ -198,6 +198,7 @@
                   </li>
                 </ul>
             </li>
+
             <li class="nav-item {{ \Route::is('finance*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('finance*') ? 'active' : '' }}">
                   <i class="fas fa-fw fa-solid fa-clock" style="color: #63E6BE;"></i>
@@ -239,9 +240,34 @@
                   </li>
                 </ul>
             </li>
+
+            <li class="nav-item {{ \Route::is('laporan*') ? 'menu-open' : '' }}">
+              <a href="#" class="nav-link {{ \Route::is('laporan*') ? 'active' : '' }}">
+              <i class="fa-solid fa-flask" style="color: #63E6BE;"></i>
+                <p>
+                  Tes Lab
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                      <a href="{{ route('laporan') }}" class="nav-link {{ \Route::is('laporan') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                        <p>Laporan Lab</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('laporan.template') }}" class="nav-link {{ \Route::is('laporan.template') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>Template</p>
+                    </a>
+                  </li>
+              </ul>
+            </li>
+
             <li class="nav-item {{ \Route::is('obat*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('obat*') ? 'active' : '' }}">
-                  <i class="fas fa-fw fa-solid fa-clock" style="color: #63E6BE;"></i>
+                <i class="fa-solid fa-suitcase-medical" style="color: #63E6BE;"></i>
                   <p>
                     Obat
                     <i class="right fas fa-angle-left"></i>
@@ -262,6 +288,37 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="nav-item {{ \Route::is('farmasi*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('farmasi*') ? 'active' : '' }}">
+                <i class="fa-solid fa-capsules" style="color: #63E6BE;"></i>
+                  <p>
+                    Farmasi
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('farmasi') }}" class="nav-link {{ \Route::is('farmasi') ? 'active' : '' }}">
+                          <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                          <p>Penjualan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{ route('farmasi.kategori') }}" class="nav-link {{ \Route::is('farmasi.kategori') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                        <p>Kategori Biaya</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{ route('farmasi.biaya') }}" class="nav-link {{ \Route::is('farmasi.biaya') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                        <p>Biaya</p>
+                      </a>
+                    </li>
+                </ul>
+            </li>
+
 
 
             <li class="nav-item">

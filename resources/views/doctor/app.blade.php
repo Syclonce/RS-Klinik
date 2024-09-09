@@ -384,6 +384,36 @@
                 rightAlign: false,
                 removeMaskOnSubmit: true
             });
+            $('#pembelian').inputmask({
+                    alias: 'numeric',
+                    groupSeparator: '.',
+                    autoGroup: true,
+                    digits: 0,
+                    digitsOptional: false,
+                    prefix: 'Rp ',
+                    rightAlign: false,
+                    removeMaskOnSubmit: true
+                });
+            $('#penjualan').inputmask({
+                    alias: 'numeric',
+                    groupSeparator: '.',
+                    autoGroup: true,
+                    digits: 0,
+                    digitsOptional: false,
+                    prefix: 'Rp ',
+                    rightAlign: false,
+                    removeMaskOnSubmit: true
+                });
+            $('#biaya').inputmask({
+                alias: 'numeric',
+                groupSeparator: '.',
+                autoGroup: true,
+                digits: 0,
+                digitsOptional: false,
+                prefix: 'Rp ',
+                rightAlign: false,
+                removeMaskOnSubmit: true
+            });
 
             $('#deposit').inputmask({
                 alias: 'numeric',

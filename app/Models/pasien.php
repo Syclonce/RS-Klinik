@@ -33,4 +33,9 @@ class pasien extends Model
     {
         return $this->belongsTo(goldar::class);
     }
+
+    public function laptes()
+    {
+        return $this->hasOne(laptes::class);
+    }
 }

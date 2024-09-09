@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Http\Controllers\modules;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\setweb;
+use App\Models\fmbiaya;
+use App\Models\ktbiaya;
+use App\Models\obat;
+use App\Models\obatk;
+
+class FarmasiController extends Controller
+{
+    public function index()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "farmasi";
+        $obat = obat::all();
+        return view('farmasi.index', compact('title', 'obat'));
+
+    }
+
+    public function getAllData(Request $request)
+        {
+            $pilihIds = $request->input('pilihIds');
+
+            if (!empty($pilihIds)) {
+                $data = obat::whereIn('id', $pilihIds)->get();
+
+                // Return the data in JSON format
+                return response()->json($data);
+            } else {
+                return response()->json([]); // Return empty array if no IDs selected
+            }
+        }
+
+
+    public function farmasi()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "farmasi";
+        $ktbiya = ktbiaya::all();
+        $fmbiya = fmbiaya::with('ktbiaya')->get();
+        return view('farmasi.fmbiaya', compact('title','fmbiya','ktbiya', 'fmbiya'));
+    }
+
+    public function farmasiadd(Request $request)
+    {
+        $data = $request->validate([
+            "ktbiaya_id" => 'required',
+            "biaya" => 'required',
+        ]);
+
+        $farmasi = new fmbiaya();
+        $farmasi->ktbiaya_id = $data['ktbiaya_id'];
+        $farmasi->harga= $data['biaya'];
+        $farmasi->save();
+        return redirect()->route('farmasi.biaya')->with('success', 'dokter berhasi di tambahkan');
+    }
+
+    public function katgobi()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "farmasi";
+        $ktbiya = ktbiaya::all();
+        return view('farmasi.kategori', compact('title','ktbiya'));
+    }
+
+
+    public function katgobiadd(Request $request)
+    {
+        $data = $request->validate([
+            "nama" => 'required',
+            "deskripsi" => 'required',
+        ]);
+
+        ktbiaya::create($data);
+        return redirect()->route('farmasi.kategori')->with('success', 'dokter berhasi di tambahkan');
+    }
+
+}
