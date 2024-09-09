@@ -104,16 +104,17 @@ class FinecController extends Controller
             return redirect()->route('finance.biaya')->with('success', 'dokter berhasi di tambahkan');
         }
 
-        public function getAllData($id)
+        public function getAllData(Request $request)
         {
-            // Ambil data berdasarkan ID dari parameter URL
-            $data = prosedur::find($id);
+            $pilihIds = $request->input('pilihIds');
 
-            // Periksa apakah data ditemukan
-            if ($data) {
+            if (!empty($pilihIds)) {
+                $data = prosedur::whereIn('id', $pilihIds)->get();
+
+                // Return the data in JSON format
                 return response()->json($data);
             } else {
-                return response()->json(['message' => 'Data not found'], 404);
+                return response()->json([]); // Return empty array if no IDs selected
             }
         }
 

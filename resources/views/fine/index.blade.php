@@ -116,7 +116,7 @@
                                         <label>Pilih </label>
                                         <select class="select2bs4" multiple="multiple" style="width: 100%;"  id="pilih" name="pilih">
                                             @foreach ($pilih as $pilih)
-                                            <option value="{{$pilih->id}}">{{$pilih->kode}} - {{$pilih->pembayaran}}</option>
+                                            <option value="{{$pilih->id}}">{{$pilih->id}}-{{$pilih->kode}} - {{$pilih->pembayaran}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -154,39 +154,51 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-            // Event listener ketika select berubah
-            $('#pilih').on('change', function() {
-                var selectedId = $(this).val(); // Ambil id yang dipilih, hanya menggunakan satu id dalam hal ini
 
-                // Jika hanya satu ID yang dipilih
-                if (selectedId.length === 1) {
-                    // Kirim request AJAX ke server
-                    $.ajax({
-                        url: '/get-all-data/' + selectedId[0], // Kirimkan id sebagai bagian dari URL
-                        method: 'GET',
-                        success: function(response) {
-                            // Kosongkan tabel sebelum menambahkan data baru
-                            $('#tabelpilih tbody').empty();
+$(document).ready(function() {
+    $('#pilih').on('change', function() {
+        var pilihIds = $(this).val(); // Get selected values as an array (multi-select)
+        console.log("Selected IDs:", pilihIds);
 
-                            // Tambahkan row baru ke tabel dengan data yang diterima
-                            var newRow = '<tr>' +
-                                            '<td>' + response.kode + " - " + "Rp." + response.harga + '</td>' +
-                                            '<td> 1 </td>' +
-                                         '</tr>';
+        if (pilihIds && pilihIds.length > 0) { // Check if any value is selected
+            $.ajax({
+                url: '/get-all-data', // Update your route to handle multiple IDs
+                type: "GET",
+                data: { pilihIds: pilihIds }, // Send the array of selected IDs
+                dataType: "json",
+                success: function(data) {
+                    console.log("Received data:", data);
+
+                    // You can now process the returned data and populate your table or other fields
+                    // Example: populate table based on the received data
+                    $('#tabelpilih tbody').empty(); // Clear previous table data
+
+                    if (data && data.length > 0) {
+                        $.each(data, function(index, item) {
+                            var newRow = `
+                                <tr>
+                                    <td>${item.kode} - ${item.harga}</td>
+                                    <td>1</td>
+                                </tr>`;
                             $('#tabelpilih tbody').append(newRow);
-                        },
-                        error: function() {
-                            alert('Terjadi kesalahan saat mengambil data');
-                        }
-                    });
-                } else {
-                    alert('Pilih satu item saja.');
+                        });
+                    } else {
+                        // If no data is returned, you can show a message or clear the table
+                        $('#tabelpilih tbody').append('<tr><td colspan="2">No data found</td></tr>');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX error: " + status + " - " + error);
                 }
             });
-        });
-    </script>
-    <script>
+        } else {
+            // Clear the table if no selections
+            $('#tabelpilih tbody').empty().append('<tr><td colspan="2">No data selected</td></tr>');
+        }
+    });
+});
+
+
         $(document).ready(function() {
             $("#doctortbl").DataTable({
                 "responsive": true,
