@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('obats', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->foreignId('kategori_id')->constrained()->onDelete('cascade');
+            $table->foreignId('obatk_id')->constrained()->onDelete('cascade');
             $table->integer('pembelian');
             $table->integer('penjualan');
             $table->integer('kuantitas');

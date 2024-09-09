@@ -30,7 +30,7 @@ class ObatController extends Controller
     {
         $data = $request->validate([
             "nama" => 'required',
-            "kategori_id" => 'required',
+            "obatk_id" => 'required',
             "pembelian" => 'required',
             "penjualan" => 'required',
             "kuantitas" => 'required',

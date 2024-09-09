@@ -96,7 +96,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Kategori</label>
-                                    <select class="form-control select2bs4"  style="width: 100%;"  id="kategori_id" name="kategori_id">
+                                    <select class="form-control select2bs4"  style="width: 100%;"  id="obatk_id" name="obatk_id">
                                         @foreach ($kategori as $kategori)
                                         <option value="{{$kategori->id}}">{{$kategori->nama}}</option>
                                         @endforeach

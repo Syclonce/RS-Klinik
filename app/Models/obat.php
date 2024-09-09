@@ -11,7 +11,7 @@ class obat extends Model
     protected $table = 'obats';
     protected $fillable = [
         'nama',
-        'kategori_id',
+        'obatk_id',
         'pembelian',
         'penjualan',
         'kuantitas',
@@ -24,6 +24,6 @@ class obat extends Model
 
     public function obatk()
     {
-        return $this->belongsTo(obatk::class,'kategori_id','id');
+        return $this->belongsTo(obatk::class);
     }
 }

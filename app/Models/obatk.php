@@ -16,6 +16,6 @@ class obatk extends Model
 
     public function obat()
     {
-        return $this->hasOne(obat::class,'kategori_id','id');
+        return $this->hasOne(obat::class);
     }
 }
