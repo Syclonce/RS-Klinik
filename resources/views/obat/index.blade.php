@@ -25,7 +25,7 @@
                                 <table id="doctortbl" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Indo</th>
+                                            <th>No</th>
                                             <th>Nama</th>
                                             <th>Kategori</th>
                                             <th>Kotak Toko</th>
@@ -40,18 +40,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($doctors as $doctor)
+                                        @foreach ($data as $data)
                                             <tr>
-                                                <td>{{ $doctor->nama }}</td>
-                                                <td>{{ $doctor->Alamat }}</td>
-                                                <td>{{ implode(', ', json_decode($doctor->spesialis)) }}</td>
-                                                <td>{{ $doctor->telepon }}</td>
-                                                <td>{{ $doctor->user->email }}</td>
-                                                <td><a href="{{ route('doctor.doctor', ['id' =>  $doctor->id ]) }}" class="edit-data-permesion"><i class="fa fa-edit text-secondary"></i></a>
-                                                <td><a href="{{ route('doctor.doctor.liburan', ['id' =>  $doctor->id ]) }}" class="edit-data-permesion"><i class="fa fa-edit text-secondary"></i></a>
+                                                <td>{{ $data->id}}</td>
+                                                <td>{{ $data->nama}}</td>
+                                                <td>{{ $data->obatk->nama}}</td>
+                                                <td>{{ $data->kota}}</td>
+                                                <td>{{ $data->pembelian}}</td>
+                                                <td>{{ $data->penjualan}}</td>
+                                                <td>{{ $data->kuantitas}}</td>
+                                                <td>{{ $data->generik}}</td>
+                                                <td>{{ $data->perusahaan}}</td>
+                                                <td>{{ $data->efek}}</td>
+                                                <td>{{ $data->tanggal}}</td>
                                                 </td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -80,60 +84,74 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('doctor.add') }}" method="POST">
+                    <form action="{{ route('obat.add') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Nama </label>
+                                    <label>Nama Obat</label>
                                     <input type="text" class="form-control" id="nama" name="nama">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Username </label>
-                                    <input type="text" class="form-control" id="username" name="username">
+                                    <label>Kategori</label>
+                                    <select class="form-control select2bs4"  style="width: 100%;"  id="kategori_id" name="kategori_id">
+                                        @foreach ($kategori as $kategori)
+                                        <option value="{{$kategori->id}}">{{$kategori->nama}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Email </label>
-                                    <input type="Email" class="form-control" id="email" name="email">
+                                    <label>Harga Pembelian </label>
+                                    <input type="number" class="form-control" id="pembelian" name="pembelian">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Password </label>
-                                    <input type="password" class="form-control" id="password" name="password" autocomplete >
+                                    <label>Harga Penjualan</label>
+                                    <input type="number" class="form-control" id="penjualan" name="penjualan">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Alamat </label>
-                                    <input type="text" class="form-control" id="Alamat" name="Alamat">
+                                    <label>Kuantitas</label>
+                                    <input type="number" class="form-control" id="kuantitas" name="kuantitas">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                  <label>Spesialis</label>
-                                  <select class="select2bs4" multiple="multiple"  style="width: 100%;"  id="spesialis" name="spesialis[]">
-                                    {{-- @foreach ($data as $spesiali)
-                                    <option value="{{$spesiali->kode}}">{{$spesiali->nama}}</option>
-                                    @endforeach --}}
-                                  </select>
+                                  <label>Nama Generik</label>
+                                  <input type="text" class="form-control" id="generik" name="generik">
                                 </div>
                             </div>
-                            <div class="col-sm-12">
+                            <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Telepon  </label>
-                                    <input type="text" class="form-control" id="telepon" name="telepon">
+                                    <label>Perusahaan</label>
+                                    <input type="text" class="form-control" id="perusahaan" name="perusahaan">
                                 </div>
                             </div>
-                            <div class="col-sm-12">
+                            <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Harga </label>
-                                    <input type="text" class="form-control" id="harga" name="harga">
+                                    <label>Efek</label>
+                                    <input type="text" class="form-control" id="efek" name="efek">
                                 </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Kota Toko</label>
+                                    <input type="text" class="form-control" id="kota" name="kota">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Tanggal Kadaluarsa</label>
+                                      <div class="input-group date" id="tgljanji" data-target-input="nearest">
+                                          <input type="text" class="form-control datetimepicker-input" data-target="#tgljanji" data-toggle="datetimepicker" id="tanggal" name="tanggal"/>
+                                      </div>
+                                  </div>
                             </div>
                         </div>
                 </div>

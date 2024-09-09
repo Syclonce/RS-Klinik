@@ -11,6 +11,7 @@ use App\Models\pasien;
 use App\Models\tipepemeriksa;
 use App\Models\prosedur;
 use App\Models\kategori;
+use App\Models\obat;
 use App\Models\obatk;
 
 class ObatController extends Controller
@@ -19,8 +20,28 @@ class ObatController extends Controller
     {
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "obat";
-        return view('obat.index', compact('title'));
+        $kategori = obatk::all();
+        $data = obat::with(['obatk'])->get();
+        return view('obat.index', compact('title','kategori','data'));
 
+    }
+
+    public function obatadd(Request $request)
+    {
+        $data = $request->validate([
+            "nama" => 'required',
+            "kategori_id" => 'required',
+            "pembelian" => 'required',
+            "penjualan" => 'required',
+            "kuantitas" => 'required',
+            "generik" => 'required',
+            "perusahaan" => 'required',
+            "efek" => 'required',
+            "kota" => 'required',
+            "tanggal" => 'required',
+        ]);
+        obat::create($data);
+        return redirect()->route('obat')->with('success', 'pasien berhasi di tambahkan');
     }
 
     public function obatkategori()

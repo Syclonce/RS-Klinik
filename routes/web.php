@@ -100,6 +100,7 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/janji/get-visit-descriptions/{id}', [JanjiController::class, 'getVisitDescriptions'])->name('janji.visit');
 
     Route::get('/obat', [ObatController::class, 'index'])->name('obat');
+    Route::post('/obat/add', [ObatController::class, 'obatadd'])->name('obat.add');
 
     Route::get('/obat/kategori', [ObatController::class, 'obatkategori'])->name('obat.kategori');
     Route::post('/obat/kategori/add', [ObatController::class, 'obatkategoriadd'])->name('obat.kategori.add');
