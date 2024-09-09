@@ -116,7 +116,7 @@
                                         <label>Pilih </label>
                                         <select class="select2bs4" multiple="multiple" style="width: 100%;"  id="pilih" name="pilih">
                                             @foreach ($pilih as $pilih)
-                                            <option value="{{$pilih->id}}">{{$pilih->id}}-{{$pilih->kode}} - {{$pilih->pembayaran}}</option>
+                                            <option value="{{$pilih->id}}">{{$pilih->kode}} - {{$pilih->pembayaran}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -178,77 +178,80 @@
 
     <script>
 
-    $(document).ready(function() {
-        $('#pilih').on('change', function() {
-    var pilihIds = $(this).val(); // Get selected values as an array (multi-select)
-    console.log("Selected IDs:", pilihIds);
+$(document).ready(function() {
+    $('#pilih').on('change', function() {
+        var pilihIds = $(this).val(); // Get selected values as an array (multi-select)
+        console.log("Selected IDs:", pilihIds);
 
-    if (pilihIds && pilihIds.length > 0) { // Check if any value is selected
-        $.ajax({
-            url: '/get-all-data', // Update your route to handle multiple IDs
-            type: "GET",
-            data: { pilihIds: pilihIds }, // Send the array of selected IDs
-            dataType: "json",
-            success: function(data) {
-                console.log("Received data:", data);
+        if (pilihIds && pilihIds.length > 0) { // Check if any value is selected
+            $.ajax({
+                url: '/get-all-data', // Update your route to handle multiple IDs
+                type: "GET",
+                data: { pilihIds: pilihIds }, // Send the array of selected IDs
+                dataType: "json",
+                success: function(data) {
+                    console.log("Received data:", data);
 
-                $('#tabelpilih tbody').empty(); // Clear previous table data
-                var subTotal = 0; // Initialize sub total
+                    $('#tabelpilih tbody').empty(); // Clear previous table data
+                    var subTotal = 0; // Initialize sub total
 
-                if (data && data.length > 0) {
-                    $.each(data, function(index, item) {
-                        var newRow = `
-                            <tr>
-                                <td>${item.kode} - ${item.harga}</td>
-                                <td>1</td>
-                            </tr>`;
-                        $('#tabelpilih tbody').append(newRow);
+                    if (data && data.length > 0) {
+                        $.each(data, function(index, item) {
+                            var newRow = `
+                                <tr>
+                                    <td>${item.kode} - ${item.harga}</td>
+                                    <td>1</td>
+                                </tr>`;
+                            $('#tabelpilih tbody').append(newRow);
 
-                        // Add to sub total
-                        subTotal += parseFloat(item.harga);
-                    });
+                            // Add to sub total
+                            subTotal += parseFloat(item.harga);
+                        });
 
-                    // Set sub total value in the input field
-                    $('#totals').val(subTotal.toFixed(2));
-                } else {
-                    $('#tabelpilih tbody').append('<tr><td colspan="2">No data found</td></tr>');
+                        // Set sub total value in the input field
+                        $('#totals').val(subTotal.toFixed(2));
+                    } else {
+                        $('#tabelpilih tbody').append('<tr><td colspan="2">No data found</td></tr>');
+                    }
+
+                    // Calculate total after discount
+                    calculateTotal();
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX error: " + status + " - " + error);
                 }
+            });
+        } else {
+            // Clear the table and reset totals if no selections
+            $('#tabelpilih tbody').empty().append('<tr><td colspan="2">No data selected</td></tr>');
+            $('#totals').val('0.00');
+            $('#totalk').val('0.00');
+        }
+    });
 
-                // Calculate total after discount
-                calculateTotal();
-            },
-            error: function(xhr, status, error) {
-                console.error("AJAX error: " + status + " - " + error);
-            }
-        });
-    } else {
-        // Clear the table and reset totals if no selections
-        $('#tabelpilih tbody').empty().append('<tr><td colspan="2">No data selected</td></tr>');
-        $('#totals').val('0.00');
-        $('#totalk').val('0.00');
+    // Function to calculate total after discount
+    $('#diskon').on('input', function() {
+        calculateTotal();
+    });
+
+    function calculateTotal() {
+        var subTotal = parseFloat($('#totals').val()) || 0;
+        var discountPercent = parseFloat($('#diskon').val()) || 0;
+
+        // Calculate the discount amount (percentage of the sub total)
+        var discountAmount = (discountPercent / 100) * subTotal;
+
+        // Calculate total after discount
+        var totalAfterDiscount = subTotal - discountAmount;
+
+        // Ensure the total doesn't go below 0
+        totalAfterDiscount = totalAfterDiscount < 0 ? 0 : totalAfterDiscount;
+
+        // Update total amount in the input field
+        $('#totalk').val(totalAfterDiscount.toFixed(2));
     }
 });
 
-// Function to calculate total after discount
-$('#diskon').on('input', function() {
-    calculateTotal();
-});
-
-function calculateTotal() {
-    var subTotal = parseFloat($('#totals').val()) || 0;
-    var discount = parseFloat($('#diskon').val()) || 0;
-
-    // Calculate total after discount
-    var totalAfterDiscount = subTotal - discount;
-
-    // Ensure the total doesn't go below 0
-    totalAfterDiscount = totalAfterDiscount < 0 ? 0 : totalAfterDiscount;
-
-    // Update total amount in the input field
-    $('#totalk').val(totalAfterDiscount.toFixed(2));
-}
-
-    });
 
 
         $(document).ready(function() {
