@@ -231,8 +231,15 @@
                       <p>Kategori Pembayaran</p>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="{{ route('finance.biaya') }}" class="nav-link {{ \Route::is('finance.biaya') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>Biaya</p>
+                    </a>
+                  </li>
                 </ul>
             </li>
+
 
             <li class="nav-item">
                 <a href="{{ route('setweb') }}"

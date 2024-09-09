@@ -4,6 +4,7 @@ namespace App\Http\Controllers\modules;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\biaya;
 use App\Models\setweb;
 use App\Models\doctor;
 use App\Models\pasien;
@@ -84,4 +85,22 @@ class FinecController extends Controller
         kategori::create($data);
         return redirect()->route('finance.kategori')->with('success', 'dokter berhasi di tambahkan');
     }
+    public function biaya()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "biaya";
+        $data = prosedur::all();
+        $biaya = biaya::all();
+        return view('fine.biaya', compact('title','data', 'biaya'));
+    }
+        public function biayaadd(Request $request)
+        {
+            $data = $request->validate([
+                "kategori" => 'required',
+                "jumlah" => 'required',
+                "catatan" => 'required',
+            ]);
+            biaya::create($data);
+            return redirect()->route('finance.biaya')->with('success', 'dokter berhasi di tambahkan');
+        }
 }

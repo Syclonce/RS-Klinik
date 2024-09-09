@@ -90,8 +90,9 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/finance/kategori', [FinecController::class, 'kategori'])->name('finance.kategori');
     Route::post('/finance/kategori/add', [FinecController::class, 'kategoriadd'])->name('finance.kategori.add');
-
+    
     Route::get('/finance/biaya', [FinecController::class, 'biaya'])->name('finance.biaya');
+    Route::post('/finance/biaya/add', [FinecController::class, 'biayaadd'])->name('finance.biaya.add');
 
     Route::get('/janji', [JanjiController::class, 'index'])->name('janji');
     Route::get('/janji/get-visit-descriptions/{id}', [JanjiController::class, 'getVisitDescriptions'])->name('janji.visit');

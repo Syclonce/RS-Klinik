@@ -17,7 +17,6 @@
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#adddoctor">
                                         <i class="fas fa-plus"></i> Tambah Baru
-                                        {{-- <form action="{{ route('finance.add') }}" method="POST"> --}}
                                     </button>
                                 </div>
                             </div>
@@ -26,26 +25,22 @@
                                 <table id="doctortbl" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Kode</th>
-                                            <th>Pembayaran Nama Barang</th>
-                                            <th>Deskripsi</th>
-                                            <th>Kategori Harga (Rp)</th>
-                                            <th>Komisi Dokter</th>
-                                            <th>Tipe</th>
+                                            <th>Kategori</th>
+                                            <th>Tanggal</th>
+                                            <th>Catatan</th>
+                                            <th>Jumlah</th>
                                             <th width="20%">Pilihan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($prosedur as $prosedur)
+                                        @foreach ($biaya as $biaya)
                                             <tr>
-                                                <td>{{ $prosedur->kode }}</td>
-                                                <td>{{ $prosedur->pembayaran }}</td>
-                                                <td>{{ $prosedur->deskripsi}}</td>
-                                                <td>{{ $prosedur->harga}}</td>
-                                                <td>{{ $prosedur->komisi}}%</td>
-                                                <td>{{ $prosedur->tipepemeriksa->nama}}</td>
+                                                <td>{{ $biaya->kategori }}</td>
+                                                <td>{{ $biaya->jumlah }}</td>
+                                                <td>{{ $biaya->catatan }}</td>
+                                                <td></td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -68,55 +63,37 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel"> Buat Prosedur Pembayaran</h5>
+                    <h5 class="modal-title" id="addModalLabel"> Tambahkan Biaya</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('finance.prosedur.add') }}" method="POST">
+                    <form action="{{ route('finance.biaya.add') }}" method="POST">
                         @csrf
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Kode*</label>
-                                    <input type="text" class="form-control" id="kode" name="kode">
+                                  <label>Kategori</label>
+                                  <select class="select2bs4" style="width: 100%;"  id="kategori" name="kategori">
+                                    @foreach ($data as $kategori)
+                                    <option value="{{$kategori->id}}">{{$kategori->pembayaran}}</option>
+                                    @endforeach
+                                  </select>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Pembayaran Nama Barang</label>
-                                    <input type="text" class="form-control" id="pembayaran" name="pembayaran">
+                                    <label>Jumlah</label>
+                                    <input type="number" class="form-control" id="jumlah" name="jumlah">
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Deskripsi</label>
-                                    <input type="text" class="form-control" id="deskripsi" name="deskripsi">
+                                    <label>Catatan</label>
+                                    <input type="text" class="form-control" id="catatan" name="catatan">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Kategori Harga</label>
-                                    <input type="text" class="form-control" id="harga" name="harga">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Komisi Dokter Menilai (%) </label>
-                                    <input type="number" class="form-control" id="komisi" name="komisi">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                  <label>Tipe</label>
-                                  <select class="select2bs4" style="width: 100%;"  id="tipepemeriksas_id" name="tipepemeriksas_id">
-                                    @foreach ($data as $tipe)
-                                    <option value="{{$tipe->id}}">{{$tipe->nama}}</option>
-                                    @endforeach
-                                  </select>
-                                </div>
-                            </div>/home/user/RS-Klinik/resources/views/profile
                         </div>
                 </div>
                 <div class="modal-footer">
