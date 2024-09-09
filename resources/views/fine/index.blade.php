@@ -140,7 +140,30 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
-                            Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam.
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Sub Total </label>
+                                    <input type="text" class="form-control" id="totals" name="totals">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Diskon</label>
+                                    <input type="number" class="form-control" id="diskon" name="diskon">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>total Kotor</label>
+                                    <input type="text" class="form-control" id="totalk" name="totalk">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Jumlah Deposit</label>
+                                    <input type="text" class="form-control" id="deposit" name="deposit">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -155,48 +178,77 @@
 
     <script>
 
-$(document).ready(function() {
-    $('#pilih').on('change', function() {
-        var pilihIds = $(this).val(); // Get selected values as an array (multi-select)
-        console.log("Selected IDs:", pilihIds);
+    $(document).ready(function() {
+        $('#pilih').on('change', function() {
+    var pilihIds = $(this).val(); // Get selected values as an array (multi-select)
+    console.log("Selected IDs:", pilihIds);
 
-        if (pilihIds && pilihIds.length > 0) { // Check if any value is selected
-            $.ajax({
-                url: '/get-all-data', // Update your route to handle multiple IDs
-                type: "GET",
-                data: { pilihIds: pilihIds }, // Send the array of selected IDs
-                dataType: "json",
-                success: function(data) {
-                    console.log("Received data:", data);
+    if (pilihIds && pilihIds.length > 0) { // Check if any value is selected
+        $.ajax({
+            url: '/get-all-data', // Update your route to handle multiple IDs
+            type: "GET",
+            data: { pilihIds: pilihIds }, // Send the array of selected IDs
+            dataType: "json",
+            success: function(data) {
+                console.log("Received data:", data);
 
-                    // You can now process the returned data and populate your table or other fields
-                    // Example: populate table based on the received data
-                    $('#tabelpilih tbody').empty(); // Clear previous table data
+                $('#tabelpilih tbody').empty(); // Clear previous table data
+                var subTotal = 0; // Initialize sub total
 
-                    if (data && data.length > 0) {
-                        $.each(data, function(index, item) {
-                            var newRow = `
-                                <tr>
-                                    <td>${item.kode} - ${item.harga}</td>
-                                    <td>1</td>
-                                </tr>`;
-                            $('#tabelpilih tbody').append(newRow);
-                        });
-                    } else {
-                        // If no data is returned, you can show a message or clear the table
-                        $('#tabelpilih tbody').append('<tr><td colspan="2">No data found</td></tr>');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error("AJAX error: " + status + " - " + error);
+                if (data && data.length > 0) {
+                    $.each(data, function(index, item) {
+                        var newRow = `
+                            <tr>
+                                <td>${item.kode} - ${item.harga}</td>
+                                <td>1</td>
+                            </tr>`;
+                        $('#tabelpilih tbody').append(newRow);
+
+                        // Add to sub total
+                        subTotal += parseFloat(item.harga);
+                    });
+
+                    // Set sub total value in the input field
+                    $('#totals').val(subTotal.toFixed(2));
+                } else {
+                    $('#tabelpilih tbody').append('<tr><td colspan="2">No data found</td></tr>');
                 }
-            });
-        } else {
-            // Clear the table if no selections
-            $('#tabelpilih tbody').empty().append('<tr><td colspan="2">No data selected</td></tr>');
-        }
-    });
+
+                // Calculate total after discount
+                calculateTotal();
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX error: " + status + " - " + error);
+            }
+        });
+    } else {
+        // Clear the table and reset totals if no selections
+        $('#tabelpilih tbody').empty().append('<tr><td colspan="2">No data selected</td></tr>');
+        $('#totals').val('0.00');
+        $('#totalk').val('0.00');
+    }
 });
+
+// Function to calculate total after discount
+$('#diskon').on('input', function() {
+    calculateTotal();
+});
+
+function calculateTotal() {
+    var subTotal = parseFloat($('#totals').val()) || 0;
+    var discount = parseFloat($('#diskon').val()) || 0;
+
+    // Calculate total after discount
+    var totalAfterDiscount = subTotal - discount;
+
+    // Ensure the total doesn't go below 0
+    totalAfterDiscount = totalAfterDiscount < 0 ? 0 : totalAfterDiscount;
+
+    // Update total amount in the input field
+    $('#totalk').val(totalAfterDiscount.toFixed(2));
+}
+
+    });
 
 
         $(document).ready(function() {

@@ -228,7 +228,7 @@
             border: 1px solid black;
         }
     </style>
-    
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -385,6 +385,16 @@
                 removeMaskOnSubmit: true
             });
 
+            $('#deposit').inputmask({
+                alias: 'numeric',
+                groupSeparator: '.',
+                autoGroup: true,
+                digits: 0,
+                digitsOptional: false,
+                prefix: 'Rp ',
+                rightAlign: false,
+                removeMaskOnSubmit: true
+            });
             // Apply Inputmask for phone number
             $('#telepon').inputmask({
                     mask: '(99) 999-999-9999',
