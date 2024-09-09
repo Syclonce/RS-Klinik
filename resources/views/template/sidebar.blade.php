@@ -239,6 +239,29 @@
                   </li>
                 </ul>
             </li>
+            <li class="nav-item {{ \Route::is('obat*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('obat*') ? 'active' : '' }}">
+                  <i class="fas fa-fw fa-solid fa-clock" style="color: #63E6BE;"></i>
+                  <p>
+                    Obat
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('obat') }}" class="nav-link {{ \Route::is('obat') ? 'active' : '' }}">
+                          <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                          <p>Daftar Obat</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{ route('obat.kategori') }}" class="nav-link {{ \Route::is('obat.kategori') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                        <p>Kategori Obat</p>
+                      </a>
+                    </li>
+                </ul>
+            </li>
 
 
             <li class="nav-item">

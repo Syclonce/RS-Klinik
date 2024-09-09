@@ -89,7 +89,7 @@ class FinecController extends Controller
     {
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "biaya";
-        $data = prosedur::all();
+        $data = kategori::all();
         $biaya = biaya::all();
         return view('fine.biaya', compact('title','data', 'biaya'));
     }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Modules\PatientController;
 use App\Http\Controllers\Modules\ScheduleController;
 use App\Http\Controllers\Modules\JanjiController;
 use App\Http\Controllers\Modules\SumberdayamController;
+use App\Http\Controllers\Modules\ObatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\websetController;
@@ -98,6 +99,10 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/janji', [JanjiController::class, 'index'])->name('janji');
     Route::get('/janji/get-visit-descriptions/{id}', [JanjiController::class, 'getVisitDescriptions'])->name('janji.visit');
 
+    Route::get('/obat', [ObatController::class, 'index'])->name('obat');
+
+    Route::get('/obat/kategori', [ObatController::class, 'obatkategori'])->name('obat.kategori');
+    Route::post('/obat/kategori/add', [ObatController::class, 'obatkategoriadd'])->name('obat.kategori.add');
 
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');
     Route::post('setweb/update', [websetController::class, 'updates'])->name('setweb.update');

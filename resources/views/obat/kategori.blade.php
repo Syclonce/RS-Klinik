@@ -8,12 +8,12 @@
         <section class="content">
             <div class="container-fluid">
                 <!-- Main row -->
-                <div class="row">
-                    <div class="mt-3 col-12">
+                <div class="row ">
+                    <div class="col-12 mt-3">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="mb-0 card-title">Biaya</h3>
-                                <div class="text-right card-tools">
+                                <h3 class="card-title mb-0">Kategori Obat</h3>
+                                <div class="card-tools text-right">
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#adddoctor">
                                         <i class="fas fa-plus"></i> Tambah Baru
@@ -25,20 +25,19 @@
                                 <table id="doctortbl" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Kategori</th>
-                                            <th>Tanggal</th>
-                                            <th>Catatan</th>
-                                            <th>Jumlah</th>
+                                            <th>Kategori Nama</th>
+                                            <th>Deskripsi</th>
                                             <th width="20%">Pilihan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($biaya as $biaya)
+                                        @foreach ($data as $data)
                                             <tr>
-                                                <td>{{ $biaya->kategori }}</td>
-                                                <td>{{ $biaya->jumlah }}</td>
-                                                <td>{{ $biaya->catatan }}</td>
-                                                <td></td>
+                                                <td>{{ $data->nama }}</td>
+                                                <td>{{ $data->deskripsi }}</td>
+                                                {{-- <td><a href="{{ route('doctor.doctor', ['id' =>  $doctor->id ]) }}" class="edit-data-permesion"><i class="fa fa-edit text-secondary"></i></a>
+                                                <td><a href="{{ route('doctor.doctor.liburan', ['id' =>  $doctor->id ]) }}" class="edit-data-permesion"><i class="fa fa-edit text-secondary"></i></a> --}}
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -63,35 +62,25 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel"> Tambahkan Biaya</h5>
+                    <h5 class="modal-title" id="addModalLabel">Tambahkan Obat</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('finance.biaya.add') }}" method="POST">
+                    <form action="{{ route('obat.kategori.add') }}" method="POST">
                         @csrf
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-sm-6">
                                 <div class="form-group">
-                                  <label>Kategori</label>
-                                  <select class="select2bs4" style="width: 100%;"  id="kategori" name="kategori">
-                                    @foreach ($data as $kategori)
-                                    <option value="{{$kategori->id}}">{{$kategori->kategori}}</option>
-                                    @endforeach
-                                  </select>
+                                    <label>Kategori Nama </label>
+                                    <input type="text" class="form-control" id="nama" name="nama">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Jumlah</label>
-                                    <input type="number" class="form-control" id="jumlah" name="jumlah">
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Catatan</label>
-                                    <input type="text" class="form-control" id="catatan" name="catatan">
+                                    <label>Deskripsi </label>
+                                    <input type="text" class="form-control" id="deskripsi" name="deskripsi">
                                 </div>
                             </div>
                         </div>
