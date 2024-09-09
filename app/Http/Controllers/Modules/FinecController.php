@@ -103,4 +103,18 @@ class FinecController extends Controller
             biaya::create($data);
             return redirect()->route('finance.biaya')->with('success', 'dokter berhasi di tambahkan');
         }
+
+        public function getAllData($id)
+        {
+            // Ambil data berdasarkan ID dari parameter URL
+            $data = prosedur::find($id);
+
+            // Periksa apakah data ditemukan
+            if ($data) {
+                return response()->json($data);
+            } else {
+                return response()->json(['message' => 'Data not found'], 404);
+            }
+        }
+
 }

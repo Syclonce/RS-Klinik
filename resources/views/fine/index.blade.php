@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <br>
-                                    <table class="table table-striped table-bordered">
+                                    <table id="tabelpilih" class="table table-striped table-bordered">
                                         <thead>
                                           <tr>
                                             <th>Task</th>
@@ -132,12 +132,11 @@
                                         </thead>
                                         <tbody>
                                           <tr>
-                                            <td>Update software</td>
-                                            <td>Update software</td>
+
                                           </tr>
                                         </tbody>
                                       </table>
-                                </div>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
@@ -153,6 +152,40 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            // Event listener ketika select berubah
+            $('#pilih').on('change', function() {
+                var selectedId = $(this).val(); // Ambil id yang dipilih, hanya menggunakan satu id dalam hal ini
+
+                // Jika hanya satu ID yang dipilih
+                if (selectedId.length === 1) {
+                    // Kirim request AJAX ke server
+                    $.ajax({
+                        url: '/get-all-data/' + selectedId[0], // Kirimkan id sebagai bagian dari URL
+                        method: 'GET',
+                        success: function(response) {
+                            // Kosongkan tabel sebelum menambahkan data baru
+                            $('#tabelpilih tbody').empty();
+
+                            // Tambahkan row baru ke tabel dengan data yang diterima
+                            var newRow = '<tr>' +
+                                            '<td>' + response.kode + " - " + "Rp." + response.harga + '</td>' +
+                                            '<td> 1 </td>' +
+                                         '</tr>';
+                            $('#tabelpilih tbody').append(newRow);
+                        },
+                        error: function() {
+                            alert('Terjadi kesalahan saat mengambil data');
+                        }
+                    });
+                } else {
+                    alert('Pilih satu item saja.');
+                }
+            });
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $("#doctortbl").DataTable({
