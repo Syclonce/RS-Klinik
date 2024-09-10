@@ -35,10 +35,12 @@
                                         @foreach ($fmbiya as $fmbiya)
                                             <tr>
                                                 <td>{{ $fmbiya->ktbiaya->nama }}</td>
+                                                <td></td>
                                                 <td>{{ $fmbiya->harga }}</td>
+                                                <td></td>
                                                 {{-- <td><a href="{{ route('doctor.doctor', ['id' =>  $doctor->id ]) }}" class="edit-data-permesion"><i class="fa fa-edit text-secondary"></i></a>
                                                 <td><a href="{{ route('doctor.doctor.liburan', ['id' =>  $doctor->id ]) }}" class="edit-data-permesion"><i class="fa fa-edit text-secondary"></i></a> --}}
-                                                </td>
+                                                {{-- </td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -85,7 +87,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Jumlah </label>
-                                    <input type="number" class="form-control" id="jumlah" name="jumlah">
+                                    <input type="number" class="form-control" id="biaya" name="biaya">
                                 </div>
                             </div>
                         </div>
