@@ -43,6 +43,7 @@
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.css') }}">
+    <script rel="stylesheet" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@6.14.1/ol.css">
     <style>
@@ -218,7 +219,7 @@
     </style>
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed" onload="initMap()">
+<body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
         <!-- Navbar -->

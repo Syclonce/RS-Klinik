@@ -15,7 +15,25 @@ class SuperAdminController extends Controller
     public function index()
     {
         $title = 'Rs Apps';
-        return view('superadmin.index', compact('title'));
+        $patientData = [
+            ['label' => 'Rawat Jalan', 'count' => 3353, 'color' => '#3c8dbc'],
+            ['label' => 'Apotek', 'count' => 2089, 'color' => '#f39c12']
+        ];
+
+        $timeStats = [
+            ['icon' => 'fa-chair', 'title' => 'Rata Waktu Tunggu Dokter', 'time' => '153 m 32 s'],
+            ['icon' => 'fa-user', 'title' => 'Pasien Baru Bulan Ini', 'count' => 58],
+            ['icon' => 'fa-user', 'title' => 'Pasien Baru Bulan Ini', 'count' => 58],
+            ['icon' => 'fa-phone', 'title' => 'Rata Waktu Konsultasi', 'time' => '263 m 25 s'],
+            ['icon' => 'fa-phone', 'title' => 'Rata Waktu Konsultasi', 'time' => '263 m 25 s'],
+            ['icon' => 'fa-clipboard', 'title' => 'Pasien Terdaftar di Klinik', 'count' => 879]
+        ];
+
+        $financialData = [
+            ['label' => 'Total Pendapatan Bulan Februari', 'amount' => 'Rp. 25.790.574', 'color' => 'green'],
+            ['label' => 'Total Pengeluaran Bulan Februari', 'amount' => 'Rp. 112.753.444', 'color' => 'red']
+        ];
+        return view('superadmin.index', compact('title','patientData', 'timeStats', 'financialData'));
     }
 
 
