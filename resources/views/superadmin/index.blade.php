@@ -91,15 +91,21 @@
                 <div class="row">
                     <!-- Financial Information -->
                     @foreach ($financialData as $financial)
-                        <div class="col-md-6">
-                            <div class="info-box bg-light">
-                                <span class="info-box-text">{{ $financial['label'] }}</span>
-                                <span class="info-box-number" style="color: {{ $financial['color'] }};">{{ $financial['amount'] }}</span>
+                        <div class="col-md-6 mb-3">
+                            <div class="info-box bg-light p-3 text-center">
+                                <div class="info-box-content">
+                                    <span class="info-box-text d-block">{{ $financial['label'] }}</span>
+                                    <span class="info-box-number d-block" style="color: {{ $financial['color'] }};">{{ $financial['amount'] }}</span>
+                                </div>
+                                <hr>
                             </div>
                         </div>
                     @endforeach
-
                 </div>
+
+
+
+
                 <!-- /.row (main row) -->
             </div><!-- /.container-fluid -->
         </section>
