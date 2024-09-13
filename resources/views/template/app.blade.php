@@ -310,7 +310,7 @@ body.dark-mode thead tr th {
             <a href="#" class="brand-link">
                 <img src="{{ asset('webset/' . $setweb->logo_app) }}" alt="Webset Logo"
                     class="brand-image img-circle elevation-4" style="opacity: .9">
-                <span class="brand-text font-weight-light">{{ $setweb->name_app }}</span>
+                <span class="brand-text font-weight-light"><b>{{ $setweb->name_app }}</b></span>
             </a>
 
             @include('template.sidebar')
