@@ -326,12 +326,6 @@ body.dark-mode thead tr th {
             <strong>Copyright &copy; <?= date('Y') ?></strong>
 
         </footer>
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
     <!-- jQuery -->
@@ -392,7 +386,7 @@ body.dark-mode thead tr th {
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <!-- Toastr -->
     <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
-    !-- Page specific script -->
+    <!-- Page specific script -->
 
     <script>
         $(document).ready(function() {
