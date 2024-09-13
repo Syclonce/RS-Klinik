@@ -92,16 +92,14 @@
                                       </div>
                                   </div>
                             </div>
-                            {{-- <div class="col-md-6">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                   <label>Available Slots</label>
-                                  <select class="form-control select2bs4" style="width: 100%;"  id="dokter" name="dokter">
-                                    @foreach ($data_dokter as $dokter)
-                                    <option value="{{$dokter->id}}">{{$dokter->nama}}</option>
-                                    @endforeach
+                                  <select class="form-control select2bs4" style="width: 100%;"  id="available_slots" name="available_slots">
+                                        <option value="">Pilih Slot</option>
                                   </select>
                                 </div>
-                            </div> --}}
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                   <label>Janji Status</label>
@@ -156,6 +154,46 @@
             </div>
         </div>
     </div>
+    <script>
+       $(document).ready(function() {
+            $('#dokter').change(function() {
+                let dokterId = $(this).val();
+                let tanggal = $('#tanggal').val();
+                if (dokterId && tanggal) {
+                    updateAvailableSlots(dokterId, tanggal);
+                }
+            });
+
+            $('#tanggal').on('change.datetimepicker', function() {
+                let dokterId = $('#dokter').val();
+                let tanggal = $(this).val();
+                if (dokterId && tanggal) {
+                    updateAvailableSlots(dokterId, tanggal);
+                }
+            });
+
+
+            function updateAvailableSlots(dokterId, tanggal) {
+        $.ajax({
+            url: '/janji/get-slots',
+            method: 'GET',
+            data: {
+                dokter_id: dokterId,
+                tanggal: tanggal
+            },
+            console.log(data);
+            success: function(response) {
+                let options = '<option value="">Pilih Slot</option>';
+                $.each(response.slots, function(index, slot) {
+                    options += `<option value="${slot.id}">${slot.slot_time}</option>`;
+                });
+                $('#available_slots').html(options);
+            }
+        });
+    }
+});
+
+    </script>
     <script>
         $(document).ready(function() {
            // Handle doctor selection change

@@ -63,7 +63,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addFormpermesion" action="{{ route('schedule.liburan') }}" method="POST">
+                    <form id="addFormpermesion" action="{{ route('schedule.liburan.add') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">

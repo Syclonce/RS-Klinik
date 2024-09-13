@@ -223,6 +223,16 @@ body.dark-mode thead tr th {
 }
 
 
+.profile-name {
+    font-size: 1.0rem; /* Increase font size */
+    color: #000; /* Default text color */
+}
+
+/* Dark mode style */
+body.dark-mode .profile-name {
+    color: #fff; /* White color for dark mode */
+}
+
     </style>
 
     <style>
@@ -268,62 +278,33 @@ body.dark-mode thead tr th {
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
-                      <i class="far fa-comments"></i>
-                      <span class="badge badge-danger navbar-badge">3</span>
+                        <img src="{{ asset('user/' . Auth::user()->profile) }}" alt="User Profile" class="img-circle" style="width:30px;">
+                        @if (Auth::check())
+                        <span class="ml-2 profile-name">{{ Auth::user()->name }}</span>
+                        @endif
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                      <div class="dropdown-divider"></div>
                       <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
                         <div class="media">
-                          <img src="../../dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                          <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                              Brad Diesel
-                              <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                            </h3>
-                            <p class="text-sm">Call me whenever you can...</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                          </div>
+                            <form action="{{ route('profile.edit') }}" method="get" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="dropdown-item"><i class="fa-regular fa-user"></i> Profile</button>
+                            </form>
                         </div>
-                        <!-- Message End -->
                       </a>
                       <div class="dropdown-divider"></div>
                       <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
                         <div class="media">
                             <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                                 @csrf
-                                <button type="submit" class="dropdown-item">Logout</button>
+                                <button type="submit" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
                             </form>
                         </div>
-                        <!-- Message End -->
                       </a>
                     </div>
                   </li>
                 <!-- Sidebar user panel (optional) -->
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-panel d-flex">
-                            <div class="image">
-                                <img src="{{ asset('storage/' . Auth::user()->profile) }}" class="img-circle elevation-2" alt="Profile Photo">
-                            </div>
-                            <div class="info">
-                                @if (Auth::check())
-                                    <span>{{ Auth::user()->name }}</span>
-                                @endif
-                            </div>
-                        </div>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-
-                        <div class="dropdown-divider"></div>
-                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                            @csrf
-                            <button type="submit" class="dropdown-item">Logout</button>
-                        </form>
-                    </div>
-                </li>
-
                 <li class="nav-item">
                     <div class="theme-switch-wrapper  ">
                         <label class="theme-switch" for="checkbox">
@@ -379,6 +360,9 @@ body.dark-mode thead tr th {
     </script>
     <!-- bs-custom-file-input -->
     <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+    <!-- InputMask -->
+    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('plugins/inputmask/jquery.inputmask.min.js') }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- ChartJS -->
@@ -438,26 +422,29 @@ body.dark-mode thead tr th {
                 rightAlign: false,
                 removeMaskOnSubmit: true
             });
+
             $('#pembelian').inputmask({
-                    alias: 'numeric',
-                    groupSeparator: '.',
-                    autoGroup: true,
-                    digits: 0,
-                    digitsOptional: false,
-                    prefix: 'Rp ',
-                    rightAlign: false,
-                    removeMaskOnSubmit: true
-                });
+                alias: 'numeric',
+                groupSeparator: '.',
+                autoGroup: true,
+                digits: 0,
+                digitsOptional: false,
+                prefix: 'Rp ',
+                rightAlign: false,
+                removeMaskOnSubmit: true
+            });
+
             $('#penjualan').inputmask({
-                    alias: 'numeric',
-                    groupSeparator: '.',
-                    autoGroup: true,
-                    digits: 0,
-                    digitsOptional: false,
-                    prefix: 'Rp ',
-                    rightAlign: false,
-                    removeMaskOnSubmit: true
-                });
+                alias: 'numeric',
+                groupSeparator: '.',
+                autoGroup: true,
+                digits: 0,
+                digitsOptional: false,
+                prefix: 'Rp ',
+                rightAlign: false,
+                removeMaskOnSubmit: true
+            });
+
             $('#biaya').inputmask({
                 alias: 'numeric',
                 groupSeparator: '.',
@@ -481,33 +468,33 @@ body.dark-mode thead tr th {
             });
             // Apply Inputmask for phone number
             $('#telepon').inputmask({
-                    mask: '(99) 999-999-9999',
-                    placeholder: ' ',
-                    showMaskOnHover: false,
-                    showMaskOnFocus: false
-                });
+                mask: '(99) 999-999-9999',
+                placeholder: ' ',
+                showMaskOnHover: false,
+                showMaskOnFocus: false
+            });
         });
 
-        $(function() {
-                $('.select2').select2()
+        $(document).ready(function() {
+            $('.select2').select2()
 
-                $('.select2bs4').select2({
-                    theme: 'bootstrap4'
-                })
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
 
-                $('[data-mask]').inputmask()
+            $('[data-mask]').inputmask()
 
-                $('#awalacara').datetimepicker({
-                    format: 'LT'
-                })
-                $('#akhiracara').datetimepicker({
-                    format: 'LT'
-                })
-                $('#tglliburan').datetimepicker({
-                    format: 'L'
-                });
-                $('#tgljanji').datetimepicker({
-                    format: 'L'
+            $('#awalacara').datetimepicker({
+                format: 'LT'
+            })
+            $('#akhiracara').datetimepicker({
+                format: 'LT'
+            })
+            $('#tglliburan').datetimepicker({
+                format: 'L'
+            });
+            $('#tgljanji').datetimepicker({
+                format: 'L'
             })
         });
     </script>
