@@ -1,4 +1,4 @@
-@extends('doctor.app')
+@extends('template.app')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -79,7 +79,7 @@
                                   <label>Kategori</label>
                                   <select class="select2bs4"  style="width: 100%;"  id="ktbiaya_id" name="ktbiaya_id">
                                     @foreach ($ktbiya as $ktbiya)
-                                    <option value="{{$ktbiya->id}}">{{$ktbiya->nama}}</option>
+                                    <option value="{{$ktbiya>id}}">{{$ktbiya->nama}}</option>
                                     @endforeach
                                   </select>
                                 </div>

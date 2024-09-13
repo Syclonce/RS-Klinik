@@ -1,4 +1,4 @@
-@extends('doctor.app')
+@extends('template.app')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
