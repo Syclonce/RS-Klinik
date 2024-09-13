@@ -1,19 +1,7 @@
 
 <!-- Sidebar -->
  <div class="sidebar">
-    <!-- Sidebar user panel (optional) -->
-    <div class="pb-3 mt-3 mb-3 user-panel d-flex">
-        <div class="image">
-            <img src="{{ asset('storage/' . Auth::user()->profile) }}" class="img-circle elevation-2"
-                alt="Profile Photo">
-        </div>
-        <div class="info">
-            @if (Auth::check())
-                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
-            @endif
-        </div>
-    </div>
-
+    <br>
     <!-- SidebarSearch Form -->
     <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">

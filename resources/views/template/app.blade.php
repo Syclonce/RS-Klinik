@@ -248,6 +248,7 @@ body.dark-mode thead tr th {
         }
 
     </style>
+
 </head>
 
 <body class="layout-fixed">
@@ -265,35 +266,71 @@ body.dark-mode thead tr th {
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <!-- Navbar Search -->
-                <li class="nav-item">
-                    <form action="{{ route('logout') }}" method="POST" style="border: none; padding: 0; margin: 0;">
-                        @csrf
-                        <button type="submit" class="nav-link" style="background: none; border: none;">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                        </button>
-                    </form>
-                </li>
-                <li class="nav-item">
-                    {{-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-secondary active">
-                            <input type="radio" name="options" autocomplete="off" checked>
-                            <i class="fa-regular fa-sun"></i>
-                        </label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="options" autocomplete="off">
-                            <i class="fa-solid fa-moon"></i>
-                        </label>
-                    </div> --}}
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                      <i class="far fa-comments"></i>
+                      <span class="badge badge-danger navbar-badge">3</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                      <a href="#" class="dropdown-item">
+                        <!-- Message Start -->
+                        <div class="media">
+                          <img src="../../dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                          <div class="media-body">
+                            <h3 class="dropdown-item-title">
+                              Brad Diesel
+                              <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                            </h3>
+                            <p class="text-sm">Call me whenever you can...</p>
+                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                          </div>
+                        </div>
+                        <!-- Message End -->
+                      </a>
+                      <div class="dropdown-divider"></div>
+                      <a href="#" class="dropdown-item">
+                        <!-- Message Start -->
+                        <div class="media">
+                            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="dropdown-item">Logout</button>
+                            </form>
+                        </div>
+                        <!-- Message End -->
+                      </a>
+                    </div>
+                  </li>
+                <!-- Sidebar user panel (optional) -->
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="user-panel d-flex">
+                            <div class="image">
+                                <img src="{{ asset('storage/' . Auth::user()->profile) }}" class="img-circle elevation-2" alt="Profile Photo">
+                            </div>
+                            <div class="info">
+                                @if (Auth::check())
+                                    <span>{{ Auth::user()->name }}</span>
+                                @endif
+                            </div>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 
+                        <div class="dropdown-divider"></div>
+                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                            @csrf
+                            <button type="submit" class="dropdown-item">Logout</button>
+                        </form>
+                    </div>
+                </li>
+
+                <li class="nav-item">
                     <div class="theme-switch-wrapper  ">
                         <label class="theme-switch" for="checkbox">
                             <input type="checkbox" id="checkbox">
                             <span class="slider round"></span>
                         </label>
                     </div>
-
-
                 </li>
             </ul>
         </nav>
