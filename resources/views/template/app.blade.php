@@ -224,6 +224,30 @@ body.dark-mode thead tr th {
 
 
     </style>
+
+    <style>
+
+        /* Warna default untuk light mode */
+        .nav-link .fa-bars {
+            color: #333;  /* Warna ikon saat di light mode (gelap) */
+        }
+
+        /* Warna di dark mode */
+        .dark-mode .nav-link .fa-bars {
+            color: #fff;  /* Warna ikon saat di dark mode (putih) */
+        }
+
+        /* Warna default untuk light mode */
+        .nav-item .fa-arrow-right-from-bracket {
+            color: #333;  /* Warna ikon saat di light mode (gelap) */
+        }
+
+        /* Warna di dark mode */
+        .dark-mode .nav-item .fa-arrow-right-from-bracket {
+            color: #fff;  /* Warna ikon saat di dark mode (putih) */
+        }
+
+    </style>
 </head>
 
 <body class="layout-fixed">
