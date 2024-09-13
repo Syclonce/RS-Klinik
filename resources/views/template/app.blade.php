@@ -49,14 +49,6 @@
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.css') }}">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@6.14.1/ol.css">
-    <style>
-        #map {
-            width: 100%;
-            height: 500px;
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/ol@6.14.1/dist/ol.js"></script>
     <style>
         .status-select-container {
             position: relative;
@@ -222,6 +214,16 @@
             border-radius: 50%;
         }
     </style>
+
+    <style>
+        /* Custom CSS to style thead in dark mode */
+body.dark-mode thead tr th {
+    background-color: #343a40; /* Dark background for thead */
+    color: #ffffff; /* White text for thead */
+}
+
+
+    </style>
 </head>
 
 <body class="layout-fixed">
@@ -366,8 +368,97 @@
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <!-- Toastr -->
     <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('dist/js/demo.js')}}"></script>
 
     <!-- Page specific script -->
+
+    <script>
+        $(document).ready(function() {
+            // Apply Inputmask
+            $('#harga').inputmask({
+                alias: 'numeric',
+                groupSeparator: '.',
+                autoGroup: true,
+                digits: 0,
+                digitsOptional: false,
+                prefix: 'Rp ',
+                rightAlign: false,
+                removeMaskOnSubmit: true
+            });
+            $('#pembelian').inputmask({
+                    alias: 'numeric',
+                    groupSeparator: '.',
+                    autoGroup: true,
+                    digits: 0,
+                    digitsOptional: false,
+                    prefix: 'Rp ',
+                    rightAlign: false,
+                    removeMaskOnSubmit: true
+                });
+            $('#penjualan').inputmask({
+                    alias: 'numeric',
+                    groupSeparator: '.',
+                    autoGroup: true,
+                    digits: 0,
+                    digitsOptional: false,
+                    prefix: 'Rp ',
+                    rightAlign: false,
+                    removeMaskOnSubmit: true
+                });
+            $('#biaya').inputmask({
+                alias: 'numeric',
+                groupSeparator: '.',
+                autoGroup: true,
+                digits: 0,
+                digitsOptional: false,
+                prefix: 'Rp ',
+                rightAlign: false,
+                removeMaskOnSubmit: true
+            });
+
+            $('#deposit').inputmask({
+                alias: 'numeric',
+                groupSeparator: '.',
+                autoGroup: true,
+                digits: 0,
+                digitsOptional: false,
+                prefix: 'Rp ',
+                rightAlign: false,
+                removeMaskOnSubmit: true
+            });
+            // Apply Inputmask for phone number
+            $('#telepon').inputmask({
+                    mask: '(99) 999-999-9999',
+                    placeholder: ' ',
+                    showMaskOnHover: false,
+                    showMaskOnFocus: false
+                });
+        });
+
+        $(function() {
+                $('.select2').select2()
+
+                $('.select2bs4').select2({
+                    theme: 'bootstrap4'
+                })
+
+                $('[data-mask]').inputmask()
+
+                $('#awalacara').datetimepicker({
+                    format: 'LT'
+                })
+                $('#akhiracara').datetimepicker({
+                    format: 'LT'
+                })
+                $('#tglliburan').datetimepicker({
+                    format: 'L'
+                });
+                $('#tgljanji').datetimepicker({
+                    format: 'L'
+            })
+        });
+    </script>
+
     <script>
         const Toast = Swal.mixin({
             toast: true,

@@ -1,4 +1,4 @@
-@extends('doctor.app')
+@extends('template.app')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -30,6 +30,7 @@
                                             <th>Spesialis</th>
                                             <th>Telepon</th>
                                             <th>Email</th>
+                                            <th width="20%">Pilihan</th>
                                             <th width="20%">Pilihan</th>
                                         </tr>
                                     </thead>
@@ -139,24 +140,30 @@
             </div>
         </div>
     </div>
-
     <script>
         $(document).ready(function() {
-            $("#doctortbl").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-                "buttons": false,
-                "lengthChange": true, // Corrected: Removed conflicting lengthChange option
-                "language": {
-                    "lengthMenu": "Tampil  _MENU_",
-                    "info": "Menampilkan _START_ - _END_ dari _TOTAL_ entri",
-                    "search": "Cari :",
-                    "paginate": {
-                        "previous": "Sebelumnya",
-                        "next": "Berikutnya"
-                    }
-                }
-            });
-        });
+    $("#doctortbl").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paging": true,
+        "lengthChange": true,
+        "buttons": [
+            "csv",
+            "excel",
+            "pdf",
+            "print"
+        ],
+        "language": {
+            "lengthMenu": "Tampil  _MENU_",
+            "info": "Menampilkan _START_ - _END_ dari _TOTAL_ entri",
+            "search": "Cari :",
+            "paginate": {
+                "previous": "Sebelumnya",
+                "next": "Berikutnya"
+            }
+        }
+    }).buttons().container().appendTo('#doctortbl_wrapper .col-md-6:eq(0)');
+});
+
     </script>
 @endsection
