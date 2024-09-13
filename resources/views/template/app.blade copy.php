@@ -43,6 +43,7 @@
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.css') }}">
+    <script rel="stylesheet" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@6.14.1/ol.css">
     <style>
@@ -218,55 +219,45 @@
     </style>
 </head>
 
-<body class="control-sidebar-slide-open layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                    <i class="fas fa-th-large"></i>
-                    </a>
-                </li>
             </ul>
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
-                <li class="nav-item">
-                    <form action="{{ route('logout') }}" method="POST" style="border: none; padding: 0; margin: 0;">
-                        @csrf
-                        <button type="submit" class="nav-link" style="background: none; border: none;">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fas fa-fw fa-power-off"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <button type="submit" class="dropdown-item" onclick="window.location.href='{{ route('profile.edit') }}'">
+                            <i class="fas fa-user"></i> Profile
                         </button>
-                    </form>
-                </li>
-                <li class="nav-item">
-                    {{-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-secondary active">
-                            <input type="radio" name="options" autocomplete="off" checked>
-                            <i class="fa-regular fa-sun"></i>
-                        </label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="options" autocomplete="off">
-                            <i class="fa-solid fa-moon"></i>
-                        </label>
-                    </div> --}}
-
-                    <div class="theme-switch-wrapper  ">
-                        <label class="theme-switch" for="checkbox">
-                            <input type="checkbox" id="checkbox">
-                            <span class="slider round"></span>
-                        </label>
+                        <div class="dropdown-divider"></div>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="dropdown-item">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                            </button>
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <div class="theme-switch-wrapper">
+                            <label class="theme-switch" for="checkbox">
+                                <input type="checkbox" id="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
                     </div>
-
-
                 </li>
             </ul>
         </nav>
@@ -274,7 +265,7 @@
 
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar elevation-4 sidebar-no-expand sidebar-light-info ">
+        <aside class="main-sidebar sidebar-light-lightblue elevation-4">
             <!-- Brand Logo -->
             @php
                 // Mengambil data menggunakan model Webset
@@ -365,83 +356,12 @@
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <!-- Toastr -->
     <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
-    <script src="{{ asset('dist/js/demo.js') }}"></script>
 
 
 
 
     <!-- Page specific script -->
     <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": false,
-                "lengthChange": true,
-                "language": {
-                    "lengthMenu": "Tampil  _MENU_",
-                    "info": "Menampilkan _START_ - _END_ dari _TOTAL_ entri",
-                    "search": "Cari :", // Custom text for the search input
-                    "paginate": {
-                        "previous": "Sebelumnya", // Custom text for the previous button
-                        "next": "Berikutnya" // Custom text for the next button
-                    }
-                }
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
-            $("#example2").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": false,
-                "lengthChange": false,
-                "bPaginate": false,
-                "bInfo": false,
-                "language": {
-                    "search": "Cari :", // Custom text for the search input
-                }
-            }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
-
-            $("#example4").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": false,
-                "lengthChange": false,
-                "bPaginate": false,
-                "bInfo": false,
-                "language": {
-                    "search": "Cari :", // Custom text for the search input
-                }
-            }).buttons().container().appendTo('#example4_wrapper .col-md-6:eq(0)');
-
-            $("#example3").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": false,
-                "lengthChange": false,
-                "bPaginate": false,
-                "bInfo": false,
-                "language": {
-                    "search": "Cari :", // Custom text for the search input
-                }
-            }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
-
-            $("#example5").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": false,
-                "lengthChange": false,
-                "bPaginate": false,
-                "bInfo": false,
-                "language": {
-                    "search": "Cari :", // Custom text for the search input
-                }
-            }).buttons().container().appendTo('#example5_wrapper .col-md-6:eq(0)');
-        });
 
 
         const Toast = Swal.mixin({
@@ -467,18 +387,6 @@
                     title: "{{ session('error') }}"
                 });
             }
-            if ("{{ session('status') === 'profile-updated' }}") {
-                Toast.fire({
-                    icon: 'success',
-                    title: "{{ session('success') }}"
-                });
-            }
-        });
-
-        $(function() {
-            $('#tahunBuat, #tanggalPajak, #tanggalStnk').datetimepicker({
-                format: 'L'
-            });
         });
 
         // Menerapkan preferensi dark mode saat halaman dimuat
@@ -491,14 +399,14 @@
             if (!darkMode) {
                 $('body').removeClass('dark-mode');
                 $('.navbar').removeClass('dark-mode'); // Menghapus tema gelap dari navbar
-                $('.main-sidebar').removeClass(
-                    'sidebar-dark-lightblue dark-mode'); // Menghapus tema gelap dari sidebar
+                // $('.main-sidebar').removeClass(
+                    // 'sidebar-dark-indigo'); // Menghapus tema gelap dari sidebar
             } else if (darkMode === 'enabled') {
                 // Jika preferensi tema adalah mode gelap, aktifkan mode gelap
                 $('body').addClass('dark-mode');
-                $('.navbar').addClass('dark-mode'); // Menambahkan tema gelap ke navbar
-                $('.main-sidebar').addClass(
-                    'sidebar-dark-lightblue dark-mode'); // Menambahkan tema gelap ke sidebar
+                 $('.navbar').addClass('dark-mode'); // Menambahkan tema gelap ke navbar
+                // $('.main-sidebar').addClass(
+                    // 'sidebar-dark-indigo '); // Menambahkan tema gelap ke sidebar
                 $('#checkbox').prop('checked', true);
             }
 
@@ -514,22 +422,23 @@
                 if ($(this).is(':checked')) {
                     $('body').addClass('dark-mode');
                     $('.navbar').addClass('dark-mode'); // Menambahkan tema gelap ke navbar
-                    $('.main-sidebar').addClass(
-                        'sidebar-dark-lightblue dark-mode'); // Menambahkan tema gelap ke sidebar
+                    // $('.main-sidebar').addClass(
+                        // 'sidebar-dark-indigo'); // Menambahkan tema gelap ke sidebar
                     localStorage.setItem('darkMode',
                         'enabled'); // Menyimpan preferensi dark mode pada local storage
                 } else {
                     $('body').removeClass('dark-mode');
-                    $('.navbar').removeClass('dark-mode'); // Menghapus tema gelap dari navbar
-                    $('.main-sidebar').removeClass(
-                        'sidebar-dark-lightblue dark-mode'); // Menghapus tema gelap dari sidebar
+                     $('.navbar').removeClass('dark-mode'); // Menghapus tema gelap dari navbar
+                    // $('.main-sidebar').removeClass(
+                        // 'sidebar-dark-indigo'); // Menghapus tema gelap dari sidebar
                     localStorage.setItem('darkMode',
                         'disabled'); // Menyimpan preferensi light mode pada local storage
                 }
             });
         });
-
     </script>
+
+
 </body>
 
 </html>

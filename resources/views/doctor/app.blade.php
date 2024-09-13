@@ -277,7 +277,7 @@
 
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-light-lightblue elevation-4">
+        <aside class="main-sidebar elevation-4 sidebar-no-expand sidebar-light-info ">
             <!-- Brand Logo -->
             @php
                 // Mengambil data menggunakan model Webset
