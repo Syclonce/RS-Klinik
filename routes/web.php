@@ -99,7 +99,7 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::post('/finance/biaya/add', [FinecController::class, 'biayaadd'])->name('finance.biaya.add');
 
     Route::get('/janji', [JanjiController::class, 'index'])->name('janji');
-    Route::get('/janji/get-slots', [JanjiController::class, 'getAvailableSlots'])->name('janji.anvalibel');
+    Route::get('/janji/available-slots', [JanjiController::class, 'getAvailableSlots'])->name('janji.anvalibel');
     Route::get('/janji/get-visit-descriptions/{id}', [JanjiController::class, 'getVisitDescriptions'])->name('janji.visit');
 
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');

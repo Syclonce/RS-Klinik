@@ -154,45 +154,41 @@
             </div>
         </div>
     </div>
+
     <script>
-       $(document).ready(function() {
-            $('#dokter').change(function() {
-                let dokterId = $(this).val();
-                let tanggal = $('#tanggal').val();
-                if (dokterId && tanggal) {
-                    updateAvailableSlots(dokterId, tanggal);
+        $(document).ready(function(){
+    $('#dokter, #tgljanji').on('change', function(){
+        var dokter = $('#dokter').val();
+        var tanggal = $('#tanggal').val();
+        console.log('dokter:', dokter);
+        console.log('tanggal:', tanggal);
+        if (dokter && tanggal) {
+            // Send the AJAX request using GET method
+            $.ajax({
+                type: 'GET',
+                url: '/janji/available-slots', // Replace with your desired URL
+                data: {
+                    'dokter': dokter,
+                    'tanggal': tanggal
+                },
+
+                success: function(data) {
+                    console.log('Available slots:', data);
+
+                    // Update the available slots select box
+                    $('#available_slots').empty();
+                    $.each(data, function(index, slot) {
+                        $('#available_slots').append('<option value="' + slot.id + '">' + slot.awal + '-' + slot.akhir + '</option>');
+                    });
+                },
+                error: function(xhr, status, error) {
+                    // Display a user-friendly error message
+                    alert('Error: ' + error);
                 }
             });
-
-            $('#tanggal').on('change.datetimepicker', function() {
-                let dokterId = $('#dokter').val();
-                let tanggal = $(this).val();
-                if (dokterId && tanggal) {
-                    updateAvailableSlots(dokterId, tanggal);
-                }
-            });
-
-
-            function updateAvailableSlots(dokterId, tanggal) {
-        $.ajax({
-            url: '/janji/get-slots',
-            method: 'GET',
-            data: {
-                dokter_id: dokterId,
-                tanggal: tanggal
-            },
-            console.log(data);
-            success: function(response) {
-                let options = '<option value="">Pilih Slot</option>';
-                $.each(response.slots, function(index, slot) {
-                    options += `<option value="${slot.id}">${slot.slot_time}</option>`;
-                });
-                $('#available_slots').html(options);
-            }
-        });
-    }
+        }
+    });
 });
-
     </script>
     <script>
         $(document).ready(function() {

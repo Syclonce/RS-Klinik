@@ -10,6 +10,7 @@ use App\Models\liburan;
 use App\Http\Controllers\Controller;
 use App\Models\doctor_visit;
 use App\Models\schedule;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -38,21 +39,26 @@ class JanjiController extends Controller
     ]);
 
     }
+
     public function getAvailableSlots(Request $request)
     {
-        $dokterId = $request->input('dokter_id');
+
+        $dokter = $request->input('dokter');
         $tanggal = $request->input('tanggal');
+        // Parse the date string to a Carbon instance
+        $date = Carbon::parse($tanggal);
 
-        // Convert tanggal to day of the week (1 = Monday, 2 = Tuesday, ..., 7 = Sunday)
-        $dayOfWeek = date('N', strtotime($tanggal));
+        // Get the day of the week (1 = Monday, 2 = Tuesday, ..., 7 = Sunday)
+        $dayOfWeek = $date->dayOfWeek;
 
-        // Query to get available slots based on dokter_id and dayOfWeek
-        $slots = schedule::where('dokter_id', $dokterId)
-                     ->where('hari', $dayOfWeek)
-                     ->whereDate('available_date', $tanggal)
-                     ->get();
+        // Retrieve available slots from the database
+        $availableSlots = schedule::where('doctor_id', $dokter)
+            ->where('hari', $dayOfWeek) // filter by day of week
+            ->get();
 
-        dd($slots);
+        // Return the available slots as JSON
+        return response()->json($availableSlots);
     }
+
 
 }
