@@ -8,6 +8,9 @@ use App\Models\doctor;
 use App\Models\pasien;
 use App\Models\seks;
 use App\Models\goldar;
+use App\Models\suku;
+use App\Models\bangsa;
+use App\Models\bahasa;
 use App\Models\setweb;
 use App\Models\User;
 use App\Models\Provinsi;
@@ -146,5 +149,62 @@ class PatientController extends Controller
         $desa = Desa::where('kode_kecamatan', $kodeKecamatan)->get();
 
         return response()->json($desa); // Return desa as JSON
+    }
+
+    public function suku()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Patient";
+        $suku = suku::all();
+        return view('patient.suku', compact('title','suku'));
+    }
+
+    public function sukuadd(Request $request)
+    {
+        $data = $request->validate([
+            "nama_suku" => 'required',
+        ]);
+
+        suku::create($data);
+
+        return redirect()->route('patient.suku')->with('success', 'suku berhasil di tambahkan');
+    }
+
+    public function bangsa()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Patient";
+        $bangsa = bangsa::all();
+        return view('patient.bangsa', compact('title','bangsa'));
+    }
+
+    public function bangsaadd(Request $request)
+    {
+        $data = $request->validate([
+            "nama_bangsa" => 'required',
+        ]);
+
+        bangsa::create($data);
+
+        return redirect()->route('patient.bangsa')->with('success', 'bangsa berhasil di tambahkan');
+    }
+
+    public function bahasa()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Patient";
+        $bahasa = bahasa::all();
+        return view('patient.bahasa', compact('title','bahasa'));
+    }
+
+    public function bahasaadd(Request $request)
+    {
+        $data = $request->validate([
+            "bahasa" => 'required',
+        ]);
+
+        bahasa::create($data);
+
+        return redirect()->route('patient.bahasa')->with('success', 'bahasa berhasil di tambahkan');
     }
 }

@@ -84,6 +84,24 @@
                       <p>Tambah goldar</p>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="{{ route('patient.suku') }}" class="nav-link {{ \Route::is('patient.suku') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
+                      <p>Tambah Suku</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('patient.bangsa') }}" class="nav-link {{ \Route::is('patient.bangsa') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
+                      <p>Tambah Bangsa</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('patient.bahasa') }}" class="nav-link {{ \Route::is('patient.bahasa') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
+                      <p>Tambah Bahasa</p>
+                    </a>
+                  </li>
                 </ul>
             </li>
 

@@ -32,12 +32,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-    Route::get('/getAccessToken', [SatusehatController::class, 'getAccessToken'])->name('getAccessToken');
-    Route::get('/getAccessToken/{nik}', [SatusehatController::class, 'getPatientByNik'])->name('getPatientByNik');
+    // Route::get('/getAccessToken', [SatusehatController::class, 'getAccessToken'])->name('getAccessToken');
+    // Route::get('/getAccessToken/{nik}', [SatusehatController::class, 'getPatientByNik'])->name('getPatientByNik');
+    // Route::get('/decompress', [SatusehatController::class, 'decompress'])->name('decompress');
+    // Route::get('/generateHeaders', [SatusehatController::class, 'generateHeaders'])->name('generateHeaders');
 
-    Route::get('/generateHeaders', [SatusehatController::class, 'generateHeaders'])->name('generateHeaders');
+
     Route::get('/jenisKartu/{jenisKartu}', [SatusehatController::class, 'jenisKartu'])->name('jenisKartu');
-    Route::get('/decompress', [SatusehatController::class, 'decompress'])->name('decompress');
 });
 
 
@@ -67,6 +68,15 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/patient/goldar', [PatientController::class, 'goldar'])->name('patient.goldar');
     Route::post('/patient/goldar/add', [PatientController::class, 'goldaradd'])->name('patient.goldar.add');
+
+    Route::get('/patient/suku', [PatientController::class, 'suku'])->name('patient.suku');
+    Route::post('/patient/suku/add', [PatientController::class, 'sukuadd'])->name('patient.suku.add');
+
+    Route::get('/patient/bangsa', [PatientController::class, 'bangsa'])->name('patient.bangsa');
+    Route::post('/patient/bangsa/add', [PatientController::class, 'bangsaadd'])->name('patient.bangsa.add');
+
+    Route::get('/patient/bahasa', [PatientController::class, 'bahasa'])->name('patient.bahasa');
+    Route::post('/patient/bahasa/add', [PatientController::class, 'bahasaadd'])->name('patient.bahasa.add');
 
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule');
     Route::post('/schedule/add', [ScheduleController::class, 'scheduleadd'])->name('schedule.add');
