@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             SetwebSeeder::class,
             RoleRedirectsSeeder::class,
+            ProvinsiSeeder::class,
+            kabupatenSeeder::class,
+            KecamatanSeeder::class,
+            DesaSeeder::class,
         ]);
     }
 }

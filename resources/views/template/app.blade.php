@@ -216,23 +216,54 @@
     </style>
 
     <style>
-        /* Custom CSS to style thead in dark mode */
-body.dark-mode thead tr th {
-    background-color: #343a40; /* Dark background for thead */
-    color: #ffffff; /* White text for thead */
-}
+                /* Custom CSS to style thead in dark mode */
+        body.dark-mode thead tr th {
+            background-color: #343a40; /* Dark background for thead */
+            color: #ffffff; /* White text for thead */
+        }
 
 
-.profile-name {
-    font-size: 1.0rem; /* Increase font size */
-    color: #000; /* Default text color */
-}
+        .profile-name {
+            font-size: 1.0rem; /* Increase font size */
+            color: #000; /* Default text color */
+        }
 
-/* Dark mode style */
-body.dark-mode .profile-name {
-    color: #fff; /* White color for dark mode */
-}
+        /* Dark mode style */
+        body.dark-mode .profile-name {
+            color: #fff; /* White color for dark mode */
+        }
+    </style>
 
+    <style>
+        /* CSS untuk select2 di mode dark */
+        body.dark-mode .select2-container--bootstrap4 .select2-selection {
+            background-color: #343a40;
+            color: #fff;
+            border-color: #6c757d;
+        }
+
+        body.dark-mode .select2-container--bootstrap4 .select2-selection__rendered {
+            color: #fff;
+        }
+
+        body.dark-mode .select2-container--bootstrap4 .select2-selection__arrow b {
+            border-color: #fff transparent transparent transparent;
+        }
+
+        /* Dropdown select2 */
+        body.dark-mode .select2-container--bootstrap4 .select2-dropdown {
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        body.dark-mode .select2-container--bootstrap4 .select2-results__option {
+            color: #fff;
+        }
+
+        body.dark-mode .select2-container--bootstrap4 .select2-results__option--highlighted {
+            background-color: #343a40;
+            color: #fff;
+        }
     </style>
 
     <style>

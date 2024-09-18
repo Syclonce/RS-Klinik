@@ -15,6 +15,7 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\websetController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\UpdateController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+    Route::get('/getAccessToken', [SatusehatController::class, 'getAccessToken'])->name('getAccessToken');
+    Route::get('/getAccessToken/{nik}', [SatusehatController::class, 'getPatientByNik'])->name('getPatientByNik');
+
+    Route::get('/generateHeaders', [SatusehatController::class, 'generateHeaders'])->name('generateHeaders');
+    Route::get('/jenisKartu/{jenisKartu}', [SatusehatController::class, 'jenisKartu'])->name('jenisKartu');
+    Route::get('/decompress', [SatusehatController::class, 'decompress'])->name('decompress');
 });
 
 
@@ -47,6 +56,10 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::post('/doctor/visit', [DoctorController::class, 'visitdocteradd'])->name('doctor.visit.add');
 
     Route::get('/patient', [PatientController::class, 'index'])->name('patient');
+    Route::get('/patient/generate-nomor-rm', [PatientController::class, 'generate'])->name('patient.generate');
+    Route::get('/get-kabupaten', [PatientController::class, 'getKabupaten'])->name('wilayah.getKabupaten');
+    Route::get('/get-kecamatan', [PatientController::class, 'getKecamatan'])->name('wilayah.getKecamatan');
+    Route::get('/get-desa', [PatientController::class, 'getDesa'])->name('wilayah.getDesa');
     Route::post('/patient/add', [PatientController::class, 'patientadd'])->name('patient.add');
 
     Route::get('/patient/seks', [PatientController::class, 'seks'])->name('patient.seks');

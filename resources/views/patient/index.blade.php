@@ -70,7 +70,7 @@
 
     <div class="modal fade" id="adddoctor" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addModalLabel">Tambah Dokter</h5>
@@ -82,64 +82,121 @@
                     <form id="addFormpermesion" action="{{ route('patient.add') }}" method="POST">
                         @csrf
                         <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Nomor RM</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="nomor_rm" name="nomor_rm" placeholder="Enter or generate Nomor RM" disabled>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary" onclick="generateNomorRM()">Generate</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>NIK</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="nomor_rm" name="nomor_rm">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary" onclick="()">Cek SatuSehat</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>IHS Pasien</label>
+                                    <input type="text" class="form-control" id="kode_IHS" name="kode_IHS" disabled>
+                                </div>
+                            </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Nama </label>
                                     <input type="text" class="form-control" id="nama" name="nama">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label>Username </label>
-                                    <input type="text" class="form-control" id="username" name="username">
+                                    <label>Tempat Lahir</label>
+                                    <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label>Email </label>
-                                    <input type="Email" class="form-control" id="email" name="email">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Password </label>
-                                    <input type="password" class="form-control" id="password" name="password" autocomplete >
+                                    <label>Tanggal Lahir</label>
+                                    <div class="input-group">
+                                      <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask id="tanggal_lahir" name="tanggal_lahir">
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Alamat </label>
-                                    <input type="text" class="form-control" id="Alamat" name="Alamat">
+                                    <input type="text" class="form-control" placeholder="Alamat" id="Alamat" name="Alamat">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-sm-1">
                                 <div class="form-group">
-                                    <label>Tanggal Lahir</label>
-                                    <div class="input-group">
-                                      <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask id="tgl" name="tgl">
-                                    </div>
-                                    <!-- /.input group -->
-                                  </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Telepon  </label>
-                                    <input type="text" class="form-control" id="telepon" name="telepon">
+                                    <label>RT </label>
+                                    <input type="text" class="form-control" placeholder="001" id="rt" name="rt">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-sm-1">
                                 <div class="form-group">
-                                  <label>Nama Dokter</label>
-                                  <select class="form-control select2bs4"  style="width: 100%;"  id="dokter" name="dokter">
-                                    @foreach ($docter as $docter)
-                                    <option value="{{$docter->id}}">{{$docter->nama}}</option>
-                                    @endforeach
-                                  </select>
+                                    <label>RW </label>
+                                    <input type="text" class="form-control" placeholder="002" id="rw" name="rw">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-sm-1">
                                 <div class="form-group">
-                                    <label>Seks </label>
+                                    <label>Kode Pos </label>
+                                    <input type="text" class="form-control" id="kode_pos" name="kode_pos">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Kewarganegaraan </label>
+                                    <select class="form-control select2bs4" style="width: 100%;" id="agama" name="agama">
+                                        <option value="wni">Warga Negara Indonesia</option>
+                                        <option value="wna">Warga Negara Asing</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <select class="form-control select2bs4"  style="width: 100%;"  id="provinsi" name="provinsi">
+                                        <option value="" disabled selected>Provinsi</option>
+                                        @foreach ($provinsi as $provinsi)
+                                        <option value="{{$provinsi->kode}}">{{$provinsi->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <select class="form-control select2bs4"  style="width: 100%;"  id="kota_kabupaten" name="kota_kabupaten">
+                                        <option value="" disabled selected>Kota/Kabupaten</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <select class="form-control select2bs4"  style="width: 100%;"  id="kecamatan" name="kecamatan">
+                                        <option value="" disabled selected>Kecamatan</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <select class="form-control select2bs4" style="width: 100%;" id="desa" name="desa">
+                                        <option value="" disabled selected>Desa/Kelurahan</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Jenis Kelamin </label>
                                     <select class="form-control select2bs4"  style="width: 100%;"  id="seks" name="seks">
                                         @foreach ($seks as $seks)
                                         <option value="{{$seks->kode}}">{{$seks->nama}}</option>
@@ -147,7 +204,34 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Agama </label>
+                                    <select class="form-control select2bs4" style="width: 100%;" id="agama" name="agama">
+                                        <option value="islam">Islam</option>
+                                        <option value="katolik">Kristen Katolik</option>
+                                        <option value="protestan">Kristen Protestan</option>
+                                        <option value="hindu">Hindu</option>
+                                        <option value="buddha">Buddha</option>
+                                        <option value="khonghucu">Khonghucu</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Pendidikan </label>
+                                    <select class="form-control select2bs4" style="width: 100%;" id="pendidikan" name="pendidikan">
+                                        <option value="sd">SD</option>
+                                        <option value="smp">SMP</option>
+                                        <option value="sma">SMA</option>
+                                        <option value="diploma">Diploma</option>
+                                        <option value="s1">Sarjana</option>
+                                        <option value="s2">Magister</option>
+                                        <option value="s3">Doctoral Degree</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Golongan Darah </label>
                                     <select class="form-control select2bs4"  style="width: 100%;"  id="goldar" name="goldar">
@@ -157,7 +241,39 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Status Pernikahan </label>
+                                    <select class="form-control select2bs4" style="width: 100%;" id="pernikahan" name="pernikahan">
+                                        <option value="menikah">Menikah</option>
+                                        <option value="belum_nikah">Belum Menikah</option>
+                                        <option value="cerai_hidup">Cerai Hidup</option>
+                                        <option value="cerai_mati">Cerai Mati</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Pekerjaan </label>
+                                    <select class="form-control select2bs4" style="width: 100%;" id="pekerjaan" name="pekerjaan">
+                                        <option value="wirausaha">Wirausaha</option>
+                                        <option value="tidak_bekerja">Tidak Bekerja</option>
+                                        <option value="pns">PNS</option>
+                                        <option value="tni_polri">TNI/Polri</option>
+                                        <option value="bumn">BUMN</option>
+                                        <option value="swasta">Pegawai Swasta</option>
+                                        <option value="lain_lain">Lain - lain</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Telepon  </label>
+                                    <input type="text" class="form-control" id="telepon" name="telepon">
+                                </div>
+                            </div>
                         </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -167,7 +283,94 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            // Trigger change event when user selects a provinsi
+            $('#provinsi').on('change', function() {
+                var kodeProvinsi = $(this).val();
 
+                // Clear previous options in kota_kabupaten, kecamatan, and desa select boxes
+                $('#kota_kabupaten').empty().append('<option value="" disabled selected>Kota/Kabupaten</option>');
+                $('#kecamatan').empty().append('<option value="" disabled selected>Kecamatan</option>');
+                $('#desa').empty().append('<option value="" disabled selected>Desa</option>');
+
+                if (kodeProvinsi) {
+                    $.ajax({
+                        url: '{{ route("wilayah.getKabupaten") }}', // Route to fetch kabupaten
+                        type: 'GET',
+                        data: { kode_provinsi: kodeProvinsi },
+                        success: function(response) {
+                            $.each(response, function(index, kabupaten) {
+                                $('#kota_kabupaten').append('<option value="' + kabupaten.kode + '">' + kabupaten.name + '</option>');
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error fetching kabupaten:', error);
+                        }
+                    });
+                }
+            });
+
+            // Trigger change event when user selects a kabupaten
+            $('#kota_kabupaten').on('change', function() {
+                var kodeKabupaten = $(this).val();
+
+                // Clear previous options in kecamatan and desa select boxes
+                $('#kecamatan').empty().append('<option value="" disabled selected>Kecamatan</option>');
+                $('#desa').empty().append('<option value="" disabled selected>Desa</option>');
+
+                if (kodeKabupaten) {
+                    $.ajax({
+                        url: '{{ route("wilayah.getKecamatan") }}', // Route to fetch kecamatan
+                        type: 'GET',
+                        data: { kode_kabupaten: kodeKabupaten },
+                        success: function(response) {
+                            $.each(response, function(index, kecamatan) {
+                                $('#kecamatan').append('<option value="' + kecamatan.kode + '">' + kecamatan.name + '</option>');
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error fetching kecamatan:', error);
+                        }
+                    });
+                }
+            });
+
+            // Trigger change event when user selects a kecamatan
+            $('#kecamatan').on('change', function() {
+                var kodeKecamatan = $(this).val();
+
+                // Clear previous options in desa select box
+                $('#desa').empty().append('<option value="" disabled selected>Desa</option>');
+
+                if (kodeKecamatan) {
+                    $.ajax({
+                        url: '{{ route("wilayah.getDesa") }}', // Route to fetch desa
+                        type: 'GET',
+                        data: { kode_kecamatan: kodeKecamatan },
+                        success: function(response) {
+                            $.each(response, function(index, desa) {
+                                $('#desa').append('<option value="' + desa.kode + '">' + desa.name + '</option>');
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error fetching desa:', error);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        function generateNomorRM() {
+    fetch('/patient/generate-nomor-rm')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('nomor_rm').value = data.nomor_rm;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    </script>
     <script>
         $(document).ready(function() {
             $("#patienttbl").DataTable({

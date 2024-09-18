@@ -10,6 +10,10 @@ use App\Models\seks;
 use App\Models\goldar;
 use App\Models\setweb;
 use App\Models\User;
+use App\Models\Provinsi;
+use App\Models\Kabupaten;
+use App\Models\Kecamatan;
+use App\Models\Desa;
 use Illuminate\Support\Facades\Hash;
 
 class PatientController extends Controller
@@ -21,8 +25,22 @@ class PatientController extends Controller
         $docter =  doctor::all();
         $seks = seks::all();
         $goldar = goldar::all();
+        $provinsi = Provinsi::all();
         $pasien = pasien::with(['user','doctor','goldar'])->get();
-        return view('patient.index', compact('title','docter','seks','goldar','pasien'));
+        return view('patient.index', compact('title','docter','seks','goldar','pasien','provinsi'));
+    }
+
+    public function generate()
+    {
+        $lastNoRM = Pasien::orderBy('no_rm', 'DESC')->first();
+
+        if ($lastNoRM) {
+            $newNoRM = str_pad($lastNoRM->id + 1, 6, '0', STR_PAD_LEFT);
+        } else {
+            $newNoRM = '000001'; // First Nomor RM if no record exists
+        }
+
+        return response()->json(['nomor_rm' => $newNoRM]);
     }
 
     public function patientadd(Request $request)
@@ -104,5 +122,29 @@ class PatientController extends Controller
         goldar::create($data);
 
         return redirect()->route('patient.goldar')->with('success', 'data golongan darah berhasil di tambahkan');
+    }
+
+    public function getKabupaten(Request $request)
+    {
+        $kodeProvinsi = $request->kode_provinsi;
+        $kabupaten = Kabupaten::where('kode_provinsi', $kodeProvinsi)->get();
+
+        return response()->json($kabupaten); // Return as JSON response
+    }
+
+    public function getKecamatan(Request $request)
+    {
+        $kodeKabupaten = $request->kode_kabupaten;
+        $kecamatan = Kecamatan::where('kode_kabupaten', $kodeKabupaten)->get();
+
+        return response()->json($kecamatan); // Return kecamatan as JSON
+    }
+
+    public function getDesa(Request $request)
+    {
+        $kodeKecamatan = $request->kode_kecamatan;
+        $desa = Desa::where('kode_kecamatan', $kodeKecamatan)->get();
+
+        return response()->json($desa); // Return desa as JSON
     }
 }
