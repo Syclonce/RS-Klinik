@@ -322,18 +322,18 @@
                                         <input type="text" class="form-control" id="cob" name="cob" disabled>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Kode Asuransi</label>
-                                        <input type="text" class="form-control" id="cob" name="cob" disabled>
+                                        <input type="text" class="form-control" id="kd_asuransi" name="kd_asuransi" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label>Nama Asuransi</label>
-                                        <input type="text" class="form-control" id="cob" name="cob" disabled>
+                                        <input type="text" class="form-control" id="nm_asuransi" name="nm_asuransi" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label>Nomor Asuransi</label>
-                                        <input type="text" class="form-control" id="cob" name="cob" disabled>
+                                        <input type="text" class="form-control" id="no_asuransi" name="no_asuransi" disabled>
                                     </div>
                                 </div>
                             </div>

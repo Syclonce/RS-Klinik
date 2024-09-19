@@ -504,6 +504,20 @@
                 showMaskOnHover: false,
                 showMaskOnFocus: false
             });
+
+            $('#telp_cp').inputmask({
+                mask: '(99) 999-999-9999',
+                placeholder: ' ',
+                showMaskOnHover: false,
+                showMaskOnFocus: false
+            });
+
+            $('#hp_cp').inputmask({
+                mask: '(99) 999-999-9999',
+                placeholder: ' ',
+                showMaskOnHover: false,
+                showMaskOnFocus: false
+            });
         });
 
         $(document).ready(function() {
@@ -522,6 +536,12 @@
                 format: 'LT'
             })
             $('#tglliburan').datetimepicker({
+                format: 'L'
+            });
+            $('#penjamin_awal').datetimepicker({
+                format: 'L'
+            });
+            $('#penjamin_akhir').datetimepicker({
                 format: 'L'
             });
             $('#tgljanji').datetimepicker({

@@ -11,6 +11,7 @@ use App\Models\goldar;
 use App\Models\suku;
 use App\Models\bangsa;
 use App\Models\bahasa;
+use App\Models\penjamin;
 use App\Models\setweb;
 use App\Models\User;
 use App\Models\Provinsi;
@@ -85,7 +86,7 @@ class PatientController extends Controller
         $pasien->user_id = $user->id;
         $pasien->save();
 
-        return redirect()->route('patient')->with('success', 'pasien berhasi di tambahkan');
+        return redirect()->route('patient')->with('Success', 'Pasien berhasi di tambahkan');
     }
 
     public function seks()
@@ -105,7 +106,7 @@ class PatientController extends Controller
 
         seks::create($data);
 
-        return redirect()->route('patient.seks')->with('success', 'data seks berhasi di tambahkan');
+        return redirect()->route('patient.seks')->with('Success', 'Data seks berhasi di tambahkan');
     }
 
     public function goldar()
@@ -124,7 +125,7 @@ class PatientController extends Controller
 
         goldar::create($data);
 
-        return redirect()->route('patient.goldar')->with('success', 'data golongan darah berhasil di tambahkan');
+        return redirect()->route('patient.goldar')->with('Success', 'Data golongan darah berhasil di tambahkan');
     }
 
     public function getKabupaten(Request $request)
@@ -154,7 +155,7 @@ class PatientController extends Controller
     public function suku()
     {
         $setweb = setweb::first();
-        $title = $setweb->name_app ." - ". "Patient";
+        $title = $setweb->name_app ." - ". "Tambah Suku";
         $suku = suku::all();
         return view('patient.suku', compact('title','suku'));
     }
@@ -167,13 +168,13 @@ class PatientController extends Controller
 
         suku::create($data);
 
-        return redirect()->route('patient.suku')->with('success', 'suku berhasil di tambahkan');
+        return redirect()->route('patient.suku')->with('Success', 'Suku berhasil di tambahkan');
     }
 
     public function bangsa()
     {
         $setweb = setweb::first();
-        $title = $setweb->name_app ." - ". "Patient";
+        $title = $setweb->name_app ." - ". "Tambah Bangsa";
         $bangsa = bangsa::all();
         return view('patient.bangsa', compact('title','bangsa'));
     }
@@ -186,13 +187,13 @@ class PatientController extends Controller
 
         bangsa::create($data);
 
-        return redirect()->route('patient.bangsa')->with('success', 'bangsa berhasil di tambahkan');
+        return redirect()->route('patient.bangsa')->with('Success', 'Bangsa berhasil di tambahkan');
     }
 
     public function bahasa()
     {
         $setweb = setweb::first();
-        $title = $setweb->name_app ." - ". "Patient";
+        $title = $setweb->name_app ." - ". "Tambah Bahasa";
         $bahasa = bahasa::all();
         return view('patient.bahasa', compact('title','bahasa'));
     }
@@ -205,6 +206,57 @@ class PatientController extends Controller
 
         bahasa::create($data);
 
-        return redirect()->route('patient.bahasa')->with('success', 'bahasa berhasil di tambahkan');
+        return redirect()->route('patient.bahasa')->with('Success', 'Bahasa berhasil di tambahkan');
+    }
+
+    public function penjamin()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Tambah Penjamin";
+        $data = penjamin::all();
+        return view('patient.penjamin', compact('title','data'));
+    }
+
+    public function penjaminadd(Request $request)
+    {
+        $data = $request->validate([
+            "jenis" => 'required',
+            "nama_penjamin" => 'required',
+            "verifikasi" => 'required',
+            "filter" => 'required',
+            "tgl_awal" => 'required',
+            "tgl_akhir" => 'required',
+            "Alamat" => 'required',
+            "telepon" => 'required',
+            "fakes" => 'required',
+            "cp" => 'required',
+            "telp_cp" => 'required',
+            "hp_cp" => 'required',
+            "jabatan_cp" => 'required',
+            "akun_bank" => 'required',
+            "cabang_bank" => 'required',
+            "no_rek" => 'required',
+        ]);
+
+        $jamin = new penjamin();
+        $jamin->jenis = $data['jenis'];
+        $jamin->nama = $data['nama_penjamin'];
+        $jamin->verifikasi = $data['verifikasi'];
+        $jamin->filter = $data['filter'];
+        $jamin->awal = $data['tgl_awal'];
+        $jamin->akhir = $data['tgl_akhir'];
+        $jamin->alamat = $data['Alamat'];
+        $jamin->telepon = $data['telepon'];
+        $jamin->fakes = $data['fakes'];
+        $jamin->contact = $data['cp'];
+        $jamin->telp = $data['telp_cp'];
+        $jamin->hp = $data['hp_cp'];
+        $jamin->jabatan = $data['jabatan_cp'];
+        $jamin->akun = $data['akun_bank'];
+        $jamin->cabang = $data['cabang_bank'];
+        $jamin->rek = $data['no_rek'];
+        $jamin->save();
+
+        return redirect()->route('patient.penjamin')->with('success', 'bahasa berhasil di tambahkan');
     }
 }

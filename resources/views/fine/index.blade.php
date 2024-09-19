@@ -12,7 +12,7 @@
                     <div class="mt-3 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="mb-0 card-title">Dokter</h3>
+                                <h3 class="mb-0 card-title">Pembayaran</h3>
                                 <div class="text-right card-tools">
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#adddoctor">

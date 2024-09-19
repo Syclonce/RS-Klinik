@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/jenisKartu/{jenisKartu}', [SatusehatController::class, 'jenisKartu'])->name('jenisKartu');
+    Route::get('/poli', [SatusehatController::class, 'poli'])->name('poli');
 });
 
 
@@ -77,6 +78,9 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/patient/bahasa', [PatientController::class, 'bahasa'])->name('patient.bahasa');
     Route::post('/patient/bahasa/add', [PatientController::class, 'bahasaadd'])->name('patient.bahasa.add');
+
+    Route::get('/patient/penjamin', [PatientController::class, 'penjamin'])->name('patient.penjamin');
+    Route::post('/patient/penjamin/add', [PatientController::class, 'penjaminadd'])->name('patient.penjamin.add');
 
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule');
     Route::post('/schedule/add', [ScheduleController::class, 'scheduleadd'])->name('schedule.add');

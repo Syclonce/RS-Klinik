@@ -75,13 +75,13 @@
                   <li class="nav-item">
                     <a href="{{ route('patient.seks') }}" class="nav-link {{ \Route::is('patient.seks') ? 'active' : '' }}">
                         <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
-                      <p>Tambah seks</p>
+                      <p>Tambah Seks</p>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('patient.goldar') }}" class="nav-link {{ \Route::is('patient.goldar') ? 'active' : '' }}">
                         <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
-                      <p>Tambah goldar</p>
+                      <p>Tambah Goldar</p>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -100,6 +100,12 @@
                     <a href="{{ route('patient.bahasa') }}" class="nav-link {{ \Route::is('patient.bahasa') ? 'active' : '' }}">
                         <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
                       <p>Tambah Bahasa</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('patient.penjamin') }}" class="nav-link {{ \Route::is('patient.penjamin') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
+                      <p>Tambah Penjamin</p>
                     </a>
                   </li>
                 </ul>

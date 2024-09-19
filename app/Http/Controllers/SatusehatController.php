@@ -75,6 +75,31 @@ class SatusehatController extends Controller
             ]);
     }
 
+    public function poli()
+    {
+        $token = $this->getAccessToken();
+
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer ' . $token
+        ])->get(env('SATUSEHAT_BASE_URL').'/fhir-r4/v1/Location', [
+            "resourceType" => "Location",
+            "identifier" => [
+                [
+                    "system" => "https://sys-ids.kemkes.go.id/location/".env('org_id'),
+                    "value" => "Poli gigi"
+                ]
+            ],
+        ]);
+
+        // Handling the response
+        if ($response->successful()) {
+            return $response->json();
+        } else {
+            return $response->body(); // To get the error response
+        }
+    }
+
 
     public function generateHeaders()
     {
