@@ -57,6 +57,9 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/doctor/visit', [DoctorController::class, 'visitdocter'])->name('doctor.visit');
     Route::post('/doctor/visit', [DoctorController::class, 'visitdocteradd'])->name('doctor.visit.add');
 
+    Route::get('/doctor/poli', [DoctorController::class, 'poli'])->name('doctor.poli');
+    Route::post('/doctor/poli', [DoctorController::class, 'poliadd'])->name('doctor.poli.add');
+
     Route::get('/patient', [PatientController::class, 'index'])->name('patient');
     Route::get('/patient/generate-nomor-rm', [PatientController::class, 'generate'])->name('patient.generate');
     Route::get('/get-kabupaten', [PatientController::class, 'getKabupaten'])->name('wilayah.getKabupaten');

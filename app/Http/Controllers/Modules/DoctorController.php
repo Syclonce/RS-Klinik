@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\doctor;
 use App\Models\doctor_visit;
 use App\Models\spesiali;
+use App\Models\poli;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -106,6 +107,27 @@ class DoctorController extends Controller
         $doctor_visit->save();
 
         return redirect()->route('doctor.visit')->with('success', 'data kunjungan dokter berhasi di tambahkan');
+    }
+
+    public function poli()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Tambah Poli";
+        $data = poli::all();
+        return view('doctor.poli', compact('title','data'));
+    }
+
+    public function poliadd(Request $request)
+    {
+        $data = $request->validate([
+            "nama_poli" => 'required',
+            "deskripsi" => 'required',
+            "status" => 'required',
+        ]);
+
+        poli::create($data);
+
+        return redirect()->route('doctor.poli')->with('Success', 'Bahasa berhasil di tambahkan');
     }
 
 }

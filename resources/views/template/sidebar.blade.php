@@ -54,6 +54,12 @@
                       <p>Kunjungan Dokter</p>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.poli') }}" class="nav-link {{ \Route::is('doctor.poli') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p>Poli</p>
+                    </a>
+                  </li>
                 </ul>
             </li>
 
