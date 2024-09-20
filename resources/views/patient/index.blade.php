@@ -180,6 +180,7 @@
                                     <div class="form-group">
                                         <label>Kewarganegaraan </label>
                                         <select class="form-control select2bs4" style="width: 100%;" id="agama" name="agama">
+                                            <option value="">--- pilih ---</option>
                                             <option value="wni">Warga Negara Indonesia</option>
                                             <option value="wna">Warga Negara Asing</option>
                                         </select>
@@ -218,18 +219,15 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Jenis Kelamin </label>
-                                        <select class="form-control select2bs4"  style="width: 100%;"  id="seks" name="seks">
-                                            @foreach ($seks as $seks)
-                                            <option value="{{$seks->kode}}">{{$seks->nama}}</option>
-                                            @endforeach
-                                        </select>
+                                        <label>Jenis Kelamin</label>
+                                        <input type="text" class="form-control" id="seks" name="seks">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Agama </label>
                                         <select class="form-control select2bs4" style="width: 100%;" id="agama" name="agama">
+                                            <option value="">--- pilih ---</option>
                                             <option value="islam">Islam</option>
                                             <option value="katolik">Kristen Katolik</option>
                                             <option value="protestan">Kristen Protestan</option>
@@ -243,6 +241,7 @@
                                     <div class="form-group">
                                         <label>Pendidikan </label>
                                         <select class="form-control select2bs4" style="width: 100%;" id="pendidikan" name="pendidikan">
+                                            <option value="">--- pilih ---</option>
                                             <option value="sd">SD</option>
                                             <option value="smp">SMP</option>
                                             <option value="sma">SMA</option>
@@ -267,6 +266,7 @@
                                     <div class="form-group">
                                         <label>Status Pernikahan </label>
                                         <select class="form-control select2bs4" style="width: 100%;" id="pernikahan" name="pernikahan">
+                                            <option value="">--- pilih ---</option>
                                             <option value="menikah">Menikah</option>
                                             <option value="belum_nikah">Belum Menikah</option>
                                             <option value="cerai_hidup">Cerai Hidup</option>
@@ -278,6 +278,7 @@
                                     <div class="form-group">
                                         <label>Pekerjaan </label>
                                         <select class="form-control select2bs4" style="width: 100%;" id="pekerjaan" name="pekerjaan">
+                                            <option value="">--- pilih ---</option>
                                             <option value="wirausaha">Wirausaha</option>
                                             <option value="tidak_bekerja">Tidak Bekerja</option>
                                             <option value="pns">PNS</option>
@@ -365,6 +366,17 @@
                 var noHP = datas.noHP || 'Telepon tidak tersedia';
                 var noBPJS = datas.noKartu || 'No BPJS tidak tersedia';
                 var Kadaluarsa = datas.tglAkhirBerlaku || 'Tanggal Akhir Berlaku tidak tersedia';
+                var Sex = datas.sex || 'Goldar tidak tersedia';
+                var Cob = datas.asuransi.cob || 'COB tidak tersedia';
+                var KodeAs = datas.asuransi.kdAsuransi || 'Kode Asuransi tidak tersedia';
+                var NamaAs = datas.asuransi.nmAsuransi || 'Nama Asuransi tidak tersedia';
+                var NoAs = datas.asuransi.noAsuransi || 'No Asuransi tidak tersedia';
+
+                if (Sex === 'L') {
+                    Sex = 'Laki-Laki';
+                } else if (Sex === 'P') {
+                    Sex = 'Perempuan';
+                }
 
                 // Tampilkan hasil ke input IHS dan Nama
                 $('#kode_ihs').val(id);
@@ -373,7 +385,12 @@
                 $('#telepon').val(noHP);
                 $('#no_bpjs').val(noBPJS);
                 $('#tgl_akhir').val(Kadaluarsa);
-            } else if (attempts < 2) {
+                $('#seks').val(Sex);
+                $('#cob').val(Cob);
+                $('#kd_asuransi').val(KodeAs);
+                $('#nm_asuransi').val(NamaAs);
+                $('#no_asuransi').val(NoAs);
+            } else if (attempts < 3) {
                 // Retry if the response data is not as expected
                 cekSatuSehat(attempts + 1);
             } else {
@@ -384,12 +401,17 @@
                 $('#telepon').val('Tidak ditemukan');
                 $('#no_bpjs').val('Tidak ditemukan');
                 $('#tgl_akhir').val('Tidak ditemukan');
+                $('#seks').val('Tidak ditemukan');
+                $('#cob').val('Tidak ditemukan');
+                $('#kd_asuransi').val('Tidak ditemukan');
+                $('#nm_asuransi').val('Tidak ditemukan');
+                $('#no_asuransi').val('Tidak ditemukan');
                 alert('Jaringan BPJS mungkin tidak stabil Silahkan Coba Kembali');
             }
         },
         error: function(xhr, status, error) {
             // Retry if there is an error and attempts are less than 3
-            if (attempts < 2) {
+            if (attempts < 3) {
                 cekSatuSehat(attempts + 1);
             } else {
                 // Handle error case after 3 attempts
@@ -400,14 +422,18 @@
                 $('#telepon').val('Error');
                 $('#no_bpjs').val('Error');
                 $('#tgl_akhir').val('Error');
+                $('#seks').val('Error');
+                $('#cob').val('Error');
+                $('#kd_asuransi').val('Error');
+                $('#nm_asuransi').val('Error');
+                $('#no_asuransi').val('Error');
                 alert('Jaringan BPJS mungkin tidak stabil Silahkan Coba Kembali');
             }
         }
     });
 }
-
-
     </script>
+
     <script>
         $(document).ready(function() {
             // Trigger change event when user selects a provinsi

@@ -10,6 +10,7 @@ use App\Http\Controllers\Modules\JanjiController;
 use App\Http\Controllers\Modules\SumberdayamController;
 use App\Http\Controllers\Modules\ObatController;
 use App\Http\Controllers\Modules\LaporanController;
+use App\Http\Controllers\modules\RegisController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\websetController;
@@ -34,12 +35,14 @@ Route::middleware('auth')->group(function () {
 
     // Route::get('/getAccessToken', [SatusehatController::class, 'getAccessToken'])->name('getAccessToken');
     // Route::get('/getAccessToken/{nik}', [SatusehatController::class, 'getPatientByNik'])->name('getPatientByNik');
-    // Route::get('/decompress', [SatusehatController::class, 'decompress'])->name('decompress');
+    Route::get('/decompress', [SatusehatController::class, 'decompress'])->name('decompress');
     // Route::get('/generateHeaders', [SatusehatController::class, 'generateHeaders'])->name('generateHeaders');
 
 
     Route::get('/jenisKartu/{jenisKartu}', [SatusehatController::class, 'jenisKartu'])->name('jenisKartu');
-    Route::get('/poli', [SatusehatController::class, 'poli'])->name('poli');
+    Route::get('/poli/{namapoli}', [SatusehatController::class, 'poli'])->name('poli');
+    Route::get('/cekstatusconkesi', [SatusehatController::class, 'cekstatus'])->name('cekstatusconkesi');
+
 });
 
 
@@ -154,6 +157,12 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/farmasi/kategori', [FarmasiController::class, 'katgobi'])->name('farmasi.kategori');
     Route::post('/farmasi/kategori/add', [FarmasiController::class, 'katgobiadd'])->name('farmasi.kategori.add');
+
+    Route::get('/regis', [RegisController::class, 'index'])->name('regis');
+
+    Route::get('/regis/rajal', [RegisController::class, 'rajal'])->name('regis.rajal');
+
+    Route::get('/regis/ranap', [RegisController::class, 'ranap'])->name('regis.ranap');
 
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');
     Route::post('setweb/update', [websetController::class, 'updates'])->name('setweb.update');

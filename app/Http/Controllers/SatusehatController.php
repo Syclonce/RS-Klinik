@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use LZCompressor\LZString;
 
+use function Laravel\Prompts\error;
+
 class SatusehatController extends Controller
 {
     public function getAccessToken()
@@ -34,15 +36,15 @@ class SatusehatController extends Controller
         return null; // You could also return an error message or throw an exception
     }
 
-    public function getPatientByNik( $nik )
+    public function getPatientByNik( $jenisKartu )
     {
         // Get NIK from request or fallback to input
-        if ($nik === null) {
-            $nik = $nik;
+        if ($jenisKartu === null) {
+            $jenisKartu = $jenisKartu;
         }
 
         // Check if NIK is provided
-        if (empty($nik)) {
+        if (empty($jenisKartu)) {
             return response()->json(['error' => 'NIK tidak boleh kosong'], 400);
         }
 
@@ -54,7 +56,7 @@ class SatusehatController extends Controller
         }
 
         // Make the API request to fetch patient by NIK
-        $url = env('SATUSEHAT_BASE_URL').'/fhir-r4/v1/Patient?identifier=https%3A%2F%2Ffhir.kemkes.go.id%2Fid%2Fnik%7C' . $nik;
+        $url = env('SATUSEHAT_BASE_URL').'/fhir-r4/v1/Patient?identifier=https%3A%2F%2Ffhir.kemkes.go.id%2Fid%2Fnik%7C' . $jenisKartu;
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
@@ -75,7 +77,7 @@ class SatusehatController extends Controller
             ]);
     }
 
-    public function poli()
+    public function poli($namapoli)
     {
         $token = $this->getAccessToken();
 
@@ -87,13 +89,13 @@ class SatusehatController extends Controller
             "identifier" => [
                 [
                     "system" => "https://sys-ids.kemkes.go.id/location/".env('org_id'),
-                    "value" => "Poli gigi"
+                    "value" => "Poli Umum"
                 ]
             ],
         ]);
 
         // Handling the response
-        if ($response->successful()) {
+           if ($response->successful()) {
             return $response->json();
         } else {
             return $response->body(); // To get the error response
@@ -143,57 +145,92 @@ class SatusehatController extends Controller
 
     }
 
-    public function jenisKartu($jenisKartu)
-        {
-            $BASE_URL = env('BPJS_PCARE_BASE_URL');
-            $SERVICE_NAME = env('BPJS_PCARE_SERVICE_NAME');
-            $feature = 'peserta';
-            $params = 'nik';
+    public function cekstatus()
+    {
+        $BASE_URL = env('BPJS_PCARE_BASE_URL');
+        $SERVICE_NAME = env('BPJS_PCARE_SERVICE_NAME');
 
-            try {
-                // Assuming $this->generateHeaders() returns an array of headers
-                $headers = array_merge([
-                    'Content-Type' => 'application/json; charset=utf-8'
-                ],$headers = $this->generateHeaders()['headers']);
+        try {
+            // Assuming $this->generateHeaders() returns an array of headers
+            $headers = array_merge([
+                'Content-Type' => 'application/json; charset=utf-8'
+            ], $this->generateHeaders()['headers']);
 
-                $response = Http::withHeaders($headers)
-                    ->get("{$BASE_URL}/{$SERVICE_NAME}/{$feature}/{$params}/{$jenisKartu}");
+            $response = Http::withHeaders($headers)
+                ->get("{$BASE_URL}/{$SERVICE_NAME}/");
 
-                $responseBody =  json_decode($response->body(), true);
-            } catch (\Exception $e) {
-                $responseBody = $e->getMessage();
+            // Check the response status
+            if ($response->successful()) {
+                return response()->json(['status' => 'connect']);
+            } else {
+                return response()->json(['status' => 'disconnect']);
             }
-
-
-            $string = $responseBody['response'];  // Ambil nilai dari kunci 'response'
-            $key = $this->generateHeaders()['key_decrypt'];
-
-            $encrypt_method = 'AES-256-CBC';
-
-            // hash
-            $key_hash = hex2bin(hash('sha256', $key));
-
-            // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
-            $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);
-
-            $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
-
-
-            $jsonString = $this->decompress($output);
-            $data = json_decode($jsonString, true);
-            $jsonStrings = $this->getPatientByNik($jenisKartu);
-
-            $combinedData = [
-                'data' => $data,
-                'additionalData' => $jsonStrings,
-            ];
-
-            return response()->json($combinedData);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'disconnect', 'error' => $e->getMessage()]);
         }
+    }
 
-        public function decompress($output)
-        {
-            return \LZCompressor\LZString::decompressFromEncodedURIComponent($output);
-        }
+    public function decompress($output)
+{
+    // Decompress using LZString
+    return LZString::decompressFromEncodedURIComponent($output);
+}
+
+public function jenisKartu($jenisKartu)
+{
+    $BASE_URL = env('BPJS_PCARE_BASE_URL');
+    $SERVICE_NAME = env('BPJS_PCARE_SERVICE_NAME');
+    $feature = 'peserta';
+    $params = 'nik';
+    $patientData = $this->getPatientByNik($jenisKartu);
+
+    try {
+        // Assuming $this->generateHeaders() returns an array of headers
+        $headers = array_merge([
+            'Content-Type' => 'application/json; charset=utf-8'
+        ], $this->generateHeaders()['headers']);
+
+        // Make the API request
+        $response = Http::withHeaders($headers)
+            ->get("{$BASE_URL}/{$SERVICE_NAME}/{$feature}/{$params}/{$jenisKartu}");
+
+        // Decode the response body
+        $responseBody = json_decode($response->body(), true);
+    } catch (\Exception $e) {
+        return response()->json(['status' => 'error', 'message' => $e->getMessage()], 400);
+    }
+
+    // Fetch the encrypted response data
+    $encryptedString = $responseBody['response'];
+
+    // Decrypt the string using AES-256-CBC
+    $key = $this->generateHeaders()['key_decrypt'];
+    $encrypt_method = 'AES-256-CBC';
+    $key_hash = hex2bin(hash('sha256', $key));  // Get key hash
+    $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);  // Get IV
+
+    // Decrypt the base64-encoded encrypted string
+    $decryptedString = openssl_decrypt(base64_decode($encryptedString), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
+
+    $jsonString = $this->decompress($decryptedString);
+    usleep(10000000); // 500ms delay
+    // Check if decryption was successful
+    // if ($decryptedString === false) {
+    //     return response()->json(['status' => 'error', 'message' => 'Decryption failed.'], 400);
+    // }
+
+    // Simulate a delay (e.g., waiting for decompression or async task)
+
+    // Decompress the string
+    $data = json_decode($jsonString, true);
+
+
+        return response()->json([
+            "data" => $data,
+            "additionalData" => $patientData,
+        ]);
+
+
+}
 
 }

@@ -117,6 +117,37 @@
                 </ul>
             </li>
 
+            <li class="nav-item {{ \Route::is('regis*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('regis*') ? 'active' : '' }}">
+                <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                  <p>
+                    Registrasi
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('regis') }}" class="nav-link {{ \Route::is('regis') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>UGD</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('regis.rajal') }}" class="nav-link {{ \Route::is('regis.rajal') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>Rawat Jalan</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('regis.ranap') }}" class="nav-link {{ \Route::is('regis.ranap') ? 'active' : '' }}">
+                      <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                      <p>Rawat Inap</p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
+
+
             <li class="nav-item {{ \Route::is('schedule*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('schedule*') ? 'active' : '' }}">
                 <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>

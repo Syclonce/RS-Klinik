@@ -44,7 +44,7 @@
                                     <!-- Text Section -->
                                     <div class="col-md-6">
                                         <div class="text-center">
-                                            <button class="btn btn-info">Terhubung BPJS</button>
+                                            <button class="btn btn-info" id="connectBPJSButton" data-status="disconnected">Load</button>
 
                                             <br>
                                             <br>
@@ -112,6 +112,44 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+    <script>
+        $(document).ready(function() {
+            var button = $('#connectBPJSButton');
+
+            function checkConnectionStatus() {
+                $.ajax({
+                    url: '/cekstatusconkesi', // Your endpoint URL
+                    method: 'GET', // Use 'POST' if you're sending data
+                    success: function(response) {
+                        // Update button status and text based on the response
+                        if (response.status === 'connect') {
+                            button.text('Terhubung BPJS'); // Change button text
+                            button.data('status', 'connected'); // Update data-status
+                        } else {
+                            button.text('Tidak Terhubung BPJS'); // Change button text
+                            button.data('status', 'disconnected'); // Update data-status
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('An error occurred: ' + error);
+                        button.text('Tidak Terhubung BPJS'); // Change button text
+                        button.data('status', 'disconnected'); // Update data-status
+                    }
+                });
+            }
+
+            // Initial check on page load
+            checkConnectionStatus();
+
+            // Check connection status when the button is clicked
+            button.on('click', function() {
+                checkConnectionStatus();
+            });
+        });
+        </script>
+
+
+
     <script>
         var ctx = document.getElementById('patientChart').getContext('2d');
         var patientChart = new Chart(ctx, {
