@@ -1,59 +1,32 @@
-# Security Policy
+## Kebijakan Keamanan
 
-## Supported Versions
+Kami berkomitmen untuk menjaga keamanan aplikasi SIMRS dan data pengguna. Berikut adalah kebijakan keamanan yang harus diikuti oleh semua pengguna dan kontributor:
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+### 1. Penanganan Kerentanan
+- Jika Anda menemukan kerentanan keamanan, segera laporkan kepada tim pengembang melalui email [email@domain.com].
+- Jangan menyebarkan informasi tentang kerentanan tersebut secara publik sebelum masalah diperbaiki.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+### 2. Akses Data
+- Hanya pengguna yang memiliki izin yang boleh mengakses data sensitif.
+- Gunakan mekanisme otentikasi yang kuat untuk memastikan hanya pengguna terverifikasi yang dapat mengakses sistem.
 
-## Reporting a Vulnerability
+### 3. Enkripsi Data
+- Semua data sensitif, termasuk kata sandi, harus dienkripsi dengan algoritma yang aman.
+- Pastikan bahwa koneksi ke server dilakukan melalui HTTPS untuk melindungi data dalam perjalanan.
 
-Use this section to tell people how to report a vulnerability.
+### 4. Pembaruan Rutin
+- Lakukan pembaruan rutin pada aplikasi dan dependensinya untuk mengatasi kerentanan keamanan yang diketahui.
+- Pantau pembaruan dari pustaka pihak ketiga yang digunakan dalam aplikasi.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+### 5. Audit dan Monitoring
+- Lakukan audit keamanan secara berkala untuk menilai kerentanan dan kebijakan keamanan.
+- Implementasikan sistem monitoring untuk mendeteksi aktivitas mencurigakan.
 
+### 6. Pelatihan Pengguna
+- Berikan pelatihan dan sumber daya tentang praktik keamanan yang baik kepada pengguna dan kontributor.
+- Edukasi pengguna tentang cara menghindari serangan umum seperti phishing.
 
-## Keamanan
+### 7. Kepatuhan
+- Pastikan bahwa aplikasi mematuhi regulasi dan standar keamanan yang relevan, termasuk GDPR dan HIPAA jika berlaku.
 
-Keamanan aplikasi adalah prioritas utama. Berikut adalah beberapa praktik yang direkomendasikan untuk menjaga keamanan SIMRS:
-
-### 1. Pembaruan Rutin
-- Selalu perbarui aplikasi dan semua dependensinya secara teratur untuk mengatasi kerentanan yang diketahui.
-
-### 2. Gunakan HTTPS
-- Pastikan aplikasi diakses melalui HTTPS untuk melindungi data yang ditransfer antara klien dan server.
-
-### 3. Validasi dan Sanitasi Input
-- Selalu validasi dan sanitasi input pengguna untuk mencegah serangan seperti SQL Injection dan Cross-Site Scripting (XSS).
-
-### 4. Manajemen Kunci dan Rahasia
-- Jangan pernah menyimpan kunci API, kata sandi, atau informasi sensitif dalam kode. Gunakan file `.env` untuk mengelola rahasia aplikasi.
-
-### 5. Penggunaan CSRF Token
-- Pastikan untuk menggunakan token CSRF (Cross-Site Request Forgery) untuk melindungi formulir dan permintaan yang mengubah data.
-
-### 6. Audit Log
-- Implementasikan audit log untuk mencatat semua aktivitas yang signifikan di aplikasi, termasuk login, pengeditan data, dan penghapusan.
-
-### 7. Pengaturan Permission
-- Terapkan kontrol akses yang tepat untuk memastikan bahwa pengguna hanya dapat mengakses data dan fungsi yang diizinkan.
-
-### 8. Pengujian Keamanan
-- Lakukan pengujian keamanan secara berkala, termasuk pengujian penetrasi, untuk mengidentifikasi dan memperbaiki kerentanan.
-
-### 9. Backup Data
-- Lakukan backup data secara rutin untuk mencegah kehilangan data akibat serangan atau kegagalan sistem.
-
-### 10. Edukasi Pengguna
-- Berikan edukasi kepada pengguna tentang praktik keamanan yang baik, seperti penggunaan kata sandi yang kuat dan penghindaran phishing.
-
-Dengan mengikuti praktik keamanan ini, Anda dapat membantu menjaga aplikasi SIMRS tetap aman dari berbagai ancaman.
-
+Dengan mengikuti kebijakan keamanan ini, kita dapat bekerja sama untuk menjaga aplikasi SIMRS tetap aman dan melindungi data pengguna.
