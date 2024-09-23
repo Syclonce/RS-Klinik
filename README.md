@@ -61,7 +61,8 @@ Setelah instalasi, Anda dapat mendaftar sebagai pengguna dan mulai menggunakan a
 Jika Anda ingin berkontribusi, silakan lakukan fork pada repositori ini, buat cabang baru (git checkout -b feature-xyz), dan kirim pull request. Pastikan untuk mengikuti pedoman pengkodean yang telah ditentukan.
 
 ## Lisensi
-Proyek ini dilisensikan di bawah MIT License. Lihat file LICENSE untuk informasi lebih lanjut.
+Proyek ini dilisensikan di bawah [SIMRS License](LICENSE). Penggunaan komersial, modifikasi, dan distribusi tidak diperbolehkan.
+
 
 ## Penjelasan Tambahan:
 - **Deskripsi**: Memperjelas tujuan aplikasi dan penggunaannya.
