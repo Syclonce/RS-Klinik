@@ -3,7 +3,7 @@
 Kami berkomitmen untuk menjaga keamanan aplikasi SIMRS dan data pengguna. Berikut adalah kebijakan keamanan yang harus diikuti oleh semua pengguna dan kontributor:
 
 ### 1. Penanganan Kerentanan
-- Jika Anda menemukan kerentanan keamanan, segera laporkan kepada tim pengembang melalui email [Siclonce@gmail.com].
+- Jika Anda menemukan kerentanan keamanan, segera laporkan kepada tim pengembang melalui email [Syclonce@gmail.com].
 - Jangan menyebarkan informasi tentang kerentanan tersebut secara publik sebelum masalah diperbaiki.
 
 ### 2. Akses Data
