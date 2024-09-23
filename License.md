@@ -19,4 +19,4 @@
    - By using this application, you agree to these terms.
 
 ## Contact
-For any inquiries regarding this license, please contact [Nama Anda](mailto:syclonce@gmail.com).
+For any inquiries regarding this license, please contact [syclonce](mailto:syclonce@gmail.com).
