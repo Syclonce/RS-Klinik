@@ -24,15 +24,15 @@ SIMRS adalah aplikasi manajemen informasi rumah sakit yang dibangun dengan PHP 8
    cd repo-simrs
    
 2. **Instal Dependensi**
-   ``bash
+   ```bash
    composer install
 
 3. **Konfigurasi Database**
    -   Salin file .env.example menjadi .env dan sesuaikan konfigurasi database.
-       ``bash
+       ```bash
        cp .env.example .env
    -  Ubah konfigurasi database di file .env:makefile
-      ``bash
+      ```bash
          DB_CONNECTION=mysql
          DB_HOST=127.0.0.1
          DB_PORT=3306
@@ -41,28 +41,27 @@ SIMRS adalah aplikasi manajemen informasi rumah sakit yang dibangun dengan PHP 8
          DB_PASSWORD=password
 
 4. **Generate Kunci Aplikasi**
-   ``bash
+   ```bash
    php artisan key:generate
 
 5. **Migrasi Database*
-   ``bash
+   ```bash
    php artisan migrate
 
 6. **Jalankan Aplikasi**
-   ``bash
+   ```bash
    php artisan serve
 
 Akses aplikasi di http://localhost:8000.
 
-## Penggunaan
+### Penggunaan
 Setelah instalasi, Anda dapat mendaftar sebagai pengguna dan mulai menggunakan aplikasi. Fitur-fitur utama dapat diakses dari dashboard. Untuk admin, Anda dapat mengelola semua data rumah sakit melalui panel admin.
 
-## Kontribusi
+### Kontribusi
 Jika Anda ingin berkontribusi, silakan lakukan fork pada repositori ini, buat cabang baru (git checkout -b feature-xyz), dan kirim pull request. Pastikan untuk mengikuti pedoman pengkodean yang telah ditentukan.
 
-## Lisensi
+### Lisensi
 Proyek ini dilisensikan di bawah MIT License. Lihat file LICENSE untuk informasi lebih lanjut.
-
 
 ### Penjelasan Tambahan:
 - **Deskripsi**: Memperjelas tujuan aplikasi dan penggunaannya.
