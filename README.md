@@ -44,7 +44,7 @@ SIMRS adalah aplikasi manajemen informasi rumah sakit yang dibangun dengan PHP 8
    ```bash
    php artisan key:generate
 
-5. **Migrasi Database*
+5. **Migrasi Database**
    ```bash
    php artisan migrate
 
