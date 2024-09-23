@@ -54,16 +54,16 @@ SIMRS adalah aplikasi manajemen informasi rumah sakit yang dibangun dengan PHP 8
 
 Akses aplikasi di http://localhost:8000.
 
-### Penggunaan
+## Penggunaan
 Setelah instalasi, Anda dapat mendaftar sebagai pengguna dan mulai menggunakan aplikasi. Fitur-fitur utama dapat diakses dari dashboard. Untuk admin, Anda dapat mengelola semua data rumah sakit melalui panel admin.
 
-### Kontribusi
+## Kontribusi
 Jika Anda ingin berkontribusi, silakan lakukan fork pada repositori ini, buat cabang baru (git checkout -b feature-xyz), dan kirim pull request. Pastikan untuk mengikuti pedoman pengkodean yang telah ditentukan.
 
-### Lisensi
+## Lisensi
 Proyek ini dilisensikan di bawah MIT License. Lihat file LICENSE untuk informasi lebih lanjut.
 
-### Penjelasan Tambahan:
+## Penjelasan Tambahan:
 - **Deskripsi**: Memperjelas tujuan aplikasi dan penggunaannya.
 - **Fitur Utama**: Menggambarkan kemampuan utama aplikasi.
 - **Persyaratan Sistem**: Menyediakan daftar perangkat lunak yang diperlukan untuk menjalankan aplikasi.
