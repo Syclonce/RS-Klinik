@@ -75,6 +75,8 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/patient/seks', [PatientController::class, 'seks'])->name('patient.seks');
     Route::post('/patient/seks/add', [PatientController::class, 'seksadd'])->name('patient.seks.add');
+    Route::post('/check-sex', [PatientController::class, 'checkSex'])->name('patient.seks.cek');
+
 
     Route::get('/patient/goldar', [PatientController::class, 'goldar'])->name('patient.goldar');
     Route::post('/patient/goldar/add', [PatientController::class, 'goldaradd'])->name('patient.goldar.add');

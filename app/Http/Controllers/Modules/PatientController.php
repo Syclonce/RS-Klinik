@@ -29,7 +29,26 @@ class PatientController extends Controller
         $goldar = goldar::all();
         $provinsi = Provinsi::all();
         $pasien = pasien::with(['goldar'])->get();
-        return view('patient.index', compact('title','goldar','pasien','provinsi'));
+        $sex = seks::all();
+        return view('patient.index', compact('title','goldar','pasien','provinsi','sex'));
+    }
+
+
+    public function checkSex(Request $request)
+    {
+        // Dapatkan kode sex dari input
+        $inputSexCode = $request->input('sex_code');
+
+        // Cari kode sex di database
+        $sex = Seks::where('kode', $inputSexCode)->first();
+
+        if ($sex) {
+            // Jika ditemukan, kembalikan deskripsi sex
+            return response()->json(['description' => $sex->nama], 200);
+        } else {
+            // Jika tidak ditemukan
+            return response()->json(['message' => 'Sex tidak ditemukan'], 404);
+        }
     }
 
     public function generate()
