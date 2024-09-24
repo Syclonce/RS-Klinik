@@ -9,7 +9,7 @@ class Provinsi extends Model
 {
     use HasFactory;
 
-    protected $table = 'provinsi'; 
+    protected $table = 'provinsi';
 
     protected $fillable = [
         'kode',
@@ -19,6 +19,11 @@ class Provinsi extends Model
     public function kabupaten()
     {
         return $this->hasMany(Kabupaten::class, 'kode_provinsi', 'kode_provinsi');
+    }
+
+    public function pasien()
+    {
+        return $this->hasMany(pasien::class, 'kode_provinsi', 'kode_provinsi');
     }
 
 }

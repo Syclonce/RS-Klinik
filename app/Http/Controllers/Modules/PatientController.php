@@ -26,12 +26,10 @@ class PatientController extends Controller
     {
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "Patient";
-        $docter =  doctor::all();
-        $seks = seks::all();
         $goldar = goldar::all();
         $provinsi = Provinsi::all();
-        $pasien = pasien::with(['user','doctor','goldar'])->get();
-        return view('patient.index', compact('title','docter','seks','goldar','pasien','provinsi'));
+        $pasien = pasien::with(['goldar'])->get();
+        return view('patient.index', compact('title','goldar','pasien','provinsi'));
     }
 
     public function generate()
@@ -53,9 +51,9 @@ class PatientController extends Controller
             "nomor_rm" => 'required',
             "nik" => 'required',
             "kode_ihs" => 'required',
-            "nama" => 'required|string|max:255',
+            "nama" => 'required',
             "tempat_lahir" => 'required',
-            "tanggal_lahir" => 'required',
+            "tanggal_lahir" => 'required|date_format:d/m/Y',
             "no_bpjs" => 'required',
             "tgl_akhir" => 'required',
             "Alamat" => 'required|string|max:255',
@@ -63,17 +61,21 @@ class PatientController extends Controller
             "rw" => 'required',
             "kode_pos" => 'required',
             "kewarganegaraan" => 'required',
+            "provinsi" => 'required',
+            "kota_kabupaten" => 'required',
+            "kecamatan" => 'required',
+            "desa" => 'required',
             "seks" => 'required',
             "agama" => 'required',
             "pendidikan" => 'required',
             "goldar" => 'required',
-            "pernikahaan" => 'required',
+            "pernikahan" => 'required',
             "pekerjaan" => 'required',
             "telepon" => 'required|string|regex:/^\(\d{2}\) \d{3}-\d{3}-\d{4}$/',
         ]);
 
         $datauser = $request->validate([
-            "nama" => 'required|string|max:255',
+            "nama" => 'required',
             "username" => 'required|string|max:255',
             "email" => 'required|string|max:255',
             "password" => 'required',
@@ -89,7 +91,7 @@ class PatientController extends Controller
         $user->assignRole('User');
 
         $pasien = new pasien();
-        $pasien->nomor_rm = $data['nomor_rm'];
+        $pasien->no_rm = $data['nomor_rm'];
         $pasien->nik = $data['nik'];
         $pasien->kode_ihs = $data['kode_ihs'];
         $pasien->nama = $data['nama'];
@@ -102,6 +104,10 @@ class PatientController extends Controller
         $pasien->rw = $data['rw'];
         $pasien->kode_pos = $data['kode_pos'];
         $pasien->kewarganegaraan = $data['kewarganegaraan'];
+        $pasien->provinsi_kode = $data['provinsi'];
+        $pasien->kabupaten_kode = $data['kota_kabupaten'];
+        $pasien->kecamatan_kode = $data['kecamatan'];
+        $pasien->desa_kode = $data['desa'];
         $pasien->seks = $data['seks'];
         $pasien->agama = $data['agama'];
         $pasien->pendidikan = $data['pendidikan'];
@@ -111,7 +117,7 @@ class PatientController extends Controller
         $pasien->telepon = $data['telepon'];
         $pasien->save();
 
-        return redirect()->route('patient')->with('Success', 'Pasien berhasi di tambahkan');
+        return redirect()->route('patient')->with('success', 'Pasien berhasi di tambahkan');
     }
 
     public function seks()

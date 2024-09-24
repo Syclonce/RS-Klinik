@@ -105,6 +105,8 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/sdm', [SumberdayamController::class, 'index'])->name('sdm');
     Route::post('/sdm/add', [SumberdayamController::class, 'suberdayaadd'])->name('sdm.add');
 
+    Route::get('/sdm/doktor', [SumberdayamController::class, 'doktor'])->name('sdm.doktor');
+
     Route::get('/sdm/apoteker', [SumberdayamController::class, 'apoteker'])->name('sdm.apoteker');
     Route::post('/sdm/apoteker/add', [SumberdayamController::class, 'apotekeradd'])->name('sdm.apoteker.add');
 

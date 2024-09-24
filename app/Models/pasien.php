@@ -23,6 +23,10 @@ class pasien extends Model
         'rw',
         'kode_pos',
         'kewarganegaraan',
+        'provinsi_kode',
+        'kabupaten_kode',
+        'kecamatan_kode',
+        'desa_kode',
         'seks',
         'agama',
         'pendidikan',
@@ -42,8 +46,23 @@ class pasien extends Model
         return $this->belongsTo(user::class);
     }
 
-    public function doctor()
+    public function provinsi()
     {
-        return $this->belongsTo(doctor::class);
+        return $this->belongsTo(provinsi::class, 'kode_provinsi', 'kode_provinsi');
+    }
+
+    public function kabupaten()
+    {
+        return $this->belongsTo(kabupaten::class, 'kode_kabupaten', 'kode_kabupaten');
+    }
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class, 'kode_kecamatan', 'kode_kecamatan');
+    }
+
+    public function desa()
+    {
+        return $this->belongsTo(desa::class, 'kode_desa', 'kode_desa');
     }
 }

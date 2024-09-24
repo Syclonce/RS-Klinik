@@ -27,4 +27,8 @@ class Kabupaten extends Model
         return $this->hasMany(Kecamatan::class, 'kode_kabupaten', 'kode_kabupaten');
     }
 
+    public function pasien()
+    {
+        return $this->hasMany(pasien::class, 'kode_kabupaten', 'kode_kabupaten');
+    }
 }
