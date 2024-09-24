@@ -5,6 +5,7 @@ namespace App\Http\Controllers\modules;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\setweb;
+use App\Models\kamar;
 
 class KamarController extends Controller
 {
@@ -12,8 +13,9 @@ class KamarController extends Controller
     {
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "kamar";
+        $data = kamar::all();
 
-        return view('kamar.index', compact('title'));
+        return view('kamar.index', compact('title','data'));
 
     }
 
@@ -26,7 +28,7 @@ class KamarController extends Controller
             "status" => 'required',
         ]);
         kamar::create($data);
-        return redirect()->route('kamar')->with('success', 'pasien berhasi di tambahkan');
+        return redirect()->route('kamar')->with('success', 'kamar berhasi di tambahkan');
     }
 
 
