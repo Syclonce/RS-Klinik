@@ -10,29 +10,41 @@ class UpdateController extends Controller
 {
     public function update(Request $request)
 {
-    $repositoryUrl = 'https://github.com/Syclonce/RS-Klinik.git';
+    $repositoryUrl = 'https://github.com/Syclonce/RS-Klinik';
     $deployPath = base_path();
 
-    // Fetch the latest changes and tags
+    // Fetch the latest tag from the GitHub repository
     exec("cd $deployPath && git fetch --tags", $outputFetch, $statusFetch);
+    exec("cd $deployPath && git describe --tags --abbrev=0", $latestTagOutputArray, $statusTag);
 
-    // Check if the current branch is up to date with the latest tag
-    exec("cd $deployPath && git describe --tags --abbrev=0", $latestTagOutput, $statusTag);
+    $latestTag = isset($latestTagOutputArray[0]) ? trim($latestTagOutputArray[0]) : null;
 
-    // Make sure we convert the array to a string (extract first item)
-    $latestTag = isset($latestTagOutput[0]) ? trim($latestTagOutput[0]) : null;
+    if (!$latestTag) {
+        return back()->with('error', 'Failed to retrieve the latest tag.');
+    }
 
-    if ($statusFetch === 0 && $statusTag === 0 && $latestTag) {
-        // Compare with the latest tag
-        exec("cd $deployPath && git diff --quiet $latestTag HEAD", $output, $statusDiff);
+    // Download the ZIP file for the latest tag
+    $zipUrl = "$repositoryUrl/archive/refs/tags/$latestTag.zip";
+    $zipFilePath = storage_path("app/$latestTag.zip");
 
-        if ($statusDiff !== 0) {
-            // Pull the latest changes from the Git repository
-            exec("cd $deployPath && git pull origin main", $outputPull, $statusPull);
+    // Download the ZIP file from GitHub
+    file_put_contents($zipFilePath, fopen($zipUrl, 'r'));
 
-            if ($statusPull === 0) {
+    if (file_exists($zipFilePath)) {
+        // Extract the ZIP file
+        $zip = new \ZipArchive;
+        if ($zip->open($zipFilePath) === TRUE) {
+            $extractPath = storage_path("app/$latestTag");
+            $zip->extractTo($extractPath);
+            $zip->close();
+
+            // Move the extracted files to the base path (replace the current app files)
+            exec("cp -r $extractPath/* $deployPath", $outputMove, $statusMove);
+
+            if ($statusMove === 0) {
                 // Run Composer install and update
                 exec("cd $deployPath && composer install --no-interaction --prefer-dist", $outputComposerInstall, $statusComposerInstall);
+                exec("cd $deployPath && composer update --no-interaction --prefer-dist", $outputComposerUpdate, $statusComposerUpdate);
 
                 // Run any additional commands needed after update
                 Artisan::call('migrate', ['--force' => true]);
@@ -40,15 +52,20 @@ class UpdateController extends Controller
                 Artisan::call('route:cache');
                 Artisan::call('optimize:clear');
 
-                return back()->with('success', 'Application updated successfully!');
+                // Clean up the downloaded ZIP and extracted files
+                unlink($zipFilePath);
+                exec("rm -rf $extractPath");
+
+                return back()->with('success', "Application updated to tag '$latestTag' successfully!");
             } else {
-                return back()->with('error', 'Failed to update the application.');
+                return back()->with('error', 'Failed to replace application files with the latest tag.');
             }
         } else {
-            return back()->with('info', 'You are already on the latest tag.');
+            return back()->with('error', 'Failed to extract the ZIP file.');
         }
     } else {
-        return back()->with('error', 'Failed to fetch tags or check current version.');
+        return back()->with('error', 'Failed to download the ZIP file.');
     }
 }
+
 }
