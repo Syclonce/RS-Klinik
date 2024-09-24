@@ -10,32 +10,30 @@ class pasien extends Model
     use HasFactory;
     protected $table = 'pasiens';
     protected $fillable = [
+        'nomor_rm',
+        'nik',
+        'kode_ihs',
         'nama',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'no_bpjs',
+        'tgl_akhir',
         'Alamat',
-        'tgl',
-        'doctor_id',
-        'telepon',
+        'rt',
+        'rw',
+        'kode_pos',
+        'kewarganegaraan',
         'seks',
+        'agama',
+        'pendidikan',
         'goldar_id',
+        'pernikahan',
+        'pekerjaan',
+        'telepon',
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function doctor()
-    {
-        return $this->belongsTo(doctor::class);
-    }
 
     public function goldar()
     {
         return $this->belongsTo(goldar::class);
-    }
-
-    public function laptes()
-    {
-        return $this->hasOne(laptes::class);
     }
 }

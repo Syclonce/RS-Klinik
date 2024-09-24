@@ -17,11 +17,6 @@ class laptes extends Model
         'status',
     ];
 
-    public function pasien()
-    {
-        return $this->belongsTo(pasien::class);
-    }
-
     public function doctor()
     {
         return $this->belongsTo(doctor::class);

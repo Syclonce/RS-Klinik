@@ -50,40 +50,65 @@ class PatientController extends Controller
     public function patientadd(Request $request)
     {
         $data = $request->validate([
+            "nomor_rm" => 'required',
+            "nik" => 'required',
+            "kode_ihs" => 'required',
             "nama" => 'required|string|max:255',
+            "tempat_lahir" => 'required',
+            "tanggal_lahir" => 'required',
+            "no_bpjs" => 'required',
+            "tgl_akhir" => 'required',
             "Alamat" => 'required|string|max:255',
-            "telepon" => 'required|string|regex:/^\(\d{2}\) \d{3}-\d{3}-\d{4}$/',
-            "tgl" => 'required',
-            "dokter" => 'required',
+            "rt" => 'required',
+            "rw" => 'required',
+            "kode_pos" => 'required',
+            "kewarganegaraan" => 'required',
             "seks" => 'required',
+            "agama" => 'required',
+            "pendidikan" => 'required',
             "goldar" => 'required',
+            "pernikahaan" => 'required',
+            "pekerjaan" => 'required',
+            "telepon" => 'required|string|regex:/^\(\d{2}\) \d{3}-\d{3}-\d{4}$/',
         ]);
 
-        $datauser = $request->validate([
-            "nama" => 'required|string|max:255',
-            "username" => 'required|string|max:255',
-            "email" => 'required|string|max:255',
-            "password" => 'required',
-        ]);
+        // $datauser = $request->validate([
+        //     "nama" => 'required|string|max:255',
+        //     "username" => 'required|string|max:255',
+        //     "email" => 'required|string|max:255',
+        //     "password" => 'required',
+        // ]);
 
-        $user = new User();
-        $user->name = $datauser['nama'];
-        $user->username = $datauser['username'];
-        $user->email = $datauser['email'];
-        $user->password = Hash::make($datauser['password']); // Hash the password
-        $user->profile = 'default.jpg';
-        $user->save();
-        $user->assignRole('User');
+        // $user = new User();
+        // $user->name = $datauser['nama'];
+        // $user->username = $datauser['username'];
+        // $user->email = $datauser['email'];
+        // $user->password = Hash::make($datauser['password']); // Hash the password
+        // $user->profile = 'default.jpg';
+        // $user->save();
+        // $user->assignRole('User');
 
         $pasien = new pasien();
+        $pasien->nomor_rm = $data['nomor_rm'];
+        $pasien->nik = $data['nik'];
+        $pasien->kode_ihs = $data['kode_ihs'];
         $pasien->nama = $data['nama'];
+        $pasien->tempat_lahir = $data['tempat_lahir'];
+        $pasien->tanggal_lahir = $data['tanggal_lahir'];
+        $pasien->no_bpjs = $data['no_bpjs'];
+        $pasien->tgl_akhir = $data['tgl_akhir'];
         $pasien->Alamat = $data['Alamat'];
-        $pasien->telepon = $data['telepon'];
-        $pasien->tgl = $data['tgl'];
-        $pasien->doctor_id = $data['dokter'];
+        $pasien->rt = $data['rt'];
+        $pasien->rw = $data['rw'];
+        $pasien->kode_pos = $data['kode_pos'];
+        $pasien->kewarganegaraan = $data['kewarganegaraan'];
         $pasien->seks = $data['seks'];
+        $pasien->agama = $data['agama'];
+        $pasien->pendidikan = $data['pendidikan'];
         $pasien->goldar_id = $data['goldar'];
-        $pasien->user_id = $user->id;
+        $pasien->pernikahan = $data['pernikahan'];
+        $pasien->pekerjaan = $data['pekerjaan'];
+        $pasien->telepon = $data['telepon'];
         $pasien->save();
 
         return redirect()->route('patient')->with('Success', 'Pasien berhasi di tambahkan');

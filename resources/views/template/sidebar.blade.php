@@ -368,6 +368,24 @@
                 </ul>
             </li>
 
+            <li class="nav-item {{ \Route::is('kamar*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('kamar*') ? 'active' : '' }}">
+                <i class="fa-solid fa-capsules" style="color: #63E6BE;"></i>
+                  <p>
+                    Kamar & Bed
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('kamar') }}" class="nav-link {{ \Route::is('kamar') ? 'active' : '' }}">
+                          <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                          <p>Tambah kamar & Bed</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
 
 
             <li class="nav-item">

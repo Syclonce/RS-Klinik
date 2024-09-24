@@ -169,7 +169,6 @@ class SatusehatController extends Controller
             return response()->json(['status' => 'disconnect', 'error' => $e->getMessage()]);
         }
     }
-
     public function decompress($output)
 {
     // Decompress using LZString
@@ -213,13 +212,6 @@ public function jenisKartu($jenisKartu)
     $decryptedString = openssl_decrypt(base64_decode($encryptedString), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
 
     $jsonString = $this->decompress($decryptedString);
-    usleep(10000000); // 500ms delay
-    // Check if decryption was successful
-    // if ($decryptedString === false) {
-    //     return response()->json(['status' => 'error', 'message' => 'Decryption failed.'], 400);
-    // }
-
-    // Simulate a delay (e.g., waiting for decompression or async task)
 
     // Decompress the string
     $data = json_decode($jsonString, true);
@@ -233,4 +225,54 @@ public function jenisKartu($jenisKartu)
 
 }
 
+public function bpjs($poli)
+{
+    $BASE_URL = env('BPJS_PCARE_BASE_URL');
+    $SERVICE_NAME = env('BPJS_PCARE_SERVICE_NAME');
+    $feature = 'peserta';
+    $params = 'nik';
+    $params = '100';
+    $patientData = $this->getPatientByNik($jenisKartu);
+
+    try {
+        // Assuming $this->generateHeaders() returns an array of headers
+        $headers = array_merge([
+            'Content-Type' => 'application/json; charset=utf-8'
+        ], $this->generateHeaders()['headers']);
+
+        // Make the API request
+        $response = Http::withHeaders($headers)
+            ->get("{$BASE_URL}/{$SERVICE_NAME}/{$feature}/{$params}/{$jenisKartu}");
+
+        // Decode the response body
+        $responseBody = json_decode($response->body(), true);
+    } catch (\Exception $e) {
+        return response()->json(['status' => 'error', 'message' => $e->getMessage()], 400);
+    }
+
+    // Fetch the encrypted response data
+    $encryptedString = $responseBody['response'];
+
+    // Decrypt the string using AES-256-CBC
+    $key = $this->generateHeaders()['key_decrypt'];
+    $encrypt_method = 'AES-256-CBC';
+    $key_hash = hex2bin(hash('sha256', $key));  // Get key hash
+    $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);  // Get IV
+
+    // Decrypt the base64-encoded encrypted string
+    $decryptedString = openssl_decrypt(base64_decode($encryptedString), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
+
+    $jsonString = $this->decompress($decryptedString);
+
+    // Decompress the string
+    $data = json_decode($jsonString, true);
+
+
+        return response()->json([
+            "data" => $data,
+            "additionalData" => $patientData,
+        ]);
+
+
+}
 }

@@ -38,7 +38,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($pasien as $pasien)
+                                        {{-- @foreach ($pasien as $pasien)
                                             <tr>
                                                 <td>{{ $pasien->nama }}</td>
                                                 <td>{{ $pasien->telepon }}</td>
@@ -50,7 +50,7 @@
                                                 <td>{{ $pasien->doctor->nama }}</td>
                                                 <td></td>
                                             </tr>
-                                        @endforeach
+                                        @endforeach --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -179,7 +179,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Kewarganegaraan </label>
-                                        <select class="form-control select2bs4" style="width: 100%;" id="agama" name="agama">
+                                        <select class="form-control select2bs4" style="width: 100%;" id="kewarganegaraan" name="kewarganegaraan">
                                             <option value="">--- pilih ---</option>
                                             <option value="wni">Warga Negara Indonesia</option>
                                             <option value="wna">Warga Negara Asing</option>
@@ -299,7 +299,7 @@
                         </div>
                         <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
                             <div class="row">
-                                <div class="col-sm-5">
+                                {{-- {{-- <div class="col-sm-5">
                                     <div class="form-group">
                                         <label>Nama </label>
                                         <input type="text" class="form-control" id="nama" name="nama" disabled>
@@ -336,16 +336,16 @@
                                         <label>Nomor Asuransi</label>
                                         <input type="text" class="form-control" id="no_asuransi" name="no_asuransi" disabled>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button> <!-- Submit button -->
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button> <!-- Submit button -->
+                    </div>
                 </form>
+                </div>
             </div>
         </div>
     </div>

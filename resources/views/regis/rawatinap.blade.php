@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <!-- Main row -->
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 mt-3">
                         <div class="row">
                             <!-- Identitas Pasien -->
                             <div class="col-md-12">
@@ -217,7 +217,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 mt-3">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title mb-0">Pasien</h3>

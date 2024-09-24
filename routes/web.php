@@ -10,6 +10,7 @@ use App\Http\Controllers\Modules\JanjiController;
 use App\Http\Controllers\Modules\SumberdayamController;
 use App\Http\Controllers\Modules\ObatController;
 use App\Http\Controllers\Modules\LaporanController;
+use App\Http\Controllers\modules\KamarController;
 use App\Http\Controllers\modules\RegisController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
@@ -34,12 +35,13 @@ Route::middleware('auth')->group(function () {
 
 
     // Route::get('/getAccessToken', [SatusehatController::class, 'getAccessToken'])->name('getAccessToken');
-    // Route::get('/getAccessToken/{nik}', [SatusehatController::class, 'getPatientByNik'])->name('getPatientByNik');
+    Route::get('/getAccessToken/{nik}', [SatusehatController::class, 'getPatientByNik'])->name('getPatientByNik');
     Route::get('/decompress', [SatusehatController::class, 'decompress'])->name('decompress');
     // Route::get('/generateHeaders', [SatusehatController::class, 'generateHeaders'])->name('generateHeaders');
 
 
     Route::get('/jenisKartu/{jenisKartu}', [SatusehatController::class, 'jenisKartu'])->name('jenisKartu');
+    Route::get('/bpjs/{poli}', [SatusehatController::class, 'bpjs'])->name('bpjs');
     Route::get('/poli/{namapoli}', [SatusehatController::class, 'poli'])->name('poli');
     Route::get('/cekstatusconkesi', [SatusehatController::class, 'cekstatus'])->name('cekstatusconkesi');
 
@@ -157,6 +159,9 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/farmasi/kategori', [FarmasiController::class, 'katgobi'])->name('farmasi.kategori');
     Route::post('/farmasi/kategori/add', [FarmasiController::class, 'katgobiadd'])->name('farmasi.kategori.add');
+
+    Route::get('/kamar', [KamarController::class, 'index'])->name('kamar');
+    Route::post('/kamar/add', [KamarController::class, 'kamaradd'])->name('kamar.add');
 
     Route::get('/regis', [RegisController::class, 'index'])->name('regis');
 
