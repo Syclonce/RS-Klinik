@@ -26,31 +26,27 @@
                                 <table id="patienttbl" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
+                                            <th>Nomor RM</th>
                                             <th>Nama</th>
-                                            <th>Telepon</th>
                                             <th>Alamat</th>
-                                            <th>Email</th>
-                                            <th>Tanggal Lahir</th>
-                                            <th>Kelamin</th>
                                             <th>Golongan Darah</th>
-                                            <th>Nama Dokter</th>
+                                            <th>Telepon</th>
                                             <th width="20%">Pilihan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($pasien as $pasien)
+                                        @foreach ($pasien as $pasien)
                                             <tr>
+                                                <td>{{ $pasien->id }}</td>
+                                                <td>{{ $pasien->no_rm }}</td>
                                                 <td>{{ $pasien->nama }}</td>
-                                                <td>{{ $pasien->telepon }}</td>
                                                 <td>{{ $pasien->Alamat }}</td>
-                                                <td>{{ $pasien->user->email }}</td>
-                                                <td>{{ $pasien->tgl }}</td>
-                                                <td>{{ $pasien->seks }}</td>
                                                 <td>{{ $pasien->goldar->nama }}</td>
-                                                <td>{{ $pasien->doctor->nama }}</td>
+                                                <td>{{ $pasien->telepon }}</td>
                                                 <td></td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -96,7 +92,7 @@
                                     <div class="form-group">
                                         <label>Nomor RM</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="nomor_rm" name="nomor_rm" placeholder="Enter or generate Nomor RM" disabled>
+                                            <input type="text" class="form-control" id="nomor_rm" name="nomor_rm" placeholder="Enter or generate Nomor RM" readonly>
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-primary" onclick="generateNomorRM()">Generate</button>
                                             </span>
@@ -117,7 +113,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>IHS Pasien</label>
-                                        <input type="text" class="form-control" id="kode_ihs" name="kode_ihs" disabled>
+                                        <input type="text" class="form-control" id="kode_ihs" name="kode_ihs" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -143,13 +139,13 @@
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label>Nomor BPJS</label>
-                                        <input type="text" class="form-control" id="no_bpjs" name="no_bpjs">
+                                        <input type="text" class="form-control" id="no_bpjs" name="no_bpjs" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label>Tanggal Akhir Berlaku</label>
-                                        <input type="text" class="form-control" id="tgl_akhir" name="tgl_akhir">
+                                        <input type="text" class="form-control" id="tgl_akhir" name="tgl_akhir" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -317,7 +313,7 @@
                         </div>
                         <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
                             <div class="row">
-                                {{-- {{-- <div class="col-sm-5">
+                                {{-- <div class="col-sm-5">
                                     <div class="form-group">
                                         <label>Nama </label>
                                         <input type="text" class="form-control" id="nama" name="nama" disabled>

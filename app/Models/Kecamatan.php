@@ -9,7 +9,7 @@ class Kecamatan extends Model
 {
     use HasFactory;
 
-    protected $table = 'kecamatan'; 
+    protected $table = 'kecamatan';
 
     protected $fillable = [
         'kode',
@@ -25,6 +25,11 @@ class Kecamatan extends Model
     public function desa()
     {
         return $this->hasMany(Desa::class, 'kode_kecamatan', 'kode_kecamatan');
+    }
+
+    public function pasien()
+    {
+        return $this->hasMany(pasien::class, 'kode_kecamatan', 'kode_kecamatan');
     }
 
 }

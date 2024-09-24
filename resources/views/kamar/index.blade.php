@@ -34,15 +34,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- {{-- @foreach ($data as $data)
+                                         @foreach ($data as $data)
                                             <tr>
-                                                <td>{{ $data->no}}</td>
-                                                <td>{{ $data->nama}}</td>
-                                                <td>{{ $data->obat}}</td>
-                                                <td>{{ $data->kota}}</td>
-                                                <td>{{ $data->pembelian}}</td>
+                                                <td>{{ $data->id}}</td>
+                                                <td>{{ $data->nama_kamar}}</td>
+                                                <td>{{ $data->nomor_bed}}</td>
+                                                <td>{{ $data->harga}}</td>
+                                                <td>{{ $data->status}}</td>
                                             </tr>
-                                        @endforeach --}} -->
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -97,8 +97,8 @@
                                     <label>Status</label>
                                     <select id="status" name="status" class="form-control">
                                          <option value="">--- Status ---</option>
-                                         <option value="1">Aktif</option>
-                                         <option value="1">Tidak Aktif</option>
+                                         <option value="Aktif">Aktif</option>
+                                         <option value="Tidak Aktif">Tidak Aktif</option>
                                     </select>
                                 </div>
                             </div>

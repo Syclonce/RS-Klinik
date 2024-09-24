@@ -33,6 +33,14 @@ return new class extends Migration
             $table->string('pernikahan');
             $table->string('pekerjaan');
             $table->string('telepon');
+            $table->string('provinsi_kode');
+            $table->string('kabupaten_kode');
+            $table->string('kecamatan_kode');
+            $table->string('desa_kode');
+            $table->foreign('provinsi_kode')->references('kode')->on('provinsi')->onDelete('cascade');
+            $table->foreign('kabupaten_kode')->references('kode')->on('kabupaten')->onDelete('cascade');
+            $table->foreign('kecamatan_kode')->references('kode')->on('kecamatan')->onDelete('cascade');
+            $table->foreign('desa_kode')->references('kode')->on('desa')->onDelete('cascade');
             $table->timestamps();
         });
     }
