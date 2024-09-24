@@ -13,11 +13,13 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title mb-0">Data Master Poli</h3>
-                                <div class="card-tools text-right">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#adddoctor">
+                                <div class="card-tools text-right d-flex justify-content-end">
+                                    <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#adddoctor">
                                         <i class="fas fa-plus"></i> Tambah Baru
                                     </button>
+                                    <form action="{{ route('comparePolisAndPoli') }}" method="GET">
+                                        <button type="submit" class="btn btn-primary">Sinkronisasi</button>
+                                    </form>
                                 </div>
                             </div>
 
@@ -81,6 +83,18 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
+                                    <label>Kode BPJS </label>
+                                    <input type="text" class="form-control" id="id_bpjs" name="id_bpjs">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Kode Satu Sehat </label>
+                                    <input type="text" class="form-control" id="id_satusehat" name="id_satusehat">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label>Nama Poli </label>
                                     <input type="text" class="form-control" id="nama_poli" name="nama_poli">
                                 </div>
@@ -91,7 +105,7 @@
                                     <input type="text" class="form-control" id="deskripsi" name="deskripsi">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Status </label>
                                     <select class="form-control select2bs4" style="width: 100%;" id="status" name="status">
