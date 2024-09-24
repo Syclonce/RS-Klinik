@@ -17,19 +17,15 @@ class UpdateController extends Controller
     exec("cd $deployPath && git fetch --tags", $outputFetch, $statusFetch);
 
     // Check if the current branch is up to date with the latest tag
-    exec("cd $deployPath && git describe --tags --abbrev=0", $latestTagOutputArray, $statusTag);
+    exec("cd $deployPath && git describe --tags --abbrev=0", $latestTagOutput, $statusTag);
 
-    // Convert the array to string (get the first element)
-    $latestTagOutput = isset($latestTagOutputArray[0]) ? $latestTagOutputArray[0] : null;
+    // Make sure we convert the array to a string (extract first item)
+    $latestTag = isset($latestTagOutput[0]) ? trim($latestTagOutput[0]) : null;
 
-    if (!$latestTagOutput) {
-        return back()->with('error', 'Failed to retrieve the latest tag.');
-    }
+    if ($statusFetch === 0 && $statusTag === 0 && $latestTag) {
+        // Compare with the latest tag
+        exec("cd $deployPath && git diff --quiet $latestTag HEAD", $output, $statusDiff);
 
-    // Compare with the latest tag
-    exec("cd $deployPath && git diff --quiet $latestTagOutput HEAD", $outputDiff, $statusDiff);
-
-    if ($statusFetch === 0 && $statusTag === 0) {
         if ($statusDiff !== 0) {
             // Pull the latest changes from the Git repository
             exec("cd $deployPath && git pull origin main", $outputPull, $statusPull);
@@ -55,5 +51,4 @@ class UpdateController extends Controller
         return back()->with('error', 'Failed to fetch tags or check current version.');
     }
 }
-
 }
