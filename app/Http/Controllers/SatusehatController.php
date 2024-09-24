@@ -220,59 +220,61 @@ public function jenisKartu($jenisKartu)
         return response()->json([
             "data" => $data,
             "additionalData" => $patientData,
+            "date" => date('Y-M-D'),
+            "time" => date('H:i:s'),
         ]);
 
 
 }
 
-public function bpjs($poli)
-{
-    $BASE_URL = env('BPJS_PCARE_BASE_URL');
-    $SERVICE_NAME = env('BPJS_PCARE_SERVICE_NAME');
-    $feature = 'peserta';
-    $params = 'nik';
-    $params = '100';
-    $patientData = $this->getPatientByNik($jenisKartu);
+// public function bpjs($poli)
+// {
+//     $BASE_URL = env('BPJS_PCARE_BASE_URL');
+//     $SERVICE_NAME = env('BPJS_PCARE_SERVICE_NAME');
+//     $feature = 'peserta';
+//     $params = 'nik';
+//     $params = '100';
+//     $patientData = $this->getPatientByNik($jenisKartu);
 
-    try {
-        // Assuming $this->generateHeaders() returns an array of headers
-        $headers = array_merge([
-            'Content-Type' => 'application/json; charset=utf-8'
-        ], $this->generateHeaders()['headers']);
+//     try {
+//         // Assuming $this->generateHeaders() returns an array of headers
+//         $headers = array_merge([
+//             'Content-Type' => 'application/json; charset=utf-8'
+//         ], $this->generateHeaders()['headers']);
 
-        // Make the API request
-        $response = Http::withHeaders($headers)
-            ->get("{$BASE_URL}/{$SERVICE_NAME}/{$feature}/{$params}/{$jenisKartu}");
+//         // Make the API request
+//         $response = Http::withHeaders($headers)
+//             ->get("{$BASE_URL}/{$SERVICE_NAME}/{$feature}/{$params}/{$jenisKartu}");
 
-        // Decode the response body
-        $responseBody = json_decode($response->body(), true);
-    } catch (\Exception $e) {
-        return response()->json(['status' => 'error', 'message' => $e->getMessage()], 400);
-    }
+//         // Decode the response body
+//         $responseBody = json_decode($response->body(), true);
+//     } catch (\Exception $e) {
+//         return response()->json(['status' => 'error', 'message' => $e->getMessage()], 400);
+//     }
 
-    // Fetch the encrypted response data
-    $encryptedString = $responseBody['response'];
+//     // Fetch the encrypted response data
+//     $encryptedString = $responseBody['response'];
 
-    // Decrypt the string using AES-256-CBC
-    $key = $this->generateHeaders()['key_decrypt'];
-    $encrypt_method = 'AES-256-CBC';
-    $key_hash = hex2bin(hash('sha256', $key));  // Get key hash
-    $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);  // Get IV
+//     // Decrypt the string using AES-256-CBC
+//     $key = $this->generateHeaders()['key_decrypt'];
+//     $encrypt_method = 'AES-256-CBC';
+//     $key_hash = hex2bin(hash('sha256', $key));  // Get key hash
+//     $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);  // Get IV
 
-    // Decrypt the base64-encoded encrypted string
-    $decryptedString = openssl_decrypt(base64_decode($encryptedString), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
+//     // Decrypt the base64-encoded encrypted string
+//     $decryptedString = openssl_decrypt(base64_decode($encryptedString), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
 
-    $jsonString = $this->decompress($decryptedString);
+//     $jsonString = $this->decompress($decryptedString);
 
-    // Decompress the string
-    $data = json_decode($jsonString, true);
-
-
-        return response()->json([
-            "data" => $data,
-            "additionalData" => $patientData,
-        ]);
+//     // Decompress the string
+//     $data = json_decode($jsonString, true);
 
 
-}
+//         return response()->json([
+//             "data" => $data,
+//             "additionalData" => $patientData,
+//         ]);
+
+
+// }
 }

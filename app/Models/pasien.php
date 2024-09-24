@@ -36,4 +36,14 @@ class pasien extends Model
     {
         return $this->belongsTo(goldar::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(user::class);
+    }
+
+    public function doctor()
+    {
+        return $this->belongsTo(doctor::class);
+    }
 }

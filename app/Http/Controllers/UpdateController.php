@@ -8,45 +8,77 @@ use Illuminate\Support\Facades\File;
 
 class UpdateController extends Controller
 {
+
     public function update(Request $request)
-    {
-        $repositoryUrl = 'https://github.com/Syclonce/RS-Klinik.git';
-        $deployPath = base_path();
+{
+    $repositoryUrl = 'https://github.com/Syclonce/RS-Klinik.git';
+    $deployPath = base_path();
 
-        // Fetch the latest changes and tags
-        exec("cd $deployPath && git fetch --tags", $outputFetch, $statusFetch);
+    // Fetch the latest changes and tags
+    exec("cd $deployPath && git fetch --tags", $outputFetch, $statusFetch);
 
-        // Check if the current branch is up to date with the latest tag
-        exec("cd $deployPath && git describe --tags --abbrev=0", $latestTagOutput, $statusTag);
-        
-        // Compare with the latest tag
-        exec("cd $deployPath && git diff --quiet $latestTagOutput HEAD", $statusDiff);
+    // Check if the current branch is up to date with the latest tag
+    exec("cd $deployPath && git describe --tags --abbrev=0", $latestTagOutputArray, $statusTag);
 
-        if ($statusFetch === 0 && $statusTag === 0) {
-            if ($statusDiff !== 0) {
-                // Pull the latest changes from the Git repository
-                exec("cd $deployPath && git pull origin main", $outputPull, $statusPull);
+    // Convert the array to string (get the first element)
+    $latestTagOutput = isset($latestTagOutputArray[0]) ? $latestTagOutputArray[0] : null;
 
-                if ($statusPull === 0) {
-                    // Run Composer install and update
-                    exec("cd $deployPath && composer install --no-interaction --prefer-dist", $outputComposerInstall, $statusComposerInstall);
-                    exec("cd $deployPath && composer update --no-interaction --prefer-dist", $outputComposerUpdate, $statusComposerUpdate);
+    if (!$latestTagOutput) {
+        return back()->with('error', 'Failed to retrieve the latest tag.');
+    }
 
-                    // Run any additional commands needed after update
-                    Artisan::call('migrate', ['--force' => true]);
-                    Artisan::call('config:cache');
-                    Artisan::call('route:cache');
-                    Artisan::call('optimize:clear');
+    // Compare with the latest tag
+    exec("cd $deployPath && git diff --quiet $latestTagOutput HEAD", $outputDiff, $statusDiff);
 
-                    return back()->with('success', 'Application updated successfully!');
+    if ($statusFetch === 0 && $statusTag === 0) {
+        if ($statusDiff !== 0) {
+            // Pull the latest changes from the Git repository
+            exec("cd $deployPath && git pull origin main", $outputPull, $statusPull);
+
+            if ($statusPull === 0) {
+                // Run Composer install and update
+                exec("cd $deployPath && composer install --no-interaction --prefer-dist", $outputComposerInstall, $statusComposerInstall);
+                exec("cd $deployPath && composer update --no-interaction --prefer-dist", $outputComposerUpdate, $statusComposerUpdate);
+
+                // Run any additional commands needed after update
+                Artisan::call('migrate', ['--force' => true]);
+                Artisan::call('config:cache');
+                Artisan::call('route:cache');
+                Artisan::call('optimize:clear');
+
+                // **Fetch the current version from composer.json**
+                $composerJsonPath = $deployPath . '/composer.json';
+                $composerData = json_decode(file_get_contents($composerJsonPath), true);
+
+                if (isset($composerData['version'])) {
+                    $newTag = $composerData['version'];
+
+                    // Add and push the Git tag using the Composer version
+                    exec("cd $deployPath && git tag $newTag", $outputTag, $statusTagAdd);
+
+                    if ($statusTagAdd === 0) {
+                        exec("cd $deployPath && git push origin $newTag", $outputPushTag, $statusPushTag);
+
+                        if ($statusPushTag === 0) {
+                            return back()->with('success', 'Application updated and new tag added successfully!');
+                        } else {
+                            return back()->with('warning', 'Application updated, but failed to push the new tag.');
+                        }
+                    } else {
+                        return back()->with('warning', 'Application updated, but failed to create a new tag.');
+                    }
                 } else {
-                    return back()->with('error', 'Failed to update the application.');
+                    return back()->with('warning', 'Application updated, but no version found in composer.json.');
                 }
             } else {
-                return back()->with('info', 'You are already on the latest tag.');
+                return back()->with('error', 'Failed to update the application.');
             }
         } else {
-            return back()->with('error', 'Failed to fetch tags or check current version.');
+            return back()->with('info', 'You are already on the latest tag.');
         }
+    } else {
+        return back()->with('error', 'Failed to fetch tags or check current version.');
     }
+}
+
 }
