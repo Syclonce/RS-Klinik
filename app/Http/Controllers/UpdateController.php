@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\File;
 
 class UpdateController extends Controller
 {
-
     public function update(Request $request)
 {
     $repositoryUrl = 'https://github.com/Syclonce/RS-Klinik.git';
@@ -38,7 +37,6 @@ class UpdateController extends Controller
             if ($statusPull === 0) {
                 // Run Composer install and update
                 exec("cd $deployPath && composer install --no-interaction --prefer-dist", $outputComposerInstall, $statusComposerInstall);
-                exec("cd $deployPath && composer update --no-interaction --prefer-dist", $outputComposerUpdate, $statusComposerUpdate);
 
                 // Run any additional commands needed after update
                 Artisan::call('migrate', ['--force' => true]);
@@ -46,30 +44,7 @@ class UpdateController extends Controller
                 Artisan::call('route:cache');
                 Artisan::call('optimize:clear');
 
-                // **Fetch the current version from composer.json**
-                $composerJsonPath = $deployPath . '/composer.json';
-                $composerData = json_decode(file_get_contents($composerJsonPath), true);
-
-                if (isset($composerData['version'])) {
-                    $newTag = $composerData['version'];
-
-                    // Add and push the Git tag using the Composer version
-                    exec("cd $deployPath && git tag $newTag", $outputTag, $statusTagAdd);
-
-                    if ($statusTagAdd === 0) {
-                        exec("cd $deployPath && git push origin $newTag", $outputPushTag, $statusPushTag);
-
-                        if ($statusPushTag === 0) {
-                            return back()->with('success', 'Application updated and new tag added successfully!');
-                        } else {
-                            return back()->with('warning', 'Application updated, but failed to push the new tag.');
-                        }
-                    } else {
-                        return back()->with('warning', 'Application updated, but failed to create a new tag.');
-                    }
-                } else {
-                    return back()->with('warning', 'Application updated, but no version found in composer.json.');
-                }
+                return back()->with('success', 'Application updated successfully!');
             } else {
                 return back()->with('error', 'Failed to update the application.');
             }
