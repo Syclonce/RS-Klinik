@@ -11,6 +11,8 @@ class poli extends Model
     protected $table = 'polis';
     protected $fillable = [
         'nama_poli',
+        'id_bpjs',
+        'id_satusehat',
         'deskripsi',
         'status',
     ];

@@ -37,12 +37,13 @@ Route::middleware('auth')->group(function () {
     // Route::get('/getAccessToken', [SatusehatController::class, 'getAccessToken'])->name('getAccessToken');
     Route::get('/getAccessToken/{nik}', [SatusehatController::class, 'getPatientByNik'])->name('getPatientByNik');
     Route::get('/decompress', [SatusehatController::class, 'decompress'])->name('decompress');
-    // Route::get('/generateHeaders', [SatusehatController::class, 'generateHeaders'])->name('generateHeaders');
+    Route::get('/polis', [SatusehatController::class, 'polis'])->name('polis');
 
 
     Route::get('/jenisKartu/{jenisKartu}', [SatusehatController::class, 'jenisKartu'])->name('jenisKartu');
     Route::get('/bpjs/{poli}', [SatusehatController::class, 'bpjs'])->name('bpjs');
-    Route::get('/poli/{namapoli}', [SatusehatController::class, 'poli'])->name('poli');
+    Route::get('/poli', [SatusehatController::class, 'poli'])->name('poli');
+    Route::get('/comparePolisAndPoli', [SatusehatController::class, 'comparePolisAndPoli'])->name('comparePolisAndPoli');
     Route::get('/cekstatusconkesi', [SatusehatController::class, 'cekstatus'])->name('cekstatusconkesi');
 
 });

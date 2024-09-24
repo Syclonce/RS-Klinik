@@ -28,6 +28,8 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Poli</th>
+                                            <th>Kode BPJS</th>
+                                            <th>Kode Satu Sehat</th>
                                             <th>Deskripsi</th>
                                             <th>ID Lokasi</th>
                                             <th>Status</th>
@@ -39,6 +41,8 @@
                                             <tr>
                                                 <td>{{ $data->id }}</td>
                                                 <td>{{ $data->nama_poli }}</td>
+                                                <td>{{ $data->id_bpjs }}</td>
+                                                <td>{{ $data->id_satusehat }}</td>
                                                 <td>{{ $data->deskripsi }}</td>
                                                 <td></td>
                                                 <td>{{ $data->status }}</td>
