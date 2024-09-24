@@ -578,10 +578,10 @@
 
         // Saat halaman dimuat, cek apakah ada pesan sukses atau error dari server dan tampilkan SweetAlert sesuai.
         document.addEventListener('DOMContentLoaded', function() {
-            if ("{{ session('success') }}") {
+            if ("{{ session('Success') }}") {
                 Toast.fire({
                     icon: 'success',
-                    title: "{{ session('success') }}"
+                    title: "{{ session('Success') }}"
                 });
             }
 
@@ -594,7 +594,7 @@
             if ("{{ session('status') === 'profile-updated' }}") {
                 Toast.fire({
                     icon: 'success',
-                    title: "{{ session('success') }}"
+                    title: "{{ session('Success') }}"
                 });
             }
         });
