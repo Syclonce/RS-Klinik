@@ -90,7 +90,7 @@ class PatientController extends Controller
             "goldar" => 'required',
             "pernikahan" => 'required',
             "pekerjaan" => 'required',
-            "telepon" => 'required|string|regex:/^\(\d{2}\) \d{3}-\d{3}-\d{4}$/',
+            "telepon" => 'required|string|regex:/^\(\d{2}\) \d{3}-\d{3}-\d{3}$/',
         ]);
 
         $datauser = $request->validate([
@@ -136,7 +136,7 @@ class PatientController extends Controller
         $pasien->telepon = $data['telepon'];
         $pasien->save();
 
-        return redirect()->route('patient')->with('success', 'Pasien berhasi di tambahkan');
+        return redirect()->route('patient')->with('Success', 'Pasien berhasi di tambahkan');
     }
 
     public function seks()
