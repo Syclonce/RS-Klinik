@@ -1,15 +1,15 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Modules\FinecController;
-use App\Http\Controllers\Modules\DoctorController;
+use App\Http\Controllers\modules\FinecController;
+use App\Http\Controllers\modules\DoctorController;
 use App\Http\Controllers\modules\FarmasiController;
-use App\Http\Controllers\Modules\PatientController;
-use App\Http\Controllers\Modules\ScheduleController;
-use App\Http\Controllers\Modules\JanjiController;
-use App\Http\Controllers\Modules\SumberdayamController;
-use App\Http\Controllers\Modules\ObatController;
-use App\Http\Controllers\Modules\LaporanController;
+use App\Http\Controllers\modules\PatientController;
+use App\Http\Controllers\modules\ScheduleController;
+use App\Http\Controllers\modules\JanjiController;
+use App\Http\Controllers\modules\SumberdayamController;
+use App\Http\Controllers\modules\ObatController;
+use App\Http\Controllers\modules\LaporanController;
 use App\Http\Controllers\modules\KamarController;
 use App\Http\Controllers\modules\RegisController;
 use App\Http\Controllers\ProfileController;
