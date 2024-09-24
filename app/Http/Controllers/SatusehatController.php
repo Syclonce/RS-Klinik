@@ -220,7 +220,6 @@ public function jenisKartu($jenisKartu)
         return response()->json([
             "data" => $data,
             "additionalData" => $patientData,
-            "date" => date('Y-M-D'),
             "time" => date('H:i:s'),
         ]);
 
