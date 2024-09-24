@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/jenisKartu/{jenisKartu}', [SatusehatController::class, 'jenisKartu'])->name('jenisKartu');
+    Route::get('/practitionejenisKartu/{jenisKartu}', [SatusehatController::class, 'getPractitionerByNik'])->name('practitionejenisKartu');
+    Route::get('/getPractitionerByNikall', [SatusehatController::class, 'getPractitionerByNikall'])->name('getPractitionerByNikall');
     Route::get('/bpjs/{poli}', [SatusehatController::class, 'bpjs'])->name('bpjs');
     Route::get('/poli', [SatusehatController::class, 'poli'])->name('poli');
     Route::get('/comparePolisAndPoli', [SatusehatController::class, 'comparePolisAndPoli'])->name('comparePolisAndPoli');

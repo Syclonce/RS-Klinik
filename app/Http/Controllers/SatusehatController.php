@@ -397,5 +397,105 @@ class SatusehatController extends Controller
     }
 
 
+    public function getPractitionerByNik( $jenisKartu )
+    {
+        // Get NIK from request or fallback to input
+        if ($jenisKartu === null) {
+            $jenisKartu = $jenisKartu;
+        }
 
+        // Check if NIK is provided
+        if (empty($jenisKartu)) {
+            return response()->json(['error' => 'NIK tidak boleh kosong'], 400);
+        }
+
+        // Get access token
+        $token = $this->getAccessToken();
+
+        if (!$token) {
+            return response()->json(['error' => 'Unable to obtain access token'], 500);
+        }
+
+        // Make the API request to fetch patient by NIK
+        $url = env('SATUSEHAT_BASE_URL').'/fhir-r4/v1/Practitioner?identifier=https%3A%2F%2Ffhir.kemkes.go.id%2Fid%2Fnik%7C' . $jenisKartu;
+
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer ' . $token
+        ])->get($url);
+
+        // Check for errors in the response
+        if ($response->failed()) {
+            return response()->json(['error' => 'Request failed', 'details' => $response->body()], 500);
+        }
+
+        // Return the API response as JSON
+
+           // Return both the access token and the patient data
+            return response()->json([
+                'access_token' => $token,
+                'patient_data' => $response->json()
+            ]);
+    }
+
+
+    public function getPractitionerByNikall()
+    {
+        $BASE_URL = env('BPJS_PCARE_BASE_URL');
+        $SERVICE_NAME = env('BPJS_PCARE_SERVICE_NAME');
+        $feature = 'dokter';
+        $params = '1';
+        $params1 = '100';
+
+        try {
+            // Assuming $this->generateHeaders() returns an array of headers
+            $headers = array_merge([
+                'Content-Type' => 'application/json; charset=utf-8'
+            ], $this->generateHeaders()['headers']);
+
+            // Make the API request
+            $response = Http::withHeaders($headers)
+                ->get("{$BASE_URL}/{$SERVICE_NAME}/{$feature}/{$params}/{$params1}");
+
+            // Decode the response body
+            $responseBody = json_decode($response->body(), true);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 400);
+        }
+
+        // Fetch the encrypted response data
+        $encryptedString = $responseBody['response'];
+
+        // Decrypt the string using AES-256-CBC
+        $key = $this->generateHeaders()['key_decrypt'];
+        $encrypt_method = 'AES-256-CBC';
+        $key_hash = hex2bin(hash('sha256', $key));  // Get key hash
+        $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);  // Get IV
+
+        // Decrypt the base64-encoded encrypted string
+        $decryptedString = openssl_decrypt(base64_decode($encryptedString), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
+
+        $jsonString = $this->decompress($decryptedString);
+
+        // Decompress the string
+        $data = json_decode($jsonString, true);
+        // // Filter the list to include only items where 'poliSakit' is true
+        // $filteredList = array_filter($data['list'], function($item) {
+        //     return isset($item['poliSakit']) && $item['poliSakit'] === true;
+        // });
+
+        // // Prepare the response data
+        // $responseData = [
+        //     "count" => count($filteredList), // Count of filtered items
+        //     "list" => array_values($filteredList), // Re-index the filtered array
+        // ];
+
+        // // Return only 'nmPoli' in an array for comparison
+        // $names = array_column($responseData['list'], 'nmPoli'); // Extract 'nmPoli'
+
+        return response()->json([
+            "data" => $data,
+            // "names" => $names, // Include names for later comparison
+        ]);
+    }
 }
