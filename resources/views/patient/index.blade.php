@@ -152,6 +152,24 @@
                                         <input type="text" class="form-control" id="tgl_akhir" name="tgl_akhir">
                                     </div>
                                 </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Username </label>
+                                        <input type="text" class="form-control" id="username" name="username">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Email </label>
+                                        <input type="Email" class="form-control" id="email" name="email">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Password </label>
+                                        <input type="password" class="form-control" id="password" name="password" autocomplete >
+                                    </div>
+                                </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Alamat </label>

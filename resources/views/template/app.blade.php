@@ -290,6 +290,23 @@
 
     </style>
 
+    <style>
+        .nav-link {
+        display: flex;
+        align-items: center;
+        }
+
+        .nav-link i {
+            font-size: 1.2rem; /* Samakan ukuran ikon */
+        }
+
+        .nav-link p {
+            margin-left: 10px; /* Atur jarak antara ikon dan teks */
+            display: flex;
+            align-items: center; /* Sejajarkan teks secara vertikal dengan ikon */
+        }
+    </style>
+
 </head>
 
 <body class="layout-fixed">

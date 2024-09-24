@@ -65,11 +65,11 @@
 
             <li class="nav-item {{ \Route::is('patient*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('patient*') ? 'active' : '' }}">
-                    <i class="fas fa-fw fa-solid fa-hospital-user" style="color: #63E6BE;"></i>
-                  <p>
-                    Pasien
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
+                    <i class="fas fa-fw fa-hospital-user" style="color: #63E6BE; font-size: 1.2rem;"></i>
+                    <p style="margin-left: 10px;">
+                        Pasien
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
@@ -119,11 +119,11 @@
 
             <li class="nav-item {{ \Route::is('regis*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('regis*') ? 'active' : '' }}">
-                <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
-                  <p>
-                    Registrasi
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
+                    <i class="fa-solid fa-clock" style="color: #63E6BE; font-size: 1.2rem;"></i>
+                    <p style="margin-left: 10px;">
+                        Registrasi
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">

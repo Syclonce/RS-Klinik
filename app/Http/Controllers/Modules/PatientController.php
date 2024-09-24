@@ -72,21 +72,21 @@ class PatientController extends Controller
             "telepon" => 'required|string|regex:/^\(\d{2}\) \d{3}-\d{3}-\d{4}$/',
         ]);
 
-        // $datauser = $request->validate([
-        //     "nama" => 'required|string|max:255',
-        //     "username" => 'required|string|max:255',
-        //     "email" => 'required|string|max:255',
-        //     "password" => 'required',
-        // ]);
+        $datauser = $request->validate([
+            "nama" => 'required|string|max:255',
+            "username" => 'required|string|max:255',
+            "email" => 'required|string|max:255',
+            "password" => 'required',
+        ]);
 
-        // $user = new User();
-        // $user->name = $datauser['nama'];
-        // $user->username = $datauser['username'];
-        // $user->email = $datauser['email'];
-        // $user->password = Hash::make($datauser['password']); // Hash the password
-        // $user->profile = 'default.jpg';
-        // $user->save();
-        // $user->assignRole('User');
+        $user = new User();
+        $user->name = $datauser['nama'];
+        $user->username = $datauser['username'];
+        $user->email = $datauser['email'];
+        $user->password = Hash::make($datauser['password']); // Hash the password
+        $user->profile = 'default.jpg';
+        $user->save();
+        $user->assignRole('User');
 
         $pasien = new pasien();
         $pasien->nomor_rm = $data['nomor_rm'];
