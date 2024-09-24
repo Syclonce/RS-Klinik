@@ -121,6 +121,8 @@ class DoctorController extends Controller
     {
         $data = $request->validate([
             "nama_poli" => 'required',
+            "id_bpjs"=> 'required',
+            "id_satusehat" => 'required',
             "deskripsi" => 'required',
             "status" => 'required',
         ]);
