@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\setweb;
 use App\Models\doctor;
+use App\Models\pasien;
 use App\Models\poli;
 use App\Models\rajal;
 
@@ -26,8 +27,22 @@ class RegisController extends Controller
         $title = $setweb->name_app ." - ". "rajal";
         $dokter = doctor::all();
         $data = rajal::all();
-        return view('regis.rajal', compact('title','dokter','data'));
+        $pasien = pasien::all();
+        return view('regis.rajal', compact('title','dokter','data','pasien'));
 
+    }
+
+    public function show($no_rm)
+    {
+        // Cari pasien berdasarkan No RM
+        $pasien = pasien::where('no_rm', $no_rm)->first();
+
+        // Jika pasien ditemukan, return sebagai JSON
+        if ($pasien) {
+            return response()->json($pasien);
+        } else {
+            return response()->json(['message' => 'Data pasien tidak ditemukan'], 404);
+        }
     }
 
     public function rajaladd(Request $request)
