@@ -102,7 +102,13 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Nomor Penjamin </label>
+                                        <input type="text" class="form-control" id="nomor_penjamin" name="nomor_penjamin">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Nama Penjamin </label>
                                         <input type="text" class="form-control" id="nama_penjamin" name="nama_penjamin">

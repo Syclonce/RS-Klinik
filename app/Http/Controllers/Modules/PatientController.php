@@ -29,7 +29,26 @@ class PatientController extends Controller
         $goldar = goldar::all();
         $provinsi = Provinsi::all();
         $pasien = pasien::with(['goldar'])->get();
-        return view('patient.index', compact('title','goldar','pasien','provinsi'));
+        $sex = seks::all();
+        return view('patient.index', compact('title','goldar','pasien','provinsi','sex'));
+    }
+
+
+    public function checkSex(Request $request)
+    {
+        // Dapatkan kode sex dari input
+        $inputSexCode = $request->input('sex_code');
+
+        // Cari kode sex di database
+        $sex = Seks::where('kode', $inputSexCode)->first();
+
+        if ($sex) {
+            // Jika ditemukan, kembalikan deskripsi sex
+            return response()->json(['description' => $sex->nama], 200);
+        } else {
+            // Jika tidak ditemukan
+            return response()->json(['message' => 'Sex tidak ditemukan'], 404);
+        }
     }
 
     public function generate()
@@ -71,7 +90,7 @@ class PatientController extends Controller
             "goldar" => 'required',
             "pernikahan" => 'required',
             "pekerjaan" => 'required',
-            "telepon" => 'required|string|regex:/^\(\d{2}\) \d{3}-\d{3}-\d{4}$/',
+            "telepon" => 'required|string|regex:/^\(\d{2}\) \d{3}-\d{3}-\d{3}$/',
         ]);
 
         $datauser = $request->validate([
@@ -117,7 +136,7 @@ class PatientController extends Controller
         $pasien->telepon = $data['telepon'];
         $pasien->save();
 
-        return redirect()->route('patient')->with('success', 'Pasien berhasi di tambahkan');
+        return redirect()->route('patient')->with('Success', 'Pasien berhasi di tambahkan');
     }
 
     public function seks()
@@ -252,6 +271,7 @@ class PatientController extends Controller
     {
         $data = $request->validate([
             "jenis" => 'required',
+            "nomor_penjamin" => 'required',
             "nama_penjamin" => 'required',
             "verifikasi" => 'required',
             "filter" => 'required',
@@ -271,6 +291,7 @@ class PatientController extends Controller
 
         $jamin = new penjamin();
         $jamin->jenis = $data['jenis'];
+        $jamin->nomor = $data['nomor_penjamin'];
         $jamin->nama = $data['nama_penjamin'];
         $jamin->verifikasi = $data['verifikasi'];
         $jamin->filter = $data['filter'];

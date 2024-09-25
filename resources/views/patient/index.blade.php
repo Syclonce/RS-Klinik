@@ -386,11 +386,7 @@
                 var NamaAs = datas.asuransi.nmAsuransi || 'Nama Asuransi tidak tersedia';
                 var NoAs = datas.asuransi.noAsuransi || 'No Asuransi tidak tersedia';
 
-                if (Sex === 'L') {
-                    Sex = 'Laki-Laki';
-                } else if (Sex === 'P') {
-                    Sex = 'Perempuan';
-                }
+                getSexDescription(Sex);
 
                 // Tampilkan hasil ke input IHS dan Nama
                 $('#kode_ihs').val(id);
@@ -399,7 +395,7 @@
                 $('#telepon').val(noHP);
                 $('#no_bpjs').val(noBPJS);
                 $('#tgl_akhir').val(Kadaluarsa);
-                $('#seks').val(Sex);
+                // $('#seks').val(Sex);
                 $('#cob').val(Cob);
                 $('#kd_asuransi').val(KodeAs);
                 $('#nm_asuransi').val(NamaAs);
@@ -415,7 +411,7 @@
                 $('#telepon').val('Tidak ditemukan');
                 $('#no_bpjs').val('Tidak ditemukan');
                 $('#tgl_akhir').val('Tidak ditemukan');
-                $('#seks').val('Tidak ditemukan');
+                // $('#seks').val('Tidak ditemukan');
                 $('#cob').val('Tidak ditemukan');
                 $('#kd_asuransi').val('Tidak ditemukan');
                 $('#nm_asuransi').val('Tidak ditemukan');
@@ -436,13 +432,32 @@
                 $('#telepon').val('Error');
                 $('#no_bpjs').val('Error');
                 $('#tgl_akhir').val('Error');
-                $('#seks').val('Error');
+                // $('#seks').val('Error');
                 $('#cob').val('Error');
                 $('#kd_asuransi').val('Error');
                 $('#nm_asuransi').val('Error');
                 $('#no_asuransi').val('Error');
                 alert('Jaringan BPJS mungkin tidak stabil Silahkan Coba Kembali');
             }
+        }
+    });
+}
+function getSexDescription(Sex) {
+    $.ajax({
+        url: '/check-sex',  // Endpoint untuk memeriksa kode Sex di database
+        type: 'POST',
+        data: {
+            sex_code: Sex,
+            _token: '{{ csrf_token() }}' // Jangan lupa sertakan token CSRF untuk Laravel
+        },
+        success: function(response) {
+            // Tampilkan deskripsi sex ke input field #seks
+            $('#seks').val(response.description);
+        },
+        error: function(xhr) {
+            // Jika gagal, tampilkan error
+            $('#seks').val('Deskripsi tidak ditemukan');
+            console.error('Error:', xhr.responseJSON.message);
         }
     });
 }
