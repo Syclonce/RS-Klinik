@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\setweb;
 use App\Models\doctor;
 use App\Models\poli;
+use App\Models\rajal;
 
 
 class RegisController extends Controller
@@ -24,9 +25,33 @@ class RegisController extends Controller
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "rajal";
         $dokter = doctor::all();
-        return view('regis.rajal', compact('title','dokter'));
+        $data = rajal::all();
+        return view('regis.rajal', compact('title','dokter','data'));
 
     }
+
+    public function rajaladd(Request $request)
+    {
+        $data = $request->validate([
+            "no_rm" => 'required',
+            "nama" => 'required',
+            "sex" => 'required',
+            "ktp" => 'required',
+            "satusehat" => 'required',
+            "tanggal_lahir" => 'required',
+            "umur" => 'required',
+            "alamat" => 'required',
+            "tglpol" => 'required',
+            "poli" => 'required',
+            "dokter" => 'required',
+            "id_dokter" => 'required',
+            "pembayaran" => 'required',
+            "nomber" => 'required',
+        ]);
+        rajal::create($data);
+        return redirect()->route('rajal')->with('success', 'rajal berhasi di tambahkan');
+    }
+
 
     public function ranap()
     {

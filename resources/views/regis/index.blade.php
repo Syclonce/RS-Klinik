@@ -166,41 +166,69 @@
                                         <h5><i class="fa fa-user"></i> Penanggung jawab</h5>
                                     </div>
                                     <div class="card-body">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
                                                 <label for="jeskec">Hubungan Pasien</label>
                                                 <select id="jeskec" name="jeskec" class="form-control">
-                                                    <option value="">--- Pilih Jenis Kecelakaan ---</option>
-                                                    <option value="1">Kecelakaan Ringan</option>
-                                                    <option value="2">Kecelakaan Sedang</option>
-                                                    <option value="3">Kecelakaan Berat</option>
-                                                    <!-- Add options dynamically -->
+                                                    <option value="">--- Pilih ---</option>
+                                                    <option value="kepala_keluarga">Kepala Keluarga</option>
+                                                    <option value="suami">Suami</option>
+                                                    <option value="istri">Istri</option>
+                                                    <option value="anak">Anak</option>
+                                                    <option value="menantu">Menantu</option>
+                                                    <option value="cucu">Cucu</option>
+                                                    <option value="orang_tua">Orang Tua</option>
+                                                    <option value="menantu">Mertua</option>
+                                                    <option value="keluarga_lain">Keluarga Lain</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+
+                                        <div class="form-group row">
                                             <div class="col-md-12">
                                                 <label for="nopol">Nama Keluarga</label>
                                                 <input type="text" class="form-control" id="nopol" name="nopol">
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="tglkej">Alamat</label>
-                                                <input type="date" class="form-control" id="tglkej" name="tglkej">
+
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <label for="alamat">Alamat</label>
+                                                <input type="text" class="form-control" id="alamat" name="alamat">
                                             </div>
                                         </div>
+
                                         <div class="form-group row">
-                                            <div class="col-md-6">
-                                                <label for="jeskec">Jenis Kartu</label>
-                                                <select id="jeskec" name="jeskec" class="form-control">
-                                                    <option value="">--- Pilih Jenis Kecelakaan ---</option>
-                                                    <!-- Add options dynamically -->
+                                            <div class="col-md-8">
+                                                <label for="jenis_kartu">Jenis Kartu</label>
+                                                <select id="jenis_kartu" name="jenis_kartu" class="form-control">
+                                                    <option value="">--- Pilih Jenis Kartu ---</option>
+                                                    <option value="ktp">Kartu Tanda Penduduk (KTP)</option>
+                                                    <option value="sim">Surat Izin Mengemudi (SIM)</option>
+                                                    <option value="pelajar">Kartu Pelajar</option>
+                                                    <option value="passport">Passport</option>
+                                                    <option value="kitas">Kartu Izin Sementara (KITAS)</option>
+                                                    <option value="kitap">Kartu Izin Tetap (KITAP)</option>
+                                                    <option value="ktpwna">KTP WNA</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-6 d-flex align-items-end">
-                                                <input type="text" class="form-control" id="sex" name="sex" placeholder="Sex">
+                                            <div class="col-md-4 d-flex align-items-end">
+                                                <input type="text" class="form-control" id="no_kartu" name="no_kartu" placeholder="No. Kartu">
                                             </div>
+                                        </div>
+
+                                        <div class="card-footer d-flex justify-content-end">
+                                            <button type="button" class="btn btn-light mr-2" style="background-color: #17a2b8; color: white;">
+                                                <i class="fa fa-trash-can" style="color: white;"></i> Cancel
+                                            </button>
+                                            <button type="button" class="btn" style="background-color: #ff851b; color: white;">
+                                                <i class="fa fa-floppy-disk" style="color: white;"></i> Save
+                                            </button>
+                                        </div>
+                                    </div>
+
+
+
                                         </div>
                                     </div>
                                 </div>

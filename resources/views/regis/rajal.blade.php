@@ -24,6 +24,9 @@
                                                     <label for="no_rm">No RM</label>
                                                     <select id="no_rm" name="no_rm" class="form-control">
                                                         <option value="">--- Cari RM ---</option>
+                                                        @foreach ($provinsi as $provinsi)
+                                                        <option value="{{$provinsi->kode}}">{{$provinsi->name}}</option>
+                                                        @endforeach
                                                         <!-- Add options dynamically -->
                                                     </select>
                                                 </div>
@@ -140,7 +143,7 @@
                     <div class="col-12 mt-3">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title mb-0">Pasien</h3>
+                                <h3 class="card-title mb-0">Data Pendaftaran Pasien Rawat Jalan</h3>
                             </div>
 
                             <!-- /.card-header -->
@@ -160,7 +163,25 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        @foreach ($data as $data)
+                                        <tr>
+                                            <td>{{ $data->id}}</td>
+                                            <td>{{ $data->no_rm}}</td>
+                                            <td>{{ $data->nama}}</td>
+                                            <td>{{ $data->sex}}</td>
+                                            <td>{{ $data->ktp}}</td>
+                                            <td>{{ $data->satusehat}}</td>
+                                            <td>{{ $data->tanggal_lahir}}</td>
+                                            <td>{{ $data->umur}}</td>
+                                            <td>{{ $data->alamat}}</td>
+                                            <td>{{ $data->tglpol}}</td>
+                                            <td>{{ $data->poli}}</td>
+                                            <td>{{ $data->dokter}}</td>
+                                            <td>{{ $data->id_dokter}}</td>
+                                            <td>{{ $data->pembayaran}}</td>
+                                            <td>{{ $data->nomber}}</td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -169,6 +169,7 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/regis', [RegisController::class, 'index'])->name('regis');
 
     Route::get('/regis/rajal', [RegisController::class, 'rajal'])->name('regis.rajal');
+    Route::post('/regis/rajal/add', [RegisController::class, 'rajaladd'])->name('regis.rajal.add');
 
     Route::get('/regis/ranap', [RegisController::class, 'ranap'])->name('regis.ranap');
 
