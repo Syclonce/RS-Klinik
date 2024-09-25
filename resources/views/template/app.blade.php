@@ -564,6 +564,12 @@
             $('#tgljanji').datetimepicker({
                 format: 'L'
             })
+            $('#tglawal').datetimepicker({
+                format: 'L'
+            })
+            $('#tgllahir').datetimepicker({
+                format: 'L'
+            })
         });
     </script>
 

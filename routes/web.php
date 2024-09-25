@@ -58,6 +58,7 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/doctor', [DoctorController::class, 'index'])->name('doctor');
     Route::post('/doctor/add', [DoctorController::class, 'doctoradd'])->name('doctor.add');
+    Route::post('/check-sex-doctor', [DoctorController::class, 'checkSexdoctor'])->name('doctor.seks.cek');
 
     Route::get('/doctor/spesiali', [DoctorController::class, 'spesiali'])->name('doctor.spesiali');
     Route::post('/doctor/spesiali/add', [DoctorController::class, 'spesialiadd'])->name('doctor.spesiali.add');
@@ -66,7 +67,13 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::post('/doctor/visit', [DoctorController::class, 'visitdocteradd'])->name('doctor.visit.add');
 
     Route::get('/doctor/poli', [DoctorController::class, 'poli'])->name('doctor.poli');
-    Route::post('/doctor/poli', [DoctorController::class, 'poliadd'])->name('doctor.poli.add');
+    Route::post('/doctor/poli/add', [DoctorController::class, 'poliadd'])->name('doctor.poli.add');
+
+    Route::get('/doctor/jabatan', [DoctorController::class, 'jabatan'])->name('doctor.jabatan');
+    Route::post('/doctor/jabatan/add', [DoctorController::class, 'jabatanadd'])->name('doctor.jabatan.add');
+
+    Route::get('/doctor/status', [DoctorController::class, 'status'])->name('doctor.status');
+    Route::post('/doctor/status/add', [DoctorController::class, 'statusadd'])->name('doctor.status.add');
 
     Route::get('/patient', [PatientController::class, 'index'])->name('patient');
     Route::get('/patient/generate-nomor-rm', [PatientController::class, 'generate'])->name('patient.generate');

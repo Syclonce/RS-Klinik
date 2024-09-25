@@ -60,6 +60,18 @@
                       <p>Poli</p>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.jabatan') }}" class="nav-link {{ \Route::is('doctor.jabatan') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p>Tambah Jabatan</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.status') }}" class="nav-link {{ \Route::is('doctor.status') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p>Tambah Status Dokter</p>
+                    </a>
+                  </li>
                 </ul>
             </li>
 
