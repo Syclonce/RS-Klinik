@@ -10,10 +10,21 @@ class doctor extends Model
     use HasFactory;
     protected $table = 'doctors';
     protected $fillable = [
+        'nik',
         'nama',
+        'jabatan_id',
+        'aktivasi',
+        'poli_id',
+        'tglawal',
         'Alamat',
-        'spesialis',
-        'harga',
+        'seks',
+        'sip',
+        'str',
+        'npwp',
+        'tempat_lahir',
+        'tgllahir',
+        'statdok_id',
+        'kode',
         'telepon',
     ];
 
@@ -44,6 +55,21 @@ class doctor extends Model
     public function laptes()
     {
         return $this->hasOne(laptes::class);
+    }
+
+    public function jabatan()
+    {
+        return $this->belongsTo(jabatan::class);
+    }
+
+    public function poli()
+    {
+        return $this->belongsTo(poli::class);
+    }
+
+    public function statdok()
+    {
+        return $this->belongsTo(statdok::class);
     }
 
 }
