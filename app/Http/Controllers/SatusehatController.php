@@ -210,8 +210,8 @@ class SatusehatController extends Controller
         $BASE_URL = env('BPJS_PCARE_BASE_URL');
         $SERVICE_NAME = env('BPJS_PCARE_SERVICE_NAME');
         $feature = 'poli/fktp';
-        $params = '1';
-        $params1 = '100';
+        $params = 'poli';
+        $params1 = 'Umum';
 
         try {
             // Assuming $this->generateHeaders() returns an array of headers

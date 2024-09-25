@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('penjamins', function (Blueprint $table) {
             $table->id();
             $table->string('jenis');
+            $table->string('nomor');
             $table->string('nama');
             $table->string('verifikasi');
             $table->string('filter');
