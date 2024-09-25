@@ -24,7 +24,8 @@ class RegisController extends Controller
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "rajal";
         $dokter = doctor::all();
-        return view('regis.rajal', compact('title','dokter'));
+        $poli = poli::all();
+        return view('regis.rajal', compact('title','dokter','poli'));
 
     }
 

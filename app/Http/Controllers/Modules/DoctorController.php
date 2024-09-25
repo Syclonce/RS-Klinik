@@ -8,7 +8,10 @@ use App\Models\doctor;
 use App\Models\doctor_visit;
 use App\Models\spesiali;
 use App\Models\poli;
+use App\Models\jabatan;
+use App\Models\statdok;
 use App\Models\User;
+use App\Models\seks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,8 +22,11 @@ class DoctorController extends Controller
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "Doctor";
         $data = Spesiali::all();
+        $poli = poli::all();
+        $jabatan = jabatan::all();
+        $status = statdok::all();
         $doctors = Doctor::with('user')->get();
-        return view('doctor.index', compact('title','data','doctors'));
+        return view('doctor.index', compact('title','data','doctors','poli','jabatan','status'));
     }
 
     public function doctoradd(Request $request)
@@ -61,6 +67,24 @@ class DoctorController extends Controller
 
         return redirect()->route('doctor')->with('success', 'dokter berhasi di tambahkan');
     }
+
+    public function checkSexdoctor(Request $request)
+    {
+        // Dapatkan kode sex dari input
+        $inputSexCode = $request->input('sex_code');
+
+        // Cari kode sex di database
+        $sex = Seks::where('kode', $inputSexCode)->first();
+
+        if ($sex) {
+            // Jika ditemukan, kembalikan deskripsi sex
+            return response()->json(['description' => $sex->nama], 200);
+        } else {
+            // Jika tidak ditemukan
+            return response()->json(['message' => 'Sex tidak ditemukan'], 404);
+        }
+    }
+
 
     public function spesiali()
     {
@@ -132,4 +156,41 @@ class DoctorController extends Controller
         return redirect()->route('doctor.poli')->with('Success', 'Bahasa berhasil di tambahkan');
     }
 
+    public function jabatan()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Tambah Poli";
+        $jabatan = jabatan::all();
+        return view('doctor.jabatan', compact('title','jabatan'));
+    }
+
+    public function jabatanadd(Request $request)
+    {
+        $data = $request->validate([
+            "nama" => 'required',
+        ]);
+
+        jabatan::create($data);
+
+        return redirect()->route('doctor.jabatan')->with('Success', 'Jabatan berhasil di tambahkan');
+    }
+
+    public function status()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Tambah Poli";
+        $status = statdok::all();
+        return view('doctor.status', compact('title','status'));
+    }
+
+    public function statusadd(Request $request)
+    {
+        $data = $request->validate([
+            "nama" => 'required',
+        ]);
+
+        statdok::create($data);
+
+        return redirect()->route('doctor.status')->with('Success', 'Status Dokter berhasil di tambahkan');
+    }
 }

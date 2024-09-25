@@ -83,13 +83,11 @@
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                                 <label for="poli">Pilih Poli</label>
-                                                <select id="poli" name="poli" class="form-control">
-                                                    <option value="">--- Pilih Poli ---</option>
-                                                    <option value="poli gigi">Poli Gigi</option>
-                                                    <option value="poli khitan">Poli Khitan</option>
-                                                    <option value="poli kia">Poli KIA</option>
-                                                    <option value="poli umum">Poli Umum</option>
-                                                    <!-- Add options dynamically -->
+                                                <select class="form-control select2bs4"  style="width: 100%;"  id="poli" name="poli">
+                                                    <option value="" disabled selected>--- Pilih Poli ---</option>
+                                                    @foreach ($poli as $poli)
+                                                    <option value="{{$poli->id}}">{{$poli->nama_poli}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
