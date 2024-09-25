@@ -12,4 +12,9 @@ class jabatan extends Model
     protected $fillable = [
         'nama',
     ];
+
+    public function doctor()
+    {
+        return $this->hasOne(doctor::class);
+    }
 }

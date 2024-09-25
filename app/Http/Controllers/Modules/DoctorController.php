@@ -21,23 +21,32 @@ class DoctorController extends Controller
     {
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "Doctor";
-        $data = Spesiali::all();
         $poli = poli::all();
         $jabatan = jabatan::all();
         $status = statdok::all();
-        $doctors = Doctor::with('user')->get();
-        return view('doctor.index', compact('title','data','doctors','poli','jabatan','status'));
+        $doctors = doctor::with('user','poli','jabatan','statdok')->get();
+        return view('doctor.index', compact('title','poli','jabatan','status','doctors'));
     }
 
     public function doctoradd(Request $request)
     {
         $data = $request->validate([
+            "nik" => 'required',
             "nama" => 'required|string|max:255',
+            "jabatan" => 'required|string|max:255',
+            "aktivasi" => 'required|string|max:255',
+            "poli" => 'required|string|max:255',
+            "tglawal" => 'required|string|max:255',
             "Alamat" => 'required|string|max:255',
-            "spesialis" => 'required|array|max:255',
-            "spesialis.*" => 'string|exists:spesialis,kode', // Validate each item in the 'spesialis' array
-            "harga" => 'required|numeric',
-            "telepon" => 'required|string|regex:/^\(\d{2}\) \d{3}-\d{3}-\d{4}$/',
+            "seks" => 'required|string|max:255',
+            "sip" => 'required|string|max:255',
+            "str" => 'required|string|max:255',
+            "npwp" => 'required|string|max:255',
+            "tempat_lahir" => 'required|string|max:255',
+            "tgllahir" => 'required|string|max:255',
+            "status_kerja" => 'required|string|max:255',
+            "kode" => 'required|string|max:255',
+            "telepon" => 'required|string|regex:/^\(\d{2}\) \d{3}-\d{3}-\d{3}$/',
         ]);
 
         $datauser = $request->validate([
@@ -57,15 +66,26 @@ class DoctorController extends Controller
         $user->assignRole('User');
 
         $doctor = new Doctor();
+        $doctor->nik = $data['nik'];
         $doctor->nama = $data['nama'];
-        $doctor->alamat = $data['Alamat'];
-        $doctor->spesialis = json_encode($data['spesialis']); // Encode the array to JSON
-        $doctor->harga = $data['harga'];
+        $doctor->jabatan_id = $data['jabatan'];
+        $doctor->aktivasi = $data['aktivasi'];
+        $doctor->poli_id = $data['poli'];
+        $doctor->tglawal = $data['tglawal'];
+        $doctor->Alamat = $data['Alamat'];
+        $doctor->seks = $data['seks'];
+        $doctor->sip = $data['sip'];
+        $doctor->str = $data['str'];
+        $doctor->npwp = $data['npwp'];
+        $doctor->tempat_lahir = $data['tempat_lahir'];
+        $doctor->tgllahir = $data['tgllahir'];
+        $doctor->statdok_id = $data['status_kerja'];
+        $doctor->kode = $data['kode'];
         $doctor->telepon = $data['telepon'];
         $doctor->user_id = $user->id;
         $doctor->save();
 
-        return redirect()->route('doctor')->with('success', 'dokter berhasi di tambahkan');
+        return redirect()->route('doctor')->with('Success', 'dokter berhasi di tambahkan');
     }
 
     public function checkSexdoctor(Request $request)
@@ -166,13 +186,24 @@ class DoctorController extends Controller
 
     public function jabatanadd(Request $request)
     {
-        $data = $request->validate([
-            "nama" => 'required',
-        ]);
+        try {
+            // Validasi input data
+            $data = $request->validate([
+                "nama" => 'required|unique:jabatans,nama',
+            ]);
 
-        jabatan::create($data);
+            // Jika validasi berhasil, simpan data
+            jabatan::create($data);
 
-        return redirect()->route('doctor.jabatan')->with('Success', 'Jabatan berhasil di tambahkan');
+            // Redirect dengan pesan sukses
+            return redirect()->route('doctor.jabatan')->with('Success', 'Jabatan berhasil ditambahkan');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Tangkap pengecualian validasi dan kembali ke halaman sebelumnya dengan alert pesan gagal
+            return redirect()->back()
+                ->with('error', 'Gagal menambahkan, nama sudah ada!')
+                ->withErrors($e->validator)
+                ->withInput();
+        }
     }
 
     public function status()
@@ -185,12 +216,23 @@ class DoctorController extends Controller
 
     public function statusadd(Request $request)
     {
-        $data = $request->validate([
-            "nama" => 'required',
-        ]);
+        try {
+            // Validasi input data
+            $data = $request->validate([
+                "nama" => 'required|unique:statdoks,nama',
+            ]);
 
-        statdok::create($data);
+            // Jika validasi berhasil, simpan data
+            statdok::create($data);
 
-        return redirect()->route('doctor.status')->with('Success', 'Status Dokter berhasil di tambahkan');
+            // Redirect dengan pesan sukses
+            return redirect()->route('doctor.status')->with('Success', 'Status Dokter berhasil ditambahkan');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Tangkap pengecualian validasi dan kembali ke halaman sebelumnya dengan alert pesan gagal
+            return redirect()->back()
+                ->with('error', 'Gagal menambahkan, nama sudah ada!')
+                ->withErrors($e->validator)
+                ->withInput();
+        }
     }
 }

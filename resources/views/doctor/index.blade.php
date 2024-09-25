@@ -23,25 +23,27 @@
                             <table id="doctortbl" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
+                                        <th>NIK</th>
                                         <th>Nama</th>
-                                        <th>Alamat</th>
-                                        <th>Spesialis</th>
-                                        <th>Telepon</th>
-                                        <th>Email</th>
-                                        <th width="20%">Pilihan</th>
+                                        <th>Jabatan</th>
+                                        <th>Poli</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th>Status Pekerja</th>
                                         <th width="20%">Pilihan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {{-- Uncomment this to display doctors --}}
-                                    {{-- @foreach ($doctors as $doctor)
+                                    @foreach ($doctors as $doctor)
                                         <tr>
+                                            <td>{{ $doctor->nik }}</td>
                                             <td>{{ $doctor->nama }}</td>
-                                            <td>{{ $doctor->Alamat }}</td>
-                                            <td>{{ implode(', ', json_decode($doctor->spesialis)) }}</td>
-                                            <td>{{ $doctor->telepon }}</td>
-                                            <td>{{ $doctor->user->email }}</td>
-                                            <td>
+                                            <td>{{ $doctor->jabatan->nama }}</td>
+                                            <td>{{ $doctor->poli->nama_poli }}</td>
+                                            <td>{{ $doctor->seks }}</td>
+                                            <td>{{ $doctor->statdok->nama }}</td>
+                                            <td></td>
+                                            {{-- <td>
                                                 <a href="{{ route('doctor.doctor', ['id' =>  $doctor->id ]) }}" class="edit-data-permesion">
                                                     <i class="fa fa-edit text-secondary"></i>
                                                 </a>
@@ -50,9 +52,9 @@
                                                 <a href="{{ route('doctor.doctor.liburan', ['id' =>  $doctor->id ]) }}" class="edit-data-permesion">
                                                     <i class="fa fa-edit text-secondary"></i>
                                                 </a>
-                                            </td>
+                                            </td> --}}
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -194,6 +196,30 @@
                             <div class="form-group">
                                 <label>ID Satu Sehat</label>
                                 <input type="text" class="form-control" id="kode" name="kode" readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Username </label>
+                                <input type="text" class="form-control" id="username" name="username">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Email </label>
+                                <input type="Email" class="form-control" id="email" name="email">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Password </label>
+                                <input type="password" class="form-control" id="password" name="password" autocomplete >
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Telepon  </label>
+                                <input type="text" class="form-control" id="telepon" name="telepon">
                             </div>
                         </div>
                     </div>

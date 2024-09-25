@@ -12,4 +12,9 @@ class statdok extends Model
     protected $fillable = [
         'nama',
     ];
+
+    public function doctor()
+    {
+        return $this->hasOne(doctor::class);
+    }
 }
