@@ -516,14 +516,14 @@
             });
             // Apply Inputmask for phone number
             $('#telepon').inputmask({
-                mask: '(99) 999-999-9999',
+                mask: '(99) 999-999-999',
                 placeholder: ' ',
                 showMaskOnHover: false,
                 showMaskOnFocus: false
             });
 
             $('#telp_cp').inputmask({
-                mask: '(99) 999-999-9999',
+                mask: '(99) 999-999-999',
                 placeholder: ' ',
                 showMaskOnHover: false,
                 showMaskOnFocus: false

@@ -271,6 +271,7 @@ class PatientController extends Controller
     {
         $data = $request->validate([
             "jenis" => 'required',
+            "nomor_penjamin" => 'required',
             "nama_penjamin" => 'required',
             "verifikasi" => 'required',
             "filter" => 'required',
@@ -290,6 +291,7 @@ class PatientController extends Controller
 
         $jamin = new penjamin();
         $jamin->jenis = $data['jenis'];
+        $jamin->nomor = $data['nomor_penjamin'];
         $jamin->nama = $data['nama_penjamin'];
         $jamin->verifikasi = $data['verifikasi'];
         $jamin->filter = $data['filter'];
