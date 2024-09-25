@@ -28,7 +28,8 @@ class RegisController extends Controller
         $dokter = doctor::all();
         $data = rajal::all();
         $pasien = pasien::all();
-        return view('regis.rajal', compact('title','dokter'));
+        $poli = poli::all();
+        return view('regis.rajal', compact('title','dokter','pasien','poli','data'));
 
     }
 

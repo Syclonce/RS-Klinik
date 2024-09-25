@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\setsatusehat;
 use App\Models\setweb;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +13,8 @@ class websetController extends Controller
     {
         $title = 'Rs Apps';
         $webset = setweb::all();
-        return view('superadmin.webset', compact('title', 'webset',));
+        $setsatusehat = setsatusehat::all();
+        return view('superadmin.webset', compact('title', 'webset', 'setsatusehat'));
     }
 
     public function updates(Request $request)
@@ -55,5 +57,17 @@ class websetController extends Controller
         $setWeb->save();
 
         return redirect()->back()->with('success', 'Record updated successfully.');
+    }
+
+    public function setsatusehat(Request $request)
+    {
+        $data=$request->validate([
+            'org_id' => 'required',
+            'client_id' => 'required',
+            'client_secret' => 'required',
+            'SATUSEHAT_BASE_URL' => 'required',
+        ]);
+
+        $setsehat = setsatusehat::findOrFail($request->id);
     }
 }
