@@ -187,6 +187,8 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');
     Route::post('setweb/update', [websetController::class, 'updates'])->name('setweb.update');
+    Route::post('setweb/setsatusehat', [websetController::class, 'setsatusehat'])->name('setweb.setsatusehat');
+    Route::post('setweb/setbpjs', [websetController::class, 'setbpjs'])->name('setweb.setbpjs');
 
 
     Route::get('permissions', [PermissionController::class, 'index'])->name('permissions');

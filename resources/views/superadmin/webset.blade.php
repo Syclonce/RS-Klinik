@@ -95,7 +95,7 @@
 
                     <div class="col-md-6">
                         <div class="card card-primary card-outline">
-                            <form action="{{ route('setweb.update') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('setweb.setsatusehat') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
                                     @foreach ($setsatusehat as $setsatusehat)
@@ -130,60 +130,64 @@
                     </div>
                     <div class="col-md-6">
                         <div class="card card-primary card-outline">
-                            <form action="{{ route('setweb.update') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('setweb.setbpjs') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
+                                    @foreach ($setbpjs as $setbpjs)
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="nameApp">BPJS_PCARE_CONSID</label>
-                                                <input type="text" name="name_app" class="form-control" id="nameApp" placeholder="Enter app name" required>
+                                                <label for="BPJS_PCARE_CONSID">BPJS_PCARE_CONSID</label>
+                                                <input type="text" value="{{ $setbpjs->BPJS_PCARE_CONSID }}" name="BPJS_PCARE_CONSID" class="form-control" id="BPJS_PCARE_CONSID" placeholder="Enter app name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="nameApp">BPJS_PCARE_SCREET_KEY</label>
-                                                <input type="text" name="name_app" class="form-control" id="nameApp" placeholder="Enter app name" required>
+                                                <label for="BPJS_PCARE_SCREET_KEY">BPJS_PCARE_SCREET_KEY</label>
+                                                <input type="text"  value="{{ $setbpjs->BPJS_PCARE_SCREET_KEY }}" name="BPJS_PCARE_SCREET_KEY" class="form-control" id="BPJS_PCARE_SCREET_KEY" placeholder="Enter app name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="nameApp">BPJS_PCARE_USERNAME</label>
-                                                <input type="text" name="name_app" class="form-control" id="nameApp" placeholder="Enter app name" required>
+                                                <label for="BPJS_PCARE_USERNAME">BPJS_PCARE_USERNAME</label>
+                                                <input type="text" value="{{ $setbpjs->BPJS_PCARE_USERNAME }}" name="BPJS_PCARE_USERNAME" class="form-control" id="BPJS_PCARE_USERNAME" placeholder="Enter app name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="nameApp">BPJS_PCARE_PASSWORD</label>
-                                                <input type="text" name="name_app" class="form-control" id="nameApp" placeholder="Enter app name" required>
+                                                <label for="BPJS_PCARE_PASSWORD">BPJS_PCARE_PASSWORD</label>
+                                                <input type="text" value="{{ $setbpjs->BPJS_PCARE_PASSWORD }}" name="BPJS_PCARE_PASSWORD" class="form-control" id="BPJS_PCARE_PASSWORD" placeholder="Enter app name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="nameApp">BPJS_PCARE_APP_CODE</label>
-                                                <input type="text" name="name_app" class="form-control" id="nameApp" placeholder="Enter app name" required>
+                                                <label for="BPJS_PCARE_APP_CODE">BPJS_PCARE_APP_CODE</label>
+                                                <input type="text" value="{{ $setbpjs->BPJS_PCARE_APP_CODE }}" name="BPJS_PCARE_APP_CODE" class="form-control" id="BPJS_PCARE_APP_CODE" placeholder="Enter app name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="nameApp">BPJS_PCARE_USER_KEY</label>
-                                                <input type="text" name="name_app" class="form-control" id="nameApp" placeholder="Enter app name" required>
+                                                <label for="BPJS_PCARE_USER_KEY">BPJS_PCARE_USER_KEY</label>
+                                                <input type="text" value="{{ $setbpjs->BPJS_PCARE_USER_KEY }}" name="BPJS_PCARE_USER_KEY" class="form-control" id="BPJS_PCARE_USER_KEY" placeholder="Enter app name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="nameApp">BPJS_PCARE_BASE_URL</label>
-                                                <input type="text" name="name_app" class="form-control" id="nameApp" placeholder="Enter app name" required>
+                                                <label for="BPJS_PCARE_BASE_URL">BPJS_PCARE_BASE_URL</label>
+                                                <input type="text" value="{{ $setbpjs->BPJS_PCARE_BASE_URL }}" name="BPJS_PCARE_BASE_URL" class="form-control" id="BPJS_PCARE_BASE_URL" placeholder="Enter app name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="nameApp">BPJS_PCARE_SERVICE_NAME</label>
-                                                <input type="text" name="name_app" class="form-control" id="nameApp" placeholder="Enter app name" required>
+                                                <label for="BPJS_PCARE_SERVICE_NAME">BPJS_PCARE_SERVICE_NAME</label>
+                                                <input type="text" value="{{ $setbpjs->BPJS_PCARE_SERVICE_NAME }}" name="BPJS_PCARE_SERVICE_NAME" class="form-control" id="BPJS_PCARE_SERVICE_NAME" placeholder="Enter app name" required>
                                             </div>
                                         </div>
-
+                                        <div class="form-group">
+                                        <input type="hidden" name="id" value="{{ $setbpjs->id }}">
                                     </div>
+                                    </div>
+                                    @endforeach
                                 </div>
                                 <!-- /.card-body -->
 

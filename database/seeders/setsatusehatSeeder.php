@@ -6,7 +6,7 @@ use App\Models\setsatusehat as ModelsSetsatusehat;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class setsatusehat extends Seeder
+class setsatusehatSeeder extends Seeder
 {
     /**
      * Run the database seeds.
