@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             kabupatenSeeder::class,
             KecamatanSeeder::class,
             DesaSeeder::class,
-            setsatusehat::class,
+            setsatusehatSeeder::class,
+            setbpjsSeeder::class,
         ]);
     }
 }

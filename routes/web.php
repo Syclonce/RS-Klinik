@@ -7,11 +7,13 @@ use App\Http\Controllers\modules\FarmasiController;
 use App\Http\Controllers\modules\PatientController;
 use App\Http\Controllers\modules\ScheduleController;
 use App\Http\Controllers\modules\JanjiController;
+use App\Http\Controllers\modules\DatamasterController;
 use App\Http\Controllers\modules\SumberdayamController;
 use App\Http\Controllers\modules\ObatController;
 use App\Http\Controllers\modules\LaporanController;
 use App\Http\Controllers\modules\KamarController;
 use App\Http\Controllers\modules\RegisController;
+use App\Http\Controllers\modules\AntrianController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\websetController;
@@ -177,6 +179,35 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/kamar', [KamarController::class, 'index'])->name('kamar');
     Route::post('/kamar/add', [KamarController::class, 'kamaradd'])->name('kamar.add');
 
+    Route::get('/datamaster', [DatamasterController::class, 'index'])->name('datmas');
+
+    Route::get('/datamaster/bangsal', [DatamasterController::class, 'bangsal'])->name('datmas.bangsal');
+    Route::post('/datamaster/bangsal/add', [DatamasterController::class, 'bangsaladd'])->name('datmas.bangsal.add');
+
+    Route::get('/datamaster/dabar', [DatamasterController::class, 'dabar'])->name('datmas.dabar');
+    Route::post('/datamaster/dabar/add', [DatamasterController::class, 'dabaradd'])->name('datmas.dabar.add');
+
+    Route::get('/datamaster/katbar', [DatamasterController::class, 'katbar'])->name('datmas.katbar');
+    Route::post('/datamaster/katbar/add', [DatamasterController::class, 'katbaradd'])->name('datmas.katbar.add');
+
+    Route::get('/datamaster/katpen', [DatamasterController::class, 'katpen'])->name('datmas.katpen');
+    Route::post('/datamaster/katpen/add', [DatamasterController::class, 'katpenadd'])->name('datmas.katpen.add');
+
+    Route::get('/datamaster/katper', [DatamasterController::class, 'katper'])->name('datmas.katper');
+    Route::post('/datamaster/katper/add', [DatamasterController::class, 'katperadd'])->name('datmas.katper.add');
+
+    Route::get('/datamaster/satuan', [DatamasterController::class, 'satuan'])->name('datmas.satuan');
+    Route::post('/datamaster/satuan/add', [DatamasterController::class, 'satuanadd'])->name('datmas.satuan.add');
+
+    Route::get('/datamaster/jenbar', [DatamasterController::class, 'jenbar'])->name('datmas.jenbar');
+    Route::post('/datamaster/jenbar/add', [DatamasterController::class, 'jenbaradd'])->name('datmas.jenbar.add');
+
+    Route::get('/datamaster/industri', [DatamasterController::class, 'industri'])->name('datmas.industri');
+    Route::post('/datamaster/industri/add', [DatamasterController::class, 'industriadd'])->name('datmas.industri.add');
+
+    Route::get('/datamaster/golbar', [DatamasterController::class, 'golbar'])->name('datmas.golbar');
+    Route::post('/datamaster/golbar/add', [DatamasterController::class, 'golbaradd'])->name('datmas.golbar.add');
+
     Route::get('/regis', [RegisController::class, 'index'])->name('regis');
     Route::get('/regis/get-dokter-by-poli/{poliId}', [RegisController::class, 'getDokterByPoli']);
     Route::get('/regis/get-kode-dokter/{dokterId}', [RegisController::class, 'getKodeDokter']);
@@ -187,8 +218,12 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/regis/ranap', [RegisController::class, 'ranap'])->name('regis.ranap');
 
+    Route::get('/antrian', [AntrianController::class, 'index'])->name('antrian');
+
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');
     Route::post('setweb/update', [websetController::class, 'updates'])->name('setweb.update');
+    Route::post('setweb/setsatusehat', [websetController::class, 'setsatusehat'])->name('setweb.setsatusehat');
+    Route::post('setweb/setbpjs', [websetController::class, 'setbpjs'])->name('setweb.setbpjs');
 
 
     Route::get('permissions', [PermissionController::class, 'index'])->name('permissions');

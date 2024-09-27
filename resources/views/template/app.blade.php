@@ -583,6 +583,9 @@
             $('#tgllahir').datetimepicker({
                 format: 'L'
             })
+            $('#expired').datetimepicker({
+                format: 'L'
+            })
         });
     </script>
 

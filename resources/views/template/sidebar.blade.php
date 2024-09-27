@@ -417,7 +417,89 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item {{ \Route::is('antrian*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('antrian*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
+                  <p style="margin-left: 10px;">
+                    Antrian
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('antrian') }}" class="nav-link {{ \Route::is('antrian') ? 'active' : '' }}">
+                            <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
+                          <p>Tambah Antrian</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
+            <li class="nav-item {{ \Route::is('index*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('index*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
+                  <p style="margin-left: 10px;">
+                    Data Master
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.bangsal') }}" class="nav-link {{ \Route::is('datmas.bangsal') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Bangsal</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.dabar') }}" class="nav-link {{ \Route::is('datmas.dabar') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Data Barang</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.katbar') }}" class="nav-link {{ \Route::is('datmas.katbar') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Kategori Barang</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.katpen') }}" class="nav-link {{ \Route::is('datmas.katpen') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Kategori Penyakit</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.katper') }}" class="nav-link {{ \Route::is('datmas.katper') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Kategori Perawatan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.satuan') }}" class="nav-link {{ \Route::is('datmas.satuan') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Kode Satuan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.jenbar') }}" class="nav-link {{ \Route::is('datmas.jenbar') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Jenis Barang</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.industri') }}" class="nav-link {{ \Route::is('datmas.industri') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Industri Farmasi</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.golbar') }}" class="nav-link {{ \Route::is('datmas.golbar') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Golongan Barang</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
 
             <li class="nav-item">
