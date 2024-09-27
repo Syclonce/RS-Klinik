@@ -12,6 +12,7 @@ use App\Http\Controllers\modules\ObatController;
 use App\Http\Controllers\modules\LaporanController;
 use App\Http\Controllers\modules\KamarController;
 use App\Http\Controllers\modules\RegisController;
+use App\Http\Controllers\modules\AntrianController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\websetController;
@@ -184,6 +185,8 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/regis/{no_rm}', [RegisController::class, 'show'])->name('regis.show');
 
     Route::get('/regis/ranap', [RegisController::class, 'ranap'])->name('regis.ranap');
+
+    Route::get('/antrian', [AntrianController::class, 'index'])->name('antrian');
 
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');
     Route::post('setweb/update', [websetController::class, 'updates'])->name('setweb.update');
