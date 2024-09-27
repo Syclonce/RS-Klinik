@@ -12,8 +12,18 @@ class kamar extends Model
     protected $fillable = [
         'nama_kamar',
         'nomor_bed',
+        'kelas',
         'harga',
         'status',
-
     ];
+
+    public function bangsal()
+    {
+        return $this->belongsTo(bangsal::class,'nama_kamar','kode_bangsal');
+    }
+
+    public function kelaskamar()
+    {
+        return $this->belongsTo(kelaskamar::class,'kelas','id');
+    }
 }

@@ -28,7 +28,7 @@ Route::get('/', function () {
 });
 
 Route::post('/update-app', [UpdateController::class, 'update'])->name('update.app');
-
+Route::get('/antrian', [AntrianController::class, 'index'])->name('antrian');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -178,6 +178,8 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/kamar', [KamarController::class, 'index'])->name('kamar');
     Route::post('/kamar/add', [KamarController::class, 'kamaradd'])->name('kamar.add');
+    Route::get('/kamar/kelas', [KamarController::class, 'KelasKamar'])->name('kamar.kelas');
+    Route::post('/kamar/kelas/add', [KamarController::class, 'KelasKamardd'])->name('kamar.kelas.add');
 
     Route::get('/datamaster', [DatamasterController::class, 'index'])->name('datmas');
 
@@ -218,7 +220,7 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/regis/ranap', [RegisController::class, 'ranap'])->name('regis.ranap');
 
-    Route::get('/antrian', [AntrianController::class, 'index'])->name('antrian');
+    // Route::get('/antrian', [AntrianController::class, 'index'])->name('antrian');
 
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');
     Route::post('setweb/update', [websetController::class, 'updates'])->name('setweb.update');

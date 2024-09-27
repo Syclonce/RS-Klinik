@@ -415,6 +415,12 @@
                           <p>Tambah kamar & Bed</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('kamar.kelas') }}" class="nav-link {{ \Route::is('kamar.kelas') ? 'active' : '' }}">
+                            <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
+                          <p>Kelas kamar & Bed</p>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item {{ \Route::is('antrian*') ? 'menu-open' : '' }}">

@@ -5,18 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class bangsal extends Model
+class kelaskamar extends Model
 {
     use HasFactory;
-    protected $table = 'bangsals';
+    protected $table = 'kelaskamars';
     protected $fillable = [
-        'kode_bangsal',
-        'nama_bangsal',
+        'nama',
         'status',
     ];
-
-    public function kamar()
-    {
-        return $this->hasOne(kamar::class);
-    }
 }
