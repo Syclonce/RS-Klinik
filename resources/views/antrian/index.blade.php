@@ -3,7 +3,6 @@
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
@@ -14,8 +13,7 @@
                             <div class="card-header">
                                 <h3 class="card-title mb-0">Antrian Loket</h3>
                                 <div class="card-tools text-right">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#adddoctor">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adddoctor">
                                         <i class="fas fa-plus"></i> Tambah Baru
                                     </button>
                                 </div>
@@ -75,37 +73,37 @@
         <!-- /.content -->
 
         <!-- Running Text Display -->
-                                    <div class="running-text">
-                                        <marquee behavior="scroll" direction="left">
-                                            ANTRIAN LOKET ANJAY MABAR
-                                        </marquee>
-                                    </div>
-                                </div>
-                                <!-- /.content-wrapper -->
+        <div class="running-text">
+            <marquee behavior="scroll" direction="left">
+                ANTRIAN LOKET ANJAY MABAR
+            </marquee>
+        </div>
+    </div>
+    <!-- /.content-wrapper -->
 
-                                <div class="modal fade" id="adddoctor" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="addModalLabel">Pemanggil Antrian Loket</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <!-- Card di dalam modal -->
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h5 class="card-title">Antrian Loket</h5>
-                                                    </div>
-                                                </div>
-                                                <!-- End Card -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-            <script>
+    <div class="modal fade" id="adddoctor" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Pemanggil Antrian Loket</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Card di dalam modal -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Antrian Loket</h5>
+                        </div>
+                    </div>
+                    <!-- End Card -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
         $(document).ready(function() {
             $("#doctortbl").DataTable({
                 "responsive": true,
@@ -153,6 +151,12 @@
             padding: 10px;
             text-align: center;
             border-top: 1px solid #ddd;
+        }
+
+        /* Dark mode styles for running text */
+        .dark-mode .running-text {
+            background-color: #333;
+            color: #fff;
         }
     </style>
 @endsection
