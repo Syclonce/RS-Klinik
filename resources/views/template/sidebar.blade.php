@@ -417,6 +417,23 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item {{ \Route::is('antrian*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('antrian*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
+                  <p style="margin-left: 10px;">
+                    Antrian
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('antrian') }}" class="nav-link {{ \Route::is('antrian') ? 'active' : '' }}">
+                            <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
+                          <p>Tambah Antrian</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
             <li class="nav-item {{ \Route::is('index*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('index*') ? 'active' : '' }}">
