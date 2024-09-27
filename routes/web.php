@@ -178,6 +178,8 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::post('/kamar/add', [KamarController::class, 'kamaradd'])->name('kamar.add');
 
     Route::get('/regis', [RegisController::class, 'index'])->name('regis');
+    Route::get('/regis/get-dokter-by-poli/{poliId}', [RegisController::class, 'getDokterByPoli']);
+    Route::get('/regis/get-kode-dokter/{dokterId}', [RegisController::class, 'getKodeDokter']);
 
     Route::get('/regis/rajal', [RegisController::class, 'rajal'])->name('regis.rajal');
     Route::post('/regis/rajal/add', [RegisController::class, 'rajaladd'])->name('regis.rajal.add');

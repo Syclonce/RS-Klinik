@@ -7,6 +7,23 @@
     <title>{{ $title ?? 'Rs_app' }}</title>
 
 
+     <!-- Brand Logo -->
+     @php
+     // Mengambil data menggunakan model Webset
+        $setweb = App\Models\setweb::first(); // Anda bisa sesuaikan query ini dengan kebutuhan Anda
+    @endphp
+        <!-- Favicon untuk browser standar -->
+        <link rel="icon"sizes="180x180" type="image/x-icon" href="{{ asset('webset/' . $setweb->logo_app) }}">
+        {{-- <!-- Favicon untuk perangkat Apple -->
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+
+        <!-- Favicon untuk Android -->
+        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('android-chrome-192x192.png') }}">
+
+        <!-- Favicon untuk resolusi lebih tinggi -->
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}"> --}}
+
     <!-- Jquery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- chartjs -->
@@ -368,11 +385,7 @@
 
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar elevation-4 sidebar-no-expand sidebar-light-info ">
-            <!-- Brand Logo -->
-            @php
-                // Mengambil data menggunakan model Webset
-                $setweb = App\Models\setweb::first(); // Anda bisa sesuaikan query ini dengan kebutuhan Anda
-            @endphp
+
             <a href="#" class="brand-link">
                 <img src="{{ asset('webset/' . $setweb->logo_app) }}" alt="Webset Logo"
                     class="brand-image img-circle elevation-4" style="opacity: .9">

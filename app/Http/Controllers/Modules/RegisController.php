@@ -33,6 +33,28 @@ class RegisController extends Controller
 
     }
 
+    public function getDokterByPoli($poliId)
+{
+    // Ambil data dokter berdasarkan poli_id
+    $dokter = doctor::where('poli_id', $poliId)->get();
+
+    // Return response JSON
+    return response()->json($dokter);
+}
+
+public function getKodeDokter($dokterId)
+{
+    // Ambil data dokter berdasarkan ID
+    $dokter = doctor::find($dokterId);
+
+    // Return response JSON
+    return response()->json([
+        'kode' => $dokter->kode
+    ]);
+}
+
+
+
     public function show($no_rm)
     {
         // Cari pasien berdasarkan No RM

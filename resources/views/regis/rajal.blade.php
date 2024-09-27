@@ -87,27 +87,28 @@
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                                 <label for="poli">Pilih Poli</label>
-                                                <select class="form-control select2bs4"  style="width: 100%;"  id="poli" name="poli">
+                                                <select class="form-control select2bs4" style="width: 100%;" id="poli" name="poli">
                                                     <option value="" disabled selected>--- Pilih Poli ---</option>
                                                     @foreach ($poli as $poli)
-                                                    <option value="{{$poli->id}}">{{$poli->nama_poli}}</option>
+                                                    <option value="{{ $poli->id }}">{{ $poli->nama_poli }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="form-group row">
                                             <div class="col-md-8">
-                                                <label for="dokter">Dokter </label>
+                                                <label for="dokter">Dokter</label>
                                                 <select id="dokter" name="dokter" class="form-control">
-                                                    @foreach ($dokter as $dokter)
-                                                        <option value="{{ $dokter->id }}">{{ $dokter->nama }}</option>
-                                                    @endforeach
+                                                    <option value="" disabled selected>--- Pilih Dokter ---</option>
+                                                    <!-- Data dokter akan diisi secara dinamis melalui AJAX -->
                                                 </select>
                                             </div>
                                             <div class="col-md-4 d-flex align-items-end">
-                                                <input type="text" class="form-control" id="id_dokter" name="id_dokter" placeholder="cooming soon">
+                                                <input type="text" class="form-control" id="kode" name="kode" placeholder="code" disabled>
                                             </div>
                                         </div>
+
                                         <div class="form-group row">
                                             <div class="col-md-6">
                                                 <label for="pembayaran">Jenis Penjamin</label>
@@ -194,6 +195,51 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+
+    <script>
+        $(document).ready(function() {
+            $('#poli').on('change', function() {
+                var poliId = $(this).val(); // Mendapatkan nilai dari dropdown Poli yang dipilih
+
+                if (poliId) {
+                    $.ajax({
+                        url: '/regis/get-dokter-by-poli/' + poliId, // URL untuk mengambil data dokter berdasarkan poli
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#dokter').empty(); // Mengosongkan dropdown dokter sebelum mengisi yang baru
+                            $('#dokter').append('<option value="" disabled selected>--- Pilih Dokter ---</option>'); // Tambahkan opsi default
+                            $.each(data, function(key, value) {
+                                $('#dokter').append('<option value="' + value.id + '">' + value.nama + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#dokter').empty();
+                }
+            });
+
+            $('#dokter').on('change', function() {
+                var dokterId = $(this).val(); // Ambil ID dokter yang dipilih
+
+                if (dokterId) {
+                    $.ajax({
+                        url: '/regis/get-kode-dokter/' + dokterId, // URL untuk mendapatkan kode dokter berdasarkan ID dokter
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            // Isi kode dokter ke input #id_dokter
+                            $('#kode').val(data.kode);
+                        }
+                    });
+                } else {
+                    $('#kode').val(''); // Kosongkan input jika tidak ada dokter yang dipilih
+                }
+            });
+
+        });
+        </script>
+
 
     <script>
         $(document).ready(function() {
