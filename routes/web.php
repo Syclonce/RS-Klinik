@@ -254,6 +254,30 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/datamaster/jenjab', [DatamasterController::class, 'jenjab'])->name('datmas.jenjab');
     Route::post('/datamaster/jenjab/add', [DatamasterController::class, 'jenjabadd'])->name('datmas.jenjab.add');
 
+    Route::get('/datamaster/keljab', [DatamasterController::class, 'keljab'])->name('datmas.keljab');
+    Route::post('/datamaster/keljab/add', [DatamasterController::class, 'keljabadd'])->name('datmas.keljab.add');
+
+    Route::get('/datamaster/pendidikan', [DatamasterController::class, 'pendidikan'])->name('datmas.pendidikan');
+    Route::post('/datamaster/pendidikan/add', [DatamasterController::class, 'pendidikanadd'])->name('datmas.pendidikan.add');
+
+    Route::get('/datamaster/resiko', [DatamasterController::class, 'resiko'])->name('datmas.resiko');
+    Route::post('/datamaster/resiko/add', [DatamasterController::class, 'resikoadd'])->name('datmas.resiko.add');
+
+    Route::get('/datamaster/statker', [DatamasterController::class, 'statker'])->name('datmas.statker');
+    Route::post('/datamaster/statker/add', [DatamasterController::class, 'statkeradd'])->name('datmas.statker.add');
+
+    Route::get('/datamaster/statwp', [DatamasterController::class, 'statwp'])->name('datmas.statwp');
+    Route::post('/datamaster/statwp/add', [DatamasterController::class, 'statwpadd'])->name('datmas.statwp.add');
+
+    Route::get('/datamaster/metcik', [DatamasterController::class, 'metcik'])->name('datmas.metcik');
+    Route::post('/datamaster/metcik/add', [DatamasterController::class, 'metcikadd'])->name('datmas.metcik.add');
+
+    Route::get('/datamaster/ok', [DatamasterController::class, 'ok'])->name('datmas.ok');
+    Route::post('/datamaster/ok/add', [DatamasterController::class, 'okadd'])->name('datmas.ok.add');
+    Route::get('/datamaster/perawatan/{id}/manage', [DatamasterController::class, 'manage'])->name('datmas.perawatan.manage');
+    Route::post('/datamaster/perawatan/{id}/add-detail', [DatamasterController::class, 'addDetail'])->name('datmas.perawatan.addDetail');
+    Route::delete('/datamaster/perawatan/detail/{id}/delete', [DatamasterController::class, 'deleteDetail'])->name('datmas.perawatan.deleteDetail');
+
     Route::get('/regis', [RegisController::class, 'index'])->name('regis');
     Route::get('/regis/get-dokter-by-poli/{poliId}', [RegisController::class, 'getDokterByPoli']);
     Route::get('/regis/get-kode-dokter/{dokterId}', [RegisController::class, 'getKodeDokter']);
