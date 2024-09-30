@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
                 'profile'=>'default.jpg',
                 'username' => 'superadmin',
                 'email' => 'superadmin@tes.tes',
+                'phone' => '6282130394490',
                 'password' => bcrypt('123123123')
             ]
         );
@@ -30,6 +31,7 @@ class UserSeeder extends Seeder
                 'profile'=>'default.jpg',
                 'username' => 'admin',
                 'email' => 'admin@tes.tes',
+                'phone' => '6282130394490',
                 'password' => bcrypt('123123123')
             ]
         );
@@ -41,7 +43,8 @@ class UserSeeder extends Seeder
                 'profile'=>'default.jpg',
                 'username' => 'user',
                 'email' => 'user@tes.tes',
-                'password' => bcrypt('123123123')
+                'password' => bcrypt('123123123'),
+                'phone' => '6282130394490'
             ]
         );
         $user->assignRole('User');
