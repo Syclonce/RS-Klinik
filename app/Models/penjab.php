@@ -5,13 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class katper extends Model
+class penjab extends Model
 {
     use HasFactory;
-    protected $table = 'katpers';
+    protected $table = 'penjabs';
     protected $fillable = [
-        'kode_rawatan',
-        'nama_rawatan',
+        'kode',
+        'pj',
+        'nama',
+        'alamat',
+        'telp',
+        'attn',
+        'status',
     ];
 
     public function perjal()
@@ -22,5 +27,10 @@ class katper extends Model
     public function pernap()
     {
         return $this->hasOne(pernap::class);
+    }
+
+    public function perlogi()
+    {
+        return $this->hasOne(perlogi::class);
     }
 }

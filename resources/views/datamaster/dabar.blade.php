@@ -100,9 +100,9 @@
                                 <div class="form-group">
                                     <label>Kode Barang</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="kode_barang" name="kode_barang" placeholder="Generate Kode Barang">
+                                        <input type="text" class="form-control" id="kode_barang" name="kode_barang" placeholder="Generate Kode Barang" readonly>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary" onclick="generateNomorRM()">Generate</button>
+                                            <button type="button" class="btn btn-primary" id="generateKodeButton">Generate</button>
                                         </span>
                                     </div>
                                 </div>
@@ -241,6 +241,26 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            // Saat tombol "Generate" ditekan
+            $('#generateKodeButton').click(function() {
+                // Panggil route dengan AJAX
+                $.ajax({
+                    url: '{{ route('generate.kode.barang') }}',
+                    type: 'GET',
+                    success: function(response) {
+                        // Set nilai input kode barang dengan data dari response
+                        $('#kode_barang').val(response.kode_barang);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
+    </script>
 
     <script>
         $(document).ready(function(){

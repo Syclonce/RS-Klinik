@@ -463,6 +463,24 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('datmas.perjal') }}" class="nav-link {{ \Route::is('datmas.perjal') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Perawatan Rawat Jalan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.pernap') }}" class="nav-link {{ \Route::is('datmas.pernap') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Perawatan Rawat Inap</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.perlogi') }}" class="nav-link {{ \Route::is('datmas.perlogi') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Perawatan Radiologi</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('datmas.katbar') }}" class="nav-link {{ \Route::is('datmas.katbar') ? 'active' : '' }}">
                             <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
                           <p>Kategori Barang</p>
@@ -502,6 +520,66 @@
                         <a href="{{ route('datmas.golbar') }}" class="nav-link {{ \Route::is('datmas.golbar') ? 'active' : '' }}">
                             <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
                           <p>Golongan Barang</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.penjab') }}" class="nav-link {{ \Route::is('datmas.penjab') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Penanggung Jawab</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.cacat') }}" class="nav-link {{ \Route::is('datmas.cacat') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Cacat Fisik</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.perusahaan') }}" class="nav-link {{ \Route::is('datmas.perusahaan') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Perusahaan Pasien</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.aturanpake') }}" class="nav-link {{ \Route::is('datmas.aturanpake') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Aturan Pakai</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.berkas') }}" class="nav-link {{ \Route::is('datmas.berkas') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Berkas Digital</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.bank') }}" class="nav-link {{ \Route::is('datmas.bank') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Bank</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.bidang') }}" class="nav-link {{ \Route::is('datmas.bidang') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Bidang</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.depart') }}" class="nav-link {{ \Route::is('datmas.depart') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Departemen</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.emergency') }}" class="nav-link {{ \Route::is('datmas.emergency') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Emergency</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.jenjab') }}" class="nav-link {{ \Route::is('datmas.jenjab') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Jenjang Jabatan</p>
                         </a>
                     </li>
                 </ul>

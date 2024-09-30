@@ -19,4 +19,9 @@ class bangsal extends Model
     {
         return $this->hasOne(kamar::class);
     }
+
+    public function pernap()
+    {
+        return $this->hasOne(pernap::class);
+    }
 }
