@@ -5,6 +5,7 @@ namespace App\Http\Controllers\modules;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\setweb;
+use App\Models\poli;
 use App\Models\bangsal;
 use App\Models\katbar;
 use App\Models\katpen;
@@ -14,6 +15,20 @@ use App\Models\jenbar;
 use App\Models\industri;
 use App\Models\golbar;
 use App\Models\dabar;
+use App\Models\perjal;
+use App\Models\pernap;
+use App\Models\penjab;
+use App\Models\perlogi;
+use App\Models\cacat;
+use App\Models\perusahaan;
+use App\Models\aturanpake;
+use App\Models\berkas;
+use App\Models\bank;
+use App\Models\bidang;
+use App\Models\depart;
+use App\Models\emergency;
+use App\Models\jenjab;
+
 
 
 class DatamasterController extends Controller
@@ -98,6 +113,29 @@ class DatamasterController extends Controller
         $dabar->save();
 
         return redirect()->route('datmas.dabar')->with('Success', 'Data Barang berhasi di tambahkan');
+    }
+
+    public function generateKodeBarang()
+    {
+        // Ambil kode barang terakhir dari database
+        $lastDabar = Dabar::orderBy('kode', 'desc')->first();
+
+        // Tentukan kode barang pertama jika belum ada data
+        if (!$lastDabar) {
+            $kodeBaru = 'B00001';
+        } else {
+            // Ambil angka terakhir dari kode barang (misal: B00001 -> 1)
+            $lastKodeNumber = (int)substr($lastDabar->kode, 1);
+
+            // Tambah 1 ke angka terakhir
+            $newKodeNumber = $lastKodeNumber + 1;
+
+            // Format kode baru (B diikuti oleh angka dengan padding 0 menjadi 5 digit)
+            $kodeBaru = 'B' . str_pad($newKodeNumber, 5, '0', STR_PAD_LEFT);
+        }
+
+        // Kirim kode baru sebagai response JSON
+        return response()->json(['kode_barang' => $kodeBaru]);
     }
 
     public function katbar()
@@ -231,15 +269,403 @@ class DatamasterController extends Controller
         return redirect()->route('datmas.golbar')->with('Success', 'Data Golongan Barang berhasi di tambahkan');
     }
 
+    public function penjab()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Jenis Barang";
+        $data = penjab::all();
+        return view('datamaster.penjab', compact('title','data'));
+    }
 
+    public function penjabadd(Request $request)
+    {
+        $data = $request->validate([
+            "kode_penjab" => 'required',
+            "nama_penjab" => 'required',
+            "nama_perusahaan" => 'required',
+            "Alamat" => 'required',
+            "telepon" => 'required',
+            "attn" => 'required',
+            "status" => 'required',
+        ]);
 
+        $penjab = new penjab();
+        $penjab->kode = $data['kode_penjab'];
+        $penjab->pj = $data['nama_penjab'];
+        $penjab->nama = $data['nama_perusahaan'];
+        $penjab->alamat = $data['Alamat'];
+        $penjab->telp = $data['telepon'];
+        $penjab->attn = $data['attn'];
+        $penjab->status = $data['status'];
+        $penjab->save();
 
+        return redirect()->route('datmas.penjab')->with('Success', 'Data Penanggung Jawab berhasi di tambahkan');
+    }
 
+    public function cacat()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Data Cacat Fisik";
+        $data = cacat::all();
+        return view('datamaster.cacat', compact('title','data'));
+    }
 
+    public function cacatadd(Request $request)
+    {
+        $data = $request->validate([
+            "kode_cacat" => 'required',
+            "nama_cacat" => 'required',
+        ]);
+        cacat::create($data);
+        return redirect()->route('datmas.cacat')->with('Success', 'Data Cacat Fisik berhasi di tambahkan');
+    }
 
+    public function perjal()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Jenis Barang";
+        $katper = katper::all();
+        $poli = poli::all();
+        $penjab = penjab::all();
+        $data = perjal::with(['katper','poli'])->get();
+        return view('datamaster.perjal', compact('title','katper','poli','penjab','data'));
+    }
 
+    public function perjaladd(Request $request)
+    {
+        $data = $request->validate([
+            "kode_perjal" => 'required',
+            "nama_perjal" => 'required',
+            "kategori" => 'required',
+            "tarif_dokter" => 'required',
+            "tarif_perawat" => 'required',
+            "total_tarif" => 'required',
+            "penjab" => 'required',
+            "poli" => 'required',
+            "status" => 'required',
+        ]);
 
+        $perjal = new perjal();
+        $perjal->kode = $data['kode_perjal'];
+        $perjal->nama = $data['nama_perjal'];
+        $perjal->katper_id = $data['kategori'];
+        $perjal->tarifdok = $data['tarif_dokter'];
+        $perjal->tarifper = $data['tarif_perawat'];
+        $perjal->total = $data['total_tarif'];
+        $perjal->penjab_id = $data['penjab'];
+        $perjal->poli_id = $data['poli'];
+        $perjal->status = $data['status'];
+        $perjal->save();
 
+        return redirect()->route('datmas.perjal')->with('Success', 'Data Perawatan Rawat Jalan berhasi di tambahkan');
+    }
+
+    public function generateKodePerjal()
+    {
+        // Mengambil item terbaru berdasarkan kode barang
+        $lastBarang = perjal::orderBy('kode', 'desc')->first();
+
+        // Jika tidak ada data, mulai dengan RJ001
+        if (!$lastBarang || !preg_match('/^RJ\d{3}$/', $lastBarang->kode)) {
+            $newKode = 'RJ001';
+        } else {
+            // Ambil angka terakhir dari kode, misalnya RJ001 -> 001
+            $lastKode = intval(substr($lastBarang->kode, 2));
+
+            // Tambahkan 1 pada angka terakhir dan format menjadi 3 digit
+            $newKode = 'RJ' . str_pad($lastKode + 1, 3, '0', STR_PAD_LEFT);
+        }
+
+        // Return response JSON
+        return response()->json(['kode_perjal' => $newKode]);
+    }
+
+    public function pernap()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Jenis Barang";
+        $katper = katper::all();
+        $bangsal = bangsal::all();
+        $penjab = penjab::all();
+        $datas = pernap::with(['katper','bangsal'])->get();
+        return view('datamaster.pernap', compact('title','katper','bangsal','penjab','datas'));
+    }
+
+    public function pernapadd(Request $request)
+    {
+        $data = $request->validate([
+            "kode_pernap" => 'required',
+            "nama_pernap" => 'required',
+            "kategori" => 'required',
+            "tarif_dokter" => 'required',
+            "tarif_perawat" => 'required',
+            "total_tarif" => 'required',
+            "penjab" => 'required',
+            "bangsal" => 'required',
+            "kelas" => 'required',
+            "status" => 'required',
+        ]);
+
+        $pernap = new pernap();
+        $pernap->kode = $data['kode_pernap'];
+        $pernap->nama = $data['nama_pernap'];
+        $pernap->katper_id = $data['kategori'];
+        $pernap->tarifdok = $data['tarif_dokter'];
+        $pernap->tarifper = $data['tarif_perawat'];
+        $pernap->total = $data['total_tarif'];
+        $pernap->penjab_id = $data['penjab'];
+        $pernap->bangsal_id = $data['bangsal'];
+        $pernap->kelas = $data['kelas'];
+        $pernap->status = $data['status'];
+
+        $pernap->save();
+
+        return redirect()->route('datmas.pernap')->with('Success', 'Data Perawatan Rawat Inap berhasi di tambahkan');
+    }
+
+    public function generateKodePernap()
+    {
+        // Mengambil item terbaru berdasarkan kode barang
+        $lastBarang = pernap::orderBy('kode', 'desc')->first();
+
+        // Jika tidak ada data, mulai dengan RI001
+        if (!$lastBarang || !preg_match('/^RI\d{3}$/', $lastBarang->kode)) {
+            $newKode = 'RI001';
+        } else {
+            // Ambil angka terakhir dari kode, misalnya RI001 -> 001
+            $lastKode = intval(substr($lastBarang->kode, 2));
+
+            // Tambahkan 1 pada angka terakhir dan format menjadi 3 digit
+            $newKode = 'RI' . str_pad($lastKode + 1, 3, '0', STR_PAD_LEFT);
+        }
+
+        // Return response JSON
+        return response()->json(['kode_pernap' => $newKode]);
+    }
+
+    public function perlogi()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Jenis Barang";
+        $penjab = penjab::all();
+        $data = perlogi::with(['penjab'])->get();
+        return view('datamaster.perlogi', compact('title','penjab','data'));
+    }
+
+    public function perlogiadd(Request $request)
+    {
+        $data = $request->validate([
+            "kode_radiologi" => 'required',
+            "nama_radiologi" => 'required',
+            "tarif_dokter" => 'required',
+            "tarif_petugas" => 'required',
+            "total_tarif" => 'required',
+            "penjab" => 'required',
+            "kelas" => 'required',
+            "status" => 'required',
+        ]);
+
+        $perlogi = new perlogi();
+        $perlogi->kode = $data['kode_radiologi'];
+        $perlogi->nama = $data['nama_radiologi'];
+        $perlogi->tarifdok = $data['tarif_dokter'];
+        $perlogi->tarifper = $data['tarif_petugas'];
+        $perlogi->total = $data['total_tarif'];
+        $perlogi->penjab_id = $data['penjab'];
+        $perlogi->kelas = $data['kelas'];
+        $perlogi->status = $data['status'];
+
+        $perlogi->save();
+
+        return redirect()->route('datmas.perlogi')->with('Success', 'Data Perawatan Radiologi berhasi di tambahkan');
+    }
+
+    public function generateKodePerlogi()
+    {
+        // Mengambil item terbaru berdasarkan kode barang
+        $lastBarang = perlogi::orderBy('kode', 'desc')->first();
+
+        // Jika tidak ada data, mulai dengan RI001
+        if (!$lastBarang || !preg_match('/^RAD\d{3}$/', $lastBarang->kode)) {
+            $newKode = 'RAD001';
+        } else {
+            // Ambil angka terakhir daRAD kode, misalnya RAD001 -> 001
+            $lastKode = intval(substr($lastBarang->kode, 2));
+
+            // Tambahkan 1 pada angka terakhir dan format menjadi 3 digit
+            $newKode = 'RAD' . str_pad($lastKode + 1, 3, '0', STR_PAD_LEFT);
+        }
+
+        // Return response JSON
+        return response()->json(['kode_radiologi' => $newKode]);
+    }
+
+    public function perusahaan()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Jenis Barang";
+        $data = perusahaan::all();
+        return view('datamaster.perusahaan', compact('title','data'));
+    }
+
+    public function perusahaanadd(Request $request)
+    {
+        $data = $request->validate([
+            "kode" => 'required',
+            "nama" => 'required',
+            "Alamat" => 'required',
+            "kota" => 'required',
+            "telepon" => 'required',
+
+        ]);
+        perusahaan::create($data);
+        return redirect()->route('datmas.perusahaan')->with('Success', 'Data Perusahaan berhasi di tambahkan');
+    }
+
+    public function aturanpake()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Data Aturan Pakai";
+        $data = aturanpake::all();
+        return view('datamaster.aturanpake', compact('title','data'));
+    }
+
+    public function aturanpakeadd(Request $request)
+    {
+        $data = $request->validate([
+            "aturanpake" => 'required',
+        ]);
+        aturanpake::create($data);
+        return redirect()->route('datmas.aturanpake')->with('Success', 'Data Aturan Pakai berhasi di tambahkan');
+    }
+
+    public function berkas()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Data Berkas Digital";
+        $data = berkas::all();
+        return view('datamaster.berkas', compact('title','data'));
+    }
+
+    public function berkasadd(Request $request)
+    {
+        $data = $request->validate([
+            "kode" => 'required',
+            "nama" => 'required',
+        ]);
+        berkas::create($data);
+        return redirect()->route('datmas.berkas')->with('Success', 'Data Berkas Digital berhasi di tambahkan');
+    }
+
+    public function generateKodeBerkas()
+    {
+        // Mengambil item terbaru berdasarkan kode barang
+        $lastBarang = berkas::orderBy('kode', 'desc')->first();
+
+        // Jika tidak ada data, mulai dengan RI001
+        if (!$lastBarang || !preg_match('/^DIG\d{3}$/', $lastBarang->kode)) {
+            $newKode = 'DIG001';
+        } else {
+            // Ambil angka terakhir daDIG kode, misalnya DIG001 -> 001
+            $lastKode = intval(substr($lastBarang->kode, 2));
+
+            // Tambahkan 1 pada angka terakhir dan format menjadi 3 digit
+            $newKode = 'DIG' . str_pad($lastKode + 1, 3, '0', STR_PAD_LEFT);
+        }
+
+        // Return response JSON
+        return response()->json(['kode' => $newKode]);
+    }
+
+    public function bank()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Data Bank";
+        $data = bank::all();
+        return view('datamaster.bank', compact('title','data'));
+    }
+
+    public function bankadd(Request $request)
+    {
+        $data = $request->validate([
+            "nama" => 'required',
+        ]);
+        bank::create($data);
+        return redirect()->route('datmas.bank')->with('Success', 'Data Bank berhasi di tambahkan');
+    }
+
+    public function bidang()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Data Bidang";
+        $data = bidang::all();
+        return view('datamaster.bidang', compact('title','data'));
+    }
+
+    public function bidangadd(Request $request)
+    {
+        $data = $request->validate([
+            "nama" => 'required',
+        ]);
+        bidang::create($data);
+        return redirect()->route('datmas.bidang')->with('Success', 'Data Bidang berhasi di tambahkan');
+    }
+
+    public function depart()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Data Departemen";
+        $data = depart::all();
+        return view('datamaster.depart', compact('title','data'));
+    }
+
+    public function departadd(Request $request)
+    {
+        $data = $request->validate([
+            "kode" => 'required',
+            "nama" => 'required',
+        ]);
+        depart::create($data);
+        return redirect()->route('datmas.depart')->with('Success', 'Data Departemen berhasi di tambahkan');
+    }
+
+    public function emergency()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Data Emergency";
+        $data = emergency::all();
+        return view('datamaster.emergency', compact('title','data'));
+    }
+
+    public function emergencyadd(Request $request)
+    {
+        $data = $request->validate([
+            "kode" => 'required',
+            "nama" => 'required',
+            "status" => 'required',
+        ]);
+        emergency::create($data);
+        return redirect()->route('datmas.emergency')->with('Success', 'Data Emergency berhasi di tambahkan');
+    }
+
+    public function jenjab()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Data Jenjang Jabatan ";
+        $data = jenjab::all();
+        return view('datamaster.jenjab', compact('title','data'));
+    }
+
+    public function jenjabadd(Request $request)
+    {
+        $data = $request->validate([
+            "kode" => 'required',
+            "nama" => 'required',
+            "tunjangan" => 'required',
+        ]);
+        jenjab::create($data);
+        return redirect()->route('datmas.jenjab')->with('Success', 'Data Jenjang Jabatan berhasi di tambahkan');
+    }
 
 
 

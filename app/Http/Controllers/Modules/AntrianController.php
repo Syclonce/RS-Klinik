@@ -14,7 +14,7 @@ class AntrianController extends Controller
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "antrian";
 
-        return view('antrian.index', compact('title'));
+        return view('antrian.welcome', compact('title'));
 
     }
 

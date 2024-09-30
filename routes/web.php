@@ -30,6 +30,7 @@ Route::get('/', function () {
 
 Route::post('/update-app', [UpdateController::class, 'update'])->name('update.app');
 Route::post('/send-message', [WhatsAppController::class, 'sendMessage']);
+Route::get('/antrian', [AntrianController::class, 'index'])->name('antrian');
 
 
 Route::middleware('auth')->group(function () {
@@ -180,6 +181,8 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/kamar', [KamarController::class, 'index'])->name('kamar');
     Route::post('/kamar/add', [KamarController::class, 'kamaradd'])->name('kamar.add');
+    Route::get('/kamar/kelas', [KamarController::class, 'KelasKamar'])->name('kamar.kelas');
+    Route::post('/kamar/kelas/add', [KamarController::class, 'KelasKamardd'])->name('kamar.kelas.add');
 
     Route::get('/datamaster', [DatamasterController::class, 'index'])->name('datmas');
 
@@ -188,6 +191,22 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/datamaster/dabar', [DatamasterController::class, 'dabar'])->name('datmas.dabar');
     Route::post('/datamaster/dabar/add', [DatamasterController::class, 'dabaradd'])->name('datmas.dabar.add');
+    Route::get('/generate-kode-barang', [DatamasterController::class, 'generateKodeBarang'])->name('generate.kode.barang');
+
+    Route::get('/datamaster/perjal', [DatamasterController::class, 'perjal'])->name('datmas.perjal');
+    Route::post('/datamaster/perjal/add', [DatamasterController::class, 'perjaladd'])->name('datmas.perjal.add');
+    Route::get('/generate-kode-perjal', [DatamasterController::class, 'generateKodePerjal'])->name('generate.kode.perjal');
+
+    Route::get('/datamaster/pernap', [DatamasterController::class, 'pernap'])->name('datmas.pernap');
+    Route::post('/datamaster/pernap/add', [DatamasterController::class, 'pernapadd'])->name('datmas.pernap.add');
+    Route::get('/generate-kode-pernap', [DatamasterController::class, 'generateKodePernap'])->name('generate.kode.pernap');
+
+    Route::get('/datamaster/perlogi', [DatamasterController::class, 'perlogi'])->name('datmas.perlogi');
+    Route::post('/datamaster/perlogi/add', [DatamasterController::class, 'perlogiadd'])->name('datmas.perlogi.add');
+    Route::get('/generate-kode-perlogi', [DatamasterController::class, 'generateKodePerlogi'])->name('generate.kode.perlogi');
+
+    Route::get('/datamaster/perusahaan', [DatamasterController::class, 'perusahaan'])->name('datmas.perusahaan');
+    Route::post('/datamaster/perusahaan/add', [DatamasterController::class, 'perusahaanadd'])->name('datmas.perusahaan.add');
 
     Route::get('/datamaster/katbar', [DatamasterController::class, 'katbar'])->name('datmas.katbar');
     Route::post('/datamaster/katbar/add', [DatamasterController::class, 'katbaradd'])->name('datmas.katbar.add');
@@ -210,6 +229,34 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/datamaster/golbar', [DatamasterController::class, 'golbar'])->name('datmas.golbar');
     Route::post('/datamaster/golbar/add', [DatamasterController::class, 'golbaradd'])->name('datmas.golbar.add');
 
+    Route::get('/datamaster/penjab', [DatamasterController::class, 'penjab'])->name('datmas.penjab');
+    Route::post('/datamaster/penjab/add', [DatamasterController::class, 'penjabadd'])->name('datmas.penjab.add');
+
+    Route::get('/datamaster/cacat', [DatamasterController::class, 'cacat'])->name('datmas.cacat');
+    Route::post('/datamaster/cacat/add', [DatamasterController::class, 'cacatadd'])->name('datmas.cacat.add');
+
+    Route::get('/datamaster/aturanpake', [DatamasterController::class, 'aturanpake'])->name('datmas.aturanpake');
+    Route::post('/datamaster/aturanpake/add', [DatamasterController::class, 'aturanpakeadd'])->name('datmas.aturanpake.add');
+
+    Route::get('/datamaster/berkas', [DatamasterController::class, 'berkas'])->name('datmas.berkas');
+    Route::post('/datamaster/berkas/add', [DatamasterController::class, 'berkasadd'])->name('datmas.berkas.add');
+    Route::get('/generate-kode-berkas', [DatamasterController::class, 'generateKodeBerkas'])->name('generate.kode.berkas');
+
+    Route::get('/datamaster/bank', [DatamasterController::class, 'bank'])->name('datmas.bank');
+    Route::post('/datamaster/bank/add', [DatamasterController::class, 'bankadd'])->name('datmas.bank.add');
+
+    Route::get('/datamaster/bidang', [DatamasterController::class, 'bidang'])->name('datmas.bidang');
+    Route::post('/datamaster/bidang/add', [DatamasterController::class, 'bidangadd'])->name('datmas.bidang.add');
+
+    Route::get('/datamaster/depart', [DatamasterController::class, 'depart'])->name('datmas.depart');
+    Route::post('/datamaster/depart/add', [DatamasterController::class, 'departadd'])->name('datmas.depart.add');
+
+    Route::get('/datamaster/emergency', [DatamasterController::class, 'emergency'])->name('datmas.emergency');
+    Route::post('/datamaster/emergency/add', [DatamasterController::class, 'emergencyadd'])->name('datmas.emergency.add');
+
+    Route::get('/datamaster/jenjab', [DatamasterController::class, 'jenjab'])->name('datmas.jenjab');
+    Route::post('/datamaster/jenjab/add', [DatamasterController::class, 'jenjabadd'])->name('datmas.jenjab.add');
+
     Route::get('/regis', [RegisController::class, 'index'])->name('regis');
     Route::get('/regis/get-dokter-by-poli/{poliId}', [RegisController::class, 'getDokterByPoli']);
     Route::get('/regis/get-kode-dokter/{dokterId}', [RegisController::class, 'getKodeDokter']);
@@ -220,7 +267,7 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/regis/ranap', [RegisController::class, 'ranap'])->name('regis.ranap');
 
-    Route::get('/antrian', [AntrianController::class, 'index'])->name('antrian');
+    // Route::get('/antrian', [AntrianController::class, 'index'])->name('antrian');
 
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');
     Route::post('setweb/update', [websetController::class, 'updates'])->name('setweb.update');

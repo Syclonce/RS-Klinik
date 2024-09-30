@@ -24,12 +24,8 @@
                             <div class="card-body">
                                 <table id="doctortbl" class="table table-bordered table-striped">
                                     <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Kamar</th>
-                                            <th>Nomor Bed</th>
-                                            <th>Harga</th>
-                                            <th>Kelas Kamar</th>
+                                        <tr>                                  
+                                            <th>Nama Kelas</th>                                          
                                             <th>Status</th>
                                             <!-- <th width="20%">Pilihan</th> -->
                                         </tr>
@@ -37,14 +33,10 @@
                                     <tbody>
                                          @foreach ($data as $data)
                                             <tr>
-                                                <td>{{ $data->id}}</td>
-                                                <td>{{ $data->bangsal->nama_bangsal}}</td>
-                                                <td>{{ $data->nomor_bed}}</td>
-                                                <td>{{ 'Rp ' . number_format($data->harga, 0, ',', '.') }}</td>
-                                                <td>{{ $data->kelaskamar->nama}}</td>
+                                                <td>{{ $data->nama}}</td>
                                                 <td>{{ $data->status}}</td>
                                             </tr>
-                                        @endforeach                                    
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -73,41 +65,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('kamar.add') }}" method= "POST">
+                    <form action="{{ route('kamar.kelas.add') }}" method= "POST">
                         @csrf
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Nama Kamar</label>
-                                    <select class="select2bs4"  style="width: 100%;"  id="nama_kamar" name="nama_kamar">
-                                        <option value="">--- Pilih bangsal ---</option>
-                                        @foreach ($kode as $kode)
-                                        <option value="{{$kode->kode_bangsal}}">{{$kode->nama_bangsal}}</option>
-                                        @endforeach
-                                    </select>                                 
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Nama Kelas</label>
-                                    <select class="select2bs4"  style="width: 100%;"  id="kelas" name="kelas">
-                                        <option value="">--- Pilih bangsal ---</option>
-                                        @foreach ($kelas as $kelas)
-                                        <option value="{{$kelas->id}}">{{$kelas->nama}}</option>
-                                        @endforeach
-                                    </select>                                 
-                                </div>
-                            </div>
+                           
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Nomor Bed</label>
-                                    <input type="text" class="form-control" id="nomor_bed" name="nomor_bed">
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Harga</label>
-                                    <input type="text" class="form-control" id="harga" name="harga">
+                                    <label>nama Kelas</label>
+                                    <input type="text" class="form-control" id="nama" name="nama">
                                 </div>
                             </div>
                             <div class="col-sm-12">

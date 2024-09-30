@@ -21,4 +21,9 @@ class poli extends Model
     {
         return $this->hasOne(doctor::class);
     }
+
+    public function perjal()
+    {
+        return $this->hasOne(perjal::class);
+    }
 }

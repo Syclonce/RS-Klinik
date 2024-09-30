@@ -14,4 +14,14 @@ class bangsal extends Model
         'nama_bangsal',
         'status',
     ];
+
+    public function kamar()
+    {
+        return $this->hasOne(kamar::class);
+    }
+
+    public function pernap()
+    {
+        return $this->hasOne(pernap::class);
+    }
 }
