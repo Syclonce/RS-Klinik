@@ -28,6 +28,13 @@ use App\Models\bidang;
 use App\Models\depart;
 use App\Models\emergency;
 use App\Models\jenjab;
+use App\Models\keljab;
+use App\Models\pendidikan;
+use App\Models\resiko;
+use App\Models\statker;
+use App\Models\statwp;
+use App\Models\metcik;
+use App\Models\ok;
 
 
 
@@ -667,7 +674,174 @@ class DatamasterController extends Controller
         return redirect()->route('datmas.jenjab')->with('Success', 'Data Jenjang Jabatan berhasi di tambahkan');
     }
 
+    public function keljab()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Data Kelompok Jabatan ";
+        $data = keljab::all();
+        return view('datamaster.keljab', compact('title','data'));
+    }
 
+    public function keljabadd(Request $request)
+    {
+        $data = $request->validate([
+            "kode" => 'required',
+            "nama" => 'required',
+            "status" => 'required',
+        ]);
+        keljab::create($data);
+        return redirect()->route('datmas.keljab')->with('Success', 'Data Kelompok Jabatan berhasi di tambahkan');
+    }
 
+    public function pendidikan()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Data Pendidikan Pegawai ";
+        $data = pendidikan::all();
+        return view('datamaster.pendidikan', compact('title','data'));
+    }
 
+    public function pendidikanadd(Request $request)
+    {
+        $data = $request->validate([
+            "tingkat" => 'required',
+            "index" => 'required',
+            "gapok" => 'required',
+            "kenaikan" => 'required',
+            "maks" => 'required',
+        ]);
+        pendidikan::create($data);
+        return redirect()->route('datmas.pendidikan')->with('Success', 'Data Pendidikan Pegawai berhasi di tambahkan');
+    }
+
+    public function resiko()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Data Resiko Kerja ";
+        $data = resiko::all();
+        return view('datamaster.resiko', compact('title','data'));
+    }
+
+    public function resikoadd(Request $request)
+    {
+        $data = $request->validate([
+            "kode" => 'required',
+            "nama" => 'required',
+            "index" => 'required',
+        ]);
+        resiko::create($data);
+        return redirect()->route('datmas.resiko')->with('Success', 'Data Resiko Kerja berhasi di tambahkan');
+    }
+
+    public function statker()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Data Status Kerja ";
+        $data = statker::all();
+        return view('datamaster.statker', compact('title','data'));
+    }
+
+    public function statkeradd(Request $request)
+    {
+        $data = $request->validate([
+            "status" => 'required',
+            "keterangan" => 'required',
+            "index" => 'required',
+        ]);
+        statker::create($data);
+        return redirect()->route('datmas.statker')->with('Success', 'Data Status Kerja berhasi di tambahkan');
+    }
+
+    public function statwp()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Data Status WP ";
+        $data = statwp::all();
+        return view('datamaster.statwp', compact('title','data'));
+    }
+
+    public function statwpadd(Request $request)
+    {
+        $data = $request->validate([
+            "status" => 'required',
+            "keterangan" => 'required',
+        ]);
+        statwp::create($data);
+        return redirect()->route('datmas.statwp')->with('Success', 'Data Status WP berhasi di tambahkan');
+    }
+
+    public function metcik()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Data Metode Racik ";
+        $data = metcik::all();
+        return view('datamaster.metcik', compact('title','data'));
+    }
+
+    public function metcikadd(Request $request)
+    {
+        $data = $request->validate([
+            "kode" => 'required',
+            "nama" => 'required',
+        ]);
+        metcik::create($data);
+        return redirect()->route('datmas.metcik')->with('Success', 'Data Metode Racik berhasi di tambahkan');
+    }
+
+    public function ok()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Kelola Data Ruang OK ";
+        $data = ok::all();
+        return view('datamaster.ok', compact('title','data'));
+    }
+
+    public function okadd(Request $request)
+    {
+        $data = $request->validate([
+            "kode" => 'required',
+            "nama" => 'required',
+        ]);
+        ok::create($data);
+        return redirect()->route('datmas.ok')->with('Success', 'Data Ruang OK berhasi di tambahkan');
+    }
+
+    public function manage($id)
+    {
+        // Mengambil data perawatan berdasarkan ID
+        $perawatan = Perawatan::with('details')->find($id);
+
+        // Tampilkan view dengan data yang diambil
+        return view('perawatan.manage', compact('perawatan'));
+    }
+
+    public function addDetail(Request $request, $id)
+    {
+        $request->validate([
+            'nama_pemeriksaan' => 'required',
+            'satuan' => 'required',
+            'tarif' => 'required|numeric',
+        ]);
+
+        // Tambah detail baru pada pemeriksaan yang dipilih
+        DetailPerawatan::create([
+            'nama_pemeriksaan' => $request->nama_pemeriksaan,
+            'satuan' => $request->satuan,
+            'tarif' => $request->tarif,
+            'perawatan_id' => $id
+        ]);
+
+        return redirect()->back()->with('success', 'Detail Pemeriksaan Berhasil Ditambahkan');
+    }
+
+    public function deleteDetail($id)
+    {
+        // Menghapus detail pemeriksaan
+        $detail = DetailPerawatan::find($id);
+        if ($detail) {
+            $detail->delete();
+            return redirect()->back()->with('success', 'Detail Pemeriksaan Berhasil Dihapus');
+        }
+        return redirect()->back()->with('error', 'Detail Pemeriksaan Tidak Ditemukan');
+    }
 }

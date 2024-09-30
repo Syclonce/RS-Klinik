@@ -582,6 +582,48 @@
                           <p>Jenjang Jabatan</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.keljab') }}" class="nav-link {{ \Route::is('datmas.keljab') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Kelompok Jabatan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.pendidikan') }}" class="nav-link {{ \Route::is('datmas.pendidikan') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Pendidikan Pegawai</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.resiko') }}" class="nav-link {{ \Route::is('datmas.resiko') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Resiko Kerja</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.statker') }}" class="nav-link {{ \Route::is('datmas.statker') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Status Kerja</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.statwp') }}" class="nav-link {{ \Route::is('datmas.statwp') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Status Wajib Pajak</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.metcik') }}" class="nav-link {{ \Route::is('datmas.metcik') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Metode Racik</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.ok') }}" class="nav-link {{ \Route::is('datmas.ok') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Ruang OK</p>
+                        </a>
+                    </li>
                 </ul>
             </li>
 
