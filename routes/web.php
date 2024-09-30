@@ -21,6 +21,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\UpdateController;
+use App\Http\Controllers\WhatsAppController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,6 +29,7 @@ Route::get('/', function () {
 });
 
 Route::post('/update-app', [UpdateController::class, 'update'])->name('update.app');
+Route::post('/send-message', [WhatsAppController::class, 'sendMessage']);
 
 
 Route::middleware('auth')->group(function () {

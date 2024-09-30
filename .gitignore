@@ -8,6 +8,8 @@
 .vscode
 # .env
 .env.backup
+.wwebjs_auth
+.wwebjs_cache
 .env.production
 .phpunit.result.cache
 Homestead.json
@@ -21,3 +23,4 @@ yarn-error.log
 /.idx
 node_modules
 node_modules
+npm-log.txt
