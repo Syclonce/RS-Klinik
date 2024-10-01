@@ -14,6 +14,7 @@ use App\Http\Controllers\modules\LaporanController;
 use App\Http\Controllers\modules\KamarController;
 use App\Http\Controllers\modules\RegisController;
 use App\Http\Controllers\modules\AntrianController;
+use App\Http\Controllers\modules\RadiologiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\websetController;
@@ -183,6 +184,13 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::post('/kamar/add', [KamarController::class, 'kamaradd'])->name('kamar.add');
     Route::get('/kamar/kelas', [KamarController::class, 'KelasKamar'])->name('kamar.kelas');
     Route::post('/kamar/kelas/add', [KamarController::class, 'KelasKamardd'])->name('kamar.kelas.add');
+
+    Route::get('/radiologi', [RadiologiController::class, 'index'])->name('radiologi');
+    Route::post('/radiologi/add', [RadiologiController::class, 'radiologiadd'])->name('radiologi.add');
+    Route::get('/generate-no-rawat', [RadiologiController::class, 'generateNoRawat'])->name('generate.no_rawat');
+    Route::get('/get-latest-reg-number', [RadiologiController::class,'getLatestRegNumber'])->name('getLatestRegNumber');
+
+
 
     Route::get('/datamaster', [DatamasterController::class, 'index'])->name('datmas');
 
