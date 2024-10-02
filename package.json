@@ -1,7 +1,7 @@
 {
     "private": true,
     "scripts": {
-        "laravel": "php artisan serve --host=localhost --port=8000",
+        "laravel": "php artisan serve --host=0.0.0.0 --port=82",
         "node": "node server.cjs",
         "dev": "concurrently \"npm run laravel\" \"npm run node\""
     },

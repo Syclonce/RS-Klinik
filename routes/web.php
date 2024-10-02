@@ -187,10 +187,9 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/radiologi', [RadiologiController::class, 'index'])->name('radiologi');
     Route::post('/radiologi/add', [RadiologiController::class, 'radiologiadd'])->name('radiologi.add');
-    Route::get('/generate-no-rawat', [RadiologiController::class, 'generateNoRawat'])->name('generate.no_rawat');
-    Route::get('/get-latest-reg-number', [RadiologiController::class,'getLatestRegNumber'])->name('getLatestRegNumber');
-
-
+    Route::get('/generate-no-reg', [RadiologiController::class, 'generateNoReg'])->name('generateNoReg');
+    Route::get('/generate-no-rawat', [RadiologiController::class, 'generateNoRawat'])->name('generateNoRawat');
+    Route::get('/search-pasien', [RadiologiController::class, 'searchPasien'])->name('searchPasien');
 
     Route::get('/datamaster', [DatamasterController::class, 'index'])->name('datmas');
 
@@ -298,7 +297,7 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/regis/rajal', [RegisController::class, 'rajal'])->name('regis.rajal');
     Route::post('/regis/rajal/add', [RegisController::class, 'rajaladd'])->name('regis.rajal.add');
-    Route::get('/regis/{no_rm}', [RegisController::class, 'show'])->name('regis.show');
+    Route::get('/regis/rajal/{no_rm}', [RegisController::class, 'show'])->name('regis.show');
 
     Route::get('/regis/ranap', [RegisController::class, 'ranap'])->name('regis.ranap');
 

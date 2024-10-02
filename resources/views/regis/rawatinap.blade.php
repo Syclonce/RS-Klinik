@@ -20,107 +20,89 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group row">
-                                            <div class="col-md 4">
-                                                <label for="asal_poli">Asal Poli</label>
-                                                <select id="asal_poli" name="asal_poli" class="form-control">
-                                                    @foreach ($poli as $poli)
-                                                        <option value="{{ $poli->id }}">{{ $poli->nama }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="col-md 4">
-                                                <label for="dokter_pengirim">Dokter Pengirim</label>
-                                                <select id="dokter_pengirim" name="dokter_pengirim" class="form-control">
-                                                    @foreach ($dokter as $dokter)
-                                                        <option value="{{ $dokter->id }}">{{ $dokter->nama }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                                <div class="col-md-4">
+                                                    <label for="asal_rujukan">Asal Rujukan</label>
+                                                    <select id="asal_rujukan" name="asal_rujukan" class="form-control">
+                                                        <option value="UGD">UGD</option>
+                                                        <option value="Poli">Poli</option>
+                                                        <option value="Umum">Rujukan Luar</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-md-4" id="asal_poli_container" style="display:none;">
+                                                    <label for="asal_poli">Asal Poli</label>
+                                                    <select id="asal_poli" name="asal_poli" class="form-control">
+                                                        @foreach ($poli as $poliItem)
+                                                            <option value="{{ $poliItem->id }}">{{ $poliItem->nama }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-md-4" id="dokter_pengirim_container" style="display:none;">
+                                                    <label for="dokter_pengirim">Dokter Pengirim</label>
+                                                    <select id="dokter_pengirim" name="dokter_pengirim" class="form-control">
+                                                        @foreach ($dokter as $dokterItem)
+                                                            <option value="{{ $dokterItem->id }}">{{ $dokterItem->nama }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-md-4" id="nama_rumah_sakit_container" style="display:none;">
+                                                    <label for="nama_rumah_sakit">Nama Rumah Sakit</label>
+                                                    <select id="nama_rumah_sakit" name="nama_rumah_sakit" class="form-control">
+                                                        @foreach ($poli as $poliItem)
+                                                            <option value="{{ $poliItem->id }}">{{ $poliItem->nama }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             <div class="col-md 4">
                                                 <label for="tanggal_rawat">Tanggal Rawat</label>
-                                                <input type="text" class="form-control" id="tanggal_rawat" name="tanggal_rawat">
+                                                <div class="input-group date" id="tanggal_rawat" data-target-input="nearest">
+                                                    <input type="text" id="tanggal_rawat" name="tanggal_rawat" class="form-control datetimepicker-input" data-target="#tanggal_rawat" />
+                                                    <div class="input-group-append" data-target="#tanggal_rawat" data-toggle="datetimepicker">
+                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <div class="col-md-2 d-flex flex-column justify-content-end">
-                                                <label for="ruang">Pilih Ruangan</label>
-                                                <button type="button" class="btn btn-primary w-100" id="ruang">Cari Ruangan</button>
+                                            <div class="col-md-6">
+                                                <label for="r_perawatan">Ruangan</label>
+                                                <select id="r_perawatan" name="r_perawatan" class="form-control">
+                                                    @foreach ($bangsal as $bangsal)
+                                                        <option value="{{ $bangsal->id }}">{{ $bangsal->nama_bangsal }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
-                                            <div class="col-md-5 d-flex align-items-end">
-                                                <input type="text" class="form-control" id="pilih_ruangan" name="pilih_ruangan" placeholder="Ruangan" disabled>
-                                            </div>
-                                            <div class="col-md-5">
+                                            <div class="col-md-6">
                                                 <label for="dokter_dpjb">Dokter DPJB</label>
-                                                <input type="text" class="form-control" id="dokter_dpjb" name="dokter_dpjb">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                    <div class="card-header" id="kecelakan-header" style="display: none;">
-                                        <h5><i class="fa fa-user"></i> Pasien Kecelakan</h5>
-                                    </div>
-                                    <div class="card-body" id="kecelakan-section" style="display: none;">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="jeskec">Jenis Kecelakaan</label>
-                                                <select id="jeskec" name="jeskec" class="form-control">
-                                                    <option value="">--- Pilih Jenis Kecelakaan ---</option>
-                                                    <option value="1">Kecelakaan Ringan</option>
-                                                    <option value="2">Kecelakaan Sedang</option>
-                                                    <option value="3">Kecelakaan Berat</option>
-                                                    <!-- Add options dynamically -->
+                                                <select id="dokter_dpjb" name="dokter_dpjb" class="form-control">
+                                                    @foreach ($dokter as $dokterItem)
+                                                        <option value="{{ $dokterItem->id }}">{{ $dokterItem->nama }}</option>
+                                                    @endforeach
                                                 </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <label for="nopol">No Pol</label>
-                                                <input type="text" class="form-control" id="nopol" name="nopol">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="tglkej">Tanggal Kejadian</label>
-                                                <input type="date" class="form-control" id="tglkej" name="tglkej">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="Penjamin">Penjamin</label>
-                                                <select id="Penjamin" name="Penjamin" class="form-control">
-                                                    <option value="">--- Cari Penjamin ---</option>
-                                                    <!-- Add options dynamically -->
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <label for="ket">Keterangan</label>
-                                                <input type="text" class="form-control" id="ket" name="ket">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Identitas Pasien -->
-                            <div class="row">
                                 <div class="col-md-6 d-flex align-items-stretch">
                                     <div class="card w-100">
                                         <div class="card-header bg-light">
-                                            <h5><i class="fa fa-user"></i> Penanggung Jawab</h5>
+                                            <h5><i class="fa fa-user"></i> Penjamin</h5>
                                         </div>
                                         <div class="card-body">
                                             <div class="form-group row">
                                                 <div class="col-md-12">
                                                     <label for="nama_penanggung">Nama Penanggung</label>
-                                                    <input type="text" class="form-control" id="nama_penanggung" name="nama_penanggung">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-md-12">
-                                                    <label for="hub_penanggung">Hub Penanggung</label>
-                                                    <input type="text" class="form-control" id="hub_penanggung" name="hub_penanggung">
+                                                    <select id="nama_penanggung" name="nama_penanggung" class="form-control">
+                                                        <option value="">--- Pilih ---</option>
+                                                            @foreach ($penjamin as $penjamin)
+                                                            <option value="{{ $penjamin->id }}" data-alamat="{{ $penjamin->alamat }}" data-no_telp="{{ $penjamin->telp }}">{{ $penjamin->pj }}</option>
+                                                            @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -132,13 +114,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-12">
                                                     <label for="no_telp">No. Telp</label>
-                                                    <input type="number" class="form-control" id="no_telp" name="no_telp">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-md-12">
-                                                    <label for="keterangan">Keterangan</label>
-                                                    <input type="text" class="form-control" id="keterangan" name="keterangan">
+                                                    <input type="text" class="form-control" id="no_telp" name="no_telp">
                                                 </div>
                                             </div>
                                         </div>
@@ -149,7 +125,7 @@
                                 <div class="col-md-6 d-flex align-items-stretch">
                                 <div class="card w-100">
                                     <div class="card-header bg-light">
-                                        <h5><i class="fa fa-user"></i> Penjamin</h5>
+                                        <h5><i class="fa fa-user"></i>Penanggung Jawab</h5>
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group row">
@@ -213,7 +189,6 @@
                                         </button>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
 
@@ -254,6 +229,47 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+
+    <script>
+        $(document).ready(function() {
+            $('#nama_penanggung').on('change', function() {
+                var selectedOption = $(this).find('option:selected');
+                var alamat = selectedOption.data('alamat');
+                var noTelp = selectedOption.data('no_telp');
+
+                $('#alamat').val(alamat);
+                $('#no_telp').val(noTelp);
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+    $('#asal_rujukan').on('change', function() {
+        var selectedValue = $(this).val();
+
+        if (selectedValue === 'UGD') {
+            // Show only "Dokter Pengirim", hide the others
+            $('#asal_poli_container').hide();
+            $('#dokter_pengirim_container').show();
+            $('#nama_rumah_sakit_container').hide();
+        } else if (selectedValue === 'Poli') {
+            // Show both "Asal Poli" and "Dokter Pengirim", hide "Nama Rumah Sakit"
+            $('#asal_poli_container').show();
+            $('#dokter_pengirim_container').show();
+            $('#nama_rumah_sakit_container').hide();
+        } else if (selectedValue === 'Umum') {
+            // Show "Nama Rumah Sakit" only, hide the others
+            $('#asal_poli_container').show();
+            $('#dokter_pengirim_container').show();
+            $('#nama_rumah_sakit_container').show();
+        }
+    });
+
+    // Trigger change event on page load to set the initial state
+    $('#asal_rujukan').trigger('change');
+});
+
+    </script>
 
     <script>
         $(document).ready(function() {
