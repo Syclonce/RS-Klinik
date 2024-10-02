@@ -586,6 +586,9 @@
             $('#expired').datetimepicker({
                 format: 'L'
             })
+            $("#timepicker").datetimepicker({
+                format: "LT",
+            });
         });
     </script>
 

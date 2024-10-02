@@ -441,6 +441,24 @@
                 </ul>
             </li>
 
+            <li class="nav-item {{ \Route::is('radiologi*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('radiologi*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
+                  <p style="margin-left: 10px;">
+                    Radiologi
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('radiologi') }}" class="nav-link {{ \Route::is('radiologi') ? 'active' : '' }}">
+                            <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
+                          <p>Tambah Radiologi</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
             <li class="nav-item {{ \Route::is('index*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('index*') ? 'active' : '' }}">
                     <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
