@@ -28,6 +28,7 @@ use App\Models\bidang;
 use App\Models\depart;
 use App\Models\emergency;
 use App\Models\jenjab;
+use App\Models\kelaskamar;
 use App\Models\keljab;
 use App\Models\pendidikan;
 use App\Models\resiko;
@@ -395,7 +396,8 @@ class DatamasterController extends Controller
         $bangsal = bangsal::all();
         $penjab = penjab::all();
         $datas = pernap::with(['katper','bangsal'])->get();
-        return view('datamaster.pernap', compact('title','katper','bangsal','penjab','datas'));
+        $kelas = kelaskamar::where('status', 'aktif')->get();
+        return view('datamaster.pernap', compact('title','katper','bangsal','penjab','datas','kelas'));
     }
 
     public function pernapadd(Request $request)
@@ -456,7 +458,8 @@ class DatamasterController extends Controller
         $title = $setweb->name_app ." - ". "Kelola Jenis Barang";
         $penjab = penjab::all();
         $data = perlogi::with(['penjab'])->get();
-        return view('datamaster.perlogi', compact('title','penjab','data'));
+        $kelas = kelaskamar::where('status', 'aktif')->get();
+        return view('datamaster.perlogi', compact('title','penjab','data','kelas'));
     }
 
     public function perlogiadd(Request $request)

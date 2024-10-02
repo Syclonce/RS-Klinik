@@ -145,12 +145,9 @@
                                     <label>Kelas </label>
                                     <select class="form-control select2bs4" style="width: 100%;" id="kelas" name="kelas">
                                         <option value="">--- pilih ---</option>
-                                        <option value="kelas_1">Kelas 1 </option>
-                                        <option value="kelas_2">Kelas 2</option>
-                                        <option value="kelas_3">Kelas 3</option>
-                                        <option value="kelas_utama">Kelas Utama</option>
-                                        <option value="kelas_vip">Kelas VIP</option>
-                                        <option value="kelas_vvip">Kelas VVIP</option>
+                                        @foreach ($kelas as $kelas)
+                                        <option value="{{$kelas->id}}">{{$kelas->nama}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
