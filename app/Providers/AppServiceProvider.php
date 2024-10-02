@@ -30,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
                     'url' => $url,
                 ]);
         });
+
+        // \Illuminate\Support\Facades\URL::forceScheme('https');
     }
 
 
