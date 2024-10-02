@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\modules;
 
 use App\Http\Controllers\Controller;
+use App\Models\bangsal;
 use Illuminate\Http\Request;
 use App\Models\setweb;
 use App\Models\doctor;
 use App\Models\pasien;
+use App\Models\penjab;
 use App\Models\poli;
 use App\Models\rajal;
 
@@ -34,26 +36,24 @@ class RegisController extends Controller
     }
 
     public function getDokterByPoli($poliId)
-{
-    // Ambil data dokter berdasarkan poli_id
-    $dokter = doctor::where('poli_id', $poliId)->get();
+    {
+        // Ambil data dokter berdasarkan poli_id
+        $dokter = doctor::where('poli_id', $poliId)->get();
 
-    // Return response JSON
-    return response()->json($dokter);
-}
+        // Return response JSON
+        return response()->json($dokter);
+    }
 
-public function getKodeDokter($dokterId)
-{
-    // Ambil data dokter berdasarkan ID
-    $dokter = doctor::find($dokterId);
+    public function getKodeDokter($dokterId)
+    {
+        // Ambil data dokter berdasarkan ID
+        $dokter = doctor::find($dokterId);
 
-    // Return response JSON
-    return response()->json([
-        'kode' => $dokter->kode
-    ]);
-}
-
-
+        // Return response JSON
+        return response()->json([
+            'kode' => $dokter->kode
+        ]);
+    }
 
     public function show($no_rm)
     {
@@ -97,7 +97,9 @@ public function getKodeDokter($dokterId)
         $title = $setweb->name_app ." - ". "ranap";
         $poli = poli::all();
         $dokter = doctor::all();
-        return view('regis.rawatinap', compact('title','poli','dokter'));
+        $bangsal = bangsal::all();
+        $penjamin = penjab::all();
+        return view('regis.rawatinap', compact('title','poli','dokter','bangsal','penjamin'));
 
     }
 }

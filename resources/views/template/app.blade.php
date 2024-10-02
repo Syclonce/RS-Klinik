@@ -589,6 +589,9 @@
             $("#timepicker").datetimepicker({
                 format: "LT",
             });
+            $('#tanggal_rawat').datetimepicker({
+                icons: { time: 'far fa-clock' }
+            });
         });
     </script>
 
