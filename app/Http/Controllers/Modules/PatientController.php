@@ -98,6 +98,7 @@ class PatientController extends Controller
             "username" => 'required|string|max:255',
             "email" => 'required|string|max:255',
             "password" => 'required',
+            "telepon" => 'required',
         ]);
 
         $user = new User();
@@ -106,6 +107,7 @@ class PatientController extends Controller
         $user->email = $datauser['email'];
         $user->password = Hash::make($datauser['password']); // Hash the password
         $user->profile = 'default.jpg';
+        $user->phone = $datauser['telepon'];
         $user->save();
         $user->assignRole('User');
 

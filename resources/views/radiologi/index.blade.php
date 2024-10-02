@@ -174,8 +174,8 @@
                             </div>
 
                             <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="patienttbl" class="table table-bordered table-striped">
+                            <div class="card-body" id="kunjungan-section">
+                                <table id="patient-visit-table" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>No. RM</th>
@@ -194,7 +194,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        <!-- Data kunjungan akan ditambahkan di sini -->
                                     </tbody>
                                 </table>
                             </div>
@@ -210,69 +210,127 @@
     <!-- /.content-wrapper -->
 
     <script>
-        $(document).ready(function () {
-            // Ketika input no_rawat di klik
-            $('#no_rawat').on('focus', function () {
-                // Lakukan permintaan AJAX untuk generate no rawat
+        $(document).ready(function() {
+            const searchButton = document.getElementById('search-button');
+            const kecelakanSection = document.getElementById('kecelakan-section');
+            const kecelakanHeader = document.getElementById('kecelakan-header');
+            const kecelakanCard = document.getElementById('kecelakan-card');
+            const kecelakanCol = document.getElementById('kecelakan-col');
+
+            // Event listener ketika tombol search diklik
+            $('#search-button').click(function() {
+                // Ambil nilai dari input nama
+                var namaPasien = $('#nama').val();
+
+                // Panggil AJAX ke server untuk mencari pasien
                 $.ajax({
-                    url: '{{ route("generate.no_rawat") }}',
-                    type: 'GET',
-                    success: function (data) {
-                        // Set nilai input dengan nomor rawat yang dihasilkan
-                        $('#no_rawat').val(data.no_rawat);
+                    url: '/search-pasien', // URL untuk request pencarian
+                    method: 'GET',
+                    data: { nama: namaPasien },
+                    success: function(response) {
+                        // Kosongkan tabel sebelum mengisi data baru
+                        $('#patienttbl tbody').empty();
+
+                        // Periksa apakah ada hasil
+                        if (response.length > 0) {
+                            // Looping melalui hasil dan tambahkan ke tabel
+                            $.each(response, function(index, pasien) {
+                                var row = '<tr>' +
+                                    '<td>' + pasien.no_rm + '</td>' +
+                                    '<td>' + pasien.nama + '</td>' +
+                                    '<td>' + pasien.tanggal_lahir + '</td>' +
+                                    '<td>' + pasien.seks + '</td>' +
+                                    '<td>' + pasien.Alamat + '</td>' +
+                                    '<td>' + pasien.telepon + '</td>' +
+                                    '<td>' +
+                                        '<button class="btn btn-primary select-patient" data-id="' + pasien.no_rm + '" data-nama="' + pasien.nama + '" data-tgl="' + pasien.tanggal_lahir + '" data-seks="' + pasien.seks + '" data-telepon="' + pasien.telepon + '">Pilih</button>' +
+                                    '</td>' +
+                                    '</tr>';
+                                $('#patienttbl tbody').append(row);
+                            });
+                        } else {
+                            // Jika tidak ada hasil, tampilkan pesan kosong
+                            $('#patienttbl tbody').append('<tr><td colspan="7">Pasien tidak ditemukan</td></tr>');
+                        }
                     },
-                    error: function (xhr, status, error) {
-                        console.error(error);
+                    error: function(xhr, status, error) {
+                        console.error('Error searching pasien:', error);
                     }
                 });
+
+                // Tampilkan atau sembunyikan kecelakanSection
+                const isCurrentlyVisible = kecelakanSection.style.display === 'block';
+
+                if (isCurrentlyVisible) {
+                    // Sembunyikan jika sedang terlihat
+                    kecelakanSection.style.display = 'none';
+                    kecelakanHeader.style.display = 'none';
+                    kecelakanCard.style.display = 'none';
+                    kecelakanCol.style.display = 'none';
+                } else {
+                    // Tampilkan jika sedang tersembunyi
+                    kecelakanSection.style.display = 'block';
+                    kecelakanHeader.style.display = 'block';
+                    kecelakanCard.style.display = 'block';
+                    kecelakanCol.style.display = 'block';
+                }
+            });
+
+            // Event listener untuk tombol "Pilih"
+            $(document).on('click', '.select-patient', function() {
+                // Ambil data dari atribut tombol
+                var noRm = $(this).data('id');
+                var nama = $(this).data('nama');
+                var tglLahir = $(this).data('tgl');
+                var seks = $(this).data('seks');
+                var telepon = $(this).data('telepon');
+
+                // Isi field input di card dengan data pasien yang dipilih
+                $('#no_rm').val(noRm);
+                $('#nama_pasien').val(nama);
+                $('#tgl_lahir').val(tglLahir);
+                $('#seks').val(seks);
+                $('#telepon').val(telepon);
             });
         });
     </script>
 
-    <script type="text/javascript">
+
+
+    <script>
         $(document).ready(function() {
-            // Ketika input No. Reg di-klik
-            $('#no_reg').on('click', function() {
-                // Panggil AJAX untuk mendapatkan nomor registrasi terbaru
-                $.ajax({
-                    url: '{{ route('getLatestRegNumber') }}', // Panggil route yang kita buat
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        // Isi input field dengan nomor registrasi terbaru
-                        $('#no_reg').val(data.no_reg);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText); // Tampilkan error di konsol jika terjadi kesalahan
-                    }
-                });
+        $('#generate-reg-button').click(function() {
+            $.ajax({
+                url: '/generate-no-reg', // URL ke controller yang menangani nomor registrasi
+                type: 'GET',
+                success: function(response) {
+                    // Menampilkan nomor registrasi di input field
+                    $('#no_reg').val(response.no_reg);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    alert('Gagal menghasilkan nomor registrasi.');
+                }
             });
         });
+    });
     </script>
 
     <script>
-        const searchButton = document.getElementById('search-button');
-        const kecelakanSection = document.getElementById('kecelakan-section');
-        const kecelakanHeader = document.getElementById('kecelakan-header');
-        const kecelakanCard = document.getElementById('kecelakan-card');
-        const kecelakanCol = document.getElementById('kecelakan-col');
-
-        searchButton.addEventListener('click', function() {
-            const isCurrentlyVisible = kecelakanSection.style.display === 'block';
-
-            if (isCurrentlyVisible) {
-                // Hide section if it is currently visible
-                kecelakanSection.style.display = 'none';
-                kecelakanHeader.style.display = 'none';
-                kecelakanCard.style.display = 'none';
-                kecelakanCol.style.display = 'none';
-            } else {
-                // Show section if it is currently hidden
-                kecelakanSection.style.display = 'block';
-                kecelakanHeader.style.display = 'block';
-                kecelakanCard.style.display = 'block';
-                kecelakanCol.style.display = 'block';
-            }
+        $(document).ready(function() {
+            $('#generate-no-rawat-button').click(function() {
+                $.ajax({
+                    url: '/generate-no-rawat', // URL yang mengarah ke route untuk generate nomor rawat
+                    method: 'GET',
+                    success: function(response) {
+                        // Set nilai input dengan nomor rawat yang dihasilkan
+                        $('#no_rawat').val(response.no_rawat);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error generating No. Rawat:', error);
+                    }
+                });
+            });
         });
     </script>
 @endsection
