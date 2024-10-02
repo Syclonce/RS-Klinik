@@ -18,4 +18,12 @@ class AntrianController extends Controller
 
     }
 
+    public function loket1()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "loket1";
+
+        return view('antrian.page', compact('title'));
+
+    }
 }

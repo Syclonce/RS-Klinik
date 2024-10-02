@@ -289,6 +289,9 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::post('/datamaster/perawatan/{id}/add-detail', [DatamasterController::class, 'addDetail'])->name('datmas.perawatan.addDetail');
     Route::delete('/datamaster/perawatan/detail/{id}/delete', [DatamasterController::class, 'deleteDetail'])->name('datmas.perawatan.deleteDetail');
 
+    Route::get('/datamaster/rujukan', [DatamasterController::class, 'rujukan'])->name('datmas.rujukan');
+    Route::post('/datamaster/rujukan/add', [DatamasterController::class, 'rujukanadd'])->name('datmas.rujukan.add');
+
     Route::get('/regis', [RegisController::class, 'index'])->name('regis');
     Route::get('/regis/get-dokter-by-poli/{poliId}', [RegisController::class, 'getDokterByPoli']);
     Route::get('/regis/get-kode-dokter/{dokterId}', [RegisController::class, 'getKodeDokter']);
@@ -299,7 +302,7 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/regis/ranap', [RegisController::class, 'ranap'])->name('regis.ranap');
 
-    // Route::get('/antrian', [AntrianController::class, 'index'])->name('antrian');
+    Route::get('/antrian/loket-1', [AntrianController::class, 'loket1'])->name('loket1');
 
     Route::get('setweb', [websetController::class, 'index'])->name('setweb');
     Route::post('setweb/update', [websetController::class, 'updates'])->name('setweb.update');

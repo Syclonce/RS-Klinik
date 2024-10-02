@@ -435,7 +435,7 @@
                     <li class="nav-item">
                         <a href="{{ route('antrian') }}" class="nav-link {{ \Route::is('antrian') ? 'active' : '' }}">
                             <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
-                          <p>Tambah Antrian</p>
+                          <p> Antrian Loket</p>
                         </a>
                     </li>
                 </ul>
@@ -640,6 +640,12 @@
                         <a href="{{ route('datmas.ok') }}" class="nav-link {{ \Route::is('datmas.ok') ? 'active' : '' }}">
                             <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
                           <p>Ruang OK</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.rujukan') }}" class="nav-link {{ \Route::is('datmas.rujukan') ? 'active' : '' }}">
+                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                          <p>Rujukan</p>
                         </a>
                     </li>
                 </ul>

@@ -35,6 +35,7 @@ use App\Models\statker;
 use App\Models\statwp;
 use App\Models\metcik;
 use App\Models\ok;
+use App\Models\rujukan;
 
 
 
@@ -843,5 +844,28 @@ class DatamasterController extends Controller
             return redirect()->back()->with('success', 'Detail Pemeriksaan Berhasil Dihapus');
         }
         return redirect()->back()->with('error', 'Detail Pemeriksaan Tidak Ditemukan');
+    }
+    public function rujukan()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "rujukan ";
+        $data = rujukan::all();
+        return view('datamaster.rujukan', compact('title','data'));
+    }
+
+    public function rujukanadd(Request $request)
+    {
+        $data = $request->validate([
+            "kategori" => 'required',
+            "nama_rujukan" => 'required',
+            "alamat" => 'required',
+            "telepon" => 'required',
+            "fax" => 'required',
+            "cp" => 'required',
+            "email" => 'required',
+            "kode_task" => 'required',
+        ]);
+        rujukan::create($data);
+        return redirect()->route('datmas.rujukan')->with('success', 'rujukan berhasi di tambahkan');
     }
 }
