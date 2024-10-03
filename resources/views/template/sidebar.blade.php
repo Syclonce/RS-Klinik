@@ -425,7 +425,7 @@
             </li>
             <li class="nav-item {{ \Route::is('antrian*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('antrian*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
+                    <i class="fafa-ticket" style="color: #63E6BE;"></i>
                   <p style="margin-left: 10px;">
                     Antrian
                     <i class="right fas fa-angle-left"></i>
@@ -434,7 +434,7 @@
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ route('antrian') }}" class="nav-link {{ \Route::is('antrian') ? 'active' : '' }}">
-                            <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
+                            <i class="fafa-ticket" style="color: #63E6BE;"></i>
                           <p> Antrian Loket</p>
                         </a>
                     </li>
@@ -443,7 +443,7 @@
 
             <li class="nav-item {{ \Route::is('radiologi*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('radiologi*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
+                    <i class="fa-solid fa-x-ray" style="color: #63E6BE;"></i>
                   <p style="margin-left: 10px;">
                     Radiologi
                     <i class="right fas fa-angle-left"></i>
@@ -452,8 +452,26 @@
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ route('radiologi') }}" class="nav-link {{ \Route::is('radiologi') ? 'active' : '' }}">
-                            <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-x-ray" style="color: #63E6BE;"></i>
                           <p>Tambah Radiologi</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item {{ \Route::is('laboratorium*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('laboratorium*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-flask-vial" style="color: #63E6BE;"></i>
+                  <p style="margin-left: 10px;">
+                    Laboratorium
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('laboratorium') }}" class="nav-link {{ \Route::is('laboratorium') ? 'active' : '' }}">
+                            <i class="fa-solid fa-flask-vial" style="color: #63E6BE;"></i>
+                          <p>Tambah Laboratorium</p>
                         </a>
                     </li>
                 </ul>
@@ -470,181 +488,181 @@
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ route('datmas.bangsal') }}" class="nav-link {{ \Route::is('datmas.bangsal') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Bangsal</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.dabar') }}" class="nav-link {{ \Route::is('datmas.dabar') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Data Barang</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.perjal') }}" class="nav-link {{ \Route::is('datmas.perjal') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Perawatan Rawat Jalan</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.pernap') }}" class="nav-link {{ \Route::is('datmas.pernap') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Perawatan Rawat Inap</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.perlogi') }}" class="nav-link {{ \Route::is('datmas.perlogi') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Perawatan Radiologi</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.katbar') }}" class="nav-link {{ \Route::is('datmas.katbar') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Kategori Barang</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.katpen') }}" class="nav-link {{ \Route::is('datmas.katpen') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Kategori Penyakit</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.katper') }}" class="nav-link {{ \Route::is('datmas.katper') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Kategori Perawatan</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.satuan') }}" class="nav-link {{ \Route::is('datmas.satuan') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Kode Satuan</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.jenbar') }}" class="nav-link {{ \Route::is('datmas.jenbar') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Jenis Barang</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.industri') }}" class="nav-link {{ \Route::is('datmas.industri') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Industri Farmasi</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.golbar') }}" class="nav-link {{ \Route::is('datmas.golbar') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Golongan Barang</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.penjab') }}" class="nav-link {{ \Route::is('datmas.penjab') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Penanggung Jawab</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.cacat') }}" class="nav-link {{ \Route::is('datmas.cacat') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Cacat Fisik</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.perusahaan') }}" class="nav-link {{ \Route::is('datmas.perusahaan') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Perusahaan Pasien</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.aturanpake') }}" class="nav-link {{ \Route::is('datmas.aturanpake') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Aturan Pakai</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.berkas') }}" class="nav-link {{ \Route::is('datmas.berkas') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Berkas Digital</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.bank') }}" class="nav-link {{ \Route::is('datmas.bank') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Bank</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.bidang') }}" class="nav-link {{ \Route::is('datmas.bidang') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Bidang</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.depart') }}" class="nav-link {{ \Route::is('datmas.depart') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Departemen</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.emergency') }}" class="nav-link {{ \Route::is('datmas.emergency') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Emergency</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.jenjab') }}" class="nav-link {{ \Route::is('datmas.jenjab') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Jenjang Jabatan</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.keljab') }}" class="nav-link {{ \Route::is('datmas.keljab') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Kelompok Jabatan</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.pendidikan') }}" class="nav-link {{ \Route::is('datmas.pendidikan') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Pendidikan Pegawai</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.resiko') }}" class="nav-link {{ \Route::is('datmas.resiko') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Resiko Kerja</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.statker') }}" class="nav-link {{ \Route::is('datmas.statker') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Status Kerja</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.statwp') }}" class="nav-link {{ \Route::is('datmas.statwp') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Status Wajib Pajak</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.metcik') }}" class="nav-link {{ \Route::is('datmas.metcik') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Metode Racik</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.ok') }}" class="nav-link {{ \Route::is('datmas.ok') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Ruang OK</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.rujukan') }}" class="nav-link {{ \Route::is('datmas.rujukan') ? 'active' : '' }}">
-                            <i class="fa-solid fa-clock" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
                           <p>Rujukan</p>
                         </a>
                     </li>

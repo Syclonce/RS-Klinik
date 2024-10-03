@@ -15,6 +15,7 @@ use App\Http\Controllers\modules\KamarController;
 use App\Http\Controllers\modules\RegisController;
 use App\Http\Controllers\modules\AntrianController;
 use App\Http\Controllers\modules\RadiologiController;
+use App\Http\Controllers\modules\LaboratoriumController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\websetController;
@@ -190,6 +191,12 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/generate-no-reg', [RadiologiController::class, 'generateNoReg'])->name('generateNoReg');
     Route::get('/generate-no-rawat', [RadiologiController::class, 'generateNoRawat'])->name('generateNoRawat');
     Route::get('/search-pasien', [RadiologiController::class, 'searchPasien'])->name('searchPasien');
+
+    Route::get('/laboratorium', [LaboratoriumController::class, 'index'])->name('laboratorium');
+    Route::post('/laboratorium/add', [LaboratoriumController::class, 'laboratoriumadd'])->name('laboratorium.add');
+    Route::get('/generate-no-reg-lab', [LaboratoriumController::class, 'generateNoRegLab'])->name('generateNoRegLab');
+    Route::get('/generate-no-rawat-lab', [LaboratoriumController::class, 'generateNoRawatLab'])->name('generateNoRawatLab');
+    Route::get('/search-pasien-lab', [LaboratoriumController::class, 'searchPasienLab'])->name('searchPasienLab');
 
     Route::get('/datamaster', [DatamasterController::class, 'index'])->name('datmas');
 

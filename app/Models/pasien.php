@@ -75,4 +75,9 @@ class pasien extends Model
     {
         return $this->hasOne(ranap::class,'no_rm','no_rm');
     }
+
+    public function labdata()
+    {
+        return $this->hasOne(labdata::class);
+    }
 }

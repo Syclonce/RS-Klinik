@@ -43,4 +43,9 @@ class penjab extends Model
     {
         return $this->hasOne(ranap::class);
     }
+
+    public function labdata()
+    {
+        return $this->hasOne(labdata::class);
+    }
 }

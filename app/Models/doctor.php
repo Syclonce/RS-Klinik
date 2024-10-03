@@ -86,4 +86,9 @@ class doctor extends Model
     {
         return $this->hasOne(ranap::class,'id','dokter_pengirim');
     }
+
+    public function labdata()
+    {
+        return $this->hasOne(labdata::class);
+    }
 }
