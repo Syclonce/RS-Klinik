@@ -1,3 +1,7 @@
+<?php
+$queueNumber = request()->query('queue', 'A1');  // Default value A1 jika tidak ada query string
+$loketName = request()->query('loket', 'Loket 1');  // Default value Loket 1 jika tidak ada query string
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,12 +62,12 @@
 </head>
 <body>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="queue-box">
-                <div class="loket-text">Loket 3</div>
-                <div class="queue-number" id="current-queue-number">F2</div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="queue-box">
+                    <div class="loket-text"><?= htmlspecialchars($loketName) ?></div>
+                    <div class="queue-number" id="current-queue-number"><?= htmlspecialchars($queueNumber) ?></div>
 
                 <!-- Tombol Pemanggilan -->
                 <div class="btn-box">
@@ -101,6 +105,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <!-- Petunjuk -->
     <div class="row justify-content-center mt-4">
@@ -163,13 +168,15 @@
             }
 
             function getNextQueueNumber(current) {
-                let next = parseInt(current.slice(1)) + 1;
-                return 'F' + next;
-            }
+            let prefix = current.charAt(0); // Ambil huruf prefix (misalnya D, A, F)
+            let number = parseInt(current.slice(1)); // Ambil nomor setelah huruf prefix
+            return prefix + (number + 1); // Tambahkan 1 ke nomor dan gabungkan dengan prefix
+}
 
             function getPreviousQueueNumber(current) {
-                let prev = parseInt(current.slice(1)) - 1;
-                return 'F' + prev;
+                let prefix = current.charAt(0); // Ambil huruf prefix (misalnya D, A, F)
+                let number = parseInt(current.slice(1)); // Ambil nomor setelah huruf prefix
+                return prefix + (number - 1); // Kurangi 1 dari nomor dan gabungkan dengan prefix
             }
 
             function callQueue() {

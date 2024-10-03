@@ -127,19 +127,19 @@
                         <!-- Small Queue Sections -->
                         <div class="row">
                             <div class="col-md-2">
-                                <button class="btn btn-primary small-queue" style="width: 100%; height: 100%;" onclick="window.location='{{ route('loket1') }}'">
+                                <button class="btn btn-primary small-queue" style="width: 100%; height: 100%;" onclick="window.location.href='{{ route('loket1') }}?queue=A1&loket=Loket 1'">
                                     <h1>A1</h1>
                                     <span>LOKET 1</span>
                                 </button>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn btn-primary small-queue" style="width: 100%; height: 100%;" onclick="window.location='{{ route('loket1') }}'">
+                                <button class="btn btn-primary small-queue" style="width: 100%; height: 100%;" onclick="window.location.href='{{ route('loket1') }}?queue=D1&loket=KIA/KB'">
                                     <h1>D1</h1>
                                     <span>KIA/KB</span>
                                 </button>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn btn-primary small-queue" style="width: 100%; height: 100%;" onclick="window.location='{{ route('loket1') }}'">
+                                <button class="btn btn-primary small-queue" style="width: 100%; height: 100%;" onclick="window.location.href='{{ route('loket1') }}?queue=E1&loket=Poli Gigi'">
                                     <h1>E1</h1>
                                     <span>POLI GIGI</span>
                                 </button>
