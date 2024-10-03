@@ -13,13 +13,17 @@ return new class extends Migration
     {
         Schema::create('radiologis', function (Blueprint $table) {
             $table->id();
+            $table->string('pasien_id');
             $table->string('tanggal_lahir');
             $table->string('time');
-            $table->string('nama');
             $table->string('doctor_id');
             $table->string('penjab_id');
             $table->string('no_reg');
             $table->string('no_rawat');
+            $table->string('no_rm');
+            $table->string('seks');
+            $table->string('telepon');
+            $table->string('tgl_kunjungan');
             $table->timestamps();
         });
     }

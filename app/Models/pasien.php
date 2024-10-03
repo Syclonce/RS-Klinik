@@ -65,4 +65,9 @@ class pasien extends Model
     {
         return $this->belongsTo(desa::class, 'kode_desa', 'kode_desa');
     }
+
+    public function radiologi()
+    {
+        return $this->hasOne(radiologi::class,'no_rm','no_rm');
+    }
 }

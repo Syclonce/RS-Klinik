@@ -1,46 +1,49 @@
 @extends('template.app')
 
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
 
-
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                <!-- Main row -->
-                <div class="row">
-                    <div class="col-12 mt-3">
-                        <div class="row d-flex">
-                            <!-- Card keluar disaat tekan button pasien -->
-                            <div class="col-md-12 mb-3" id="kecelakan-col" style="display: none;"> <!-- Add margin bottom -->
-                                <div class="card h-100" id="kecelakan-card" style="display: none;">
-                                    <div class="card-header bg-light" id="kecelakan-header" style="display: none;">
-                                        <h5><i class="fa fa-user"></i> Pilih Data Pasien</h5>
-                                    </div>
-                                    <div class="card-body" id="kecelakan-section" style="display: none;">
-                                        <table id="patienttbl" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>No. RM</th>
-                                                    <th>Nama Pasien</th>
-                                                    <th>Tgl. Lahir</th>
-                                                    <th>Jenis Kelamin</th>
-                                                    <th>Alamat</th>
-                                                    <th>No. Telepon</th>
-                                                    <th width="15%">Pilihan</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Main row -->
+            <div class="row">
+                <div class="col-12 mt-3">
+                    <div class="row d-flex">
+                        <!-- Card keluar disaat tekan button pasien -->
+                        <div class="col-md-12 mb-3" id="kecelakan-col" style="display: none;">
+                            <!-- Add margin bottom -->
+                            <div class="card h-100" id="kecelakan-card" style="display: none;">
+                                <div class="card-header bg-light" id="kecelakan-header" style="display: none;">
+                                    <h5><i class="fa fa-user"></i> Pilih Data Pasien</h5>
+                                </div>
+                                <div class="card-body" id="kecelakan-section" style="display: none;">
+                                    <table id="patienttbl" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>No. RM</th>
+                                                <th>Nama Pasien</th>
+                                                <th>Tgl. Lahir</th>
+                                                <th>Jenis Kelamin</th>
+                                                <th>Alamat</th>
+                                                <th>No. Telepon</th>
+                                                <th width="15%">Pilihan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Table data will be populated here -->
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
+                        </div>
 
-                            <!-- Identitas Pasien -->
-                            <div class="col-md-6 mb-3"> <!-- Add margin bottom -->
+                        <!-- Start Form -->
+                        <form action="{{ route('radiologi.add') }}" method="POST" class="row w-100">
+                            @csrf
+                            <!-- Kelola Data Pasien -->
+                            <div class="col-md-6 mb-3">
                                 <div class="card h-100">
                                     <div class="card-header bg-light">
                                         <h5><i class="fa fa-user"></i> Kelola Data Pasien</h5>
@@ -48,8 +51,8 @@
                                     <div class="card-body">
                                         <div class="form-group row">
                                             <div class="col-md-7">
-                                                <label for="tanggal_lahir">Tanggal Lahir</label>
-                                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir">
+                                                <label for="tgl_kunjungan">Tanggal Daftar</label>
+                                                <input type="date" class="form-control" id="tgl_kunjungan" name="tgl_kunjungan">
                                             </div>
                                             <div class="col-md-5">
                                                 <label for="timepicker">Jam</label>
@@ -70,8 +73,9 @@
                                                 <input type="text" class="form-control" id="nama" name="nama" placeholder="Cari nama pasien">
                                             </div>
                                             <div class="col-md-2">
-                                                <label>&nbsp;</label> <!-- Add an empty label for spacing -->
-                                                <button type="button" class="btn btn-primary btn-block" id="search-button">Cari nama</button>
+                                                <label>&nbsp;</label>
+                                                <!-- Empty label for spacing -->
+                                                <button type="button" class="btn btn-primary btn-block" id="search-button">Cari</button>
                                             </div>
                                         </div>
 
@@ -102,8 +106,9 @@
                                                 <input type="text" class="form-control" id="no_reg" name="no_reg">
                                             </div>
                                             <div class="col-md-3">
-                                                <label>&nbsp;</label> <!-- Add an empty label for spacing -->
-                                                <button type="button" class="btn btn-primary btn-block" id="generate-reg-button">Generate Registrasi</button>
+                                                <label>&nbsp;</label>
+                                                <!-- Empty label for spacing -->
+                                                <button type="button" class="btn btn-primary btn-block" id="generate-reg-button">Generate Reg</button>
                                             </div>
                                         </div>
 
@@ -113,7 +118,8 @@
                                                 <input type="text" class="form-control" id="no_rawat" name="no_rawat">
                                             </div>
                                             <div class="col-md-3">
-                                                <label>&nbsp;</label> <!-- Add an empty label for spacing -->
+                                                <label>&nbsp;</label>
+                                                <!-- Empty label for spacing -->
                                                 <button type="button" class="btn btn-primary btn-block" id="generate-no-rawat-button">Generate No Rawat</button>
                                             </div>
                                         </div>
@@ -121,8 +127,8 @@
                                 </div>
                             </div>
 
-                            <!-- Identitas Pasien -->
-                            <div class="col-md-6 mb-3"> <!-- Add margin bottom -->
+                            <!-- Data Pasien -->
+                            <div class="col-md-6 mb-3">
                                 <div class="card h-100">
                                     <div class="card-header bg-light">
                                         <h5><i class="fa fa-user"></i> Data Pasien</h5>
@@ -161,53 +167,73 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-
-
-
-                    <div class="col-12 mt-2">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title mb-0">Pasien</h3>
+                            <!-- Submit Button -->
+                            <div class="col-12 d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary btn-block" style="max-width: 500px;">Kirim ke Radiologi</button>
                             </div>
-
-                            <!-- /.card-header -->
-                            <div class="card-body" id="kunjungan-section">
-                                <table id="patient-visit-table" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>No. RM</th>
-                                            <th>Nama Pasien</th>
-                                            <th>ID. Kunjungan</th>
-                                            <th>Antrian</th>
-                                            <th>Poliklinik</th>
-                                            <th>Dokter</th>
-                                            <th>Penjamin</th>
-                                            <th>No. Asuransi</th>
-                                            <th>Tgl. Kunjungan</th>
-                                            <th>Stts. Periksa</th>
-                                            <th>Stts. Lanjut</th>
-                                            <th>Stts. Bayar</th>
-                                            <th width="10%">Pilihan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Data kunjungan akan ditambahkan di sini -->
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
+                        </form>
+                        <!-- End Form -->
                     </div>
                 </div>
-                <!-- /.row (main row) -->
-            </div><!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
+
+                <div class="col-12 mt-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">Pasien</h3>
+                        </div>
+
+                        <!-- /.card-header -->
+                        <div class="card-body" id="kunjungan-section">
+                            <table id="patient-visit-table" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No. RM</th>
+                                        <th>Nama Pasien</th>
+                                        <th>ID. Kunjungan</th>
+                                        <th>Antrian</th>
+                                        <th>Poliklinik</th>
+                                        <th>Dokter</th>
+                                        <th>Penjamin</th>
+                                        <th>No. Asuransi</th>
+                                        <th>Tgl. Kunjungan</th>
+                                        <th>Stts. Periksa</th>
+                                        <th>Stts. Lanjut</th>
+                                        <th>Stts. Bayar</th>
+                                        <th width="10%">Pilihan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($rad as $data)
+                                            <tr>
+                                                <td>{{ $data->no_rm }}</td>
+                                                <td>{{ $data->pasien_id }}</td>
+                                                <td>{{ $data->no_rawat }}</td>
+                                                <td>{{ $data->no_reg }}</td>
+                                                <td>{{ $data->doctor->poli->nama_poli }}</td>
+                                                <td>{{ $data->doctor->nama }}</td>
+                                                <td>{{ $data->penjab->pj }}</td>
+                                                <td>{{ $data->pasien->no_bpjs }}</td>
+                                                <td>{{ $data->tgl_kunjungan }}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
 
     <script>
         $(document).ready(function() {
@@ -243,7 +269,7 @@
                                     '<td>' + pasien.Alamat + '</td>' +
                                     '<td>' + pasien.telepon + '</td>' +
                                     '<td>' +
-                                        '<button class="btn btn-primary select-patient" data-id="' + pasien.no_rm + '" data-nama="' + pasien.nama + '" data-tgl="' + pasien.tanggal_lahir + '" data-seks="' + pasien.seks + '" data-telepon="' + pasien.telepon + '">Pilih</button>' +
+                                        '<button class="btn btn-primary select-patient"data-id="' + pasien.no_rm + '" data-nama="' + pasien.nama + '" data-tgl="' + pasien.tanggal_lahir + '" data-seks="' + pasien.seks + '" data-telepon="' + pasien.telepon + '">Pilih</button>' +
                                     '</td>' +
                                     '</tr>';
                                 $('#patienttbl tbody').append(row);
