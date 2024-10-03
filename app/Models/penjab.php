@@ -33,4 +33,9 @@ class penjab extends Model
     {
         return $this->hasOne(perlogi::class);
     }
+
+    public function radiologi()
+    {
+        return $this->hasOne(radiologi::class);
+    }
 }

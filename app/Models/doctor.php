@@ -72,4 +72,9 @@ class doctor extends Model
         return $this->belongsTo(statdok::class);
     }
 
+    public function radiologi()
+    {
+        return $this->hasOne(radiologi::class);
+    }
+
 }

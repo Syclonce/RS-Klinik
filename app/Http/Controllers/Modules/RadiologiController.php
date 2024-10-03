@@ -18,24 +18,39 @@ class RadiologiController extends Controller
         $title = $setweb->name_app ." - ". "Radiologi";
         $dokter = doctor::all();
         $penjab = penjab::all();
-        return view('radiologi.index', compact('title','dokter','penjab'));
+        $rad = radiologi::with(['pasien','doctor','penjab'])->get();
+        return view('radiologi.index', compact('title','dokter','penjab','rad'));
     }
 
     public function radiologiadd(Request $request)
     {
         $data = $request->validate([
-            "tanggal_lahir" => 'required',
+            "tgl_kunjungan" => 'required',
+            "tgl_lahir" => 'required',
             "time" => 'required',
-            "nama" => 'required',
             "dokter" => 'required',
             "penjamin" => 'required',
             "no_reg" => 'required',
             "no_rawat" => 'required',
+            "no_rm" => 'required',
+            "nama_pasien" => 'required',
+            "seks" => 'required',
+            "telepon" => 'required',
         ]);
 
         $rad = new radiologi();
-        $rad->kode = $data['kode_barang'];
-        $rad->nama = $data['nama_barang'];
+        $rad->tanggal_lahir = $data['tgl_lahir'];
+        $rad->time = $data['time'];
+        $rad->doctor_id = $data['dokter'];
+        $rad->penjab_id = $data['penjamin'];
+        $rad->no_reg = $data['no_reg'];
+        $rad->no_rawat = $data['no_rawat'];
+        $rad->no_rm = $data['no_rm'];
+        $rad->pasien_id = $data['nama_pasien'];
+        $rad->seks = $data['seks'];
+        $rad->telepon = $data['telepon'];
+        $rad->tgl_kunjungan = $data['tgl_kunjungan'];
+
         $rad->save();
 
         return redirect()->route('radiologi')->with('Success', 'Data Radiologi berhasi di tambahkan');
