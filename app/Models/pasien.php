@@ -70,4 +70,9 @@ class pasien extends Model
     {
         return $this->hasOne(radiologi::class,'no_rm','no_rm');
     }
+
+    public function ranap()
+    {
+        return $this->hasOne(ranap::class,'no_rm','no_rm');
+    }
 }

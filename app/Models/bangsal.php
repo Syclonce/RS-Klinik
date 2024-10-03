@@ -24,4 +24,9 @@ class bangsal extends Model
     {
         return $this->hasOne(pernap::class);
     }
+
+    public function ranap()
+    {
+        return $this->hasOne(ranap::class);
+    }
 }

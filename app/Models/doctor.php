@@ -77,4 +77,13 @@ class doctor extends Model
         return $this->hasOne(radiologi::class);
     }
 
+    public function ranap()
+    {
+        return $this->hasOne(ranap::class);
+    }
+
+    public function ranapngirim()
+    {
+        return $this->hasOne(ranap::class,'id','dokter_pengirim');
+    }
 }

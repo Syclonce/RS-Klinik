@@ -300,6 +300,9 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/regis/rajal/{no_rm}', [RegisController::class, 'show'])->name('regis.show');
 
     Route::get('/regis/ranap', [RegisController::class, 'ranap'])->name('regis.ranap');
+    Route::post('/regis/ranap/add', [RegisController::class, 'ranapadd'])->name('regis.ranap.add');
+    Route::get('generate-no-reg-ranap', [RegisController::class, 'generateNoRegRanap'])->name('generateNoRegRanap');
+    Route::get('/cari-no-rm', [RegisController::class, 'cariNoRM'])->name('cariNoRM');
 
     Route::get('/antrian/loket-1', [AntrianController::class, 'loket1'])->name('loket1');
 

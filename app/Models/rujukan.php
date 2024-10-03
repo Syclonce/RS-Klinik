@@ -19,4 +19,9 @@ class rujukan extends Model
         'email',
         'kode_task',
     ];
+
+    public function ranap()
+    {
+        return $this->hasOne(ranap::class);
+    }
 }

@@ -26,4 +26,9 @@ class poli extends Model
     {
         return $this->hasOne(perjal::class);
     }
+
+    public function ranap()
+    {
+        return $this->hasOne(ranap::class);
+    }
 }

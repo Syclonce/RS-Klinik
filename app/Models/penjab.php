@@ -38,4 +38,9 @@ class penjab extends Model
     {
         return $this->hasOne(radiologi::class);
     }
+
+    public function ranap()
+    {
+        return $this->hasOne(ranap::class);
+    }
 }
