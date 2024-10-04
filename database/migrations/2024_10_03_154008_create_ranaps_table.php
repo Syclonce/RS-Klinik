@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('ranaps', function (Blueprint $table) {
             $table->id();
-            $table->string('poli_id')->nullable()->change();
-            $table->string('dokter_pengirim')->nullable()->change();
-            $table->string('dokter_pengirim_luar')->nullable()->change();
-            $table->string('rujukan_id')->nullable()->change();
-            $table->string('tanggal_rawat')->nullable()->change();
-            $table->string('bangsal_id')->nullable()->change();
-            $table->string('doctor_id')->nullable()->change();
+            $table->string('poli_id')->nullable();
+            $table->string('dokter_pengirim')->nullable();
+            $table->string('dokter_pengirim_luar')->nullable();
+            $table->string('rujukan_id')->nullable();
+            $table->string('tanggal_rawat')->nullable();
+            $table->string('bangsal_id')->nullable();
+            $table->string('doctor_id')->nullable();
             $table->string('no_reg');
             $table->string('pasien_id');
             $table->string('nama_pasien');

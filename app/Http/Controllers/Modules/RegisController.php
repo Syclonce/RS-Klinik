@@ -13,6 +13,7 @@ use App\Models\poli;
 use App\Models\rujukan;
 use App\Models\rajal;
 use App\Models\ranap;
+use App\Models\ugd;
 
 
 
@@ -22,9 +23,149 @@ class RegisController extends Controller
     {
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "obat";
-        return view('regis.index', compact('title'));
+        $penjab = penjab::all();
+        $doctor = doctor::all();
+        $ugd = ugd::with(['penjab','doctor'])->get();
+        return view('regis.index', compact('title','penjab','doctor','ugd'));
 
     }
+
+    public function ugdadd(Request $request)
+    {
+        $data = $request->validate([
+            "jeskec" => 'nullable',
+            "nopol" => 'nullable',
+            "tglkej" => 'nullable',
+            "penjamin_kec" => 'nullable',
+            "ketkec" => 'nullable',
+            "no_reg" => 'required',
+            "no_rm" => 'required',
+            "no_rawat" => 'required',
+            "nama" => 'required',
+            "sex" => 'required',
+            "ktp" => 'required',
+            "satusehat" => 'required',
+            "tanggal_lahir" => 'required',
+            "umur" => 'required',
+            "alamat" => 'required',
+            "telepon" => 'required',
+            "activate_kecelakan" => 'required',
+            "tanggal_pendaftaran" => 'required',
+            "dokter" => 'required',
+            "kode_dokter" => 'required',
+            "poli" => 'required',
+            "penjamin" => 'required',
+            "no_Kartu" => 'required',
+            "hubungan_pasien" => 'required',
+            "nama_keluarga" => 'required',
+            "alamat_keluarga" => 'required',
+            "jenis_kartu" => 'required',
+            "no_kartu_kel" => 'required',
+        ]);
+
+        $ugd = new ugd();
+        $ugd->jeskec = $data['jeskec'] ?? null;;
+        $ugd->nopol = $data['nopol'] ?? null;;
+        $ugd->tglkej = $data['tglkej'] ?? null;;
+        $ugd->penjamin_kec = $data['penjamin_kec'] ?? null;;
+        $ugd->ketkec = $data['ketkec'] ?? null;;
+        $ugd->no_reg = $data['no_reg'];
+        $ugd->no_rm = $data['no_rm'];
+        $ugd->no_rawat = $data['no_rawat'];
+        $ugd->nama = $data['nama'];
+        $ugd->sex = $data['sex'];
+        $ugd->ktp = $data['ktp'];
+        $ugd->kode_satusehat = $data['satusehat'];
+        $ugd->tanggal_lahir = $data['tanggal_lahir'];
+        $ugd->umur = $data['umur'];
+        $ugd->alamat = $data['alamat'];
+        $ugd->telepon = $data['telepon'];
+        $ugd->active_kec = $data['activate_kecelakan'];
+        $ugd->tgl_pendaftaran = $data['tanggal_pendaftaran'];
+        $ugd->doctor_id = $data['dokter'];
+        $ugd->kode_dokter = $data['kode_dokter'];
+        $ugd->poli = $data['poli'];
+        $ugd->penjab_id = $data['penjamin'];
+        $ugd->no_kartu_pen = $data['no_Kartu'];
+        $ugd->hubungan_pasien = $data['hubungan_pasien'];
+        $ugd->nama_keluarga = $data['nama_keluarga'];
+        $ugd->alamat_keluarga = $data['alamat_keluarga'];
+        $ugd->jenis_kartu = $data['jenis_kartu'];
+        $ugd->no_kartu_kel = $data['no_kartu_kel'];
+
+        $ugd->save();
+
+        return redirect()->route('regis')->with('Success', 'Data UGD berhasi di tambahkan');
+    }
+
+
+
+    public function generateNoRegUgd()
+    {
+        // Mendapatkan tanggal hari ini
+        $today = date('Y-m-d');
+
+        // Mencari data registrasi terakhir yang dibuat hari ini
+        $lastReg = ugd::whereDate('created_at', $today)->orderBy('no_reg', 'desc')->first();
+
+        if ($lastReg) {
+            // Jika ada registrasi pada hari ini, tambahkan 1
+            $lastNoReg = intval($lastReg->no_reg);
+            $newNoReg = str_pad($lastNoReg + 1, 3, '0', STR_PAD_LEFT);
+        } else {
+            // Jika tidak ada, mulai dari 001
+            $newNoReg = '001';
+        }
+
+        // Mengirim nomor registrasi baru ke frontend
+        return response()->json(['no_reg' => $newNoReg]);
+    }
+
+    public function cariNoRMUgd(Request $request)
+    {
+        // Validasi No. RM
+        $request->validate([
+            'no_rm' => 'required|string',
+        ]);
+
+        // Mencari pasien berdasarkan No. RM
+        $pasien = Pasien::where('no_rm', $request->no_rm)->first();
+
+        if ($pasien) {
+            // Mengembalikan data pasien dalam format JSON
+            return response()->json([
+                'status' => 'success',
+                'data' => [
+                    'nama' => $pasien->nama,
+                    'seks' => $pasien->seks,
+                    'no_ktp' => $pasien->nik,
+                    'no_satusehat' => $pasien->kode_ihs,
+                    'tgl_lahir' => $pasien->tanggal_lahir,
+                    'alamat' => $pasien->Alamat,
+                    'telepon' => $pasien->telepon,
+                ]
+            ]);
+        }
+
+        // Jika pasien tidak ditemukan
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Pasien tidak ditemukan.',
+        ]);
+    }
+
+    public function getKodeDokterUgd($id)
+    {
+        $dokter = doctor::find($id);
+
+        if ($dokter) {
+            return response()->json(['kode' => $dokter->kode]);
+        } else {
+            return response()->json(['kode' => null], 404);
+        }
+    }
+
+
 
     public function rajal()
     {
@@ -36,6 +177,28 @@ class RegisController extends Controller
         $poli = poli::all();
         return view('regis.rajal', compact('title','dokter','pasien','poli','data'));
 
+    }
+
+    public function rajaladd(Request $request)
+    {
+        $data = $request->validate([
+            "no_rm" => 'required',
+            "nama" => 'required',
+            "sex" => 'required',
+            "ktp" => 'required',
+            "satusehat" => 'required',
+            "tanggal_lahir" => 'required',
+            "umur" => 'required',
+            "alamat" => 'required',
+            "tglpol" => 'required',
+            "poli" => 'required',
+            "dokter" => 'required',
+            "id_dokter" => 'required',
+            "pembayaran" => 'required',
+            "nomber" => 'required',
+        ]);
+        rajal::create($data);
+        return redirect()->route('rajal')->with('success', 'rajal berhasi di tambahkan');
     }
 
     public function getDokterByPoli($poliId)
@@ -69,28 +232,6 @@ class RegisController extends Controller
         } else {
             return response()->json(['message' => 'Data pasien tidak ditemukan'], 404);
         }
-    }
-
-    public function rajaladd(Request $request)
-    {
-        $data = $request->validate([
-            "no_rm" => 'required',
-            "nama" => 'required',
-            "sex" => 'required',
-            "ktp" => 'required',
-            "satusehat" => 'required',
-            "tanggal_lahir" => 'required',
-            "umur" => 'required',
-            "alamat" => 'required',
-            "tglpol" => 'required',
-            "poli" => 'required',
-            "dokter" => 'required',
-            "id_dokter" => 'required',
-            "pembayaran" => 'required',
-            "nomber" => 'required',
-        ]);
-        rajal::create($data);
-        return redirect()->route('rajal')->with('success', 'rajal berhasi di tambahkan');
     }
 
 

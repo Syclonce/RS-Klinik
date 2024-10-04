@@ -93,19 +93,15 @@ class LaboratoriumController extends Controller
 
     public function generateNoRawatLab()
     {
+        // Memanggil fungsi generateNoRegLab() dan menangkap respons JSON
+        $noRegResponse = $this->generateNoRegLab();
+
+        // Mengambil no_reg dari respons JSON
+        $noRegArray = json_decode($noRegResponse->getContent(), true);
+        $noReg = $noRegArray['no_reg'];
+
         // Mendapatkan tanggal hari ini dengan format yyyy/mm/dd
         $today = date('Y/m/d');
-
-        // Mendapatkan nomor registrasi terbaru (anggap no_reg sudah diinput sebelumnya)
-        $lastRajal = labdata::orderBy('no_reg', 'desc')->first();
-
-        if ($lastRajal) {
-            // Ambil nomor registrasi terakhir
-            $noReg = $lastRajal->no_reg;
-        } else {
-            // Jika belum ada no_reg, mulai dari 001
-            $noReg = '001';
-        }
 
         // Buat format nomor rawat baru: yyyy/mm/dd/no_reg
         $noRawat = $today . '/' . $noReg;

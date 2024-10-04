@@ -48,4 +48,9 @@ class penjab extends Model
     {
         return $this->hasOne(labdata::class);
     }
+
+    public function ugd()
+    {
+        return $this->hasOne(ugd::class);
+    }
 }

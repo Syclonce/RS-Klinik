@@ -304,8 +304,12 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::post('/datamaster/rujukan/add', [DatamasterController::class, 'rujukanadd'])->name('datmas.rujukan.add');
 
     Route::get('/regis', [RegisController::class, 'index'])->name('regis');
-    Route::get('/regis/get-dokter-by-poli/{poliId}', [RegisController::class, 'getDokterByPoli']);
-    Route::get('/regis/get-kode-dokter/{dokterId}', [RegisController::class, 'getKodeDokter']);
+    Route::post('/regis/add', [RegisController::class, 'ugdadd'])->name('regis.add');
+    Route::get('generate-no-reg-ugd', [RegisController::class, 'generateNoRegUgd'])->name('generateNoRegUgd');
+    Route::get('/cari-no-rm-ugd', [RegisController::class, 'cariNoRMUgd'])->name('cariNoRMUgd');
+    Route::get('/get-kode-dokter-ugd/{id}', [RegisController::class, 'getKodeDokterUgd'])->name('getKodeDokterUgd');
+    // Route::get('/regis/get-dokter-by-poli/{poliId}', [RegisController::class, 'getDokterByPoli']);
+    // Route::get('/regis/get-kode-dokter/{dokterId}', [RegisController::class, 'getKodeDokter']);
 
     Route::get('/regis/rajal', [RegisController::class, 'rajal'])->name('regis.rajal');
     Route::post('/regis/rajal/add', [RegisController::class, 'rajaladd'])->name('regis.rajal.add');
