@@ -9,6 +9,9 @@ use App\Models\fmbiaya;
 use App\Models\ktbiaya;
 use App\Models\obat;
 use App\Models\obatk;
+use App\Models\opname;
+use App\Models\dabar;
+use App\Models\bhp;
 
 class FarmasiController extends Controller
 {
@@ -77,6 +80,23 @@ class FarmasiController extends Controller
 
         ktbiaya::create($data);
         return redirect()->route('farmasi.kategori')->with('success', 'dokter berhasi di tambahkan');
+    }
+
+    public function opname()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "opname";
+        return view('farmasi.opname', compact('title'));
+    }
+
+    public function obat()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "obat";
+        $data = dabar::all();
+        $bhp = bhp::all();
+
+        return view('farmasi.obat', compact('title','data','bhp'));
     }
 
 }

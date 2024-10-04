@@ -397,6 +397,18 @@
                         <p>Biaya</p>
                       </a>
                     </li>
+                    <li class="nav-item">
+                      <a href="{{ route('farmasi.opname') }}" class="nav-link {{ \Route::is('farmasi.opname') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                        <p>Stok Opname</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{ route('farmasi.obat') }}" class="nav-link {{ \Route::is('farmasi.opname') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                        <p>Obat & BHP</p>
+                      </a>
+                    </li>
                 </ul>
             </li>
 

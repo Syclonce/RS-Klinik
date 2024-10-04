@@ -37,6 +37,7 @@ use App\Models\statwp;
 use App\Models\metcik;
 use App\Models\ok;
 use App\Models\rujukan;
+use App\Models\bhp;
 
 
 
@@ -120,6 +121,14 @@ class DatamasterController extends Controller
         $dabar->katbar_id = $data['kode_kategori'];
         $dabar->golbar_id = $data['kode_golongan'];
         $dabar->save();
+
+        $bhp = new bhp();
+        $bhp->kode = $data['kode_barang'];
+        $bhp->nama = $data['nama_barang'];
+        $bhp->harga_dasar = $data['harga_dasar'];
+        $bhp->harga_beli = $data['harga_beli'];
+        $bhp->expired = $data['expired'];
+        $bhp->save();
 
         return redirect()->route('datmas.dabar')->with('Success', 'Data Barang berhasi di tambahkan');
     }

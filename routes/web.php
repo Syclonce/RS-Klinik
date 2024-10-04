@@ -181,6 +181,11 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/farmasi/kategori', [FarmasiController::class, 'katgobi'])->name('farmasi.kategori');
     Route::post('/farmasi/kategori/add', [FarmasiController::class, 'katgobiadd'])->name('farmasi.kategori.add');
 
+    Route::get('/farmasi/opname', [FarmasiController::class, 'opname'])->name('farmasi.opname');
+
+    Route::get('/farmasi/obat', [FarmasiController::class, 'obat'])->name('farmasi.obat');
+
+
     Route::get('/kamar', [KamarController::class, 'index'])->name('kamar');
     Route::post('/kamar/add', [KamarController::class, 'kamaradd'])->name('kamar.add');
     Route::get('/kamar/kelas', [KamarController::class, 'KelasKamar'])->name('kamar.kelas');

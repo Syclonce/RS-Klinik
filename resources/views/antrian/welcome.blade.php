@@ -145,7 +145,7 @@
                                 </button>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn btn-primary small-queue" style="width: 100%; height: 100%;" onclick="window.location='{{ route('loket1') }}'">
+                                {{-- <button class="btn btn-primary small-queue" style="width: 100%; height: 100%;" onclick="window.location='{{ route('loket1') }}'"> --}}
                                     <h1>-</h1>
                                     <span>-</span>
                                 </button>
