@@ -13,4 +13,9 @@ class seks extends Model
         'nama',
         'kode',
     ];
+
+    public function datapendor()
+    {
+        return $this->hasOne(datapendor::class);
+    }
 }

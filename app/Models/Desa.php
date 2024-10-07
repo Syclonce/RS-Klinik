@@ -17,6 +17,7 @@ class Desa extends Model
         'kode_kecamatan',
     ];
 
+
     public function kecamatan()
     {
         return $this->belongsTo(Kecamatan::class, 'kode_kecamatan', 'kode_kecamatan');
@@ -25,5 +26,10 @@ class Desa extends Model
     public function pasien()
     {
         return $this->hasMany(pasien::class, 'kode_desa', 'kode_desa');
+    }
+
+    public function datapendor()
+    {
+        return $this->hasMany(datapendor::class, 'desa_kode', 'kode');
     }
 }

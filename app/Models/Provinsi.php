@@ -26,4 +26,8 @@ class Provinsi extends Model
         return $this->hasMany(pasien::class, 'kode_provinsi', 'kode_provinsi');
     }
 
+    public function datapendor()
+    {
+        return $this->hasMany(datapendor::class, 'provinsi_kode', 'kode');
+    }
 }

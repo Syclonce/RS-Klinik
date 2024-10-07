@@ -32,4 +32,8 @@ class Kecamatan extends Model
         return $this->hasMany(pasien::class, 'kode_kecamatan', 'kode_kecamatan');
     }
 
+    public function datapendor()
+    {
+        return $this->hasMany(datapendor::class, 'kecamatan_kode', 'kode');
+    }
 }

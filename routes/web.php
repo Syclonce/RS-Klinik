@@ -16,6 +16,7 @@ use App\Http\Controllers\modules\RegisController;
 use App\Http\Controllers\modules\AntrianController;
 use App\Http\Controllers\modules\RadiologiController;
 use App\Http\Controllers\modules\LaboratoriumController;
+use App\Http\Controllers\modules\UtdController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\websetController;
@@ -203,6 +204,15 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/generate-no-reg-lab', [LaboratoriumController::class, 'generateNoRegLab'])->name('generateNoRegLab');
     Route::get('/generate-no-rawat-lab', [LaboratoriumController::class, 'generateNoRawatLab'])->name('generateNoRawatLab');
     Route::get('/search-pasien-lab', [LaboratoriumController::class, 'searchPasienLab'])->name('searchPasienLab');
+
+    Route::get('/utd/datapendonor', [UtdController::class, 'index'])->name('utd');
+    Route::post('/utd/add', [UtdController::class, 'utdadd'])->name('utd.add');
+    Route::post('/utd/generate-no-pendonor', [UtdController::class, 'generateNoPendonor'])->name('utd.generateNoPendonor');
+    Route::get('/get-kabupaten-utd', [UtdController::class, 'getKabupaten'])->name('utd.wilayah.getKabupaten');
+    Route::get('/get-kecamatan-utd', [UtdController::class, 'getKecamatan'])->name('utd.wilayah.getKecamatan');
+    Route::get('/get-desa-utd', [UtdController::class, 'getDesa'])->name('utd.wilayah.getDesa');
+    Route::get('/utd/datadonor', [UtdController::class, 'datadonor'])->name('utd.datadonor');
+    Route::get('/utd/stokdarah', [UtdController::class, 'stokdarah'])->name('utd.stokdarah');
 
     Route::get('/datamaster', [DatamasterController::class, 'index'])->name('datmas');
 

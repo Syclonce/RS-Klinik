@@ -495,6 +495,40 @@
                 </ul>
             </li>
 
+            <li class="nav-item {{ \Route::is('utd*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('utd*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-flask-vial" style="color: #63E6BE;"></i>
+                  <p style="margin-left: 10px;">
+                    UTD
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('utd') }}" class="nav-link {{ \Route::is('utd') ? 'active' : '' }}">
+                            <i class="fa-solid fa-flask-vial" style="color: #63E6BE;"></i>
+                          <p>Data Pendonor</p>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('utd.datadonor') }}" class="nav-link {{ \Route::is('utd.datadonor') ? 'active' : '' }}">
+                            <i class="fa-solid fa-flask-vial" style="color: #63E6BE;"></i>
+                          <p>Data Donor</p>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('utd.stokdarah') }}" class="nav-link {{ \Route::is('utd.stokdarah') ? 'active' : '' }}">
+                            <i class="fa-solid fa-flask-vial" style="color: #63E6BE;"></i>
+                          <p>Stok Darah</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
             <li class="nav-item {{ \Route::is('index*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('index*') ? 'active' : '' }}">
                     <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>

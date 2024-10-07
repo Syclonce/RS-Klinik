@@ -17,4 +17,9 @@ class goldar extends Model
     {
         return $this->hasOne(pasien::class);
     }
+
+    public function datapendor()
+    {
+        return $this->hasOne(datapendor::class);
+    }
 }

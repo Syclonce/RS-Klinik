@@ -31,4 +31,9 @@ class Kabupaten extends Model
     {
         return $this->hasMany(pasien::class, 'kode_kabupaten', 'kode_kabupaten');
     }
+
+    public function datapendor()
+    {
+        return $this->hasMany(datapendor::class, 'kabupaten_kode', 'kode');
+    }
 }
