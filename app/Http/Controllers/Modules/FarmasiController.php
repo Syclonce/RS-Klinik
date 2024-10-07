@@ -12,6 +12,7 @@ use App\Models\obatk;
 use App\Models\opname;
 use App\Models\dabar;
 use App\Models\bhp;
+use App\Models\pengaturan;
 
 class FarmasiController extends Controller
 {
@@ -86,6 +87,7 @@ class FarmasiController extends Controller
     {
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "opname";
+        $data = dabar::all();
         return view('farmasi.opname', compact('title'));
     }
 
@@ -97,6 +99,13 @@ class FarmasiController extends Controller
         $bhp = bhp::all();
 
         return view('farmasi.obat', compact('title','data','bhp'));
+    }
+
+    public function pengaturan()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "pengaturan";
+        return view('farmasi.pengaturan', compact('title'));
     }
 
 }

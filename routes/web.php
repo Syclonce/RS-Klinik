@@ -185,6 +185,7 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/farmasi/obat', [FarmasiController::class, 'obat'])->name('farmasi.obat');
 
+    Route::get('/farmasi/pengaturan', [FarmasiController::class, 'pengaturan'])->name('farmasi.pengaturan');
 
     Route::get('/kamar', [KamarController::class, 'index'])->name('kamar');
     Route::post('/kamar/add', [KamarController::class, 'kamaradd'])->name('kamar.add');

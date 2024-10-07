@@ -409,6 +409,12 @@
                         <p>Obat & BHP</p>
                       </a>
                     </li>
+                    <li class="nav-item">
+                      <a href="{{ route('farmasi.pengaturan') }}" class="nav-link {{ \Route::is('farmasi.pengaturan') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
+                        <p>Pengaturan</p>
+                      </a>
+                    </li>
                 </ul>
             </li>
 

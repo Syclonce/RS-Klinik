@@ -130,6 +130,14 @@ class DatamasterController extends Controller
         $bhp->expired = $data['expired'];
         $bhp->save();
 
+        $bhp = new opname();
+        $bhp->kode = $data['kode_barang'];
+        $bhp->nama = $data['nama_barang'];
+        $bhp->harga_dasar = $data['harga_dasar'];
+        $bhp->harga_beli = $data['harga_beli'];
+        $bhp->expired = $data['expired'];
+        $bhp->save();
+
         return redirect()->route('datmas.dabar')->with('Success', 'Data Barang berhasi di tambahkan');
     }
 

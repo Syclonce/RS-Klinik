@@ -104,14 +104,14 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Telpon</label>
+                                    <label>Telepon</label>
                                     <input type="text" class="form-control" id="telepon" name="telepon">
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Fax</label>
-                                    <input type="text" class="form-control" id="fax" name="fax">
+                                    <input type="number" class="form-control" id="fax" name="fax">
                                 </div>
                             </div>
                             <div class="col-sm-12">
