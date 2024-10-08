@@ -80,13 +80,21 @@
 
       <!-- Right navbar links -->
       <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-        <li class="nav-item">
-          <a href="{{ route('login') }}" class="btn btn-primary btn-sm mr-2">Login</a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('register') }}" class="btn btn-success btn-sm">Registrasi</a>
-        </li>
-      </ul>
+        @guest
+            <!-- Jika pengguna belum login -->
+            <li class="nav-item">
+                <a href="{{ route('login') }}" class="btn btn-primary btn-sm mr-2">Login</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('register') }}" class="btn btn-success btn-sm">Registrasi</a>
+            </li>
+        @else
+            <!-- Jika pengguna sudah login -->
+            <li class="nav-item">
+                <a href="{{ route('redirect.dashboard') }}" class="btn btn-info btn-sm">Dashboard</a>
+            </li>
+        @endguest
+    </ul>
     </div>
   </nav>
   <!-- /.navbar -->

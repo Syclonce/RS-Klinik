@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomepagesController;
 use App\Http\Controllers\modules\FinecController;
 use App\Http\Controllers\modules\DoctorController;
 use App\Http\Controllers\modules\FarmasiController;
@@ -27,9 +28,14 @@ use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\WhatsAppController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [HomepagesController::class, 'index'])->name('default_dashboard');
+
+Route::get('/redirect-dashboard', [HomepagesController::class, 'redirectToDashboard'])->name('redirect.dashboard');
 
 Route::post('/update-app', [UpdateController::class, 'update'])->name('update.app');
 Route::post('/send-message', [WhatsAppController::class, 'sendMessage']);
