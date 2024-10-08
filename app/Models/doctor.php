@@ -96,4 +96,14 @@ class doctor extends Model
     {
         return $this->hasOne(ugd::class);
     }
+
+    public function donor_raftap()
+    {
+        return $this->hasOne(datadonor::class,'id','petugas_raftap');
+    }
+
+    public function donor_saring()
+    {
+        return $this->hasOne(datadonor::class,'id','petugas_saring');
+    }
 }

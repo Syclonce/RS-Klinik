@@ -55,4 +55,9 @@ class datapendor extends Model
     {
         return $this->belongsTo(seks::class);
     }
+
+    public function datadonor()
+    {
+        return $this->hasOne(datadonor::class, 'id', 'nama');
+    }
 }

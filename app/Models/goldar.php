@@ -22,4 +22,9 @@ class goldar extends Model
     {
         return $this->hasOne(datapendor::class);
     }
+
+    public function stokda()
+    {
+        return $this->hasOne(stokda::class);
+    }
 }
