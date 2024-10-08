@@ -527,6 +527,14 @@
                         </a>
                     </li>
                 </ul>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('utd.komponendarah') }}" class="nav-link {{ \Route::is('utd.komponendarah') ? 'active' : '' }}">
+                            <i class="fa-solid fa-flask-vial" style="color: #63E6BE;"></i>
+                          <p>Komponen Darah</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             <li class="nav-item {{ \Route::is('index*') ? 'menu-open' : '' }}">

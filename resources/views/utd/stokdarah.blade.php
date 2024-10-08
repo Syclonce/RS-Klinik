@@ -32,23 +32,87 @@
                                 <!-- Tab Stok Darah Content -->
                                 <div class="tab-pane fade show active" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
                                     <div class="col-md-12 mb-3">
-                                        <!-- Form Group for Stok Darah -->
+                                        <form id="addFormpermesion" action="{{ route('utd.stokdarah.add') }}" method="POST">
+                                            @csrf
+                                        <!-- Form Group for Date -->
                                         <div class="form-group row">
-                                            <div class="col-md-7">
-                                                <label for="stok_darah">Tanggal Stok Darah</label>
-                                                <input type="date" class="form-control" id="stok_darah" name="stok_darah">
+                                            <div class="col-md-6">
+                                                <label for="no_kantong">Nomor Kantong</label>
+                                                <input type="text" class="form-control" id="no_kantong" name="no_kantong">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="kode">Kode Komponen</label>
+                                                <select class="form-control select2bs4" style="width: 100%;" id="kode" name="kode">
+                                                    <option value="" disabled selected>Silahkan Pilih</option>
+                                                        @foreach ($komda as $data)
+                                                            <option value="{{$data->id}}">{{$data->kode}}</option>
+                                                        @endforeach
+                                                </select>
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="goldar">Golongan Darah</label>
+                                                <select class="form-control select2bs4" style="width: 100%;" id="goldar" name="goldar">
+                                                    <option value="" disabled selected>Silahkan Pilih</option>
+                                                        @foreach ($goldar as $data)
+                                                            <option value="{{$data->id}}">{{$data->nama}}</option>
+                                                        @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="resus">Resus</label>
+                                                <select class="form-control select2bs4" style="width: 100%;" id="resus" name="resus">
+                                                    <option value="" disabled selected>Silahkan Pilih</option>
+                                                    <option value="positif">Positif</option>
+                                                    <option value="negatif">Negatif</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="tgl_aftap">Tanggal Aftap</label>
+                                                <input type="date" class="form-control" id="tgl_aftap" name="tgl_aftap">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="tgl_kadaluarsa">Tanggal Kadaluarsa</label>
+                                                <input type="date" class="form-control" id="tgl_kadaluarsa" name="tgl_kadaluarsa">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="asal_darah">Asal Darah</label>
+                                                <select class="form-control select2bs4" style="width: 100%;" id="asal_darah" name="asal_darah">
+                                                    <option value="" disabled selected>Silahkan Pilih</option>
+                                                    <option value="hibah">Hibah</option>
+                                                    <option value="beli">Beli</option>
+                                                    <option value="produksi sendiri">Produksi Sendiri</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="status">Status</label>
+                                                <select class="form-control select2bs4" style="width: 100%;" id="status" name="status">
+                                                    <option value="" disabled selected>Silahkan Pilih</option>
+                                                    <option value="ada">Ada</option>
+                                                    <option value="diambil">Diambil</option>
+                                                    <option value="dimusnahkan">Dimusnahkan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row justify-content-center" style="margin-top: 30px;"> <!-- Menambahkan margin-top langsung -->
+                                            <button type="button" class="btn btn-light mr-2" style="background-color: #17a2b8; color: white; border: none; transition: background-color 0.3s;" id="clear-form-button">
+                                                <i class="fas fa-trash-alt" style="color: white;"></i> Cancel
+                                            </button>
+                                            <button type="button" class="btn btn-light mr-2" style="background-color: #ff851b; color: white; border: none; transition: background-color 0.3s;" id="print-button">
+                                                <i class="fas fa-print" style="color: white;"></i> Print
+                                            </button>
+                                            <button type="submit" class="btn btn-light mr-2" style="background-color: #28a745; color: white; border: none; transition: background-color 0.3s;">
+                                                <i class="fas fa-save" style="color: white;"></i> Save
+                                            </button>
+                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-
-                    <!-- Submit Button -->
-                    <div class="col-12 d-flex justify-content-center mt-3">
-                        <button type="submit" class="btn btn-primary btn-block" style="max-width: 500px;">Kirim ke Laboratorium</button>
                     </div>
                 </div>
 
@@ -57,7 +121,7 @@
                 <div class="col-12 mt-3">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title mb-0">Pasien - Laboratorium</h3>
+                            <h3 class="card-title mb-0">UTD - Stok Darah</h3>
                         </div>
 
                         <!-- /.card-header -->
@@ -65,39 +129,31 @@
                             <table id="patient-visit-table" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>No. RM</th>
-                                        <th>Nama Pasien</th>
-                                        <th>ID. Kunjungan</th>
-                                        <th>Antrian</th>
-                                        <th>Poliklinik</th>
-                                        <th>Dokter</th>
-                                        <th>Penjamin</th>
-                                        <th>No. Asuransi</th>
-                                        <th>Tgl. Kunjungan</th>
-                                        <th>Stts. Periksa</th>
-                                        <th>Stts. Lanjut</th>
-                                        <th>Stts. Bayar</th>
+                                        <th>No. Kantong</th>
+                                        <th>Kode Komponen</th>
+                                        <th>Gol. Darah</th>
+                                        <th>Resus</th>
+                                        <th>Tanggal Aftap</th>
+                                        <th>Tanggal kadaluarsa</th>
+                                        <th>Asal Darah</th>
+                                        <th>Status</th>
                                         <th width="10%">Pilihan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($lab as $data)
+                                    @foreach ($stokda as $data)
                                             <tr>
-                                                <td>{{ $data->no_rm }}</td>
-                                                <td>{{ $data->nama_pasien }}</td>
-                                                <td>{{ $data->no_rawat }}</td>
-                                                <td>{{ $data->no_reg }}</td>
-                                                <td>{{ $data->doctor->poli->nama_poli }}</td>
-                                                <td>{{ $data->doctor->nama }}</td>
-                                                <td>{{ $data->penjab->pj }}</td>
-                                                <td>{{ $data->pasien->no_bpjs }}</td>
-                                                <td>{{ $data->tgl_kunjungan }}</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{ $data->no_kantong }}</td>
+                                                <td>{{ $data->komda->kode }}</td>
+                                                <td>{{ $data->goldar->nama }}</td>
+                                                <td>{{ $data->resus }}</td>
+                                                <td>{{ $data->tgl_aftap }}</td>
+                                                <td>{{ $data->tgl_kadaluarsa }}</td>
+                                                <td>{{ $data->asal_darah }}</td>
+                                                <td>{{ $data->status }}</td>
                                                 <td></td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -111,5 +167,23 @@
 </div>
 <!-- /.content-wrapper -->
 
-
+    <script>
+        $(document).ready(function() {
+            $("#patient-visit-table").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+                "buttons": false,
+                "lengthChange": true, // Corrected: Removed conflicting lengthChange option
+                "language": {
+                    "lengthMenu": "Tampil  _MENU_",
+                    "info": "Menampilkan _START_ - _END_ dari _TOTAL_ entri",
+                    "search": "Cari :",
+                    "paginate": {
+                        "previous": "Sebelumnya",
+                        "next": "Berikutnya"
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

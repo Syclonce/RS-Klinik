@@ -211,8 +211,15 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/get-kabupaten-utd', [UtdController::class, 'getKabupaten'])->name('utd.wilayah.getKabupaten');
     Route::get('/get-kecamatan-utd', [UtdController::class, 'getKecamatan'])->name('utd.wilayah.getKecamatan');
     Route::get('/get-desa-utd', [UtdController::class, 'getDesa'])->name('utd.wilayah.getDesa');
+
     Route::get('/utd/datadonor', [UtdController::class, 'datadonor'])->name('utd.datadonor');
+    Route::post('/utd/datadonor/add', [UtdController::class, 'datadonoradd'])->name('utd.datadonor.add');
+
     Route::get('/utd/stokdarah', [UtdController::class, 'stokdarah'])->name('utd.stokdarah');
+    Route::post('/utd/stokdarah/add', [UtdController::class, 'stokdarahadd'])->name('utd.stokdarah.add');
+
+    Route::get('/utd/komponendarah', [UtdController::class, 'komponendarah'])->name('utd.komponendarah');
+    Route::post('/utd/komponendarah/add', [UtdController::class, 'komponendarahadd'])->name('utd.komponendarah.add');
 
     Route::get('/datamaster', [DatamasterController::class, 'index'])->name('datmas');
 

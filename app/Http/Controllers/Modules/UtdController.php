@@ -12,6 +12,10 @@ use App\Models\Provinsi;
 use App\Models\seks;
 use App\Models\goldar;
 use App\Models\datapendor;
+use App\Models\datadonor;
+use App\Models\komda;
+use App\Models\doctor;
+use App\Models\stokda;
 
 class UtdController extends Controller
 {
@@ -117,52 +121,116 @@ class UtdController extends Controller
     {
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "Unit Tambah Darah";
-        return view('utd.datadonor', compact('title'));
+        $pendonor = datapendor::all();
+        $dokter = doctor::all();
+        $datadonor = datadonor::with(['datapendor','doctor_raftap','doctor_saring'])->get();
+        return view('utd.datadonor', compact('title','pendonor','dokter','datadonor'));
+    }
+
+    public function datadonoradd(Request $request)
+    {
+        $data = $request->validate([
+            "no_donor" => 'required',
+            "nama_pendonor" => 'required',
+            "tensi" => 'required',
+            "hbsag" => 'required',
+            "tgl" => 'required',
+            "dinas" => 'required',
+            "hcv" => 'required',
+            "hiv" => 'required',
+            "no_bag" => 'required',
+            "jenis_bag" => 'required',
+            "jenis_donor" => 'required',
+            "sipilis" => 'required',
+            "malaria" => 'required',
+            "tempat" => 'required',
+            "petugas_aftap" => 'required',
+            "petugas_saring" => 'required',
+            "status" => 'required',
+        ]);
+
+        $datdor = new datadonor();
+        $datdor->no_donor = $data['no_donor'];
+        $datdor->nama = $data['nama_pendonor'];
+        $datdor->tensi = $data['tensi'];
+        $datdor->hbsag = $data['hbsag'];
+        $datdor->tgl_donor = $data['tgl'];
+        $datdor->dinas = $data['dinas'];
+        $datdor->hcv = $data['hcv'];
+        $datdor->hiv = $data['hiv'];
+        $datdor->no_bag = $data['no_bag'];
+        $datdor->jenis_bag = $data['jenis_bag'];
+        $datdor->jenis_donor = $data['jenis_donor'];
+        $datdor->sipilis = $data['sipilis'];
+        $datdor->malaria = $data['malaria'];
+        $datdor->tempat = $data['tempat'];
+        $datdor->petugas_raftap = $data['petugas_aftap'];
+        $datdor->petugas_saring = $data['petugas_saring'];
+        $datdor->status = $data['status'];
+        $datdor->save();
+
+        return redirect()->route('utd.datadonor')->with('Success', 'Data Donor berhasi di tambahkan');
     }
 
     public function stokdarah()
     {
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "Unit Tambah Darah";
-        return view('utd.stokdarah', compact('title'));
+        $goldar = goldar::all();
+        $komda = komda::all();
+        $stokda = stokda::with(['goldar','komda'])->get();
+        return view('utd.stokdarah', compact('title','goldar','komda','stokda'));
     }
 
-    // public function laboratoriumadd(Request $request)
-    // {
-    //     $data = $request->validate([
-    //         "tgl_kunjungan" => 'required',
-    //         "tgl_lahir" => 'required',
-    //         "time" => 'required',
-    //         "dokter" => 'required',
-    //         "penjamin" => 'required',
-    //         "no_reg" => 'required',
-    //         "no_rawat" => 'required',
-    //         "no_rm" => 'required',
-    //         "nama_pasien" => 'required',
-    //         "seks" => 'required',
-    //         "alamat" => 'required',
-    //         "telepon" => 'required',
-    //     ]);
+    public function stokdarahadd(Request $request)
+    {
+        $data = $request->validate([
+            "no_kantong" => 'required',
+            "kode" => 'required',
+            "goldar" => 'required',
+            "resus" => 'required',
+            "tgl_aftap" => 'required',
+            "tgl_kadaluarsa" => 'required',
+            "asal_darah" => 'required',
+            "status" => 'required',
+        ]);
 
-    //     $lab = new labdata();
-    //     $lab->tanggal_lahir = $data['tgl_lahir'];
-    //     $lab->time = $data['time'];
-    //     $lab->doctor_id = $data['dokter'];
-    //     $lab->penjab_id = $data['penjamin'];
-    //     $lab->no_reg = $data['no_reg'];
-    //     $lab->no_rawat = $data['no_rawat'];
-    //     $lab->no_rm = $data['no_rm'];
-    //     $lab->nama_pasien = $data['nama_pasien'];
-    //     $lab->seks = $data['seks'];
-    //     $lab->alamat = $data['alamat'];
-    //     $lab->telepon = $data['telepon'];
-    //     $lab->tgl_kunjungan = $data['tgl_kunjungan'];
+        $stokda = new stokda();
+        $stokda->no_kantong = $data['no_kantong'];
+        $stokda->kode = $data['kode'];
+        $stokda->goldar_id = $data['goldar'];
+        $stokda->resus = $data['resus'];
+        $stokda->tgl_aftap = $data['tgl_aftap'];
+        $stokda->tgl_kadaluarsa = $data['tgl_kadaluarsa'];
+        $stokda->asal_darah = $data['asal_darah'];
+        $stokda->status = $data['status'];
+        $stokda->save();
 
-    //     $lab->save();
+        return redirect()->route('utd.stokdarah')->with('Success', 'Data Stok Darah berhasi di tambahkan');
+    }
 
-    //     return redirect()->route('laboratorium')->with('Success', 'Data Laboratorium berhasi di tambahkan');
-    // }
+    public function komponendarah()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Komponen Darah";
+        $komda = komda::all();
+        return view('utd.komponendarah', compact('title','komda'));
+    }
 
-
-
+    public function komponendarahadd(Request $request)
+    {
+        $data = $request->validate([
+            "kode" => 'required',
+            "nama" => 'required',
+            "lama" => 'required',
+            "jasa" => 'required',
+            "bhp" => 'required',
+            "kso" => 'required',
+            "manajemen" => 'required',
+            "total" => 'required',
+            "batal" => 'required',
+        ]);
+        komda::create($data);
+        return redirect()->route('utd.komponendarah')->with('Success', 'Data Komponen Darah berhasi di tambahkan');
+    }
 }
