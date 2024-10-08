@@ -29,4 +29,9 @@ class bangsal extends Model
     {
         return $this->hasOne(ranap::class);
     }
+
+    public function opname()
+    {
+        return $this->hasOne(opname::class,'id','nama_bangsal');
+    }
 }

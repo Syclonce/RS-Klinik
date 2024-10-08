@@ -404,7 +404,7 @@
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="{{ route('farmasi.obat') }}" class="nav-link {{ \Route::is('farmasi.opname') ? 'active' : '' }}">
+                      <a href="{{ route('farmasi.obat') }}" class="nav-link {{ \Route::is('farmasi.obat') ? 'active' : '' }}">
                         <i class="fas fa-fw fa-solid fa-square-poll-horizontal" style="color: #63E6BE;"></i>
                         <p>Obat & BHP</p>
                       </a>
@@ -497,7 +497,7 @@
 
             <li class="nav-item {{ \Route::is('utd*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('utd*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-flask-vial" style="color: #63E6BE;"></i>
+                    <i class="fa-solid fa-heart" style="color: #63E6BE;"></i>
                   <p style="margin-left: 10px;">
                     UTD
                     <i class="right fas fa-angle-left"></i>
@@ -506,7 +506,7 @@
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ route('utd') }}" class="nav-link {{ \Route::is('utd') ? 'active' : '' }}">
-                            <i class="fa-solid fa-flask-vial" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-droplet" style="color: #63E6BE;"></i>
                           <p>Data Pendonor</p>
                         </a>
                     </li>
@@ -514,7 +514,7 @@
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ route('utd.datadonor') }}" class="nav-link {{ \Route::is('utd.datadonor') ? 'active' : '' }}">
-                            <i class="fa-solid fa-flask-vial" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-droplet" style="color: #63E6BE;"></i>
                           <p>Data Donor</p>
                         </a>
                     </li>
@@ -522,7 +522,7 @@
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ route('utd.stokdarah') }}" class="nav-link {{ \Route::is('utd.stokdarah') ? 'active' : '' }}">
-                            <i class="fa-solid fa-flask-vial" style="color: #63E6BE;"></i>
+                            <i class="fa-solid fa-droplet" style="color: #63E6BE;"></i>
                           <p>Stok Darah</p>
                         </a>
                     </li>

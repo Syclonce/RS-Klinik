@@ -26,8 +26,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- Data Opname akan ditambahkan di sini -->
-                                    </tbody>
+                                            @foreach ($data as $item)
+                                            <tr data-id="{{ $item->id }}">
+                                                <td>{{ $item->stok }}</td>
+                                                <td>{{ $item->kode }}</td>
+                                                <td>{{ $item->nama }}</td>
+                                                <td>{{ $item->harga_beli }}</td>
+                                                <td>{{ $item->stok }}</td>
+                                                <td>{{ $item->bangsal->nama_bangsal }}</td>
+                                                <td>{{ $item->bangsal->kode_bangsal }}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
                                 </table>
                             </div>
                         </div>

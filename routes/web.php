@@ -183,8 +183,10 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::post('/farmasi/kategori/add', [FarmasiController::class, 'katgobiadd'])->name('farmasi.kategori.add');
 
     Route::get('/farmasi/opname', [FarmasiController::class, 'opname'])->name('farmasi.opname');
+    Route::post('/farmasi/opname/add', [FarmasiController::class, 'opnameadd'])->name('farmasi.opname.add');
 
     Route::get('/farmasi/obat', [FarmasiController::class, 'obat'])->name('farmasi.obat');
+    Route::post('/farmasi/obat/add', [FarmasiController::class, 'obatadd'])->name('farmasi.obat.add');
 
     Route::get('/farmasi/pengaturan', [FarmasiController::class, 'pengaturan'])->name('farmasi.pengaturan');
 

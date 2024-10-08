@@ -12,6 +12,7 @@ use App\Models\obatk;
 use App\Models\opname;
 use App\Models\dabar;
 use App\Models\bhp;
+use App\Models\bangsal;
 use App\Models\pengaturan;
 
 class FarmasiController extends Controller
@@ -87,8 +88,8 @@ class FarmasiController extends Controller
     {
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "opname";
-        $data = dabar::all();
-        return view('farmasi.opname', compact('title'));
+        $data = opname::all();
+        return view('farmasi.opname', compact('title','data'));
     }
 
     public function obat()
@@ -97,8 +98,35 @@ class FarmasiController extends Controller
         $title = $setweb->name_app ." - ". "obat";
         $data = dabar::all();
         $bhp = bhp::all();
+        $opname = opname::all();
+        $bangsal = bangsal::all();
 
-        return view('farmasi.obat', compact('title','data','bhp'));
+        return view('farmasi.obat', compact('title','data','bhp','bangsal','opname'));
+    }
+
+    public function obatadd(Request $request)
+    {
+        $data = $request->validate([
+            "kode" => 'required',
+            "nama" => 'required',
+            "harga_beli" => 'required',
+            "expired" => 'required',
+            "stok" => 'required',
+            "nama_bangsal" => 'required',
+        ]);
+        $existingOpname = Opname::where('kode', $request->kode)
+                                ->where('nama_bangsal', $request->nama_bangsal)
+                                ->first();
+
+        if ($existingOpname) {
+            // Jika sudah ada, tambahkan stok
+            $existingOpname->stok += $request->stok;
+            $existingOpname->save();
+        } else {
+            opname::create($data);
+        }
+
+        return redirect()->route('farmasi.obat')->with('Success', 'dokter berhasi di tambahkan');
     }
 
     public function pengaturan()
@@ -107,5 +135,7 @@ class FarmasiController extends Controller
         $title = $setweb->name_app ." - ". "pengaturan";
         return view('farmasi.pengaturan', compact('title'));
     }
+
+
 
 }

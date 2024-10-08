@@ -12,8 +12,14 @@ class opname extends Model
     protected $fillable = [
         'kode',
         'nama',
-        'harga_dasar',
         'harga_beli',
         'expired',
+        'stok',
+        'nama_bangsal',
     ];
+
+    public function bangsal()
+    {
+        return $this->belongsTo(bangsal::class,'nama_bangsal','id');
+    }
 }

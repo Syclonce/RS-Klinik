@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('opnames', function (Blueprint $table) {
             $table->id();
+            $table->string('kode');
+            $table->string('nama');
+            $table->string('harga_beli');
+            $table->string('expired');
+            $table->string('stok');
+            $table->string('nama_bangsal');
             $table->timestamps();
         });
     }
