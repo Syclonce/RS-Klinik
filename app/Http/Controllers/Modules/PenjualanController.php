@@ -13,7 +13,8 @@ class PenjualanController extends Controller
     {
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "Penjualan Data";
-        return view('penjualan.index', compact('title'));
+        $datapjl =  datjal::all();
+        return view('penjualan.index', compact('title','datapjl'));
     }
 
     public function penjualanadd(Request $request)
@@ -26,6 +27,8 @@ class PenjualanController extends Controller
         ]);
 
         datjal::create($data);
+
+        return redirect()->route('penjualan')->with('Success', 'Data golongan darah berhasil di tambahkan');
     }
 
 
@@ -33,7 +36,8 @@ class PenjualanController extends Controller
     {
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "Order Penjualan";
-        return view('penjualan.order', compact('title'));
+        $datapjl =  datjal::all();
+        return view('penjualan.order', compact('title','datapjl'));
     }
     public function pjl()
     {

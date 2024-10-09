@@ -62,9 +62,9 @@
                                                 <label for="nama_brg">Nama Barang</label>
                                                 <select class="form-control select2bs4" style="width: 100%;" id="nama_brg" name="nama_brg">
                                                     <option value="" disabled selected>-- Pilih --</option>
-                                                    {{-- @foreach ($dokter as $data)
-                                                        <option value="{{ $data->id }}">{{ $data->nama }}</option>
-                                                    @endforeach --}}
+                                                    @foreach ($datapjl as $data)
+                                                        <option value="{{ $data->id }}">{{ $data->nama_barang }} - stok: {{ $data->stok }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="col-md-3">

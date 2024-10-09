@@ -89,11 +89,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($rad as $data)
+                                    @foreach ($datapjl as $data)
                                             <tr>
-                                                <td>{{ $data->no_rm }}</td>
+                                                <td>{{ $data->id }}</td>
+                                                <td>{{ $data->nama_barang }}</td>
+                                                <td>{{ $data->harga }}</td>
+                                                <td>{{ $data->stok }}</td>
+                                                <td></td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                 </tbody>
                             </table>
                         </div>
