@@ -234,6 +234,9 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/penjualan/order', [PenjualanController::class, 'order'])->name('order');
     Route::post('/penjualan/order/add', [PenjualanController::class, 'orderadd'])->name('order.add');
 
+    Route::get('/penjualan/pjl', [PenjualanController::class, 'pjl'])->name('pjl');
+    Route::post('/penjualan/pjl/add', [PenjualanController::class, 'pjladd'])->name('pjl.add');
+
     Route::get('/datamaster', [DatamasterController::class, 'index'])->name('datmas');
 
     Route::get('/datamaster/bangsal', [DatamasterController::class, 'bangsal'])->name('datmas.bangsal');

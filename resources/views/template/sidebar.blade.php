@@ -547,6 +547,14 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
+                        <a href="{{ route('pjl') }}" class="nav-link {{ \Route::is('pjl') ? 'active' : '' }}">
+                            <i class="fa-solid fa-file" style="color: #63E6BE;"></i>
+                          <p>Penjualan</p>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
                         <a href="{{ route('penjualan') }}" class="nav-link {{ \Route::is('penjualan') ? 'active' : '' }}">
                             <i class="fa-solid fa-file" style="color: #63E6BE;"></i>
                           <p>Data Barang</p>

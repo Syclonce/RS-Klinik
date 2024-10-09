@@ -11,7 +11,7 @@ class PenjualanController extends Controller
     public function index()
     {
         $setweb = setweb::first();
-        $title = $setweb->name_app ." - ". "Penjualan";
+        $title = $setweb->name_app ." - ". "Penjualan Data";
         return view('penjualan.index', compact('title'));
     }
 
@@ -20,6 +20,12 @@ class PenjualanController extends Controller
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "Order Penjualan";
         return view('penjualan.order', compact('title'));
+    }
+    public function pjl()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "Penjualan";
+        return view('penjualan.pjl', compact('title'));
     }
 
 }
