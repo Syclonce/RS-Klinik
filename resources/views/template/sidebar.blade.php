@@ -731,6 +731,15 @@
 
 
             <li class="nav-item">
+                <a href="{{ route('wagateway') }}"
+                    class="nav-link {{ \Route::is('wagateway') ? 'active' : '' }}">
+                    <i class="fas fa-fw fa-cogs"></i>
+                    <p style="margin-left: 10px;">
+                        Wa Getway
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('setweb') }}"
                     class="nav-link {{ \Route::is('setweb') ? 'active' : '' }}">
                     <i class="fas fa-fw fa-cogs"></i>

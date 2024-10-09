@@ -18,6 +18,7 @@ use App\Http\Controllers\modules\AntrianController;
 use App\Http\Controllers\modules\RadiologiController;
 use App\Http\Controllers\modules\LaboratoriumController;
 use App\Http\Controllers\modules\UtdController;
+use App\Http\Controllers\modules\WagatweyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\websetController;
@@ -29,9 +30,6 @@ use App\Http\Controllers\WhatsAppController;
 use Illuminate\Support\Facades\Route;
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::get('/', [HomepagesController::class, 'index'])->name('default_dashboard');
 
@@ -370,6 +368,10 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('user/role-premesion/{user}/edit', [SuperAdminController::class, 'edit'])->name('user.role-premesions');
     Route::put('user/role-premesion/{user}/edit', [SuperAdminController::class, 'update'])->name('user.role-premesion.edit');
     Route::get('user/role-premesion/{user}', [SuperAdminController::class, 'destroy'])->name('user.role-premesion.del');
+
+
+    Route::get('wagateway', [WagatweyController::class, 'index'])->name('wagateway');
+
 
 });
 

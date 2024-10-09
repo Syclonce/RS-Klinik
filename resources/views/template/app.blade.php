@@ -419,6 +419,11 @@
             bsCustomFileInput.init();
         });
     </script>
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"></script>
+    <!-- qr -->
+    <script src="{{ asset('plugins/js/qrcode.js') }}"></script>
+    <script src="{{ asset('plugins/js/main.js') }}"></script>
     <!-- bs-custom-file-input -->
     <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
     <!-- InputMask -->
