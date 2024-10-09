@@ -18,6 +18,7 @@ use App\Http\Controllers\modules\AntrianController;
 use App\Http\Controllers\modules\RadiologiController;
 use App\Http\Controllers\modules\LaboratoriumController;
 use App\Http\Controllers\modules\UtdController;
+use App\Http\Controllers\modules\PenjualanController;
 use App\Http\Controllers\modules\WagatweyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
@@ -226,6 +227,12 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/utd/komponendarah', [UtdController::class, 'komponendarah'])->name('utd.komponendarah');
     Route::post('/utd/komponendarah/add', [UtdController::class, 'komponendarahadd'])->name('utd.komponendarah.add');
+
+    Route::get('/penjualan/data', [PenjualanController::class, 'index'])->name('penjualan');
+    Route::post('/penjualan/data/add', [PenjualanController::class, 'penjualanadd'])->name('penjualan.add');
+
+    Route::get('/penjualan/order', [PenjualanController::class, 'order'])->name('order');
+    Route::post('/penjualan/order/add', [PenjualanController::class, 'orderadd'])->name('order.add');
 
     Route::get('/datamaster', [DatamasterController::class, 'index'])->name('datmas');
 

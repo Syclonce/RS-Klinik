@@ -537,6 +537,32 @@
                 </ul>
             </li>
 
+            <li class="nav-item {{ \Route::is('penjualan*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('penjualan*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-cart-shopping" style="color: #63E6BE;"></i>
+                  <p style="margin-left: 10px;">
+                    Penjualan
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('penjualan') }}" class="nav-link {{ \Route::is('penjualan') ? 'active' : '' }}">
+                            <i class="fa-solid fa-file" style="color: #63E6BE;"></i>
+                          <p>Data Barang</p>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('order') }}" class="nav-link {{ \Route::is('order') ? 'active' : '' }}">
+                            <i class="fa-solid fa-file" style="color: #63E6BE;"></i>
+                          <p>Order Baru</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
             <li class="nav-item {{ \Route::is('index*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('index*') ? 'active' : '' }}">
                     <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
