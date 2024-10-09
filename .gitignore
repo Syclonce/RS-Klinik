@@ -1,0 +1,19 @@
+/.phpunit.cache
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.vscode
+# .env
+.env.backup
+.wwebjs_auth
+.wwebjs_cache
+Homestead.json
+Homestead.yaml
+/.fleet
+/.idea
+/.vscode
+/.idx
+node_modules
