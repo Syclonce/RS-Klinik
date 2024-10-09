@@ -489,6 +489,28 @@
                 removeMaskOnSubmit: true
             });
 
+            // $('#potongan').inputmask({
+            //     alias: 'numeric',
+            //     groupSeparator: '.',
+            //     autoGroup: true,
+            //     digits: 0,
+            //     digitsOptional: false,
+            //     prefix: 'Rp ',
+            //     rightAlign: false,
+            //     removeMaskOnSubmit: true
+            // });
+
+            // $('#jumlah_bayar').inputmask({
+            //     alias: 'numeric',
+            //     groupSeparator: '.',
+            //     autoGroup: true,
+            //     digits: 0,
+            //     digitsOptional: false,
+            //     prefix: 'Rp ',
+            //     rightAlign: false,
+            //     removeMaskOnSubmit: true
+            // });
+
             $('#pembelian').inputmask({
                 alias: 'numeric',
                 groupSeparator: '.',

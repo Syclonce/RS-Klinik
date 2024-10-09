@@ -547,7 +547,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('pjl') }}" class="nav-link {{ \Route::is('pjl') ? 'active' : '' }}">
+                        <a href="{{ route('penjualan.pjl') }}" class="nav-link {{ \Route::is('penjualan.pjl') ? 'active' : '' }}">
                             <i class="fa-solid fa-file" style="color: #63E6BE;"></i>
                           <p>Penjualan</p>
                         </a>
@@ -563,7 +563,7 @@
                 </ul>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('order') }}" class="nav-link {{ \Route::is('order') ? 'active' : '' }}">
+                        <a href="{{ route('penjualan.order') }}" class="nav-link {{ \Route::is('penjualan.order') ? 'active' : '' }}">
                             <i class="fa-solid fa-file" style="color: #63E6BE;"></i>
                           <p>Order Baru</p>
                         </a>

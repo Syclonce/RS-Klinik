@@ -231,11 +231,11 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/penjualan/data', [PenjualanController::class, 'index'])->name('penjualan');
     Route::post('/penjualan/data/add', [PenjualanController::class, 'penjualanadd'])->name('penjualan.add');
 
-    Route::get('/penjualan/order', [PenjualanController::class, 'order'])->name('order');
-    Route::post('/penjualan/order/add', [PenjualanController::class, 'orderadd'])->name('order.add');
+    Route::get('/penjualan/order', [PenjualanController::class, 'order'])->name('penjualan.order');
+    Route::post('/penjualan/order/add', [PenjualanController::class, 'orderadd'])->name('penjualan.order.add');
 
-    Route::get('/penjualan/pjl', [PenjualanController::class, 'pjl'])->name('pjl');
-    Route::post('/penjualan/pjl/add', [PenjualanController::class, 'pjladd'])->name('pjl.add');
+    Route::get('/penjualan/pjl', [PenjualanController::class, 'pjl'])->name('penjualan.pjl');
+    Route::post('/penjualan/pjl/add', [PenjualanController::class, 'pjladd'])->name('penjualan.pjl.add');
 
     Route::get('/datamaster', [DatamasterController::class, 'index'])->name('datmas');
 

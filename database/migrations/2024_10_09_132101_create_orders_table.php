@@ -21,8 +21,10 @@ return new class extends Migration
             $table->string('email');
             $table->string('keterangan');
             $table->string('harga');
-            $table->string('jumlah');
+ 	        $table->string('potongan');
             $table->string('harga_total');
+            $table->string('bayar');
+            $table->string('kembalian');
             $table->string('cara_bayar');
             $table->string('stok');
             $table->string('datjal_id');
