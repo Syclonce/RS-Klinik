@@ -12,7 +12,7 @@
                 <div class="col-12 mt-3">
                     <div class="row d-flex">
                         <!-- Start Form -->
-                        <form action="{{ route('radiologi.add') }}" method="POST" class="row w-100">
+                        <form action="{{ route('penjualan.add') }}" method="POST" class="row w-100">
                             @csrf
                             <!-- Kelola Data Pasien -->
                             <div class="col-md-12 mb-3">
