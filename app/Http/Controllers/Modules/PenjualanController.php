@@ -27,7 +27,6 @@ class PenjualanController extends Controller
         ]);
 
         datjal::create($data);
-
         return redirect()->route('penjualan')->with('Success', 'Data golongan darah berhasil di tambahkan');
     }
 

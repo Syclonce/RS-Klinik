@@ -16,4 +16,8 @@ class datjal extends Model
         'ket',
     ];
 
+    public function order()
+    {
+        return $this->hasOne(order::class);
+    }
 }

@@ -23,7 +23,7 @@ class UpdateController extends Controller
             Artisan::call('route:cache');
             Artisan::call('optimize:clear');
 
-            return back()->with('success', 'Application updated successfully!');
+            return back()->with('Success', 'Application updated successfully!');
         } else {
             return back()->with('error', 'Failed to update the application.');
         }
