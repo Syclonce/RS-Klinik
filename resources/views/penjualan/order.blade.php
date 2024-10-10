@@ -60,6 +60,12 @@
                                                 <input type="text" class="form-control" id="email" name="email" placeholder="Alamat Email">
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <label for="ket">Keterangan</label>
+                                                <input type="text" class="form-control" id="ket" name="ket" placeholder="Keterangan">
+                                            </div>
+                                        </div>
                                         <div class="form-group row align-items-center">
                                             <div class="col-md-9">
                                                 <label for="nama_brg">Nama Barang</label>
@@ -75,20 +81,12 @@
                                                 <input type="number" class="form-control" id="jml" name="jml" placeholder="Jumlah">
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-12">
-                                                <label for="ket">Keterangan</label>
-                                                <input type="text" class="form-control" id="ket" name="ket" placeholder="Keterangan">
-                                            </div>
-                                        </div>
-
+                                        <br>
+                                        <hr>
                                         <!-- Buttons centered -->
                                         <div class="d-flex justify-content-end mt-4"> <!-- Add margin-top for spacing -->
                                             <button type="button" class="btn btn-light mr-2" id="btnRincian" style="background-color: #17a2b8; color: white;">
-                                                <i class="fa fa-trash-can" style="color: white;"></i> Masukkan Rincian
-                                            </button>
-                                            <button type="submit" class="btn mr-2" style="background-color: #ff851b; color: white;">
-                                                <i class="fa fa-floppy-disk" style="color: white;"></i> Order Baru
+                                                <i class="fa fa-floppy-disk" style="color: white;"></i> Masukkan Rincian
                                             </button>
                                         </div>
                                     </div>
@@ -199,149 +197,6 @@
 </div>
 <!-- /.content-wrapper -->
 
-{{-- <script>
-    $(document).ready(function() {
-        var counter = 1;
-        var totalTagihan = 0;
-
-        // Fungsi untuk mengupdate tampilan potongan dan jumlah yang harus dibayar
-        function updateTotalBayar() {
-            const potongan = parseInt($('#potongan').val().replace(/\./g, '') || 0); // Mengambil potongan dan menghilangkan titik
-            const totalBayar = totalTagihan - potongan; // Menghitung jumlah harus bayar
-
-            // Pastikan total bayar tidak kurang dari 0
-            $('#total_bayar').val(totalBayar >= 0 ? totalBayar.toLocaleString('id-ID') : 0);
-
-            // Update total dalam huruf
-            const totalDalamHurufBayar = numberToWords(totalBayar);
-            $('#total').text(totalDalamHurufBayar + ' rupiah'); // Update paragraf total
-        }
-
-        // Fungsi untuk update jumlah tagihan dalam huruf
-        function updateJumlahTagihanDalamHuruf() {
-            const jmlTagihan = parseInt($('#jml_tagihan').val().replace(/\./g, '') || 0);
-            const totalDalamHurufTagihan = numberToWords(jmlTagihan);
-            $('#terbilang').text(totalDalamHurufTagihan + ' rupiah'); // Update paragraf terbilang
-        }
-
-        // Fungsi untuk menghitung kembalian
-        function calculateKembalian() {
-            const jumlahBayar = parseInt($('#jumlah_bayar').val().replace(/\./g, '') || 0);
-            const totalBayar = parseInt($('#total_bayar').val().replace(/\./g, '') || 0);
-            const kembalian = jumlahBayar - totalBayar;
-
-            $('#kembalian').val(kembalian >= 0 ? kembalian.toLocaleString('id-ID') : 0);
-
-            // Tampilkan kembalian dalam huruf
-            const kembalianDalamHuruf = numberToWords(kembalian >= 0 ? kembalian : 0);
-            $('#kembali').text(kembalianDalamHuruf + ' rupiah');
-        }
-
-        $('.btn-light').on('click', function(e) {
-            e.preventDefault();
-
-            var namaBarang = $('#nama_brg option:selected').text();
-            var jumlah = $('#jml').val();
-            var harga = $('#nama_brg option:selected').data('harga');
-
-            if (namaBarang === '-- Pilih --' || jumlah === '') {
-                alert('Pilih nama barang dan masukkan jumlah terlebih dahulu!');
-                return;
-            }
-
-            var totalHargaItem = jumlah * harga;
-
-            $('#tabel-data tbody').append(
-                '<tr>' +
-                '<td>' + counter + '</td>' +
-                '<td>' + namaBarang + '</td>' +
-                '<td>' + jumlah + '</td>' +
-                '<td>' + harga.toLocaleString('id-ID') + '</td>' +
-                '<td><button type="button" class="btn btn-danger btn-sm remove">Hapus</button></td>' +
-                '</tr>'
-            );
-
-            totalTagihan += totalHargaItem;
-            $('#jml_tagihan').val(totalTagihan.toLocaleString('id-ID'));
-            updateTotalBayar(); // Panggil fungsi untuk update total bayar
-            updateJumlahTagihanDalamHuruf(); // Panggil fungsi untuk update terbilang
-
-            counter++;
-            $('#jml').val('');
-            $('#nama_brg').val('').trigger('change');
-        });
-
-        $('#tabel-data').on('click', '.remove', function() {
-            var jumlahItem = parseInt($(this).closest('tr').find('td:eq(2)').text());
-            var hargaItem = parseInt($(this).closest('tr').find('td:eq(3)').text().replace(/\./g, ''));
-
-            var totalHargaDihapus = jumlahItem * hargaItem;
-            totalTagihan -= totalHargaDihapus;
-
-            $('#jml_tagihan').val(totalTagihan.toLocaleString('id-ID'));
-            updateTotalBayar(); // Panggil fungsi untuk update total bayar
-            updateJumlahTagihanDalamHuruf(); // Panggil fungsi untuk update terbilang
-            $(this).closest('tr').remove();
-            counter--;
-        });
-
-        // Event listener untuk mengupdate total bayar ketika potongan berubah
-        $('#potongan').on('input', function() {
-            updateTotalBayar();
-        });
-
-        // Event listener untuk menghitung kembalian ketika jumlah bayar diinput
-        $('#jumlah_bayar').on('input', function() {
-            calculateKembalian();
-        });
-
-        function numberToWords(num) {
-            const units = ["", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan"];
-            const teens = ["sepuluh", "sebelas", "dua belas", "tiga belas", "empat belas", "lima belas", "enam belas", "tujuh belas", "delapan belas", "sembilan belas"];
-            const tens = ["", "", "dua puluh", "tiga puluh", "empat puluh", "lima puluh", "enam puluh", "tujuh puluh", "delapan puluh", "sembilan puluh"];
-            const thousands = ["", "ribu", "juta", "miliar", "triliun"];
-
-            if (num === 0) return "nol";
-
-            let words = '';
-            let thousandIndex = 0;
-
-            while (num > 0) {
-                let currentPart = num % 1000;
-                if (currentPart !== 0) {
-                    words = convertHundreds(currentPart, units, teens, tens) + (thousands[thousandIndex] ? ' ' + thousands[thousandIndex] : '') + ' ' + words;
-                }
-                num = Math.floor(num / 1000);
-                thousandIndex++;
-            }
-
-            return words.trim();
-        }
-
-        function convertHundreds(num, units, teens, tens) {
-            let words = '';
-
-            if (num > 99) {
-                words += units[Math.floor(num / 100)] + ' ratus ';
-                num %= 100;
-            }
-
-            if (num > 19) {
-                words += tens[Math.floor(num / 10)] + ' ';
-                num %= 10;
-            }
-
-            if (num > 9 && num < 20) {
-                words += teens[num - 10] + ' ';
-            } else if (num > 0) {
-                words += units[num] + ' ';
-            }
-
-            return words.trim();
-        }
-    });
-    </script> --}}
-
     <script>
         $(document).ready(function() {
             var counter = 1;
@@ -369,6 +224,12 @@
                 $('#kembalian').val(kembalian >= 0 ? kembalian.toLocaleString('id-ID') : 0);
                 const kembalianDalamHuruf = numberToWords(kembalian >= 0 ? kembalian : 0);
                 $('#kembali').text(kembalianDalamHuruf + ' rupiah');
+            }
+
+            function updateJumlahTagihanDalamHuruf() {
+                const jmlTagihan = parseInt($('#jml_tagihan').val().replace(/\./g, '') || 0);
+                const totalDalamHurufTagihan = numberToWords(jmlTagihan);
+                $('#terbilang').text(totalDalamHurufTagihan + ' rupiah'); // Update paragraf terbilang
             }
 
             // Fungsi untuk menambah data ke tabel
@@ -403,23 +264,32 @@
                 updateJumlahTagihanDalamHuruf(); // Update terbilang
 
                 counter++;
+                // $('#jml').val('');
+                // $('#nama_brg').val('').trigger('change');
+                // Reset input jumlah ke kosong
                 $('#jml').val('');
-                $('#nama_brg').val('').trigger('change');
+                // Reset dropdown ke opsi pertama (default) dan trigger change untuk memperbarui tampilan
+                $('#nama_brg').val('-- Pilih --').trigger('change');
             });
 
-            // Menghapus data dari tabel
-            $('#tabel-data').on('click', '.remove', function() {
-                var jumlahItem = parseInt($(this).closest('tr').find('td:eq(2)').text());
-                var hargaItem = parseInt($(this).closest('tr').find('td:eq(3)').text().replace(/\./g, ''));
+            // Fungsi untuk menghapus baris data dari tabel
+            $('#tabel-data').on('click', '.remove', function(e) {
+                e.preventDefault();
 
-                var totalHargaDihapus = jumlahItem * hargaItem;
-                totalTagihan -= totalHargaDihapus;
+                // Ambil harga dan jumlah dari baris yang dihapus
+                var harga = $(this).closest('tr').find('td:eq(3)').text().replace(/\./g, '');
+                var jumlah = $(this).closest('tr').find('td:eq(2)').text();
+                var totalHargaItem = parseInt(harga) * parseInt(jumlah);
 
+                // Kurangi total tagihan
+                totalTagihan -= totalHargaItem;
                 $('#jml_tagihan').val(totalTagihan.toLocaleString('id-ID'));
-                updateTotalBayar(); // Update total bayar
-                updateJumlahTagihanDalamHuruf(); // Update terbilang
+
+                // Hapus baris dari tabel
                 $(this).closest('tr').remove();
-                counter--;
+
+                updateTotalBayar(); // Update total bayar setelah penghapusan
+                updateJumlahTagihanDalamHuruf(); // Update terbilang setelah penghapusan
             });
 
             // Event listener untuk mengupdate total bayar ketika potongan berubah
