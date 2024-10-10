@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class order_detail extends Model
+class order extends Model
 {
     use HasFactory;
     protected $table = 'orders';
@@ -16,6 +16,7 @@ class order_detail extends Model
         'alamat_pembeli',
         'telepon',
         'email',
+        'harga_tagihan',
         'keterangan',
         'potongan',
         'harga_total',

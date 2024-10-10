@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\datjal;
 use App\Models\setweb;
 use App\Models\order;
+use App\Models\order_detail;
 
 class PenjualanController extends Controller
 {
@@ -97,7 +98,7 @@ class PenjualanController extends Controller
             "items" => 'required', // Validasi data items
         ]);
 
-        $order = new Order();
+        $order = new order();
         $order->tgl = $data['tgl'];
         $order->jam = $data['time'];
         $order->nama_pembeli = $data['nama'];
@@ -105,24 +106,29 @@ class PenjualanController extends Controller
         $order->telepon = $data['telepon'];
         $order->email = $data['email'];
         $order->keterangan = $data['ket'];
-        $order->harga = $data['jml_tagihan'];
+        $order->harga_tagihan = $data['jml_tagihan'];
         $order->potongan = $data['potongan'];
         $order->harga_total = $data['total_bayar'];
         $order->bayar = $data['jumlah_bayar'];
         $order->kembalian = $data['kembalian'];
         $order->cara_bayar = $data['cara_bayar'];
+        $order->save();
 
+        $orderdetail = new order_detail();
         // Simpan item yang dipesan
         $items = json_decode($data['items'], true);
 
         foreach ($items as $item) {
-            $order->datjal_id = $item['nama'];
-            $order->stok = $item['jumlah'];
-            $order->harga = $item['harga'];
+            $orderdetail->datjal_id = $item['nama'];
+            $orderdetail->stok = $item['jumlah'];
+            $orderdetail->harga = $item['harga'];
         }
+        $orderdetail->order_id = $order->id;
+
 
         try {
-            $order->save();
+            $orderdetail->save();
+
 
             return response()->json(['Success' => 'Data Order berhasil ditambahkan']);
         } catch (\Exception $e) {

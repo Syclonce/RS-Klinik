@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('telepon');
             $table->string('email');
             $table->string('keterangan');
+            $table->string('harga_tagihan');
  	        $table->string('potongan');
             $table->string('harga_total');
             $table->string('bayar');
