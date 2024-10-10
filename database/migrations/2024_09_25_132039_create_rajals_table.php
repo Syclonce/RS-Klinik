@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('tglpol');
             $table->string('poli');
-            $table->string('dokter');
             $table->string('id_dokter');
             $table->string('pembayaran');
             $table->string('nomber');

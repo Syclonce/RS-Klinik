@@ -20,7 +20,6 @@ class rajal extends Model
         'alamat',
         'tglpol',
         'poli',
-        'dokter',
         'id_dokter',
         'pembayaran',
         'nomber',

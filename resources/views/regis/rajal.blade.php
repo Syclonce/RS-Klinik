@@ -11,6 +11,8 @@
                 <!-- Main row -->
                 <div class="row">
                     <div class="col-12 mt-3">
+                        <form action="{{ route('regis.rajal.add') }}" method="POST" >
+                            @csrf
                         <div class="row">
                             <!-- Identitas Pasien -->
                             <div class="col-md-6">
@@ -129,7 +131,7 @@
                                             <button type="button" class="btn btn-light mr-2" style="background-color: #17a2b8; color: white;">
                                                 <i class="fa fa-trash-can" style="color: white;"></i> Cancel
                                             </button>
-                                            <button type="button" class="btn" style="background-color: #ff851b; color: white;">
+                                            <button type="sumbit" class="btn" style="background-color: #ff851b; color: white;">
                                                 <i class="fa fa-floppy-disk" style="color: white;"></i> Save
                                             </button>
                                             </div>
@@ -137,6 +139,7 @@
                                     </div>
                                 </div>
                             </div>
+                        </from>
                         </div>
                     </div>
 
@@ -151,21 +154,21 @@
                                 <table id="patienttbl" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Tanggal</th>
-                                            <th>No. RM</th>
+                                            <th>No RM</th>
                                             <th>Nama Pasien</th>
+                                            <th>Id Kunjungan</th>
+                                            <th>Antrian</th>
                                             <th>Poli</th>
                                             <th>Dokter</th>
                                             <th>Penjamin</th>
-                                            <th>No. REG</th>
+                                            <th>No Asuransi</th>
+                                            <th>tanggal Kunjungan</th>
                                             <th width="20%">Pilihan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($data as $data)
                                         <tr>
-                                            <td>{{ $data->id}}</td>
                                             <td>{{ $data->no_rm}}</td>
                                             <td>{{ $data->nama}}</td>
                                             <td>{{ $data->sex}}</td>
@@ -270,7 +273,7 @@
             if (no_rm !== '') {
                 // Lakukan AJAX request
                 $.ajax({
-                    url: '/regis/' + no_rm,  // Endpoint untuk mencari pasien berdasarkan No RM
+                    url: '/regis/rajal/' + no_rm,  // Endpoint untuk mencari pasien berdasarkan No RM
                     type: 'GET',
                     success: function(data) {
                         // Isi setiap input field dengan data pasien

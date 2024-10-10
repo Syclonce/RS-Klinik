@@ -193,12 +193,30 @@ class RegisController extends Controller
             "tglpol" => 'required',
             "poli" => 'required',
             "dokter" => 'required',
-            "id_dokter" => 'required',
             "pembayaran" => 'required',
             "nomber" => 'required',
         ]);
-        rajal::create($data);
-        return redirect()->route('rajal')->with('success', 'rajal berhasi di tambahkan');
+        // rajal::create($data);
+                // Create new patient registration
+                $patient = new rajal();
+                $patient->no_rm = $request->no_rm;
+                $patient->nama = $request->nama;
+                $patient->sex = $request->sex;
+                $patient->ktp = $request->ktp;
+                $patient->satusehat = $request->satusehat;
+                $patient->tanggal_lahir = $request->tanggal_lahir;
+                $patient->umur = $request->umur;
+                $patient->alamat = $request->alamat;
+                $patient->tglpol = $request->tglpol;
+                $patient->poli = $request->poli;
+                $patient->id_dokter = $request->dokter;
+                $patient->pembayaran = $request->pembayaran;
+                $patient->nomber = $request->nomber;
+
+                // Save to the database
+                $patient->save();
+
+        return redirect()->route('regis.rajal')->with('success', 'rajal berhasi di tambahkan');
     }
 
     public function getDokterByPoli($poliId)

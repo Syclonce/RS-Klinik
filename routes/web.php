@@ -342,8 +342,9 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('generate-no-reg-ugd', [RegisController::class, 'generateNoRegUgd'])->name('generateNoRegUgd');
     Route::get('/cari-no-rm-ugd', [RegisController::class, 'cariNoRMUgd'])->name('cariNoRMUgd');
     Route::get('/get-kode-dokter-ugd/{id}', [RegisController::class, 'getKodeDokterUgd'])->name('getKodeDokterUgd');
-    // Route::get('/regis/get-dokter-by-poli/{poliId}', [RegisController::class, 'getDokterByPoli']);
-    // Route::get('/regis/get-kode-dokter/{dokterId}', [RegisController::class, 'getKodeDokter']);
+
+    Route::get('/regis/get-dokter-by-poli/{poliId}', [RegisController::class, 'getDokterByPoli'])->name('getregisdokter');
+    Route::get('/regis/get-kode-dokter/{dokterId}', [RegisController::class, 'getKodeDokter'])->name('getregispoli');
 
     Route::get('/regis/rajal', [RegisController::class, 'rajal'])->name('regis.rajal');
     Route::post('/regis/rajal/add', [RegisController::class, 'rajaladd'])->name('regis.rajal.add');
