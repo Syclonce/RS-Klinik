@@ -79,58 +79,57 @@ class PenjualanController extends Controller
     // }
 
     public function orderadd(Request $request)
-{
-    $data = $request->validate([
-        "tgl" => 'required',
-        "time" => 'required',
-        "nama" => 'required',
-        "Alamat" => 'required',
-        "telepon" => 'required',
-        "email" => 'required',
-        "jml_tagihan" => 'required',
-        "ket" => 'required',
-        "potongan" => 'required',
-        "total_bayar" => 'required',
-        "jumlah_bayar" => 'required',
-        "kembalian" => 'required',
-        "cara_bayar" => 'required',
-        "items" => 'required', // Validasi data items
-    ]);
+    {
+        $data = $request->validate([
+            "tgl" => 'required',
+            "time" => 'required',
+            "nama" => 'required',
+            "Alamat" => 'required',
+            "telepon" => 'required',
+            "email" => 'required',
+            "jml_tagihan" => 'required',
+            "ket" => 'required',
+            "potongan" => 'required',
+            "total_bayar" => 'required',
+            "jumlah_bayar" => 'required',
+            "kembalian" => 'required',
+            "cara_bayar" => 'required',
+            "items" => 'required', // Validasi data items
+        ]);
 
-    $order = new Order();
-    $order->tgl = $data['tgl'];
-    $order->jam = $data['time'];
-    $order->nama_pembeli = $data['nama'];
-    $order->alamat_pembeli = $data['Alamat'];
-    $order->telepon = $data['telepon'];
-    $order->email = $data['email'];
-    $order->keterangan = $data['ket'];
-    $order->harga = $data['jml_tagihan'];
-    $order->potongan = $data['potongan'];
-    $order->harga_total = $data['total_bayar'];
-    $order->bayar = $data['jumlah_bayar'];
-    $order->kembalian = $data['kembalian'];
-    $order->cara_bayar = $data['cara_bayar'];
+        $order = new Order();
+        $order->tgl = $data['tgl'];
+        $order->jam = $data['time'];
+        $order->nama_pembeli = $data['nama'];
+        $order->alamat_pembeli = $data['Alamat'];
+        $order->telepon = $data['telepon'];
+        $order->email = $data['email'];
+        $order->keterangan = $data['ket'];
+        $order->harga = $data['jml_tagihan'];
+        $order->potongan = $data['potongan'];
+        $order->harga_total = $data['total_bayar'];
+        $order->bayar = $data['jumlah_bayar'];
+        $order->kembalian = $data['kembalian'];
+        $order->cara_bayar = $data['cara_bayar'];
 
-    // Simpan item yang dipesan
-    $items = json_decode($data['items'], true);
+        // Simpan item yang dipesan
+        $items = json_decode($data['items'], true);
 
-    foreach ($items as $item) {
-        $order->datjal_id = $item['nama'];
-        $order->stok = $item['jumlah'];
-        $order->harga = $item['harga'];
+        foreach ($items as $item) {
+            $order->datjal_id = $item['nama'];
+            $order->stok = $item['jumlah'];
+            $order->harga = $item['harga'];
+        }
+
+        try {
+            $order->save();
+
+            return response()->json(['Success' => 'Data Order berhasil ditambahkan']);
+        } catch (\Exception $e) {
+            // Mengembalikan pesan error dalam bentuk JSON jika terjadi kesalahan
+            return response()->json(['error' => 'Terjadi kesalahan saat menambahkan order'], 500);
+        }
     }
-
-    try {
-        $order->save();
-
-        return response()->json(['Success' => 'Data Order berhasil ditambahkan']);
-    } catch (\Exception $e) {
-        // Mengembalikan pesan error dalam bentuk JSON jika terjadi kesalahan
-        return response()->json(['error' => 'Terjadi kesalahan saat menambahkan order'], 500);
-    }
-}
-    // return response()->json(['Success' => 'Data Order berhasil ditambahkan']);
 
 
 

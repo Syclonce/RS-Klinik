@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class order extends Model
+class order_detail extends Model
 {
     use HasFactory;
     protected $table = 'orders';
@@ -17,18 +17,15 @@ class order extends Model
         'telepon',
         'email',
         'keterangan',
-        'harga',
         'potongan',
         'harga_total',
         'bayar',
         'kembalian',
         'cara_bayar',
-        'stok',
-        'datjal_id',
     ];
 
-    public function datjal()
+    public function order_detail()
     {
-        return $this->belongsTo(datjal::class);
+        return $this->hasOne(order_detail::class,'id','order_id');
     }
 }
