@@ -60,7 +60,7 @@ class VerificationController extends Controller
         Log::info("Sending WhatsApp message to {$phoneNumber}: {$message}");
 
         // Make a POST request to the Node.js server to send the WhatsApp message
-        $response = Http::post(env('NODE_SERVER_URL', 'http://localhost:3000/send-message'), [
+        $response = Http::post(env('SOCKET_IO_URL')+'/send-message', [
             'phone' => $phoneNumber,
             'message' => $message,
             'url' => $verificationUrl
@@ -73,24 +73,6 @@ class VerificationController extends Controller
         }
     }
 
-    // private function sendWhatsAppMessage(string $phoneNumber, string $message, string $verificationUrl): void
-    // {
-    //     Log::info("Sending WhatsApp message to {$phoneNumber}: {$message}");
-
-    //     $response = Http::post(env('NODE_SERVER_URL', 'http://localhost:3000/send-message'), [
-    //         'phone' => $phoneNumber,
-    //         'message' => $message,  // Message text without buttons
-    //         'url' => $verificationUrl,  // Optional URL if needed
-    //     ]);
-
-    //     if ($response->successful()) {
-    //         // Log success message
-    //         Log::info('Message successfully sent to ' . $phoneNumber);
-    //     } else {
-    //         // Handle failure
-    //         Log::error('Failed to send message to ' . $phoneNumber);
-    //     }
-    // }
 
     /**
      * Verify the user's WhatsApp account.

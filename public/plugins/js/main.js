@@ -1,4 +1,7 @@
-const socket = io('http://localhost:3000');
+// const socketIOUrl = process.env.SOCKET_IO_URL;
+// const socket = io(socketIOUrl);
+const socket = io('http://100.96.10.91:3000');
+
 const qrContainer = document.getElementById('qr-code');
 const statusContainer = document.getElementById('status');
 const statusImage = document.getElementById('status-image');

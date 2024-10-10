@@ -21,7 +21,7 @@ class WhatsAppController extends Controller
 
     private function sendToNodeService($phone, $message)
     {
-        $url = 'http://localhost:3000/send-message'; // Change this to your Node.js service URL
+        $url = env('SOCKET_IO_URL')+'/send-message'; // Change this to your Node.js service URL
 
         $client = new \GuzzleHttp\Client();
         $response = $client->post($url, [

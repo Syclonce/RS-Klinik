@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\setweb;
 use App\Models\doctor;
 use App\Models\pasien;
+use App\Models\seks;
 use App\Models\penjab;
 use App\Models\poli;
 use App\Models\rujukan;
@@ -172,84 +173,99 @@ class RegisController extends Controller
         $setweb = setweb::first();
         $title = $setweb->name_app ." - ". "rajal";
         $dokter = doctor::all();
-        $data = rajal::all();
+        $penjab = penjab::all();
         $pasien = pasien::all();
         $poli = poli::all();
-        return view('regis.rajal', compact('title','dokter','pasien','poli','data'));
+        $data = rajal::with(['poli','pasien','doctor','penjab'])->get();
+        return view('regis.rajal', compact('title','dokter','penjab','pasien','poli','data'));
 
     }
 
     public function rajaladd(Request $request)
     {
         $data = $request->validate([
-            "no_rm" => 'required',
-            "nama" => 'required',
-            "sex" => 'required',
-            "ktp" => 'required',
-            "satusehat" => 'required',
-            "tanggal_lahir" => 'required',
-            "umur" => 'required',
-            "alamat" => 'required',
-            "tglpol" => 'required',
-            "poli" => 'required',
+            "tgl_kunjungan" => 'required',
+            "time" => 'required',
             "dokter" => 'required',
-            "pembayaran" => 'required',
-            "nomber" => 'required',
+            "poli" => 'required',
+            "penjamin" => 'required',
+            "no_reg" => 'required',
+            "no_rawat" => 'required',
+            "no_rm" => 'required',
+            "nama_pasien" => 'required',
+            "tgl_lahir" => 'required',
+            "seks" => 'required',
+            "telepon" => 'required',
         ]);
-        // rajal::create($data);
-                // Create new patient registration
-                $patient = new rajal();
-                $patient->no_rm = $request->no_rm;
-                $patient->nama = $request->nama;
-                $patient->sex = $request->sex;
-                $patient->ktp = $request->ktp;
-                $patient->satusehat = $request->satusehat;
-                $patient->tanggal_lahir = $request->tanggal_lahir;
-                $patient->umur = $request->umur;
-                $patient->alamat = $request->alamat;
-                $patient->tglpol = $request->tglpol;
-                $patient->poli = $request->poli;
-                $patient->id_dokter = $request->dokter;
-                $patient->pembayaran = $request->pembayaran;
-                $patient->nomber = $request->nomber;
 
-                // Save to the database
-                $patient->save();
+        $rad = new rajal();
+        $rad->tgl_kunjungan = $data['tgl_kunjungan'];
+        $rad->time = $data['time'];
+        $rad->doctor_id = $data['dokter'];
+        $rad->poli_id = $data['poli'];
+        $rad->penjab_id = $data['penjamin'];
+        $rad->no_reg = $data['no_reg'];
+        $rad->no_rawat = $data['no_rawat'];
+        $rad->no_rm = $data['no_rm'];
+        $rad->nama_pasien = $data['nama_pasien'];
+        $rad->tgl_lahir = $data['tgl_lahir'];
+        $rad->seks = $data['seks'];
+        $rad->telepon = $data['telepon'];
+        $rad->save();
 
-        return redirect()->route('regis.rajal')->with('success', 'rajal berhasi di tambahkan');
+        return redirect()->route('regis.rajal')->with('Success', 'Data Rawat Jalan berhasi di tambahkan');
     }
 
-    public function getDokterByPoli($poliId)
+    public function searchPasienRajal(Request $request)
     {
-        // Ambil data dokter berdasarkan poli_id
-        $dokter = doctor::where('poli_id', $poliId)->get();
+        // Ambil parameter nama dari request
+        $nama = $request->input('nama');
 
-        // Return response JSON
-        return response()->json($dokter);
+        // Cari pasien berdasarkan nama (case insensitive) dan eager load relasi 'seks'
+        $pasiens = Pasien::where('nama', 'LIKE', '%' . $nama . '%')->with('seks')->get();
+
+        // Kembalikan hasil dalam format JSON
+        return response()->json($pasiens);
     }
 
-    public function getKodeDokter($dokterId)
+    public function generateNoRegRajal()
     {
-        // Ambil data dokter berdasarkan ID
-        $dokter = doctor::find($dokterId);
+        // Mendapatkan tanggal hari ini
+        $today = date('Y-m-d');
 
-        // Return response JSON
-        return response()->json([
-            'kode' => $dokter->kode
-        ]);
-    }
+        // Mencari data registrasi terakhir yang dibuat hari ini
+        $lastReg = rajal::whereDate('created_at', $today)->orderBy('no_reg', 'desc')->first();
 
-    public function show($no_rm)
-    {
-        // Cari pasien berdasarkan No RM
-        $pasien = pasien::where('no_rm', $no_rm)->first();
-
-        // Jika pasien ditemukan, return sebagai JSON
-        if ($pasien) {
-            return response()->json($pasien);
+        if ($lastReg) {
+            // Jika ada registrasi pada hari ini, tambahkan 1
+            $lastNoReg = intval($lastReg->no_reg);
+            $newNoReg = str_pad($lastNoReg + 1, 3, '0', STR_PAD_LEFT);
         } else {
-            return response()->json(['message' => 'Data pasien tidak ditemukan'], 404);
+            // Jika tidak ada, mulai dari 001
+            $newNoReg = '001';
         }
+
+        // Mengirim nomor registrasi baru ke frontend
+        return response()->json(['no_reg' => $newNoReg]);
+    }
+
+    public function generateNoRawatRajal()
+    {
+        // Memanggil fungsi generateNoReg() dan menangkap respons JSON
+        $noRegResponse = $this->generateNoRegRajal();
+
+        // Mengambil no_reg dari respons JSON
+        $noRegArray = json_decode($noRegResponse->getContent(), true);
+        $noReg = $noRegArray['no_reg'];
+
+        // Mendapatkan tanggal hari ini dengan format yyyy/mm/dd
+        $today = date('Y/m/d');
+
+        // Buat format nomor rawat baru: yyyy/mm/dd/no_reg
+        $noRawat = $today . '/' . $noReg;
+
+        // Return response sebagai JSON
+        return response()->json(['no_rawat' => $noRawat]);
     }
 
 

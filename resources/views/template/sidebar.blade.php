@@ -36,7 +36,7 @@
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
-                  {{-- <li class="nav-item">
+                  <li class="nav-item">
                     <a href="{{ route('doctor') }}" class="nav-link {{ \Route::is('doctor') ? 'active' : '' }}">
                         <i class="fas fa-fw fa-solid fa-user-plus" style="color: #63E6BE;"></i>
                       <p>Tambah dokter</p>
@@ -47,7 +47,7 @@
                         <i class="fas fa-fw fa-solid fa-book-medical" style="color: #63E6BE;"></i>
                       <p>Tambah Spesiali</p>
                     </a>
-                  </li> --}}
+                  </li>
                   <li class="nav-item">
                     <a href="{{ route('doctor.visit') }}" class="nav-link {{ \Route::is('doctor.visit') ? 'active' : '' }}">
                         <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
@@ -160,7 +160,7 @@
             </li>
 
 
-            <li class="nav-item {{ \Route::is('schedule*') ? 'menu-open' : '' }}">
+            {{-- <li class="nav-item {{ \Route::is('schedule*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('schedule*') ? 'active' : '' }}">
                 <i class="fa-solid fa-clock" style="color: #63E6BE; font-size: 1.2rem;"></i>
                   <p style="margin-left: 10px;">
@@ -569,7 +569,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
 
             <li class="nav-item {{ \Route::is('index*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('index*') ? 'active' : '' }}">

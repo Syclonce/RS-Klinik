@@ -8,12 +8,12 @@
         <section class="content">
             <div class="container-fluid">
                 <!-- Main row -->
-                <div class="row ">
-                    <div class="col-12 mt-3">
+                <div class="row">
+                    <div class="mt-3 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title mb-0">Pasien</h3>
-                                <div class="card-tools text-right">
+                                <h3 class="mb-0 card-title">Pasien</h3>
+                                <div class="text-right card-tools">
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#adddoctor">
                                         <i class="fas fa-plus"></i> Tambah Baru
@@ -234,7 +234,11 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Jenis Kelamin</label>
-                                        <input type="text" class="form-control" id="seks" name="seks">
+                                        <select class="form-control select2bs4" style="width: 100%;" id="seks" name="seks">
+                                            @foreach ($sex as $data)
+                                                <option value="{{$data->id}}">{{$data->nama}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -410,11 +414,11 @@
                     var tglLahir = datas.tglLahir || 'Tanggal Lahir tidak tersedia';
                     var noBPJS = datas.noKartu || 'No BPJS tidak tersedia';
                     var Kadaluarsa = datas.tglAkhirBerlaku || 'Tanggal Akhir Berlaku tidak tersedia';
-                    var Cob = datas.asuransi.cob || 'COB tidak tersedia';
-                    var Sex = datas.sex || 'Goldar tidak tersedia';
-                    var KodeAs = datas.asuransi.kdAsuransi || 'Kode Asuransi tidak tersedia';
-                    var NamaAs = datas.asuransi.nmAsuransi || 'Nama Asuransi tidak tersedia';
-                    var NoAs = datas.asuransi.noAsuransi || 'No Asuransi tidak tersedia';
+                    // var Cob = datas.asuransi.cob || 'COB tidak tersedia';
+                    // var Sex = datas.sex || 'Goldar tidak tersedia';
+                    // var KodeAs = datas.asuransi.kdAsuransi || 'Kode Asuransi tidak tersedia';
+                    // var NamaAs = datas.asuransi.nmAsuransi || 'Nama Asuransi tidak tersedia';
+                    // var NoAs = datas.asuransi.noAsuransi || 'No Asuransi tidak tersedia';
 
                     // getSexDescription(Sex);
 
@@ -422,10 +426,10 @@
                     $('#tanggal_lahir').val(tglLahir);
                     $('#no_bpjs').val(noBPJS);
                     $('#tgl_akhir').val(Kadaluarsa);
-                    $('#cob').val(Cob);
-                    $('#kd_asuransi').val(KodeAs);
-                    $('#nm_asuransi').val(NamaAs);
-                    $('#no_asuransi').val(NoAs);
+                    // $('#cob').val(Cob);
+                    // $('#kd_asuransi').val(KodeAs);
+                    // $('#nm_asuransi').val(NamaAs);
+                    // $('#no_asuransi').val(NoAs);
                 }
             },
             error: function(xhr, status, error) {
@@ -436,35 +440,35 @@
                     $('#tanggal_lahir').val('Error');
                     $('#no_bpjs').val('Error');
                     $('#tgl_akhir').val('Error');
-                    $('#cob').val('Error');
-                    $('#kd_asuransi').val('Error');
-                    $('#nm_asuransi').val('Error');
-                    $('#no_asuransi').val('Error');
+                    // $('#cob').val('Error');
+                    // $('#kd_asuransi').val('Error');
+                    // $('#nm_asuransi').val('Error');
+                    // $('#no_asuransi').val('Error');
                     alert('Jaringan BPJS mungkin tidak stabil Silahkan Coba Kembali');
 
             }
         });
     }
 
-    function getSexDescription(Sex) {
-        $.ajax({
-            url: '/check-sex',  // Endpoint untuk memeriksa kode Sex di database
-            type: 'POST',
-            data: {
-                sex_code: Sex,
-                _token: '{{ csrf_token() }}' // Jangan lupa sertakan token CSRF untuk Laravel
-            },
-            success: function(response) {
-                // Tampilkan deskripsi sex ke input field #seks
-                $('#seks').val(response.description);
-            },
-            error: function(xhr) {
-                // Jika gagal, tampilkan error
-                $('#seks').val('Deskripsi tidak ditemukan');
-                console.error('Error:', xhr.responseJSON.message);
-            }
-        });
-    }
+    // function getSexDescription(Sex) {
+    //     $.ajax({
+    //         url: '/check-sex',  // Endpoint untuk memeriksa kode Sex di database
+    //         type: 'POST',
+    //         data: {
+    //             sex_code: Sex,
+    //             _token: '{{ csrf_token() }}' // Jangan lupa sertakan token CSRF untuk Laravel
+    //         },
+    //         success: function(response) {
+    //             // Tampilkan deskripsi sex ke input field #seks
+    //             $('#seks').val(response.description);
+    //         },
+    //         error: function(xhr) {
+    //             // Jika gagal, tampilkan error
+    //             $('#seks').val('Deskripsi tidak ditemukan');
+    //             console.error('Error:', xhr.responseJSON.message);
+    //         }
+    //     });
+    // }
 </script>
 
     <script>

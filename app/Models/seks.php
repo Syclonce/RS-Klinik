@@ -18,4 +18,9 @@ class seks extends Model
     {
         return $this->hasOne(datapendor::class);
     }
+
+    public function pasien()
+    {
+        return $this->hasOne(pasien::class,'id','seks');
+    }
 }

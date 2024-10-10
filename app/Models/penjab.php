@@ -53,4 +53,9 @@ class penjab extends Model
     {
         return $this->hasOne(ugd::class);
     }
+
+    public function rajal()
+    {
+        return $this->hasOne(rajal::class);
+    }
 }

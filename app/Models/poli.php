@@ -31,4 +31,9 @@ class poli extends Model
     {
         return $this->hasOne(ranap::class);
     }
+
+    public function rajal()
+    {
+        return $this->hasOne(rajal::class);
+    }
 }

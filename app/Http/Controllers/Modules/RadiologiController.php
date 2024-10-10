@@ -61,8 +61,8 @@ class RadiologiController extends Controller
         // Ambil parameter nama dari request
         $nama = $request->input('nama');
 
-        // Cari pasien berdasarkan nama (case insensitive)
-        $pasiens = pasien::where('nama', 'LIKE', '%' . $nama . '%')->get();
+        // Cari pasien berdasarkan nama (case insensitive) dan eager load relasi 'seks'
+        $pasiens = Pasien::where('nama', 'LIKE', '%' . $nama . '%')->with('seks')->get();
 
         // Kembalikan hasil dalam format JSON
         return response()->json($pasiens);

@@ -9,10 +9,10 @@
         <div class="container-fluid">
             <!-- Main row -->
             <div class="row">
-                <div class="col-12 mt-3">
+                <div class="mt-3 col-12">
                     <div class="row d-flex">
                         <!-- Card keluar disaat tekan button pasien -->
-                        <div class="col-md-12 mb-3" id="kecelakan-col" style="display: none;">
+                        <div class="mb-3 col-md-12" id="kecelakan-col" style="display: none;">
                             <!-- Add margin bottom -->
                             <div class="card h-100" id="kecelakan-card" style="display: none;">
                                 <div class="card-header bg-light" id="kecelakan-header" style="display: none;">
@@ -43,7 +43,7 @@
                         <form action="{{ route('radiologi.add') }}" method="POST" class="row w-100">
                             @csrf
                             <!-- Kelola Data Pasien -->
-                            <div class="col-md-6 mb-3">
+                            <div class="mb-3 col-md-6">
                                 <div class="card h-100">
                                     <div class="card-header bg-light">
                                         <h5><i class="fa fa-user"></i> Kelola Data Pasien</h5>
@@ -128,7 +128,7 @@
                             </div>
 
                             <!-- Data Pasien -->
-                            <div class="col-md-6 mb-3">
+                            <div class="mb-3 col-md-6">
                                 <div class="card h-100">
                                     <div class="card-header bg-light">
                                         <h5><i class="fa fa-user"></i> Data Pasien</h5>
@@ -177,10 +177,10 @@
                     </div>
                 </div>
 
-                <div class="col-12 mt-3">
+                <div class="mt-3 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title mb-0">Pasien - Radiologi</h3>
+                            <h3 class="mb-0 card-title">Pasien - Radiologi</h3>
                         </div>
 
                         <!-- /.card-header -->
@@ -265,11 +265,11 @@
                                     '<td>' + pasien.no_rm + '</td>' +
                                     '<td>' + pasien.nama + '</td>' +
                                     '<td>' + pasien.tanggal_lahir + '</td>' +
-                                    '<td>' + pasien.seks + '</td>' +
+                                    '<td>' + (pasien.seks ? pasien.seks.nama : 'Tidak Diketahui') + '</td>' +  // Menampilkan nama seks, jika tersedia
                                     '<td>' + pasien.Alamat + '</td>' +
                                     '<td>' + pasien.telepon + '</td>' +
                                     '<td>' +
-                                        '<button class="btn btn-primary select-patient"data-id="' + pasien.no_rm + '" data-nama="' + pasien.nama + '" data-tgl="' + pasien.tanggal_lahir + '" data-seks="' + pasien.seks + '" data-telepon="' + pasien.telepon + '">Pilih</button>' +
+                                        '<button class="btn btn-primary select-patient" data-id="' + pasien.no_rm + '" data-nama="' + pasien.nama + '" data-tgl="' + pasien.tanggal_lahir + '" data-seks="' + (pasien.seks ? pasien.seks.nama : '') + '" data-telepon="' + pasien.telepon + '">Pilih</button>' +
                                     '</td>' +
                                     '</tr>';
                                 $('#patienttbl tbody').append(row);

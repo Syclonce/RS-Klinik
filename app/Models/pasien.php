@@ -10,7 +10,7 @@ class pasien extends Model
     use HasFactory;
     protected $table = 'pasiens';
     protected $fillable = [
-        'nomor_rm',
+        'no_rm',
         'nik',
         'kode_ihs',
         'nama',
@@ -79,5 +79,15 @@ class pasien extends Model
     public function labdata()
     {
         return $this->hasOne(labdata::class);
+    }
+
+    public function seks()
+    {
+        return $this->belongsTo(seks::class, 'seks', 'id');
+    }
+
+    public function rajal()
+    {
+        return $this->hasOne(rajal::class,'no_rm','no_rm');
     }
 }

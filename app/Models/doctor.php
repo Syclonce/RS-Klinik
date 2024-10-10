@@ -97,6 +97,11 @@ class doctor extends Model
         return $this->hasOne(ugd::class);
     }
 
+    public function rajal()
+    {
+        return $this->hasOne(rajal::class);
+    }
+
     public function donor_raftap()
     {
         return $this->hasOne(datadonor::class,'id','petugas_raftap');

@@ -1,256 +1,411 @@
 @extends('template.app')
 
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
 
-
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                <!-- Main row -->
-                <div class="row">
-                    <div class="col-12 mt-3">
-                        <form action="{{ route('regis.rajal.add') }}" method="POST" >
-                            @csrf
-                        <div class="row">
-                            <!-- Identitas Pasien -->
-                            <div class="col-md-6">
-                                <div class="card h-100 w-100">
-                                    <div class="card-header bg-light">
-                                        <h5><i class="fa fa-user"></i> Identitas Pasien</h5>
-                                    </div>
-                                    <div class="card-body">
-                                            <div class="form-group row">
-                                                <div class="col-md-8">
-                                                    <label for="no_rm">No RM</label>
-                                                    <select id="no_rm" name="no_rm" class="form-control">
-                                                        <option value="">--- Cari RM ---</option>
-                                                        @foreach ($pasien as $pasien)
-                                                        <option value="{{$pasien->no_rm}}">{{$pasien->no_rm}}</option>
-                                                        @endforeach
-                                                        <!-- Add options dynamically -->
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4 d-flex align-items-end">
-                                                    <button type="button" class="btn btn-primary mr-2">Cari RM</button>
-                                                    <a href="{{ route('patient') }}" class="btn btn-success">Pasien Baru</a>
-                                                    {{-- <button type="button"  class="btn btn-success">Pasien Baru</button> --}}
-                                                </div>
-                                            </div>
-
-                                        <div class="form-group row">
-                                            <div class="col-md-8">
-                                                <label for="nama">Nama</label>
-                                                <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama">
-                                            </div>
-                                            <div class="col-md-4 d-flex align-items-end">
-                                                <input type="text" class="form-control" id="sex" name="sex" placeholder="Sex">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-8">
-                                                <label for="ktp">No KTP</label>
-                                                <input type="text" class="form-control" id="ktp" name="ktp" placeholder="No KTP">
-                                            </div>
-                                            <div class="col-md-4 d-flex align-items-end">
-                                                <input type="text" class="form-control" id="satusehat" name="satusehat" placeholder="No Satusehat">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-8">
-                                                <label for="tanggal_lahir">Tanggal Lahir</label>
-                                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir">
-                                            </div>
-                                            <div class="col-md-4 d-flex align-items-end">
-                                                <input type="text" class="form-control" id="umur" name="umur" placeholder="Umur Saat Ini">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="alamat">Alamat</label>
-                                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat">
-                                        </div>
-                                    </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Main row -->
+            <div class="row">
+                <div class="mt-3 col-12">
+                    <div class="row d-flex">
+                        <!-- Card keluar disaat tekan button pasien -->
+                        <div class="mb-3 col-md-12" id="kecelakan-col" style="display: none;">
+                            <!-- Add margin bottom -->
+                            <div class="card h-100" id="kecelakan-card" style="display: none;">
+                                <div class="card-header bg-light" id="kecelakan-header" style="display: none;">
+                                    <h5><i class="fa fa-user"></i> Pilih Data Pasien</h5>
+                                </div>
+                                <div class="card-body" id="kecelakan-section" style="display: none;">
+                                    <table id="patienttbl" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>No. RM</th>
+                                                <th>Nama Pasien</th>
+                                                <th>Tgl. Lahir</th>
+                                                <th>Jenis Kelamin</th>
+                                                <th>Alamat</th>
+                                                <th>No. Telepon</th>
+                                                <th width="15%">Pilihan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Table data will be populated here -->
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                            <!-- Poli Tujuan -->
-                            <div class="col-md-6">
-                                <div class="card h-100 w-100">
+                        </div>
+
+                        <!-- Start Form -->
+                        <form action="{{ route('regis.rajal.add') }}" method="POST" class="row w-100">
+                            @csrf
+                            <!-- Kelola Data Pasien -->
+                            <div class="mb-3 col-md-6">
+                                <div class="card h-100">
                                     <div class="card-header bg-light">
-                                        <h5><i class="fa fa-user"></i> Poli Tujuan</h5>
+                                        <h5><i class="fa fa-user"></i> Kelola Data Pasien</h5>
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group row">
-                                            <div class="col-md-12">
-                                                <label for="tglpol">Tanggal</label>
-                                                <input type="date" class="form-control" id="tglpol" name="tglpol">
+                                            <div class="col-md-7">
+                                                <label for="tgl_kunjungan">Tanggal Daftar</label>
+                                                <input type="date" class="form-control" id="tgl_kunjungan" name="tgl_kunjungan">
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label for="timepicker">Jam</label>
+                                                <div class="input-group date" id="timepicker" data-target-input="nearest">
+                                                    <input type="text" class="form-control timepicker-input" data-target="#timepicker" id="time" name="time">
+                                                    <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                                                        <div class="input-group-text">
+                                                            <i class="far fa-clock"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-10">
+                                                <label for="nama">Nama Pasien</label>
+                                                <input type="text" class="form-control" id="nama" name="nama" placeholder="Cari nama pasien">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label>&nbsp;</label>
+                                                <!-- Empty label for spacing -->
+                                                <button type="button" class="btn btn-primary btn-block" id="search-button">Cari</button>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group row">
                                             <div class="col-md-12">
-                                                <label for="poli">Pilih Poli</label>
-                                                <select class="form-control select2bs4" style="width: 100%;" id="poli" name="poli">
-                                                    <option value="" disabled selected>--- Pilih Poli ---</option>
-                                                    @foreach ($poli as $poli)
-                                                    <option value="{{ $poli->id }}">{{ $poli->nama_poli }}</option>
+                                                <label for="dokter">Dokter</label>
+                                                <select class="form-control select2bs4" style="width: 100%;" id="dokter" name="dokter">
+                                                    <option value="" disabled selected>-- Pilih --</option>
+                                                    @foreach ($dokter as $data)
+                                                        <option value="{{ $data->id }}">{{ $data->nama }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <div class="col-md-8">
-                                                <label for="dokter">Dokter</label>
-                                                <select id="dokter" name="dokter" class="form-control">
-                                                    <option value="" disabled selected>--- Pilih Dokter ---</option>
-                                                    <!-- Data dokter akan diisi secara dinamis melalui AJAX -->
+                                            <div class="col-md-6">
+                                                <label for="poli">Poli</label>
+                                                <select class="form-control select2bs4" style="width: 100%;" id="poli" name="poli">
+                                                    <option value="" disabled selected>-- Pilih --</option>
+                                                    @foreach ($poli as $data)
+                                                        <option value="{{ $data->id }}">{{ $data->nama_poli }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-md-4 d-flex align-items-end">
-                                                <input type="text" class="form-control" id="kode" name="kode" placeholder="code" disabled>
+                                            <div class="col-md-6">
+                                                <label for="penjamin">Penjamin</label>
+                                                <select class="form-control select2bs4" style="width: 100%;" id="penjamin" name="penjamin">
+                                                    <option value="" disabled selected>-- Pilih --</option>
+                                                    @foreach ($penjab as $data)
+                                                        <option value="{{ $data->id }}">{{ $data->pj }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <label for="pembayaran">Jenis Penjamin</label>
-                                                <select id="pembayaran" name="pembayaran" class="form-control">
-                                                    <option value="">--- Pilih Penjamin ---</option>
-                                                    <option value="mandiri">Mandiri</option>
-                                                    <option value="bpjs">BPJS</option>
-                                                    <option value="asuransi">Asuransi</option>
-                                                    <!-- Add options dynamically -->
-                                                </select>
+                                                <label for="no_reg">No. Reg</label>
+                                                <input type="text" class="form-control" id="no_reg" name="no_reg">
                                             </div>
-                                            <div class="col-md-6 d-flex align-items-end">
-                                                <input type="text" class="form-control" id="nomber" name="nomber" placeholder="No. Penjamin">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mt-5">
-                                            <div class="col-md-12 text-right">
-                                            <button type="button" class="btn btn-light mr-2" style="background-color: #17a2b8; color: white;">
-                                                <i class="fa fa-trash-can" style="color: white;"></i> Cancel
-                                            </button>
-                                            <button type="sumbit" class="btn" style="background-color: #ff851b; color: white;">
-                                                <i class="fa fa-floppy-disk" style="color: white;"></i> Save
-                                            </button>
+                                            <div class="col-md-6">
+                                                <label for="no_rawat">No. Rawat</label>
+                                                <input type="text" class="form-control" id="no_rawat" name="no_rawat">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </from>
-                        </div>
-                    </div>
 
-                    <div class="col-12 mt-3">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title mb-0">Data Pendaftaran Pasien Rawat Jalan</h3>
+                            <!-- Data Pasien -->
+                            <div class="mb-3 col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-header bg-light">
+                                        <h5><i class="fa fa-user"></i> Data Pasien</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <label for="no_rm">Nomor RM</label>
+                                                <input type="text" class="form-control" id="no_rm" name="no_rm" placeholder="Nomor Rekam Medis" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <label for="nama_pasien">Nama Pasien</label>
+                                                <input type="text" class="form-control" id="nama_pasien" name="nama_pasien" placeholder="Nama Pasien" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <label for="tgl_lahir">Tanggal Lahir</label>
+                                                <input type="text" class="form-control" id="tgl_lahir" name="tgl_lahir" placeholder="Tanggal Lahir Pasien" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <label for="seks">Jenis Kelamin</label>
+                                                <input type="text" class="form-control" id="seks" name="seks" placeholder="Jenis Kelamin Pasien" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <label for="telepon">Telepon</label>
+                                                <input type="text" class="form-control" id="telepon" name="telepon" placeholder="Nomor Telepon Pasien" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="patienttbl" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>No RM</th>
-                                            <th>Nama Pasien</th>
-                                            <th>Id Kunjungan</th>
-                                            <th>Antrian</th>
-                                            <th>Poli</th>
-                                            <th>Dokter</th>
-                                            <th>Penjamin</th>
-                                            <th>No Asuransi</th>
-                                            <th>tanggal Kunjungan</th>
-                                            <th width="20%">Pilihan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($data as $data)
-                                        <tr>
-                                            <td>{{ $data->no_rm}}</td>
-                                            <td>{{ $data->nama}}</td>
-                                            <td>{{ $data->sex}}</td>
-                                            <td>{{ $data->ktp}}</td>
-                                            <td>{{ $data->satusehat}}</td>
-                                            <td>{{ $data->tanggal_lahir}}</td>
-                                            <td>{{ $data->umur}}</td>
-                                            <td>{{ $data->alamat}}</td>
-                                            <td>{{ $data->tglpol}}</td>
-                                            <td>{{ $data->poli}}</td>
-                                            <td>{{ $data->dokter}}</td>
-                                            <td>{{ $data->id_dokter}}</td>
-                                            <td>{{ $data->pembayaran}}</td>
-                                            <td>{{ $data->nomber}}</td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+                            <!-- Submit Button -->
+                            <div class="col-12 d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary btn-block" style="max-width: 500px;">Kirim ke Radiologi</button>
                             </div>
-                            <!-- /.card-body -->
-                        </div>
+                        </form>
+                        <!-- End Form -->
                     </div>
                 </div>
-                <!-- /.row (main row) -->
-            </div><!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
+
+                <div class="mt-3 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0 card-title">Pasien - Radiologi</h3>
+                        </div>
+
+                        <!-- /.card-header -->
+                        <div class="card-body" id="kunjungan-section">
+                            <table id="patient-visit-table" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No. RM</th>
+                                        <th>Nama Pasien</th>
+                                        <th>ID. Kunjungan</th>
+                                        <th>Antrian</th>
+                                        <th>Poliklinik</th>
+                                        <th>Dokter</th>
+                                        <th>Penjamin</th>
+                                        <th>No. Asuransi</th>
+                                        <th>Tgl. Kunjungan</th>
+                                        {{-- <th>Stts. Periksa</th>
+                                        <th>Stts. Lanjut</th>
+                                        <th>Stts. Bayar</th> --}}
+                                        <th width="10%">Pilihan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($data as $data)
+                                            <tr>
+                                                <td>{{ $data->pasien->no_rm }}</td>
+                                                <td>{{ $data->nama_pasien }}</td>
+                                                <td>{{ $data->no_rawat }}</td>
+                                                <td>{{ $data->no_reg }}</td>
+                                                <td>{{ $data->poli->nama_poli }}</td>
+                                                <td>{{ $data->doctor->nama }}</td>
+                                                <td>{{ $data->penjab->pj }}</td>
+                                                <td>{{ $data->pasien->no_bpjs }}</td>
+                                                <td>{{ $data->tgl_kunjungan }}</td>
+                                                <td></td>
+                                            </tr>
+                                        @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+    <script>
+        window.onload = function() {
+            // Mengambil tanggal dan waktu saat ini
+            var now = new Date();
+
+            // Mengatur nilai input tanggal (YYYY-MM-DD)
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear() + "-" + month + "-" + day;
+            document.getElementById("tgl_kunjungan").value = today;
+
+            // Mengatur nilai input waktu (HH:MM)
+            var hours = ("0" + now.getHours()).slice(-2);
+            var minutes = ("0" + now.getMinutes()).slice(-2);
+            var currentTime = hours + ":" + minutes;
+            document.getElementById("time").value = currentTime;
+        };
+    </script>
 
     <script>
         $(document).ready(function() {
-            $('#poli').on('change', function() {
-                var poliId = $(this).val(); // Mendapatkan nilai dari dropdown Poli yang dipilih
+            const searchButton = document.getElementById('search-button');
+            const kecelakanSection = document.getElementById('kecelakan-section');
+            const kecelakanHeader = document.getElementById('kecelakan-header');
+            const kecelakanCard = document.getElementById('kecelakan-card');
+            const kecelakanCol = document.getElementById('kecelakan-col');
 
-                if (poliId) {
-                    $.ajax({
-                        url: '/regis/get-dokter-by-poli/' + poliId, // URL untuk mengambil data dokter berdasarkan poli
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(data) {
-                            $('#dokter').empty(); // Mengosongkan dropdown dokter sebelum mengisi yang baru
-                            $('#dokter').append('<option value="" disabled selected>--- Pilih Dokter ---</option>'); // Tambahkan opsi default
-                            $.each(data, function(key, value) {
-                                $('#dokter').append('<option value="' + value.id + '">' + value.nama + '</option>');
+            // Event listener ketika tombol search diklik
+            $('#search-button').click(function() {
+                // Ambil nilai dari input nama
+                var namaPasien = $('#nama').val();
+
+                // Panggil AJAX ke server untuk mencari pasien
+                $.ajax({
+                    url: '/search-pasien-rajal', // URL untuk request pencarian
+                    method: 'GET',
+                    data: { nama: namaPasien },
+                    success: function(response) {
+                        // Kosongkan tabel sebelum mengisi data baru
+                        $('#patienttbl tbody').empty();
+
+                        // Periksa apakah ada hasil
+                        if (response.length > 0) {
+                            // Looping melalui hasil dan tambahkan ke tabel
+                            $.each(response, function(index, pasien) {
+                                var row = '<tr>' +
+                                    '<td>' + pasien.no_rm + '</td>' +
+                                    '<td>' + pasien.nama + '</td>' +
+                                    '<td>' + pasien.tanggal_lahir + '</td>' +
+                                    '<td>' + (pasien.seks ? pasien.seks.nama : 'Tidak Diketahui') + '</td>' +  // Menampilkan nama seks, jika tersedia
+                                    '<td>' + pasien.Alamat + '</td>' +
+                                    '<td>' + pasien.telepon + '</td>' +
+                                    '<td>' +
+                                        '<button class="btn btn-primary select-patient" data-id="' + pasien.no_rm + '" data-nama="' + pasien.nama + '" data-tgl="' + pasien.tanggal_lahir + '" data-seks="' + (pasien.seks ? pasien.seks.nama : '') + '" data-telepon="' + pasien.telepon + '">Pilih</button>' +
+                                    '</td>' +
+                                    '</tr>';
+                                $('#patienttbl tbody').append(row);
                             });
+                        } else {
+                            // Jika tidak ada hasil, tampilkan pesan kosong
+                            $('#patienttbl tbody').append('<tr><td colspan="7">Pasien tidak ditemukan</td></tr>');
                         }
-                    });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error searching pasien:', error);
+                    }
+                });
+
+                // Tampilkan atau sembunyikan kecelakanSection
+                const isCurrentlyVisible = kecelakanSection.style.display === 'block';
+
+                if (isCurrentlyVisible) {
+                    // Sembunyikan jika sedang terlihat
+                    kecelakanSection.style.display = 'none';
+                    kecelakanHeader.style.display = 'none';
+                    kecelakanCard.style.display = 'none';
+                    kecelakanCol.style.display = 'none';
                 } else {
-                    $('#dokter').empty();
+                    // Tampilkan jika sedang tersembunyi
+                    kecelakanSection.style.display = 'block';
+                    kecelakanHeader.style.display = 'block';
+                    kecelakanCard.style.display = 'block';
+                    kecelakanCol.style.display = 'block';
                 }
             });
 
-            $('#dokter').on('change', function() {
-                var dokterId = $(this).val(); // Ambil ID dokter yang dipilih
+            // Event listener untuk tombol "Pilih"
+            $(document).on('click', '.select-patient', function() {
+                // Ambil data dari atribut tombol
+                var noRm = $(this).data('id');
+                var nama = $(this).data('nama');
+                var tglLahir = $(this).data('tgl');
+                var seks = $(this).data('seks');
+                var telepon = $(this).data('telepon');
 
-                if (dokterId) {
-                    $.ajax({
-                        url: '/regis/get-kode-dokter/' + dokterId, // URL untuk mendapatkan kode dokter berdasarkan ID dokter
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(data) {
-                            // Isi kode dokter ke input #id_dokter
-                            $('#kode').val(data.kode);
-                        }
-                    });
-                } else {
-                    $('#kode').val(''); // Kosongkan input jika tidak ada dokter yang dipilih
-                }
+                // Isi field input di card dengan data pasien yang dipilih
+                $('#no_rm').val(noRm);
+                $('#nama_pasien').val(nama);
+                $('#tgl_lahir').val(tglLahir);
+                $('#seks').val(seks);
+                $('#telepon').val(telepon);
+
+                // Sembunyikan kecelakanSection dan elemen terkait
+                kecelakanSection.style.display = 'none';
+                kecelakanHeader.style.display = 'none';
+                kecelakanCard.style.display = 'none';
+                kecelakanCol.style.display = 'none';
             });
-
         });
-        </script>
-
+    </script>
 
     <script>
         $(document).ready(function() {
-            $("#patienttbl").DataTable({
+            // Menjalankan AJAX saat input No. Reg difokuskan (diklik)
+            $('#no_reg').focus(function() {
+                $.ajax({
+                    url: '/generate-no-reg-rajal', // URL ke controller yang menangani nomor registrasi
+                    type: 'GET',
+                    success: function(response) {
+                        // Menampilkan nomor registrasi di input field
+                        $('#no_reg').val(response.no_reg);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        alert('Gagal menghasilkan nomor registrasi.');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Menjalankan AJAX saat input No. Rawat difokuskan (diklik)
+            $('#no_rawat').focus(function() {
+                $.ajax({
+                    url: '/generate-no-rawat-rajal', // URL ke route yang menggenerate nomor rawat
+                    method: 'GET',
+                    success: function(response) {
+                        // Set nilai input dengan nomor rawat yang dihasilkan
+                        $('#no_rawat').val(response.no_rawat);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error generating No. Rawat:', error);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#generate-no-rawat-button').click(function() {
+                $.ajax({
+                    url: '/generate-no-rawat', // URL yang mengarah ke route untuk generate nomor rawat
+                    method: 'GET',
+                    success: function(response) {
+                        // Set nilai input dengan nomor rawat yang dihasilkan
+                        $('#no_rawat').val(response.no_rawat);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error generating No. Rawat:', error);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#patient-visit-table").DataTable({
                 "responsive": true,
                 "autoWidth": false,
-                "buttons": false,
-                "lengthChange": true, // Corrected: Removed conflicting lengthChange option
+                "paging": true,
+                "lengthChange": true,
+                "buttons": ["csv", "excel", "pdf", "print"],
                 "language": {
                     "lengthMenu": "Tampil  _MENU_",
                     "info": "Menampilkan _START_ - _END_ dari _TOTAL_ entri",
@@ -260,95 +415,7 @@
                         "next": "Berikutnya"
                     }
                 }
-            });
+            }).buttons().container().appendTo('#doctortbl_wrapper .col-md-6:eq(0)');
         });
     </script>
-
-<script>
-    $(document).ready(function() {
-        // Saat tombol "Cari RM" ditekan
-        $('.btn-primary').click(function() {
-            var no_rm = $('#no_rm').val(); // Ambil nilai No RM dari dropdown
-
-            if (no_rm !== '') {
-                // Lakukan AJAX request
-                $.ajax({
-                    url: '/regis/rajal/' + no_rm,  // Endpoint untuk mencari pasien berdasarkan No RM
-                    type: 'GET',
-                    success: function(data) {
-                        // Isi setiap input field dengan data pasien
-                        $('#nama').val(data.nama);
-                        $('#sex').val(data.seks);
-                        $('#ktp').val(data.nik);
-                        $('#satusehat').val(data.kode_ihs);
-                        var dateForInput = convertToDateInputFormat(data.tanggal_lahir);
-                        $('#tanggal_lahir').val(dateForInput);
-                        var umur = hitungUmur(new Date(data.tanggal_lahir));
-                        $('#umur').val(umur); // Pastikan umur sudah dihitung di backend
-                        $('#alamat').val(data.Alamat);
-                    },
-                    error: function(xhr) {
-                        alert('Pasien tidak ditemukan');
-                    }
-                });
-            } else {
-                alert('Pilih No RM terlebih dahulu');
-            }
-        });
-
-        function convertToDateInputFormat(dateString) {
-            const [day, month, year] = dateString.split(/[-\/]/);
-            return `${year}-${month}-${day}`;
-        }
-
-        // Fungsi untuk menghitung umur
-        function hitungUmur(tanggalLahir) {
-            var today = new Date(); // Tanggal saat ini
-            var birthDate = new Date(tanggalLahir); // Tanggal lahir
-
-            // Hitung tahun
-            var ageYears = today.getFullYear() - birthDate.getFullYear();
-
-            // Hitung perbedaan bulan
-            var ageMonths = today.getMonth() - birthDate.getMonth();
-
-            // Hitung perbedaan hari
-            var ageDays = today.getDate() - birthDate.getDate();
-
-            // Jika bulan saat ini belum melewati bulan lahir, kurangi umur setahun
-            if (ageMonths < 0 || (ageMonths === 0 && ageDays < 0)) {
-                ageYears--; // Kurangi setahun jika belum melewati bulan atau hari
-                ageMonths += 12; // Tambahkan 12 bulan jika bulan belum melewati
-            }
-
-            // Jika hari ini belum melewati hari lahir, kurangi umur sebulan
-            if (ageDays < 0) {
-                // Dapatkan jumlah hari dalam bulan sebelumnya
-                var lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-                ageDays += lastMonth.getDate(); // Tambahkan jumlah hari dari bulan sebelumnya
-                ageMonths--; // Kurangi sebulan jika belum melewati hari
-            }
-
-            // Return umur dengan format detail (tahun, bulan, hari)
-            return ageYears + " tahun, " + ageMonths + " bulan, " + ageDays + " hari";
-        }
-
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        // Fungsi untuk mengambil tanggal hari ini dalam format 'YYYY-MM-DD'
-        var today = new Date();
-        var day = String(today.getDate()).padStart(2, '0'); // Tambahkan leading zero jika perlu
-        var month = String(today.getMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0, jadi tambahkan 1
-        var year = today.getFullYear();
-
-        var todayFormatted = year + '-' + month + '-' + day;
-
-        // Set tanggal input menjadi hari ini
-        $('#tglpol').val(todayFormatted);
-    });
-</script>
-
 @endsection
