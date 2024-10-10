@@ -158,7 +158,7 @@ class SatusehatController extends Controller
         $SERVICE_NAME = env('BPJS_PCARE_SERVICE_NAME');
         $feature = 'peserta';
         $params = 'nik';
-        $patientData = $this->getPatientByNik($jenisKartu);
+        // $patientData = $this->getPatientByNik($jenisKartu);
 
         try {
             // Assuming $this->generateHeaders() returns an array of headers
@@ -196,7 +196,6 @@ class SatusehatController extends Controller
 
             return response()->json([
                 "data" => $data,
-                "additionalData" => $patientData,
                 "date" => date('Y-M-D'),
                 "time" => date('H:i:s'),
             ]);

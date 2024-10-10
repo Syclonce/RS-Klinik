@@ -103,9 +103,9 @@
                                     <div class="form-group">
                                         <label>NIK</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="nik" name="nik">
+                                            <input type="text" class="form-control" id="nik" name="nik" oninput="cekniksth()">
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-primary" onclick="cekSatuSehat()">Cek SatuSehat</button>
+                                                <button type="button" class="btn btn-primary" onclick="ceknikBPJS()">Cek BPJS</button>
                                             </span>
                                         </div>
                                     </div>
@@ -364,104 +364,108 @@
         </div>
     </div>
 
-    <script>
-      function cekSatuSehat(attempts = 0) {
-    var jenisKartu = $('#nik').val();
-    $.ajax({
-        url: '/jenisKartu/' + jenisKartu,
-        method: 'GET', // Use 'POST' if your server expects POST requests
-        success: function(response) {
-            if (response && response.data && response.additionalData && response.additionalData.original && response.additionalData.original.patient_data && response.additionalData.original.patient_data.entry && response.additionalData.original.patient_data.entry.length > 0) {
-                var patient = response.additionalData.original.patient_data.entry[0].resource;
-                var id = patient.id;
-                var name = patient.name[0] ? patient.name[0].text : 'Nama tidak tersedia';
-                var datas = response.data;
-                var tglLahir = response.data.tglLahir || 'Tanggal Lahir tidak tersedia';
-                var noHP = datas.noHP || 'Telepon tidak tersedia';
-                var noBPJS = datas.noKartu || 'No BPJS tidak tersedia';
-                var Kadaluarsa = datas.tglAkhirBerlaku || 'Tanggal Akhir Berlaku tidak tersedia';
-                var Sex = datas.sex || 'Goldar tidak tersedia';
-                var Cob = datas.asuransi.cob || 'COB tidak tersedia';
-                var KodeAs = datas.asuransi.kdAsuransi || 'Kode Asuransi tidak tersedia';
-                var NamaAs = datas.asuransi.nmAsuransi || 'Nama Asuransi tidak tersedia';
-                var NoAs = datas.asuransi.noAsuransi || 'No Asuransi tidak tersedia';
-
-                getSexDescription(Sex);
-
-                // Tampilkan hasil ke input IHS dan Nama
-                $('#kode_ihs').val(id);
-                $('#nama').val(name);
-                $('#tanggal_lahir').val(tglLahir);
-                $('#telepon').val(noHP);
-                $('#no_bpjs').val(noBPJS);
-                $('#tgl_akhir').val(Kadaluarsa);
-                // $('#seks').val(Sex);
-                $('#cob').val(Cob);
-                $('#kd_asuransi').val(KodeAs);
-                $('#nm_asuransi').val(NamaAs);
-                $('#no_asuransi').val(NoAs);
-            } else if (attempts < 3) {
-                // Retry if the response data is not as expected
-                cekSatuSehat(attempts + 1);
-            } else {
-                // Handle case when data is still not found after 3 attempts
-                $('#kode_ihs').val('Tidak ditemukan');
-                $('#nama').val('Tidak ditemukan');
-                $('#tanggal_lahir').val('Tidak ditemukan');
-                $('#telepon').val('Tidak ditemukan');
-                $('#no_bpjs').val('Tidak ditemukan');
-                $('#tgl_akhir').val('Tidak ditemukan');
-                // $('#seks').val('Tidak ditemukan');
-                $('#cob').val('Tidak ditemukan');
-                $('#kd_asuransi').val('Tidak ditemukan');
-                $('#nm_asuransi').val('Tidak ditemukan');
-                $('#no_asuransi').val('Tidak ditemukan');
-                alert('Jaringan BPJS mungkin tidak stabil Silahkan Coba Kembali');
+<script>
+    function cekniksth(attempts = 0) {
+        var jenisKartus = document.getElementById('nik').value;
+        $.ajax({
+            url: '/getsatusehat/' + jenisKartus,
+            method: 'GET', // Use 'POST' if your server expects POST requests
+            success: function(response) {
+                if (response && response.patient_data.entry.length > 0) {
+                    var patient = response.patient_data.entry[0].resource;
+                    var id = patient.id;
+                    // Tampilkan hasil ke input IHS dan Nama
+                    $('#kode_ihs').val(id);
+                } else if (attempts < 3) {
+                    // Retry if the response data is not as expected
+                    cekniksth(attempts + 1);
+                } else {
+                    // Handle case when data is still not found after 3 attempts
+                    $('#kode_ihs').val('Tidak ditemukan');
+                }
+            },
+            error: function(xhr, status, error) {
+                // Retry if there is an error and attempts are less than 3
+                if (attempts < 3) {
+                    cekniksth(attempts + 1);
+                } else {
+                    // Handle error case after 3 attempts
+                    console.error('Error:', status, error);
+                    $('#kode_ihs').val('Error');
+                    alert('Jaringan BPJS mungkin tidak stabil Silahkan Coba Kembali');
+                }
             }
-        },
-        error: function(xhr, status, error) {
-            // Retry if there is an error and attempts are less than 3
-            if (attempts < 3) {
-                cekSatuSehat(attempts + 1);
-            } else {
-                // Handle error case after 3 attempts
-                console.error('Error:', status, error);
-                $('#kode_ihs').val('Error');
-                $('#nama').val('Error');
-                $('#tanggal_lahir').val('Error');
-                $('#telepon').val('Error');
-                $('#no_bpjs').val('Error');
-                $('#tgl_akhir').val('Error');
-                // $('#seks').val('Error');
-                $('#cob').val('Error');
-                $('#kd_asuransi').val('Error');
-                $('#nm_asuransi').val('Error');
-                $('#no_asuransi').val('Error');
-                alert('Jaringan BPJS mungkin tidak stabil Silahkan Coba Kembali');
+        });
+    }
+
+    function ceknikBPJS() {
+        var jenisKartu = document.getElementById('nik').value;
+        $.ajax({
+            url: '/jenisKartu/' + jenisKartu,
+            method: 'GET', // Use 'POST' if your server expects POST requests
+            success: function(response) {
+                if (response && response.data.aktif === true) {
+                    var datas = response.data;
+                    var name = datas.nama || 'Nama tidak tersedia';
+                    var tglLahir = datas.tglLahir || 'Tanggal Lahir tidak tersedia';
+                    var noBPJS = datas.noKartu || 'No BPJS tidak tersedia';
+                    var Kadaluarsa = datas.tglAkhirBerlaku || 'Tanggal Akhir Berlaku tidak tersedia';
+                    var Cob = datas.asuransi.cob || 'COB tidak tersedia';
+                    var Sex = datas.sex || 'Goldar tidak tersedia';
+                    var KodeAs = datas.asuransi.kdAsuransi || 'Kode Asuransi tidak tersedia';
+                    var NamaAs = datas.asuransi.nmAsuransi || 'Nama Asuransi tidak tersedia';
+                    var NoAs = datas.asuransi.noAsuransi || 'No Asuransi tidak tersedia';
+
+                    // getSexDescription(Sex);
+
+                    $('#nama').val(name);
+                    $('#tanggal_lahir').val(tglLahir);
+                    $('#no_bpjs').val(noBPJS);
+                    $('#tgl_akhir').val(Kadaluarsa);
+                    $('#cob').val(Cob);
+                    $('#kd_asuransi').val(KodeAs);
+                    $('#nm_asuransi').val(NamaAs);
+                    $('#no_asuransi').val(NoAs);
+                }
+            },
+            error: function(xhr, status, error) {
+
+                    // Handle error case after 3 attempts
+                    console.error('Error:', status, error);
+                    $('#nama').val('Error');
+                    $('#tanggal_lahir').val('Error');
+                    $('#no_bpjs').val('Error');
+                    $('#tgl_akhir').val('Error');
+                    $('#cob').val('Error');
+                    $('#kd_asuransi').val('Error');
+                    $('#nm_asuransi').val('Error');
+                    $('#no_asuransi').val('Error');
+                    alert('Jaringan BPJS mungkin tidak stabil Silahkan Coba Kembali');
+
             }
-        }
-    });
-}
-function getSexDescription(Sex) {
-    $.ajax({
-        url: '/check-sex',  // Endpoint untuk memeriksa kode Sex di database
-        type: 'POST',
-        data: {
-            sex_code: Sex,
-            _token: '{{ csrf_token() }}' // Jangan lupa sertakan token CSRF untuk Laravel
-        },
-        success: function(response) {
-            // Tampilkan deskripsi sex ke input field #seks
-            $('#seks').val(response.description);
-        },
-        error: function(xhr) {
-            // Jika gagal, tampilkan error
-            $('#seks').val('Deskripsi tidak ditemukan');
-            console.error('Error:', xhr.responseJSON.message);
-        }
-    });
-}
-    </script>
+        });
+    }
+
+    function getSexDescription(Sex) {
+        $.ajax({
+            url: '/check-sex',  // Endpoint untuk memeriksa kode Sex di database
+            type: 'POST',
+            data: {
+                sex_code: Sex,
+                _token: '{{ csrf_token() }}' // Jangan lupa sertakan token CSRF untuk Laravel
+            },
+            success: function(response) {
+                // Tampilkan deskripsi sex ke input field #seks
+                $('#seks').val(response.description);
+            },
+            error: function(xhr) {
+                // Jika gagal, tampilkan error
+                $('#seks').val('Deskripsi tidak ditemukan');
+                console.error('Error:', xhr.responseJSON.message);
+            }
+        });
+    }
+</script>
 
     <script>
         $(document).ready(function() {

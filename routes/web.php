@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
 
 
     // Route::get('/getAccessToken', [SatusehatController::class, 'getAccessToken'])->name('getAccessToken');
-    Route::get('/getAccessToken/{nik}', [SatusehatController::class, 'getPatientByNik'])->name('getPatientByNik');
+    Route::get('/getsatusehat/{nik}', [SatusehatController::class, 'getPatientByNik'])->name('getPatientByNik');
     Route::get('/decompress', [SatusehatController::class, 'decompress'])->name('decompress');
     Route::get('/polis', [SatusehatController::class, 'polis'])->name('polis');
 
