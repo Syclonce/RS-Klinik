@@ -176,8 +176,8 @@ class RegisController extends Controller
         $penjab = penjab::all();
         $pasien = pasien::all();
         $poli = poli::all();
-        $data = rajal::with(['poli','pasien','doctor','penjab'])->get();
-        return view('regis.rajal', compact('title','dokter','penjab','pasien','poli','data'));
+        $rajal = rajal::with(['poli','pasien','doctor','penjab'])->get();
+        return view('regis.rajal', compact('title','dokter','penjab','pasien','poli','rajal'));
 
     }
 

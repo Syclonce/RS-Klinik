@@ -340,7 +340,7 @@
             </ul>
 
             <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
+            <ul class="ml-auto navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <img src="{{ asset('user/' . Auth::user()->profile) }}" alt="User Profile" class="img-circle" style="width:30px;">
@@ -371,7 +371,7 @@
                   </li>
                 <!-- Sidebar user panel (optional) -->
                 <li class="nav-item">
-                    <div class="theme-switch-wrapper  ">
+                    <div class="theme-switch-wrapper">
                         <label class="theme-switch" for="checkbox">
                             <input type="checkbox" id="checkbox">
                             <span class="slider round"></span>
@@ -384,7 +384,7 @@
 
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar elevation-4 sidebar-no-expand sidebar-light-info ">
+        <aside class="main-sidebar elevation-4 sidebar-no-expand sidebar-light-info">
 
             <a href="#" class="brand-link">
                 <img src="{{ asset('webset/' . $setweb->logo_app) }}" alt="Webset Logo"
@@ -419,6 +419,8 @@
             bsCustomFileInput.init();
         });
     </script>
+
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
     <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"></script>
     <!-- qr -->

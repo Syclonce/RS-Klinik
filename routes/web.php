@@ -40,6 +40,7 @@ Route::post('/update-app', [UpdateController::class, 'update'])->name('update.ap
 Route::post('/send-message', [WhatsAppController::class, 'sendMessage']);
 Route::get('/antrian', [AntrianController::class, 'index'])->name('antrian');
 
+Route::get('/getAccessToken', [SatusehatController::class, 'getAccessToken'])->name('getAccessToken');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -47,7 +48,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-    // Route::get('/getAccessToken', [SatusehatController::class, 'getAccessToken'])->name('getAccessToken');
     Route::get('/getsatusehat/{nik}', [SatusehatController::class, 'getPatientByNik'])->name('getPatientByNik');
     Route::get('/decompress', [SatusehatController::class, 'decompress'])->name('decompress');
     Route::get('/polis', [SatusehatController::class, 'polis'])->name('polis');

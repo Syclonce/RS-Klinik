@@ -203,9 +203,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $data)
+                                    @foreach ($rajal as $data)
                                             <tr>
-                                                <td>{{ $data->pasien->no_rm }}</td>
+                                                <td>{{ $data->no_rm}}</td>
                                                 <td>{{ $data->nama_pasien }}</td>
                                                 <td>{{ $data->no_rawat }}</td>
                                                 <td>{{ $data->no_reg }}</td>

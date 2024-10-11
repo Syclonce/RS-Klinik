@@ -78,7 +78,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addFormpermesion" action="{{ route('doctor.poli.add') }}" method="POST">
+                    <form  action="{{ route('doctor.poli.add') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-sm-12">
@@ -109,8 +109,9 @@
                                 <div class="form-group">
                                     <label>Status </label>
                                     <select class="form-control select2bs4" style="width: 100%;" id="status" name="status">
-                                         <option value="aktif">Aktif</option>
-                                         <option value="tidak_aktif">Tidak Aktif</option>
+                                        <option value="">--- pilih ---</option>
+                                        <option value="aktif">Aktif</option>
+                                        <option value="tidak aktif">Tidak Aktif</option>
                                     </select>
                                 </div>
                             </div>
