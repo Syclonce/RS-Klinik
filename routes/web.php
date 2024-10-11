@@ -337,6 +337,10 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/datamaster/rujukan', [DatamasterController::class, 'rujukan'])->name('datmas.rujukan');
     Route::post('/datamaster/rujukan/add', [DatamasterController::class, 'rujukanadd'])->name('datmas.rujukan.add');
 
+    Route::get('/datamaster/icd', [DatamasterController::class, 'icd'])->name('datmas.icd');
+    Route::post('/datamaster/icd9', [DatamasterController::class, 'icd9add'])->name('datmas.icd.9add');
+    Route::post('/datamaster/icd10', [DatamasterController::class, 'icd10add'])->name('datmas.icd.10add');
+
     Route::get('/regis', [RegisController::class, 'index'])->name('regis');
     Route::post('/regis/add', [RegisController::class, 'ugdadd'])->name('regis.add');
     Route::get('generate-no-reg-ugd', [RegisController::class, 'generateNoRegUgd'])->name('generateNoRegUgd');
@@ -356,6 +360,10 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::post('/regis/ranap/add', [RegisController::class, 'ranapadd'])->name('regis.ranap.add');
     Route::get('generate-no-reg-ranap', [RegisController::class, 'generateNoRegRanap'])->name('generateNoRegRanap');
     Route::get('/cari-no-rm', [RegisController::class, 'cariNoRM'])->name('cariNoRM');
+
+    Route::get('/regis/soap', [RegisController::class, 'soap'])->name('soap');
+    Route::get('/regis/soap/{norm}', [RegisController::class, 'soap'])->name('soap');
+
 
     Route::get('/antrian/loket-1', [AntrianController::class, 'loket1'])->name('loket1');
 

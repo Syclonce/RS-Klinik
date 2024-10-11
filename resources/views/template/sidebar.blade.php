@@ -571,8 +571,8 @@
                 </ul>
             </li> --}}
 
-            <li class="nav-item {{ \Route::is('index*') ? 'menu-open' : '' }}">
-                <a href="#" class="nav-link {{ \Route::is('index*') ? 'active' : '' }}">
+            <li class="nav-item {{ \Route::is('datmas.*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('datmas.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
                   <p style="margin-left: 10px;">
                     Data Master
@@ -580,6 +580,12 @@
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.icd') }}" class="nav-link {{ \Route::is('datmas.icd') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p>icd 9 dan 10</p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ route('datmas.bangsal') }}" class="nav-link {{ \Route::is('datmas.bangsal') ? 'active' : '' }}">
                             <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>

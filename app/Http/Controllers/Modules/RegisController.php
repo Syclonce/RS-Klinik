@@ -15,8 +15,7 @@ use App\Models\rujukan;
 use App\Models\rajal;
 use App\Models\ranap;
 use App\Models\ugd;
-
-
+use Carbon\Carbon;
 
 class RegisController extends Controller
 {
@@ -215,6 +214,23 @@ class RegisController extends Controller
 
         return redirect()->route('regis.rajal')->with('Success', 'Data Rawat Jalan berhasi di tambahkan');
     }
+
+    public function soap($norm)
+    {
+        $setweb = setweb::first(); // Pastikan ini sudah benar
+        $title = $setweb->name_app . " - " . "soap";
+
+        $rajaldata = rajal::where('no_rm', $norm)->first();
+
+
+        // Menghitung umur berdasarkan tgl_lahir
+        $tgl_lahir = Carbon::parse($rajaldata->tgl_lahir);
+        $umur = $tgl_lahir->age;
+
+        return view('regis.soap', compact('title','rajaldata','umur'));
+    }
+
+
 
     public function searchPasienRajal(Request $request)
     {

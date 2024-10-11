@@ -38,8 +38,8 @@ use App\Models\metcik;
 use App\Models\ok;
 use App\Models\rujukan;
 use App\Models\bhp;
-
-
+use App\Models\icd10;
+use App\Models\icd9;
 
 class DatamasterController extends Controller
 {
@@ -879,5 +879,34 @@ class DatamasterController extends Controller
         ]);
         rujukan::create($data);
         return redirect()->route('datmas.rujukan')->with('success', 'rujukan berhasi di tambahkan');
+    }
+
+
+    public function icd()
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app ." - ". "rujukan ";
+        $icd9 = icd9::all();
+        $icd10 = icd10::all();
+        return view('datamaster.icd', compact('title','icd9','icd10'));
+    }
+
+    public function icd9add(Request $request)
+    {
+        $data = $request->validate([
+            "kode" => 'required',
+            "nama" => 'required',
+        ]);
+        icd9::create($data);
+        return redirect()->route('datmas.icd')->with('success', 'ICD 9 berhasi di tambahkan');
+    }
+    public function icd10add(Request $request)
+    {
+        $data = $request->validate([
+            "kode" => 'required',
+            "nama" => 'required',
+        ]);
+        icd10::create($data);
+        return redirect()->route('datmas.icd')->with('success', 'ICD 10 berhasi di tambahkan');
     }
 }

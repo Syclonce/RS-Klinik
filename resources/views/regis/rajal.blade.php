@@ -7,13 +7,10 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <!-- Main row -->
             <div class="row">
                 <div class="mt-3 col-12">
                     <div class="row d-flex">
-                        <!-- Card keluar disaat tekan button pasien -->
                         <div class="mb-3 col-md-12" id="kecelakan-col" style="display: none;">
-                            <!-- Add margin bottom -->
                             <div class="card h-100" id="kecelakan-card" style="display: none;">
                                 <div class="card-header bg-light" id="kecelakan-header" style="display: none;">
                                     <h5><i class="fa fa-user"></i> Pilih Data Pasien</h5>
@@ -74,7 +71,6 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <label>&nbsp;</label>
-                                                <!-- Empty label for spacing -->
                                                 <button type="button" class="btn btn-primary btn-block" id="search-button">Cari</button>
                                             </div>
                                         </div>
@@ -136,7 +132,14 @@
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                                 <label for="no_rm">Nomor RM</label>
-                                                <input type="text" class="form-control" id="no_rm" name="no_rm" placeholder="Nomor Rekam Medis" readonly>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="no_rm" name="no_rm" placeholder="Nomor Rekam Medis" readonly>
+                                                    <div class="input-group-append" id="button-container" style="display: none;">
+                                                        <button class="btn btn-primary dropdown-toggle" type="button" id="action-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span id="action-button-text">Pilihan</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -184,7 +187,7 @@
 
                         <!-- /.card-header -->
                         <div class="card-body" id="kunjungan-section">
-                            <table id="patient-visit-table" class="table table-bordered table-striped">
+                            <table id="kunjungan-table" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>No. RM</th>
@@ -196,27 +199,35 @@
                                         <th>Penjamin</th>
                                         <th>No. Asuransi</th>
                                         <th>Tgl. Kunjungan</th>
-                                        {{-- <th>Stts. Periksa</th>
-                                        <th>Stts. Lanjut</th>
-                                        <th>Stts. Bayar</th> --}}
                                         <th width="10%">Pilihan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($rajal as $data)
-                                            <tr>
-                                                <td>{{ $data->no_rm}}</td>
-                                                <td>{{ $data->nama_pasien }}</td>
-                                                <td>{{ $data->no_rawat }}</td>
-                                                <td>{{ $data->no_reg }}</td>
-                                                <td>{{ $data->poli->nama_poli }}</td>
-                                                <td>{{ $data->doctor->nama }}</td>
-                                                <td>{{ $data->penjab->pj }}</td>
-                                                <td>{{ $data->pasien->no_bpjs }}</td>
-                                                <td>{{ $data->tgl_kunjungan }}</td>
-                                                <td></td>
-                                            </tr>
-                                        @endforeach
+                                        <tr>
+                                            <td>
+                                                <div class="btn-group">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{ $data->no_rm }}</button>
+                                                <div class="dropdown-menu" role="menu">
+                                                  <a class="dropdown-item" href="{{ route('soap',['norm' => $data->no_rm ]) }}">Action</a>
+                                                  <a class="dropdown-item" href="#">Another action</a>
+                                                  <a class="dropdown-item" href="#">Something else here</a>
+                                                  <div class="dropdown-divider"></div>
+                                                  <a class="dropdown-item" href="#">Separated link</a>
+                                                </div>
+                                              </div>
+                                            </td>
+                                            <td>{{ $data->nama_pasien }}</td>
+                                            <td>{{ $data->no_rawat }}</td>
+                                            <td>{{ $data->no_reg }}</td>
+                                            <td>{{ $data->poli->nama_poli }}</td>
+                                            <td>{{ $data->doctor->nama }}</td>
+                                            <td>{{ $data->penjab->pj }}</td>
+                                            <td>{{ $data->pasien->no_bpjs }}</td>
+                                            <td>{{ $data->tgl_kunjungan }}</td>
+                                            <td></td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -228,6 +239,7 @@
     </section>
     <!-- /.content -->
 </div>
+
 <!-- /.content-wrapper -->
 
     <script>
