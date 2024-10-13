@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('nama');
             $table->string('tempat_lahir');
             $table->string('tanggal_lahir');
-            $table->string('no_bpjs');
-            $table->string('tgl_akhir');
+            $table->string('no_bpjs')->nullable();
+            $table->string('tgl_akhir')->nullable();
             $table->string('Alamat');
             $table->integer('rt');
             $table->integer('rw');

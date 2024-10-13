@@ -361,8 +361,8 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('generate-no-reg-ranap', [RegisController::class, 'generateNoRegRanap'])->name('generateNoRegRanap');
     Route::get('/cari-no-rm', [RegisController::class, 'cariNoRM'])->name('cariNoRM');
 
-    Route::get('/regis/soap', [RegisController::class, 'soap'])->name('soap');
-    Route::get('/regis/soap/{norm}', [RegisController::class, 'soap'])->name('soap');
+    // Route::get('/regis/soap', [RegisController::class, 'soap'])->name('regis.soap');
+    Route::get('/regis/soap/{norm}', [RegisController::class, 'soap'])->name('regis.soap.norm');
 
 
     Route::get('/antrian/loket-1', [AntrianController::class, 'loket1'])->name('loket1');

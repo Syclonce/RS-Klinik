@@ -209,7 +209,7 @@
                                                 <div class="btn-group">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{ $data->no_rm }}</button>
                                                 <div class="dropdown-menu" role="menu">
-                                                  <a class="dropdown-item" href="{{ route('soap',['norm' => $data->no_rm ]) }}">Action</a>
+                                                  <a class="dropdown-item" href="{{ route('regis.soap.norm',['norm' => $data->no_rm ]) }}">Action</a>
                                                   <a class="dropdown-item" href="#">Another action</a>
                                                   <a class="dropdown-item" href="#">Something else here</a>
                                                   <div class="dropdown-divider"></div>
