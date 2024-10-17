@@ -43,4 +43,14 @@ class rajal extends Model
     {
         return $this->belongsTo(pasien::class,'no_rm','no_rm');
     }
+
+    public function pemeriksaans()
+    {
+        return $this->hasMany(rajal_pemeriksaan::class, 'no_rawat', 'no_rawat');
+    }
+
+    public function layanans()
+    {
+        return $this->hasMany(rajal_layanan::class, 'no_rawat', 'no_rawat');
+    }
 }

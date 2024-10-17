@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('rajals', function (Blueprint $table) {
             $table->id(); // BIGINT UNSIGNED by default
-            $table->string('tgl_kunjungan'); // Use DATE type for dates
-            $table->string('time'); // Use TIME type for times
-            $table->string('doctor_id'); // Use TIME type for times
-            $table->string('poli_id'); // Use TIME type for times
+            $table->string('tgl_kunjungan'); // Gunakan tipe DATE untuk tanggal
+            $table->string('time'); // Gunakan tipe TIME untuk waktu
+            $table->string('doctor_id');
+            $table->string('poli_id');
             $table->string('no_rm');
             $table->string('penjab_id');
             $table->string('no_reg');
-            $table->string('no_rawat');
+            $table->string('no_rawat'); // VARCHAR(50) dengan constraint UNIQUE
             $table->string('nama_pasien');
             $table->string('tgl_lahir');
             $table->string('seks');

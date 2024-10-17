@@ -73,8 +73,6 @@ class PatientController extends Controller
             "nama" => 'required',
             "tempat_lahir" => 'required',
             "tanggal_lahir" => 'required|date_format:d/m/Y',
-            "no_bpjs" => 'required',
-            "tgl_akhir" => 'required',
             "Alamat" => 'required|string|max:255',
             "rt" => 'required',
             "rw" => 'required',
@@ -118,8 +116,8 @@ class PatientController extends Controller
         $pasien->nama = $data['nama'];
         $pasien->tempat_lahir = $data['tempat_lahir'];
         $pasien->tanggal_lahir = $data['tanggal_lahir'];
-        $pasien->no_bpjs = $data['no_bpjs'];
-        $pasien->tgl_akhir = $data['tgl_akhir'];
+        $pasien->no_bpjs = $request->no_bpjs;
+        $pasien->tgl_akhir = $request->tgl_akhir;
         $pasien->Alamat = $data['Alamat'];
         $pasien->rt = $data['rt'];
         $pasien->rw = $data['rw'];

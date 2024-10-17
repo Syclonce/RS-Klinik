@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log; // Add logging
+use App\Models\licenses;
+
 
 
 class VerificationController extends Controller
@@ -59,17 +61,31 @@ class VerificationController extends Controller
     {
         Log::info("Sending WhatsApp message to {$phoneNumber}: {$message}");
 
-        // Make a POST request to the Node.js server to send the WhatsApp message
-        $response = Http::post(env('SOCKET_IO_URL')+'/send-message', [
-            'phone' => $phoneNumber,
-            'message' => $message,
-            'url' => $verificationUrl
-        ]);
+        $license = licenses::latest()->first();
+        if (!$license) {
+            Log::error('No license key found in the database');
+            return;
+        }
+        $licenseKey = $license->key;
 
-        if ($response->successful()) {
-            Log::info('Message successfully sent to ' . $phoneNumber);
-        } else {
-            Log::error('Failed to send message to ' . $phoneNumber);
+        // Make a POST request to the Node.js server to send the WhatsApp message
+        try {
+            $response = Http::withHeaders([
+                'Content-Type' => 'application/json'
+            ])->post('http://localhost:3002/api/send-message', [
+                'licenseKey' => $licenseKey,
+                'phoneNumber' => $phoneNumber,
+                'message' => $message,
+                'url' => $verificationUrl,
+            ]);
+
+            if ($response->successful()) {
+                Log::info('Message successfully sent to ' . $phoneNumber);
+            } else {
+                Log::error('Failed to send message to ' . $phoneNumber . '. Response: ' . $response->body());
+            }
+        } catch (\Exception $e) {
+            Log::error('Error sending message: ' . $e->getMessage());
         }
     }
 

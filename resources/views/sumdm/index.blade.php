@@ -8,12 +8,12 @@
         <section class="content">
             <div class="container-fluid">
                 <!-- Main row -->
-                <div class="row ">
-                    <div class="col-12 mt-3">
+                <div class="row">
+                    <div class="mt-3 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title mb-0">Dokter</h3>
-                                <div class="card-tools text-right">
+                                <h3 class="mb-0 card-title">Dokter</h3>
+                                <div class="text-right card-tools">
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#adddoctor">
                                         <i class="fas fa-plus"></i> Tambah Baru
@@ -65,7 +65,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Tambah Dokter</h5>
+                    <h5 class="modal-title" id="addModalLabel">Tambah Perawat</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

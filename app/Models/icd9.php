@@ -13,4 +13,9 @@ class icd9 extends Model
         'kode',
         'nama',
     ];
+
+    public function prosedurPasien()
+    {
+        return $this->hasMany(prosedur_pasien::class, 'kode', 'kode');
+    }
 }

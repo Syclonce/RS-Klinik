@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class icd10 extends Model
+class Berkasdigital extends Model
 {
     use HasFactory;
-    protected $table = 'icd10s';
+    protected $table = 'berkasdigitals';
     protected $fillable = [
-        'kode',
+        'tanggal',
+        'jam',
+        'id_rawat',
+        'no_rm',
+        'kategori',
         'nama',
     ];
-
-    public function diagnosaPasien()
-    {
-        return $this->hasMany(diagnosa_pasien::class, 'kode', 'kode');
-    }
 }

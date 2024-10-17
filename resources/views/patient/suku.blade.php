@@ -8,12 +8,12 @@
         <section class="content">
             <div class="container-fluid">
                 <!-- Main row -->
-                <div class="row ">
-                    <div class="col-12 mt-3">
+                <div class="row">
+                    <div class="mt-3 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title mb-0">Suku</h3>
-                                <div class="card-tools text-right">
+                                <h3 class="mb-0 card-title">Suku</h3>
+                                <div class="text-right card-tools">
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#adddoctor">
                                         <i class="fas fa-plus"></i> Tambah Baru

@@ -111,4 +111,9 @@ class doctor extends Model
     {
         return $this->hasOne(datadonor::class,'id','petugas_saring');
     }
+
+    public function layanan()
+    {
+        return $this->hasOne(rajal_layanan::class,'id','id_dokter');
+    }
 }

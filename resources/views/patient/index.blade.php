@@ -139,13 +139,13 @@
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label>Nomor BPJS</label>
-                                        <input type="text" class="form-control" id="no_bpjs" name="no_bpjs" readonly>
+                                        <input type="text" class="form-control" id="no_bpjs" name="no_bpjs">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label>Tanggal Akhir Berlaku</label>
-                                        <input type="text" class="form-control" id="tgl_akhir" name="tgl_akhir" readonly>
+                                        <input type="text" class="form-control" id="tgl_akhir" name="tgl_akhir">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -245,7 +245,7 @@
                                     <div class="form-group">
                                         <label>Agama </label>
                                         <select class="form-control select2bs4" style="width: 100%;" id="agama" name="agama">
-                                            <option value="">--- pilih ---</option>
+                                            <option value="" disabled selected>--- pilih ---</option>
                                             <option value="islam">Islam</option>
                                             <option value="katolik">Kristen Katolik</option>
                                             <option value="protestan">Kristen Protestan</option>
@@ -259,7 +259,7 @@
                                     <div class="form-group">
                                         <label>Pendidikan </label>
                                         <select class="form-control select2bs4" style="width: 100%;" id="pendidikan" name="pendidikan">
-                                            <option value="">--- pilih ---</option>
+                                            <option value="" disabled selected>--- pilih ---</option>
                                             <option value="sd">SD</option>
                                             <option value="smp">SMP</option>
                                             <option value="sma">SMA</option>
@@ -283,8 +283,8 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Status Pernikahan </label>
-                                        <select class="form-control select2bs4" style="width: 100%;" id="pernikahan" name="pernikahan">
-                                            <option value="">--- pilih ---</option>
+                                        <select class="form-control 2bs4" style="width: 100%;" id="pernikahan" name="pernikahan">
+                                            <option value="" disabled selected>--- pilih ---</option>
                                             <option value="menikah">Menikah</option>
                                             <option value="belum_nikah">Belum Menikah</option>
                                             <option value="cerai_hidup">Cerai Hidup</option>
@@ -296,7 +296,7 @@
                                     <div class="form-group">
                                         <label>Pekerjaan </label>
                                         <select class="form-control select2bs4" style="width: 100%;" id="pekerjaan" name="pekerjaan">
-                                            <option value="">--- pilih ---</option>
+                                            <option value="" disabled selected>--- pilih ---</option>
                                             <option value="wirausaha">Wirausaha</option>
                                             <option value="tidak_bekerja">Tidak Bekerja</option>
                                             <option value="pns">PNS</option>
@@ -368,107 +368,91 @@
         </div>
     </div>
 
-<script>
-    function cekniksth(attempts = 0) {
-        var jenisKartus = document.getElementById('nik').value;
-        $.ajax({
-            url: '/getsatusehat/' + jenisKartus,
-            method: 'GET', // Use 'POST' if your server expects POST requests
-            success: function(response) {
-                if (response && response.patient_data.entry.length > 0) {
-                    var patient = response.patient_data.entry[0].resource;
-                    var id = patient.id;
-                    // Tampilkan hasil ke input IHS dan Nama
-                    $('#kode_ihs').val(id);
-                } else if (attempts < 3) {
-                    // Retry if the response data is not as expected
-                    cekniksth(attempts + 1);
-                } else {
-                    // Handle case when data is still not found after 3 attempts
-                    $('#kode_ihs').val('Tidak ditemukan');
-                }
-            },
-            error: function(xhr, status, error) {
-                // Retry if there is an error and attempts are less than 3
-                if (attempts < 3) {
-                    cekniksth(attempts + 1);
-                } else {
-                    // Handle error case after 3 attempts
-                    console.error('Error:', status, error);
-                    $('#kode_ihs').val('Error');
-                    alert('Jaringan BPJS mungkin tidak stabil Silahkan Coba Kembali');
-                }
-            }
-        });
-    }
-
-    function ceknikBPJS() {
-        var jenisKartu = document.getElementById('nik').value;
-        $.ajax({
-            url: '/jenisKartu/' + jenisKartu,
-            method: 'GET', // Use 'POST' if your server expects POST requests
-            success: function(response) {
-                if (response && response.data.aktif === true) {
-                    var datas = response.data;
-                    var name = datas.nama || 'Nama tidak tersedia';
-                    var tglLahir = datas.tglLahir || 'Tanggal Lahir tidak tersedia';
-                    var noBPJS = datas.noKartu || 'No BPJS tidak tersedia';
-                    var Kadaluarsa = datas.tglAkhirBerlaku || 'Tanggal Akhir Berlaku tidak tersedia';
-                    // var Cob = datas.asuransi.cob || 'COB tidak tersedia';
-                    // var Sex = datas.sex || 'Goldar tidak tersedia';
-                    // var KodeAs = datas.asuransi.kdAsuransi || 'Kode Asuransi tidak tersedia';
-                    // var NamaAs = datas.asuransi.nmAsuransi || 'Nama Asuransi tidak tersedia';
-                    // var NoAs = datas.asuransi.noAsuransi || 'No Asuransi tidak tersedia';
-
-                    // getSexDescription(Sex);
-
-                    $('#nama').val(name);
-                    $('#tanggal_lahir').val(tglLahir);
-                    $('#no_bpjs').val(noBPJS);
-                    $('#tgl_akhir').val(Kadaluarsa);
-                    // $('#cob').val(Cob);
-                    // $('#kd_asuransi').val(KodeAs);
-                    // $('#nm_asuransi').val(NamaAs);
-                    // $('#no_asuransi').val(NoAs);
-                }
-            },
-            error: function(xhr, status, error) {
-
-                    // Handle error case after 3 attempts
-                    console.error('Error:', status, error);
-                    $('#nama').val('Error');
-                    $('#tanggal_lahir').val('Error');
-                    $('#no_bpjs').val('Error');
-                    $('#tgl_akhir').val('Error');
-                    // $('#cob').val('Error');
-                    // $('#kd_asuransi').val('Error');
-                    // $('#nm_asuransi').val('Error');
-                    // $('#no_asuransi').val('Error');
-                    alert('Jaringan BPJS mungkin tidak stabil Silahkan Coba Kembali');
-
-            }
-        });
-    }
-
-    // function getSexDescription(Sex) {
-    //     $.ajax({
-    //         url: '/check-sex',  // Endpoint untuk memeriksa kode Sex di database
-    //         type: 'POST',
-    //         data: {
-    //             sex_code: Sex,
-    //             _token: '{{ csrf_token() }}' // Jangan lupa sertakan token CSRF untuk Laravel
-    //         },
-    //         success: function(response) {
-    //             // Tampilkan deskripsi sex ke input field #seks
-    //             $('#seks').val(response.description);
-    //         },
-    //         error: function(xhr) {
-    //             // Jika gagal, tampilkan error
-    //             $('#seks').val('Deskripsi tidak ditemukan');
-    //             console.error('Error:', xhr.responseJSON.message);
-    //         }
-    //     });
-    // }
+    <script>
+        function cekniksth(attempts = 0) {
+             var jenisKartus = document.getElementById('nik').value;
+             // Periksa jika input memiliki 16 atau lebih karakter
+             if (jenisKartus.length >= 16) {
+                 $.ajax({
+                     url: '/getsatusehat/' + jenisKartus,
+                     method: 'GET', // Use 'POST' if your server expects POST requests
+                     success: function(response) {
+                         if (response && response.patient_data.entry.length > 0) {
+                             var patient = response.patient_data.entry[0].resource;
+                             var id = patient.id;
+                             // Tampilkan hasil ke input IHS dan Nama
+                             $('#kode_ihs').val(id);
+                         } else if (attempts < 3) {
+                             // Retry if the response data is not as expected
+                             cekniksth(attempts + 1);
+                         } else {
+                             // Handle case when data is still not found after 3 attempts
+                             $('#kode_ihs').val('Tidak ditemukan');
+                         }
+                     },
+                     error: function(xhr, status, error) {
+                         // Retry if there is an error and attempts are less than 3
+                         if (attempts < 3) {
+                             cekniksth(attempts + 1);
+                         } else {
+                             // Handle error case after 3 attempts
+                             console.error('Error:', status, error);
+                             $('#kode_ihs').val('Error');
+                             alert('Jaringan BPJS mungkin tidak stabil Silahkan Coba Kembali');
+                         }
+                     }
+                 });
+             }
+         }
+         function ceknikBPJS(attempts = 0) {
+         var jenisKartu = document.getElementById('nik').value;
+             $.ajax({
+                 url: '/jenisKartu/' + jenisKartu,
+                 method: 'GET', // Gunakan 'POST' jika server mengharapkan permintaan POST
+                 success: function(response) {
+                     if (response && response.data && response.data.aktif === true) {
+                         // Pastikan data ada dan 'aktif' bernilai true
+                         var datas = response.data;
+                         var name = datas.nama || 'Nama tidak tersedia';
+                         var tglLahir = datas.tglLahir || 'Tanggal Lahir tidak tersedia';
+                         var noBPJS = datas.noKartu || 'No BPJS tidak tersedia';
+                         var kadaluarsa = datas.tglAkhirBerlaku || 'Tanggal Akhir Berlaku tidak tersedia';
+                         // Set nilai form dengan data yang didapat dari server
+                         $('#nama').val(name);
+                         $('#tanggal_lahir').val(tglLahir);
+                         $('#no_bpjs').val(noBPJS);
+                         $('#tgl_akhir').val(kadaluarsa);
+                     } else if (attempts < 3) {
+                         // Jika data tidak valid, coba lagi hingga 3 kali
+                         setTimeout(function() {
+                             ceknikBPJS(attempts + 1); // Tambahkan jeda sebelum mencoba lagi
+                         }, 1000); // Coba lagi setelah 1 detik
+                     } else {
+                         // Jika setelah 3 kali percobaan tetap gagal
+                         handleError();
+                         alert('Jaringan BPJS mungkin tidak stabil. Silahkan coba kembali.');
+                     }
+                 },
+                 error: function(xhr, status, error) {
+                     if (attempts < 3) {
+                         // Jika gagal, coba lagi hingga 3 kali
+                         setTimeout(function() {
+                             ceknikBPJS(attempts + 1); // Tambahkan jeda sebelum mencoba lagi
+                         }, 1000); // Coba lagi setelah 1 detik
+                     } else {
+                         // Jika setelah 3 kali percobaan tetap gagal
+                         handleError();
+                         alert('Jaringan BPJS mungkin tidak stabil. Silahkan coba kembali.');
+                     }
+                 }
+             });
+         }
+         function handleError() {
+             // Fungsi untuk menangani kesalahan dengan mengatur nilai form
+             $('#tanggal_lahir').val('Tidak ditemukan');
+             $('#no_bpjs').val('Tidak ditemukan');
+             $('#tgl_akhir').val('Tidak ditemukan');
+         }
 </script>
 
     <script>

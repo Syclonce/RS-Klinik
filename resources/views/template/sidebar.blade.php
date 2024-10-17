@@ -216,7 +216,7 @@
                     </a>
                   </li>
                 </ul>
-            </li>
+            </li> --}}
 
             <li class="nav-item {{ \Route::is('sdm*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('sdm*') ? 'active' : '' }}">
@@ -280,7 +280,7 @@
                 </ul>
             </li>
 
-            <li class="nav-item {{ \Route::is('finance*') ? 'menu-open' : '' }}">
+            {{-- <li class="nav-item {{ \Route::is('finance*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('finance*') ? 'active' : '' }}">
                   <i class="fas fa-fw fa-solid fa-clock" style="color: #63E6BE; font-size: 1.2rem;"></i>
                   <p style="margin-left: 10px;">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\modules;
 
 use App\Http\Controllers\Controller;
 use App\Models\bangsal;
+use App\Models\berkas;
+use App\Models\Berkasdigital;
 use Illuminate\Http\Request;
 use App\Models\setweb;
 use App\Models\doctor;
@@ -13,7 +15,15 @@ use App\Models\penjab;
 use App\Models\poli;
 use App\Models\rujukan;
 use App\Models\rajal;
+use App\Models\perjal;
 use App\Models\ranap;
+use App\Models\icd9;
+use App\Models\icd10;
+use App\Models\prosedur_pasien;
+use App\Models\diagnosa_pasien;
+use App\Models\rajal_pemeriksaan;
+use App\Models\rajal_layanan;
+use App\Models\suberdaya;
 use App\Models\ugd;
 use Carbon\Carbon;
 
@@ -219,18 +229,238 @@ class RegisController extends Controller
     {
         $setweb = setweb::first(); // Pastikan ini sudah benar
         $title = $setweb->name_app . " - " . "soap";
-
+        $icd10 = icd10::all();
+        $icd9 = icd9::all();
         $rajaldata = rajal::where('no_rm', $norm)->first();
+        $prosedur = prosedur_pasien::with(['icd9'])->where('no_rawat', $rajaldata->no_rawat)->get();
+        $diagnosas = diagnosa_pasien::with(['icd10'])->where('no_rawat', $rajaldata->no_rawat)->get();
+        $pemeriksaans = rajal_pemeriksaan::with(['rajal'])->where('no_rawat',$rajaldata->no_rawat)->get();
 
-
-        // Menghitung umur berdasarkan tgl_lahir
-        $tgl_lahir = Carbon::parse($rajaldata->tgl_lahir);
+        $tgl_lahir = Carbon::createFromFormat('d/m/Y', $rajaldata->tgl_lahir);
         $umur = $tgl_lahir->age;
 
-        return view('regis.soap', compact('title','rajaldata','umur'));
+        return view('regis.soap', compact('title','rajaldata','umur','icd10','icd9','prosedur','diagnosas','pemeriksaans'));
     }
 
 
+    public function soapadd(Request $request)
+    {
+        $data_1 = $request->validate([
+            "no_rawat" => 'required',
+            "tgl_kunjungan" => 'required',
+            "time" => 'required',
+            "nama_pasien" => 'required',
+            "umur" => 'required',
+        ]);
+
+        $data_2 = $request->validate([
+            "tensi" => 'required',
+            "suhu" => 'required',
+            "nadi" => 'required',
+            "rr" => 'required',
+            "tinggi" => 'required',
+            "berat" => 'required',
+            "sadar" => 'required',
+            "spo2" => 'required',
+            "gcs" => 'required',
+            "alergi" => 'required',
+            "lingkar_perut" => 'required',
+            "subyektif" => 'required',
+            "obyektif" => 'required',
+            "assessmen" => 'required',
+            "plan" => 'required',
+            "instruksi" => 'required',
+            "evaluasi" => 'required',
+        ]);
+
+        $pemeriksaan = new rajal_pemeriksaan();
+        $pemeriksaan->no_rawat = $data_1['no_rawat'];
+        $pemeriksaan->tgl_kunjungan = $data_1['tgl_kunjungan'];
+        $pemeriksaan->time = $data_1['time'];
+        $pemeriksaan->nama_pasien = $data_1['nama_pasien'];
+        $pemeriksaan->umur_pasien = $data_1['umur'];
+        $pemeriksaan->tensi = $data_2['tensi'];
+        $pemeriksaan->suhu = $data_2['suhu'];
+        $pemeriksaan->nadi = $data_2['nadi'];
+        $pemeriksaan->rr = $data_2['rr'];
+        $pemeriksaan->tinggi_badan = $data_2['tinggi'];
+        $pemeriksaan->berat_badan = $data_2['berat'];
+        $pemeriksaan->kesadaran = $data_2['sadar'];
+        $pemeriksaan->spo2 = $data_2['spo2'];
+        $pemeriksaan->gcs = $data_2['gcs'];
+        $pemeriksaan->alergi = $data_2['alergi'];
+        $pemeriksaan->lingkar_perut = $data_2['lingkar_perut'];
+        $pemeriksaan->subyektif = $data_2['subyektif'];
+        $pemeriksaan->obyektif = $data_2['obyektif'];
+        $pemeriksaan->assessmen = $data_2['assessmen'];
+        $pemeriksaan->plan = $data_2['plan'];
+        $pemeriksaan->instruksi = $data_2['instruksi'];
+        $pemeriksaan->evaluasi = $data_2['evaluasi'];
+        $pemeriksaan->save();
+
+        return redirect()->route('soap',['norm' => $request->no_rm ])->with('Success', 'Data Pemeriksaan berhasi di tambahkan');
+    }
+
+    public function storeProsedur(Request $request)
+    {
+        $request->validate([
+            'no_rawat' => 'required',
+            'kode' => 'required',
+            'prioritas' => 'required',
+        ]);
+
+        try {
+            // Simpan data ke model prosedur_pasien
+            $prosedur = new prosedur_pasien();
+            $prosedur->no_rawat = $request->no_rawat;
+            $prosedur->kode = $request->kode;
+            $prosedur->prioritas = $request->prioritas;
+            $prosedur->status = 'Rawat Jalan'; // Add any other field you want to save
+            $prosedur->save();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function destroyProsedur(Request $request)
+    {
+        try {
+            // Find the record by ID and delete it
+            $prosedur = prosedur_pasien::find($request->id);
+
+            if ($prosedur) {
+                $prosedur->delete();
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Data not found']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function storeDiagnosa(Request $request)
+    {
+        $request->validate([
+            'no_rawat' => 'required',
+            'kode' => 'required',
+            'prioritas' => 'required',
+        ]);
+
+        try {
+            // Create a new diagnosa_pasien record
+            $diagnosa = new diagnosa_pasien();
+            $diagnosa->no_rawat = $request->no_rawat;
+            $diagnosa->kode = $request->kode;
+            $diagnosa->status = 'Rawat Jalan';
+            $diagnosa->prioritas = $request->prioritas;
+            $diagnosa->status_penyakit = 'Baru';
+            $diagnosa->save();
+
+            return response()->json(['success' => true, 'id' => $diagnosa->id]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function destroyDiagnosa(Request $request)
+    {
+        try {
+            // Find the record by ID and delete it
+            $diagnosa = diagnosa_pasien::find($request->id);
+
+            if ($diagnosa) {
+                $diagnosa->delete();
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Data not found']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function destroy($id)
+    {
+        // Find the record by ID
+        $pemeriksaan = rajal_pemeriksaan::findOrFail($id);
+
+        // Delete the record
+        $pemeriksaan->delete();
+
+        // Redirect back with a success message
+        return redirect()->route('regis.rajal')->with('Success', 'Data berhasil dihapus.');
+    }
+
+
+    public function layanan($norm)
+    {
+        $setweb = setweb::first();
+        $title = $setweb->name_app . " - " . "Layanan & Tindakan";
+        $rajaldata = rajal::where('no_rm', $norm)->first();
+        $doctor = doctor::all();
+        $perawat = suberdaya::all();
+        $layanan = rajal_layanan::with(['rajal','doctor','perawat'])->where('no_rawat',$rajaldata->no_rawat)->get();
+
+        return view('regis.layanan', compact('title','rajaldata','doctor','perawat','layanan'));
+    }
+
+    public function layananadd(Request $request)
+    {
+        $data = $request->validate([
+            "tgl_kunjungan" => 'required',
+            "time" => 'required',
+            "no_rawat" => 'required',
+            "no_rm" => 'required',
+            "nama_pasien" => 'required',
+            "jenis_tindakan" => 'required',
+            "t_biaya" => 'required',
+            "provider" => 'required',
+            "dokter" => 'nullable',
+            "b_dokter" => 'nullable',
+            "perawat" => 'nullable',
+            "b_perawat" => 'nullable',
+        ]);
+
+        $layanan = new rajal_layanan();
+        $layanan->tgl_kunjungan = $data['tgl_kunjungan'];
+        $layanan->time = $data['time'];
+        $layanan->no_rawat = $data['no_rawat'];
+        $layanan->no_rm = $data['no_rm'];
+        $layanan->nama_pasien = $data['nama_pasien'];
+        $layanan->jenis_tindakan = $data['jenis_tindakan'];
+        $layanan->total_biaya = $data['t_biaya'];
+        $layanan->provider = $data['provider'];
+        $layanan->id_dokter = $data['dokter'] ?? null; // Assign null jika tidak ada
+        $layanan->b_dokter = $data['b_dokter'] ?? null; // Assign null jika tidak ada
+        $layanan->id_perawat = $data['perawat'] ?? null; // Assign null jika tidak ada
+        $layanan->b_perawat = $data['b_perawat'] ?? null; // Assign null jika tidak ada
+        $layanan->save();
+
+        return redirect()->route('layanan',['norm' => $request->no_rm ])->with('Success', 'Data Layanan berhasi di tambahkan');
+    }
+
+    public function searchTindakan(Request $request)
+    {
+        $tindakan = $request->get('tindakan');
+
+        // Mencari data di tabel 'perjals' di mana 'nama' sesuai dengan input pengguna
+        $results = perjal::where('nama', 'LIKE', '%' . $tindakan . '%')->get();
+
+        return response()->json($results);
+    }
+
+    public function layanandestroy($id)
+    {
+        $layanan = rajal_layanan::find($id); // Mencari data berdasarkan ID
+        if ($layanan) {
+            $layanan->delete(); // Menghapus data
+            return redirect()->route('regis.rajal')->with('Success', 'Layanan berhasil dihapus.');
+        }
+        return redirect()->route('regis.rajal')->with('error', 'Layanan tidak ditemukan.');
+    }
 
     public function searchPasienRajal(Request $request)
     {
@@ -282,6 +512,59 @@ class RegisController extends Controller
 
         // Return response sebagai JSON
         return response()->json(['no_rawat' => $noRawat]);
+    }
+
+    public function berkas($norm)
+    {
+        $setweb = setweb::first(); // Pastikan ini sudah benar
+        $title = $setweb->name_app . " - " . "Berkas";
+        $rajaldata = rajal::where('no_rm', $norm)->first();
+        $berkasdigital = Berkasdigital::where('no_rm', $norm)->get();;
+
+        return view('regis.berkas', compact('title','rajaldata','berkasdigital'));
+    }
+
+
+    public function berkasadd(Request $request)
+    {
+        $request->validate([
+            'tanggal' => 'required|date',
+            'time' => 'required|date_format:H:i',
+            'id_rawat' => 'required|string',
+            'no_rm' => 'required|string',
+            'berkas_kategori' => 'required|string',
+            'pilih_berkas' => 'nullable|file|mimes:jpg,jpeg,png,pdf', // You may adjust validation based on your requirements
+        ]);
+
+        // Handle file upload if a file was chosen
+    if ($request->hasFile('pilih_berkas')) {
+        // Get the uploaded file
+        $file = $request->file('pilih_berkas');
+
+        // Define a unique file name
+        $fileName = time() . '_' . $file->getClientOriginalName();
+
+        $uploadPath = public_path('uploads');
+
+               // Move the uploaded file to the public/uploads directory
+               $file->move($uploadPath, $fileName);
+
+
+        // Optionally, you can save the file path to the database or perform other operations
+        // For example: $yourModel->file_path = $path;
+
+        $berksadigital = new Berkasdigital();
+        $berksadigital->tanggal =  $request->tanggal;
+        $berksadigital->jam =  $request->time;
+        $berksadigital->id_rawat =  $request->id_rawat;
+        $berksadigital->no_rm =  $request->no_rm;
+        $berksadigital->kategori =  $request->berkas_kategori;
+        $berksadigital->nama =  $fileName;
+        $berksadigital->save();
+    }
+
+        return redirect()->route('regis.berkas',['norm' => $request->no_rm])->with('success', 'Data has been uploaded successfully!'); // Change 'some.route.name' to the actual route
+
     }
 
 

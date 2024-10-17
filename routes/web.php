@@ -37,7 +37,6 @@ Route::get('/', [HomepagesController::class, 'index'])->name('default_dashboard'
 Route::get('/redirect-dashboard', [HomepagesController::class, 'redirectToDashboard'])->name('redirect.dashboard');
 
 Route::post('/update-app', [UpdateController::class, 'update'])->name('update.app');
-Route::post('/send-message', [WhatsAppController::class, 'sendMessage']);
 Route::get('/antrian', [AntrianController::class, 'index'])->name('antrian');
 
 Route::get('/getAccessToken', [SatusehatController::class, 'getAccessToken'])->name('getAccessToken');
@@ -361,9 +360,21 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('generate-no-reg-ranap', [RegisController::class, 'generateNoRegRanap'])->name('generateNoRegRanap');
     Route::get('/cari-no-rm', [RegisController::class, 'cariNoRM'])->name('cariNoRM');
 
-    Route::get('/regis/soap', [RegisController::class, 'soap'])->name('soap');
     Route::get('/regis/soap/{norm}', [RegisController::class, 'soap'])->name('soap');
+    Route::post('/regis/soap/add', [RegisController::class, 'soapadd'])->name('soap.add');
+    Route::post('/prosedur/store', [RegisController::class, 'storeProsedur'])->name('prosedur.store');
+    Route::delete('/prosedur/destroy', [RegisController::class, 'destroyProsedur'])->name('prosedur.destroy');
+    Route::post('/diagnosa/store', [RegisController::class, 'storeDiagnosa'])->name('diagnosa.store');
+    Route::delete('/diagnosa/destroy', [RegisController::class, 'destroyDiagnosa'])->name('diagnosa.destroy');
+    Route::delete('pemeriksaan/{id}', [RegisController::class, 'destroy'])->name('delete.route');
 
+    Route::get('/regis/layanan/{norm}', [RegisController::class, 'layanan'])->name('layanan');
+    Route::post('/regis/layanan/add', [RegisController::class, 'layananadd'])->name('layanan.add');
+    Route::get('/search-tindakan', [RegisController::class, 'searchTindakan'])->name('searchTindakan');
+    Route::delete('/layanan/{id}', [RegisController::class, 'layanandestroy'])->name('layanan.delete');
+
+    Route::get('/regis/berkas/{norm}', [RegisController::class, 'berkas'])->name('regis.berkas');
+    Route::post('/regis/berkas/add', [RegisController::class, 'berkasadd'])->name('regis.berkas.add');
 
     Route::get('/antrian/loket-1', [AntrianController::class, 'loket1'])->name('loket1');
 
@@ -392,6 +403,8 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
 
     Route::get('wagateway', [WagatweyController::class, 'index'])->name('wagateway');
+    Route::post('/save-license-key', [WagatweyController::class, 'saveLicenseKey']);
+
 
 
 });

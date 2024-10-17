@@ -28,7 +28,7 @@ class SumberdayamController extends Controller
         $data = $request->validate([
             "nama" => 'required|string|max:255',
             "Alamat" => 'required|string|max:255',
-            "telepon" => 'required|string|regex:/^\(\d{2}\) \d{3}-\d{3}-\d{4}$/',
+            "telepon" => 'required|string',
         ]);
 
         $datauser = $request->validate([
@@ -36,6 +36,7 @@ class SumberdayamController extends Controller
             "username" => 'required|string|max:255',
             "email" => 'required|string|max:255',
             "password" => 'required',
+            "telepon" => 'required|string',
         ]);
 
         $user = new User();
@@ -44,6 +45,7 @@ class SumberdayamController extends Controller
         $user->email = $datauser['email'];
         $user->password = Hash::make($datauser['password']); // Hash the password
         $user->profile = 'default.jpg';
+        $user->phone = $datauser['telepon'];
         $user->save();
         $user->assignRole('User');
 
@@ -54,7 +56,7 @@ class SumberdayamController extends Controller
         $sumberdaya->user_id = $user->id;
         $sumberdaya->save();
 
-        return redirect()->route('sdm')->with('success', 'dokter berhasi di tambahkan');
+        return redirect()->route('sdm')->with('Success', 'Data Perawat berhasi di tambahkan');
     }
 
     public function apoteker()

@@ -209,9 +209,11 @@
                                                 <div class="btn-group">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{ $data->no_rm }}</button>
                                                 <div class="dropdown-menu" role="menu">
-                                                  <a class="dropdown-item" href="{{ route('soap',['norm' => $data->no_rm ]) }}">Action</a>
-                                                  <a class="dropdown-item" href="#">Another action</a>
-                                                  <a class="dropdown-item" href="#">Something else here</a>
+                                                  <a class="dropdown-item" href="{{ route('soap',['norm' => $data->no_rm ]) }}">SOAP & Pemeriksaan    </a>
+                                                  <a class="dropdown-item" href="{{ route('layanan',['norm' => $data->no_rm ]) }}">Layanan & Tindakan</a>
+                                                  <a class="dropdown-item" href="{{ route('regis.berkas',['norm' => $data->no_rm ]) }}">Berkas Digital</a>
+                                                  <a class="dropdown-item" href="#" id="statusRawat">Status Rawat</a>
+                                                  <a class="dropdown-item" href="#" id="statusLanjut">Status Lanjut</a>
                                                   <div class="dropdown-divider"></div>
                                                   <a class="dropdown-item" href="#">Separated link</a>
                                                 </div>
@@ -228,6 +230,7 @@
                                             <td></td>
                                         </tr>
                                     @endforeach
+
                                 </tbody>
                             </table>
                         </div>
@@ -241,6 +244,85 @@
 </div>
 
 <!-- /.content-wrapper -->
+
+<div class="modal fade" id="statusRawatModal" tabindex="-1" role="dialog" aria-labelledby="statusRawatModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="statusRawatModalLabel">Status Rawat</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="statusForm">
+                    <div class="form-group">
+                        {{-- <label>Status Lanjut Pasien:</label><br> --}}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="berkasDikirim" value="Berkas Dikirim">
+                            <label class="form-check-label" for="berkasDikirim">Berkas Dikirim</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="berkasDiterima" value="Berkas Diterima">
+                            <label class="form-check-label" for="berkasDiterima">Berkas Diterima</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="belumPeriksa" value="Belum Periksa">
+                            <label class="form-check-label" for="belumPeriksa">Belum Periksa</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="sudahPeriksa" value="Sudah Periksa">
+                            <label class="form-check-label" for="sudahPeriksa">Sudah Periksa</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="batalPeriksa" value="Batal Periksa">
+                            <label class="form-check-label" for="batalPeriksa">Batal Periksa</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="pasienDirujuk" value="Pasien Dirujuk">
+                            <label class="form-check-label" for="pasienDirujuk">Pasien Dirujuk</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="meninggal" value="Meninggal">
+                            <label class="form-check-label" for="meninggal">Meninggal</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="dirawat" value="Dirawat">
+                            <label class="form-check-label" for="dirawat">Dirawat</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="pulangPaksak" value="Pulang Paksa">
+                            <label class="form-check-label" for="pulangPaksak">Pulang Paksa</label>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="okButton">Ok</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="statusLanjutModal" tabindex="-1" role="dialog" aria-labelledby="statusLanjutModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="statusLanjutModalLabel">Status Lanjut</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Apakah Pasien Ingin Dimasukkan Dalam Kamar Inap?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmButton">Ya</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <script>
         window.onload = function() {
@@ -409,6 +491,39 @@
             });
         });
     </script>
+
+    <script>
+        // Mendapatkan elemen
+        const statusRawatButtons = document.querySelectorAll('#statusRawat');
+
+        // Menambahkan event listener untuk setiap tombol Status Rawat
+        statusRawatButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault(); // Mencegah tautan default
+                $('#statusRawatModal').modal('show'); // Menampilkan modal
+            });
+        });
+
+        // Menangani aksi pada tombol konfirmasi
+        document.getElementById('okButton').addEventListener('click', function() {
+            $('#statusRawatModal').modal('hide'); // Menutup modal setelah konfirmasi
+        });
+    </script>
+
+        <script>
+            // Menambahkan event listener untuk tautan Status Lanjut
+            document.getElementById('statusLanjut').addEventListener('click', function(event) {
+                event.preventDefault(); // Mencegah tautan default
+                $('#statusLanjutModal').modal('show'); // Menampilkan modal
+            });
+
+            // Menangani aksi pada tombol konfirmasi
+            document.getElementById('confirmButton').addEventListener('click', function() {
+                alert("Pasien akan dimasukkan dalam kamar inap."); // Menampilkan alert
+                $('#statusLanjutModal').modal('hide'); // Menutup modal setelah konfirmasi
+                console.log("Pasien dimasukkan dalam kamar inap."); // Ganti dengan aksi yang sesuai
+            });
+        </script>
 
     <script>
         $(document).ready(function() {

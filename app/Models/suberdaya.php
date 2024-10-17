@@ -19,4 +19,9 @@ class suberdaya extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function layanan()
+    {
+        return $this->hasOne(rajal_layanan::class,'id','id_perawat');
+    }
 }
