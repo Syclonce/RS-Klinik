@@ -209,11 +209,11 @@
                                                 <div class="btn-group">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{ $data->no_rm }}</button>
                                                 <div class="dropdown-menu" role="menu">
-                                                  <a class="dropdown-item" href="{{ route('soap',['norm' => $data->no_rm ]) }}">SOAP & Pemeriksaan    </a>
-                                                  <a class="dropdown-item" href="{{ route('layanan',['norm' => $data->no_rm ]) }}">Layanan & Tindakan</a>
-                                                  <a class="dropdown-item" href="{{ route('regis.berkas',['norm' => $data->no_rm ]) }}">Berkas Digital</a>
-                                                  <a class="dropdown-item" href="#" id="statusRawat">Status Rawat</a>
-                                                  <a class="dropdown-item" href="#" id="statusLanjut">Status Lanjut</a>
+                                                    <a class="dropdown-item" href="{{ route('soap',['norm' => $data->no_rm ]) }}">SOAP & Pemeriksaan    </a>
+                                                    <a class="dropdown-item" href="{{ route('layanan',['norm' => $data->no_rm ]) }}">Layanan & Tindakan</a>
+                                                    <a class="dropdown-item" href="{{ route('regis.berkas',['norm' => $data->no_rm ]) }}">Berkas Digital</a>
+                                                    <a class="dropdown-item" href="#" id="statusRawat">Status Rawat</a>
+                                                    <a class="dropdown-item" href="#" id="statusLanjut">Status Lanjut</a>
                                                   <div class="dropdown-divider"></div>
                                                   <a class="dropdown-item" href="#">Separated link</a>
                                                 </div>
