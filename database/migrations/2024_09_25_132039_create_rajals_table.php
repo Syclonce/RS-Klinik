@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('tgl_lahir');
             $table->string('seks');
             $table->string('telepon');
+            $table->string('status');
             $table->timestamps();
         });
     }
