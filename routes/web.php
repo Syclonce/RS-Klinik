@@ -350,6 +350,7 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/regis/get-kode-dokter/{dokterId}', [RegisController::class, 'getKodeDokter'])->name('getregispoli');
 
     Route::get('/regis/rajal', [RegisController::class, 'rajal'])->name('regis.rajal');
+    Route::post('/regis/update-status', [RegisController::class, 'statusrajal'])->name('regis.update-status');
     Route::post('/regis/rajal/add', [RegisController::class, 'rajaladd'])->name('regis.rajal.add');
     Route::get('/search-pasien-rajal', [RegisController::class, 'searchPasienRajal'])->name('searchPasienRajal');
     Route::get('/generate-no-reg-rajal', [RegisController::class, 'generateNoRegRajal'])->name('generateNoRegRajal');

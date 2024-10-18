@@ -190,6 +190,21 @@ class RegisController extends Controller
 
     }
 
+    public function statusrajal(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:rajals,no_rm', // Adjust the table and column name as needed
+            'status' => 'required|string'
+        ]);
+        $patient = rajal::where('no_rm', $request->id)->first();
+        $patient->status = $request->status;
+        $patient->save();
+
+        return response()->json([
+            'message' => 'Data Rawat Jalan berhasil ditambahkan'
+        ]);
+    }
+
     public function rajaladd(Request $request)
     {
         $data = $request->validate([

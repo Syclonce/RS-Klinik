@@ -199,6 +199,7 @@
                                         <th>Penjamin</th>
                                         <th>No. Asuransi</th>
                                         <th>Tgl. Kunjungan</th>
+                                        <th>status</th>
                                         <th width="10%">Pilihan</th>
                                     </tr>
                                 </thead>
@@ -212,7 +213,7 @@
                                                     <a class="dropdown-item" href="{{ route('soap',['norm' => $data->no_rm ]) }}">SOAP & Pemeriksaan    </a>
                                                     <a class="dropdown-item" href="{{ route('layanan',['norm' => $data->no_rm ]) }}">Layanan & Tindakan</a>
                                                     <a class="dropdown-item" href="{{ route('regis.berkas',['norm' => $data->no_rm ]) }}">Berkas Digital</a>
-                                                    <a class="dropdown-item" href="#" id="statusRawat">Status Rawat</a>
+                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#statusRawatModal" data-status="{{ $data->status }}" data-id="{{ $data->no_rm }}">Status Rawat</a>
                                                     <a class="dropdown-item" href="#" id="statusLanjut">Status Lanjut</a>
                                                   <div class="dropdown-divider"></div>
                                                   <a class="dropdown-item" href="#">Separated link</a>
@@ -227,6 +228,7 @@
                                             <td>{{ $data->penjab->pj }}</td>
                                             <td>{{ $data->pasien->no_bpjs }}</td>
                                             <td>{{ $data->tgl_kunjungan }}</td>
+                                            <td>{{ $data->status }}</td>
                                             <td></td>
                                         </tr>
                                     @endforeach
@@ -256,8 +258,8 @@
             </div>
             <div class="modal-body">
                 <form id="statusForm">
+                    <input type="hidden" name="no_rm" id="no_rm">
                     <div class="form-group">
-                        {{-- <label>Status Lanjut Pasien:</label><br> --}}
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="status" id="berkasDikirim" value="Berkas Dikirim">
                             <label class="form-check-label" for="berkasDikirim">Berkas Dikirim</label>
@@ -323,6 +325,70 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      $('#statusRawatModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var status = button.data('status'); // Extract info from data-* attributes
+        var id = button.data('id');
+
+        // Update the modal's content.
+        var modal = $(this);
+        modal.find('.modal-body #no_rm').val(id);
+
+        // Set the radio button based on the status
+        modal.find('.modal-body input[name="status"]').each(function () {
+          if ($(this).val() === status) {
+            $(this).prop('checked', true);
+          } else {
+            $(this).prop('checked', false);
+          }
+        });
+      });
+
+      // Handle the Ok button click event
+      $('#okButton').on('click', function () {
+        var modal = $('#statusRawatModal');
+        var id = modal.find('.modal-body #no_rm').val();
+        var status = modal.find('.modal-body input[name="status"]:checked').val();
+
+            // Hide the modal immediately
+        modal.modal('hide');
+        // Send AJAX request to update the status
+        $.ajax({
+          url: '/regis/update-status', // Replace with your actual update URL
+          method: 'POST',
+          data: {
+            _token: '{{ csrf_token() }}', // Include CSRF token
+            id: id,
+            status: status
+          },
+          success: function (response) {
+            // Handle success response using SweetAlert
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 10000,
+            timerProgressBar: true
+            });
+
+            Toast.fire({
+              title: response.message,
+              icon: 'success',
+            });
+            location.reload(); // Reload the page to reflect changes
+
+          },
+          error: function (xhr, status, error) {
+            // Handle error response
+            alert('Failed to update status. Please try again.');
+          }
+        });
+      });
+    });
+</script>
 
     <script>
         window.onload = function() {
@@ -492,23 +558,6 @@
         });
     </script>
 
-    <script>
-        // Mendapatkan elemen
-        const statusRawatButtons = document.querySelectorAll('#statusRawat');
-
-        // Menambahkan event listener untuk setiap tombol Status Rawat
-        statusRawatButtons.forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.preventDefault(); // Mencegah tautan default
-                $('#statusRawatModal').modal('show'); // Menampilkan modal
-            });
-        });
-
-        // Menangani aksi pada tombol konfirmasi
-        document.getElementById('okButton').addEventListener('click', function() {
-            $('#statusRawatModal').modal('hide'); // Menutup modal setelah konfirmasi
-        });
-    </script>
 
         <script>
             // Menambahkan event listener untuk tautan Status Lanjut
