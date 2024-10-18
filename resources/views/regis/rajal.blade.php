@@ -167,13 +167,16 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="card-footer d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fa fa-floppy-disk"></i> Simpan
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- Submit Button -->
-                            <div class="col-12 d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary btn-block" style="max-width: 500px;">Kirim ke Radiologi</button>
-                            </div>
+
                         </form>
                         <!-- End Form -->
                     </div>
@@ -182,7 +185,7 @@
                 <div class="mt-3 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="mb-0 card-title">Pasien - Radiologi</h3>
+                            <h3 class="mb-0 card-title">Pasien - Rawat Jalan</h3>
                         </div>
 
                         <!-- /.card-header -->
@@ -199,7 +202,7 @@
                                         <th>Penjamin</th>
                                         <th>No. Asuransi</th>
                                         <th>Tgl. Kunjungan</th>
-                                        <th>status</th>
+                                        <th>Status</th>
                                         <th width="10%">Pilihan</th>
                                     </tr>
                                 </thead>
@@ -214,7 +217,7 @@
                                                     <a class="dropdown-item" href="{{ route('layanan',['norm' => $data->no_rm ]) }}">Layanan & Tindakan</a>
                                                     <a class="dropdown-item" href="{{ route('regis.berkas',['norm' => $data->no_rm ]) }}">Berkas Digital</a>
                                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#statusRawatModal" data-status="{{ $data->status }}" data-id="{{ $data->no_rm }}">Status Rawat</a>
-                                                    <a class="dropdown-item" href="#" id="statusLanjut">Status Lanjut</a>
+                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#statusLanjutModal" id="statusLanjut" data-no_rm="{{ $data->no_rm }}" data-nama="{{$data->data-nama}}" data-poli_id="{{$data->data-poli_id}}" data-doctor_id="{{$data->data-doctor_id}}" data-penjab_id="{{$data->data-penjab_id}}" data-pasien-alamat="{{$data->data-pasien-alamat}}" data-telepon="{{$data->data-telepon}}">Status Lanjut</a>
                                                   <div class="dropdown-divider"></div>
                                                   <a class="dropdown-item" href="#">Separated link</a>
                                                 </div>
@@ -229,7 +232,13 @@
                                             <td>{{ $data->pasien->no_bpjs }}</td>
                                             <td>{{ $data->tgl_kunjungan }}</td>
                                             <td>{{ $data->status }}</td>
-                                            <td></td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <form action="{{ route('rajal.delete', $data->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
 
@@ -305,26 +314,211 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="statusLanjutModal" tabindex="-1" role="dialog" aria-labelledby="statusLanjutModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="statusLanjutModalLabel">Status Lanjut</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Apakah Pasien Ingin Dimasukkan Dalam Kamar Inap?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="confirmButton">Ya</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+    <!-- Modal content -->
+    <div class="modal fade" id="statusLanjutModal" tabindex="-1" role="dialog" aria-labelledby="statusLanjutModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- Modal header -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="statusLanjutModalLabel">Status Lanjut</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <!-- Step 1 -->
+                    <div class="step active" id="step1">
+                        <p>Apakah Pasien Ingin Dimasukkan Dalam Kamar Inap?</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="step" id="step2">
+                    <form id="statusLanjutForm">
+                    @csrf
+                        <input type="hidden" name="data-no_rm" id="data-no_rm">
+                        <input type="hidden" name="data-nama" id="data-nama">
+                        <input type="hidden" name="data-poli_id" id="data-poli_id">
+                        <input type="hidden" name="data-doctor_id" id="data-doctor_id">
+                        <input type="hidden" name="data-penjab_id" id="data-penjab_id">
+                        <input type="hidden" name="data-pasien-alamat" id="data-pasien-alamat">
+                        <input type="hidden" name="data-telepon" id="data-telepon">
+                        <!-- Form fields -->
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label for="tanggal_rawat">Tanggal Rawat</label>
+                                <div class="input-group date" id="tanggal_rawat" data-target-input="nearest">
+                                    <input type="text" id="tanggal_rawat" name="tanggal_rawat" class="form-control datetimepicker-input" data-target="#tanggal_rawat" />
+                                    <div class="input-group-append" data-target="#tanggal_rawat" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- More form fields -->
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="r_perawatan">Ruangan</label>
+                                <select id="r_perawatan" name="r_perawatan" class="form-control">
+                                    <option value="">-- Pilih --</option>
+                                    @foreach ($bangsal as $bangsal)
+                                        <option value="{{ $bangsal->id }}">{{ $bangsal->nama_bangsal }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="dokter_dpjb">Dokter DPJB</label>
+                                <select id="dokter_dpjb" name="dokter_dpjb" class="form-control">
+                                    <option value="">-- Pilih --</option>
+                                    @foreach ($dokter as $dokterItem)
+                                        <option value="{{ $dokterItem->id }}">{{ $dokterItem->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <!-- More form fields -->
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label for="hub_pasien">Hub Dengan Pasien</label>
+                                <select id="hub_pasien" name="hub_pasien" class="form-control">
+                                    <option value="">--- Pilih ---</option>
+                                    <option value="kepala_keluarga">Kepala Keluarga</option>
+                                    <option value="suami">Suami</option>
+                                    <option value="istri">Istri</option>
+                                    <option value="anak">Anak</option>
+                                    <option value="menantu">Menantu</option>
+                                    <option value="cucu">Cucu</option>
+                                    <option value="orang_tua">Orang Tua</option>
+                                    <option value="mertua">Mertua</option>
+                                    <option value="keluarga_lain">Keluarga Lain</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="nama_keluarga">Nama Keluarga</label>
+                                <input type="text" class="form-control" id="nama_keluarga" name="nama_keluarga">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="alamat_penjamin">Alamat</label>
+                                <input type="text" class="form-control" id="alamat_penjamin" name="alamat_penjamin">
+                            </div>
+                            <div class="col-md-5">
+                                <label for="jenis_kartu">Jenis Kartu</label>
+                                <select id="jenis_kartu" name="jenis_kartu" class="form-control">
+                                    <option value="">--- Pilih Jenis Kartu ---</option>
+                                    <option value="ktp">Kartu Tanda Penduduk (KTP)</option>
+                                    <option value="kartu_pelajar">Kartu Pelajar</option>
+                                    <option value="passport">Passport</option>
+                                    <option value="kitas">Kartu Izin Tinggal Sementara (KITAS)</option>
+                                    <option value="kitt">Kartu Izin Tinggal Tetap</option>
+                                    <option value="ktp_wna">KTP WNA</option>
+                                </select>
+                            </div>
+                            <div class="col-md-7 d-flex align-items-end">
+                                <input type="text" class="form-control" id="no_kartu" name="no_kartu" placeholder="No. Kartu">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="prevButton" style="display: none;">Previous</button>
+                    <button type="button" class="btn btn-primary" id="nextButton">Next</button>
+                    <button type="button" class="btn btn-primary" id="clearButton">Clear</button>
+                    <button type="submit" class="btn btn-success">Finish</button>
+                </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
+
+<script>
+    $(document).ready(function() {
+        $('#statusLanjutModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var allData = button.data('no_rm');
+            var status = button.data('nama'); // Extract info from data-* attributes
+            var status = button.data('poli_id'); // Extract info from data-* attributes
+            var status = button.data('penjabid'); // Extract info from data-* attributes
+
+
+            $('#data-no_rm').val(parsedData.no_rm);
+            $('#data-nama').val(parsedData.pasien.nama);
+            $('#data-poli_id').val(parsedData.poli_id);
+            $('#data-doctor_id').val(parsedData.doctor_id);
+            $('#data-penjab_id').val(parsedData.penjab_id);
+            $('#data-pasien-alamat').val(parsedData.pasien.Alamat);
+            $('#data-telepon').val(parsedData.telepon);
+
+            $('#clearButton').on('click', function() {
+                $('#statusLanjutModal input[type="text"]').val('');
+                $('#statusLanjutModal select').prop('selectedIndex', 0);
+                $('#statusLanjutModal input[type="datetime"]').val('');
+            });
+        });
+    });
+</script>
+
+<script>
+    var currentStep = 1;
+    var totalSteps = $('.step').length;
+
+    function showStep(step) {
+        $('.step').hide();
+        $('#step' + step).show();
+
+        if (step === 1) {
+            $('#prevButton').hide();
+            $('#nextButton').show();
+            $('#clearButton').hide();
+            $('#finishButton').hide();
+        } else if (step === totalSteps) {
+            $('#prevButton').show();
+            $('#nextButton').hide();
+            $('#clearButton').hide();
+            $('#finishButton').show();
+        } else {
+            $('#prevButton').show();
+            $('#nextButton').show();
+            $('#clearButton').show();
+            $('#finishButton').hide();
+        }
+    }
+
+    $('#nextButton').click(function() {
+        if (currentStep < totalSteps) {
+            currentStep++;
+            showStep(currentStep);
+        }
+    });
+
+    $('#prevButton').click(function() {
+        if (currentStep > 1) {
+            currentStep--;
+            showStep(currentStep);
+        }
+    });
+
+    showStep(currentStep);
+
+    $('#finishButton').click(function() {
+            var formData = $('#statusLanjutForm').serialize();
+
+            $.ajax({
+                url: '/regis/status-lanjut',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    // Handle success response
+                    console.log(response);
+                    // Optionally close the modal
+                    $('#statusLanjutModal').modal('hide');
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response
+                    console.error(error);
+                }
+            });
+        });
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -557,22 +751,6 @@
             });
         });
     </script>
-
-
-        <script>
-            // Menambahkan event listener untuk tautan Status Lanjut
-            document.getElementById('statusLanjut').addEventListener('click', function(event) {
-                event.preventDefault(); // Mencegah tautan default
-                $('#statusLanjutModal').modal('show'); // Menampilkan modal
-            });
-
-            // Menangani aksi pada tombol konfirmasi
-            document.getElementById('confirmButton').addEventListener('click', function() {
-                alert("Pasien akan dimasukkan dalam kamar inap."); // Menampilkan alert
-                $('#statusLanjutModal').modal('hide'); // Menutup modal setelah konfirmasi
-                console.log("Pasien dimasukkan dalam kamar inap."); // Ganti dengan aksi yang sesuai
-            });
-        </script>
 
     <script>
         $(document).ready(function() {

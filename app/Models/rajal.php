@@ -22,6 +22,7 @@ class rajal extends Model
         'tgl_lahir',
         'seks',
         'telepon',
+        'status',
     ];
 
     public function doctor()

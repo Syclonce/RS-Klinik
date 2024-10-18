@@ -12,7 +12,7 @@
                 <div class="row">
                     <form action="{{ route('regis.ranap.add') }}" method="POST" class="row w-100">
                         @csrf
-                    <div class="col-12 mt-3">
+                    <div class="mt-3 col-12">
                         <div class="row">
                             <!-- Ruangan Tujuan -->
                             <div class="col-md-12" id="kecelakan-col" style="display: none;">
@@ -65,7 +65,6 @@
                                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -219,7 +218,7 @@
 
                                     <!-- Buttons Section -->
                                     <div class="card-footer d-flex justify-content-end">
-                                        <button type="button" class="btn btn-light mr-2" style="background-color: #17a2b8; color: white;">
+                                        <button type="button" class="mr-2 btn btn-light" style="background-color: #17a2b8; color: white;">
                                             <i class="fa fa-trash-can" style="color: white;"></i> Cancel
                                         </button>
                                         <button type="submit" class="btn" style="background-color: #ff851b; color: white;">
@@ -235,7 +234,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title mb-0">Pasien</h3>
+                                <h3 class="mb-0 card-title">Pasien</h3>
                             </div>
 
                             <!-- /.card-header -->

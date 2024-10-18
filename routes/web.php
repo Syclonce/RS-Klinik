@@ -351,10 +351,12 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/regis/rajal', [RegisController::class, 'rajal'])->name('regis.rajal');
     Route::post('/regis/update-status', [RegisController::class, 'statusrajal'])->name('regis.update-status');
+    Route::post('/regis/status-lanjut', [RegisController::class, 'statuslanjut'])->name('regis.status-lanjut');
     Route::post('/regis/rajal/add', [RegisController::class, 'rajaladd'])->name('regis.rajal.add');
     Route::get('/search-pasien-rajal', [RegisController::class, 'searchPasienRajal'])->name('searchPasienRajal');
     Route::get('/generate-no-reg-rajal', [RegisController::class, 'generateNoRegRajal'])->name('generateNoRegRajal');
     Route::get('/generate-no-rawat-rajal', [RegisController::class, 'generateNoRawatRajal'])->name('generateNoRawatRajal');
+    Route::delete('/rajal/{id}', [RegisController::class, 'rajaldestroy'])->name('rajal.delete');
 
     Route::get('/regis/ranap', [RegisController::class, 'ranap'])->name('regis.ranap');
     Route::post('/regis/ranap/add', [RegisController::class, 'ranapadd'])->name('regis.ranap.add');
