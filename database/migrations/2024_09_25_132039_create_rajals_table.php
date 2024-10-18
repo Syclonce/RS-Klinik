@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('seks');
             $table->string('telepon');
             $table->string('status');
+            $table->string('status_lanjut');
             $table->timestamps();
         });
     }

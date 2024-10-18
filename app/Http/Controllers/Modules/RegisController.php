@@ -208,43 +208,74 @@ class RegisController extends Controller
 
     public function statuslanjut(Request $request)
     {
-        $data = $request->validate([
-            "data-no_rm" => 'required',
-            "data-nama" => 'required',
-            "data-poli_id" => 'required',
-            "data-doctor_id" => 'required',
-            "data-penjab_id" => 'required',
-            "data-pasien-alamat" => 'required',
-            "data-telepon" => 'required',
-            "tanggal_rawat" => 'required',
-            "r_perawatan" => 'required',
-            "dokter_dpjb" => 'required',
-            "hub_pasien" => 'required',
-            "nama_keluarga" => 'required',
-            "alamat_penjamin" => 'required',
-            "jenis_kartu" => 'required',
-            "no_kartu" => 'required',
+        $request->validate([
+            'no_rm' => 'required|string',
+            'nama' => 'required|string',
+            'poliid' => 'required|string',
+            'doctorid' => 'required|string',
+            'penjabid' => 'required|string',
+            'alamat' => 'required|string',
+            'telepon' => 'required|string',
+            'tanggal_rawat' => 'required|date',
+            'r_perawatan' => 'required|string',
+            'dokter_dpjb' => 'required|string',
+            'hub_pasien' => 'required|string',
+            'nama_keluarga' => 'required|string',
+            'alamat_penjamin' => 'required|string',
+            'jenis_kartu' => 'required|string',
+            'no_kartu' => 'required|string',
         ]);
 
-        $lanjut = new ranap();
-        $lanjut->pasien_id = $data['data-no_rm'];
-        $lanjut->nama_pasien = $data['data-nama'];
-        $lanjut->poli_id = $data['data-poli_id'];
-        $lanjut->dokter_pengirim = $data['data-doctor_id'];
-        $lanjut->penjab_id = $data['data-penjab_id'];
-        $lanjut->alamat = $data['data-pasien-alamat'];
-        $lanjut->telepon = $data['data-telepon'];
-        $lanjut->tanggal_rawat = $data['tanggal_rawat'];
-        $lanjut->bangsal_id = $data['r_perawatan'];
-        $lanjut->doctor_id = $data['dokter_dpjb'];
-        $lanjut->hub_pasien = $data['hub_pasien'];
-        $lanjut->nama_keluarga = $data['nama_keluarga'];
-        $lanjut->alamat_keluarga = $data['alamat_penjamin'];
-        $lanjut->jenis_kartu = $data['jenis_kartu'];
-        $lanjut->no_kartu = $data['no_kartu'];
-        $lanjut->save();
+        $ranap = ranap::where('pasien_id', $request->no_rm)->first();
+        $tanggalRawat = $ranap->tanggal_rawat;
 
-        return redirect()->route('regis.rajal')->with('Success', 'Data berhasi di tambahkan');
+        $formattedDate = Carbon::createFromFormat('m/d/Y h:i A', $tanggalRawat)->format('Y-m-d');
+        $tanggalRawatDate = Carbon::parse($request->tanggal_rawat)->format('Y-m-d');
+
+
+        if ($formattedDate === $tanggalRawatDate ) {
+            return response()->json(['message' => 'Pasien sudah terdaftar untuk rawat inap pada tanggal ini.'], 400);
+        }
+
+        $today = date('Y-m-d');
+        $lastRecord = ranap::whereDate('created_at', $today)
+                        ->orderBy('no_reg', 'desc')
+                        ->first();
+
+        if (!$lastRecord) {
+            $newNoReg = '001';
+        } else {
+            $lastNoReg = intval($lastRecord->no_reg);
+            $newNoReg = str_pad($lastNoReg + 1, 3, '0', STR_PAD_LEFT);
+        }
+
+
+        ranap::create([
+            'pasien_id' => $request->no_rm,
+            'nama_pasien' => $request->nama,
+            'poli_id' => $request->poliid,
+            'dokter_pengirim' => $request->doctorid,
+            'penjab_id' => $request->penjabid,
+            'alamat' => $request->alamat,
+            'telepon' => $request->telepon,
+            'tanggal_rawat' => $request->tanggal_rawat,
+            'bangsal_id' => $request->r_perawatan,
+            'doctor_id' => $request->dokter_dpjb,
+            'hub_pasien' => $request->hub_pasien,
+            'nama_keluarga' => $request->nama_keluarga,
+            'alamat_keluarga' => $request->alamat_penjamin,
+            'jenis_kartu' => $request->jenis_kartu,
+            'no_kartu' => $request->no_kartu,
+            'asal_rujukan' => 'Rawat Inap',
+            'no_reg' => $newNoReg,
+        ]);
+
+        $patient = rajal::where('no_rm', $request->no_rm)->first();
+        $patient->status_lanjut = "Rawat Inap";
+        $patient->save();
+
+        return response()->json(['message' => $request->nama .' Berhasil di Pindahkan ke Rawat Inap']);
+
     }
 
     public function rajaladd(Request $request)
@@ -278,6 +309,7 @@ class RegisController extends Controller
         $rad->seks = $data['seks'];
         $rad->telepon = $data['telepon'];
         $rad->status = 'Belum Periksa';
+        $rad->status_lanjut = 'Rawat Jalan';
         $rad->save();
 
         return redirect()->route('regis.rajal')->with('Success', 'Data Rawat Jalan berhasi di tambahkan');

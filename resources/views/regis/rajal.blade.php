@@ -203,6 +203,7 @@
                                         <th>No. Asuransi</th>
                                         <th>Tgl. Kunjungan</th>
                                         <th>Status</th>
+                                        <th>Status Lanjutan</th>
                                         <th width="10%">Pilihan</th>
                                     </tr>
                                 </thead>
@@ -217,7 +218,14 @@
                                                     <a class="dropdown-item" href="{{ route('layanan',['norm' => $data->no_rm ]) }}">Layanan & Tindakan</a>
                                                     <a class="dropdown-item" href="{{ route('regis.berkas',['norm' => $data->no_rm ]) }}">Berkas Digital</a>
                                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#statusRawatModal" data-status="{{ $data->status }}" data-id="{{ $data->no_rm }}">Status Rawat</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#statusLanjutModal" id="statusLanjut" data-no_rm="{{ $data->no_rm }}" data-nama="{{$data->data-nama}}" data-poli_id="{{$data->data-poli_id}}" data-doctor_id="{{$data->data-doctor_id}}" data-penjab_id="{{$data->data-penjab_id}}" data-pasien-alamat="{{$data->data-pasien-alamat}}" data-telepon="{{$data->data-telepon}}">Status Lanjut</a>
+                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#statusLanjutModal"
+                                                        data-norm="{{ $data->no_rm }}"
+                                                        data-nama="{{$data->nama_pasien}}"
+                                                        data-poliid="{{$data->poli_id}}"
+                                                        data-doctorid="{{$data->doctor_id}}"
+                                                        data-penjabid="{{$data->penjab_id}}"
+                                                        data-alamat="{{$data->pasien->Alamat}}"
+                                                        data-telepon="{{$data->telepon}}">Status Lanjut</a>
                                                   <div class="dropdown-divider"></div>
                                                   <a class="dropdown-item" href="#">Separated link</a>
                                                 </div>
@@ -232,6 +240,7 @@
                                             <td>{{ $data->pasien->no_bpjs }}</td>
                                             <td>{{ $data->tgl_kunjungan }}</td>
                                             <td>{{ $data->status }}</td>
+                                            <td>{{ $data->status_lanjut }}</td>
                                             <td style="text-align: center; vertical-align: middle;">
                                                 <form action="{{ route('rajal.delete', $data->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
                                                     @csrf
@@ -241,7 +250,6 @@
                                             </td>
                                         </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
                         </div>
@@ -314,47 +322,41 @@
         </div>
     </div>
 </div>
-    <!-- Modal content -->
-    <div class="modal fade" id="statusLanjutModal" tabindex="-1" role="dialog" aria-labelledby="statusLanjutModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <!-- Modal header -->
-                <div class="modal-header">
-                    <h5 class="modal-title" id="statusLanjutModalLabel">Status Lanjut</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+<div class="modal fade" id="statusLanjutModal" tabindex="-1" role="dialog" aria-labelledby="statusLanjutModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="statusLanjutModalLabel">Status Lanjut</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="step active" id="step1">
+                    <p>Apakah Pasien Ingin Dimasukkan Dalam Kamar Inap?</p>
                 </div>
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <!-- Step 1 -->
-                    <div class="step active" id="step1">
-                        <p>Apakah Pasien Ingin Dimasukkan Dalam Kamar Inap?</p>
-                    </div>
-                    <!-- Step 2 -->
-                    <div class="step" id="step2">
+                <div class="step" id="step2">
                     <form id="statusLanjutForm">
-                    @csrf
-                        <input type="hidden" name="data-no_rm" id="data-no_rm">
-                        <input type="hidden" name="data-nama" id="data-nama">
-                        <input type="hidden" name="data-poli_id" id="data-poli_id">
-                        <input type="hidden" name="data-doctor_id" id="data-doctor_id">
-                        <input type="hidden" name="data-penjab_id" id="data-penjab_id">
-                        <input type="hidden" name="data-pasien-alamat" id="data-pasien-alamat">
-                        <input type="hidden" name="data-telepon" id="data-telepon">
-                        <!-- Form fields -->
+                        @csrf <!-- CSRF token -->
+                            <input type="hidden"" class="form-control" id="statno_rm" name="statno_rm" readonly>
+                            <input type="hidden"" class="form-control" id="stanama" name="stanama" readonly>
+                            <input type="hidden"" class="form-control" id="poliid" name="poliid" readonly>
+                            <input type="hidden"" class="form-control" id="doctorid" name="doctorid" readonly>
+                            <input type="hidden"" class="form-control" id="penjabid" name="penjabid" readonly>
+                            <input type="hidden"" class="form-control" id="alamat" name="alamat" readonly>
+                            <input type="hidden"" class="form-control" id="statelepon" name="statelepon" readonly>
+
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label for="tanggal_rawat">Tanggal Rawat</label>
                                 <div class="input-group date" id="tanggal_rawat" data-target-input="nearest">
-                                    <input type="text" id="tanggal_rawat" name="tanggal_rawat" class="form-control datetimepicker-input" data-target="#tanggal_rawat" />
+                                    <input type="text" id="tanggal_rawat" name="tanggal_rawat" class="form-control datetimepicker-input" data-target="#tanggal_rawat">
                                     <div class="input-group-append" data-target="#tanggal_rawat" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- More form fields -->
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <label for="r_perawatan">Ruangan</label>
@@ -375,7 +377,6 @@
                                 </select>
                             </div>
                         </div>
-                        <!-- More form fields -->
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label for="hub_pasien">Hub Dengan Pasien</label>
@@ -416,109 +417,163 @@
                                 <input type="text" class="form-control" id="no_kartu" name="no_kartu" placeholder="No. Kartu">
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="prevButton" style="display: none;">Previous</button>
-                    <button type="button" class="btn btn-primary" id="nextButton">Next</button>
-                    <button type="button" class="btn btn-primary" id="clearButton">Clear</button>
-                    <button type="submit" class="btn btn-success">Finish</button>
-                </div>
-                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" id="prevButton">Previous</button>
+                <button type="button" class="btn btn-primary" id="nextButton">Next</button>
+                <button type="button" class="btn btn-primary" id="clearButton">Clear</button>
+                <button type="button" class="btn btn-primary" id="saveButton">Save</button>
             </div>
         </div>
     </div>
+</div>
 
 <script>
     $(document).ready(function() {
-        $('#statusLanjutModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var allData = button.data('no_rm');
-            var status = button.data('nama'); // Extract info from data-* attributes
-            var status = button.data('poli_id'); // Extract info from data-* attributes
-            var status = button.data('penjabid'); // Extract info from data-* attributes
-
-
-            $('#data-no_rm').val(parsedData.no_rm);
-            $('#data-nama').val(parsedData.pasien.nama);
-            $('#data-poli_id').val(parsedData.poli_id);
-            $('#data-doctor_id').val(parsedData.doctor_id);
-            $('#data-penjab_id').val(parsedData.penjab_id);
-            $('#data-pasien-alamat').val(parsedData.pasien.Alamat);
-            $('#data-telepon').val(parsedData.telepon);
-
-            $('#clearButton').on('click', function() {
-                $('#statusLanjutModal input[type="text"]').val('');
-                $('#statusLanjutModal select').prop('selectedIndex', 0);
-                $('#statusLanjutModal input[type="datetime"]').val('');
-            });
+        // Set up the CSRF token in the headers
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
-    });
-</script>
 
-<script>
-    var currentStep = 1;
-    var totalSteps = $('.step').length;
+        $('#statusLanjutModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var no_rm = button.data('norm'); // Extract info from data-* attributes
+            var nama = button.data('nama'); // Extract info from data-* attributes
+            var poliid = button.data('poliid'); // Extract info from data-* attributes
+            var doctorid = button.data('doctorid'); // Extract info from data-* attributes
+            var penjabid = button.data('penjabid'); // Extract info from data-* attributes
+            var alamat = button.data('alamat'); // Extract info from data-* attributes
+            var telepon = button.data('telepon'); // Extract info from data-* attributes
 
-    function showStep(step) {
-        $('.step').hide();
-        $('#step' + step).show();
+            // Update the modal's content.
+            var modal = $(this);
+            modal.find('.modal-body #statno_rm').val(no_rm);
+            modal.find('.modal-body #stanama').val(nama);
+            modal.find('.modal-body #poliid').val(poliid);
+            modal.find('.modal-body #doctorid').val(doctorid);
+            modal.find('.modal-body #penjabid').val(penjabid);
+            modal.find('.modal-body #alamat').val(alamat);
+            modal.find('.modal-body #statelepon').val(telepon);
+        });
 
-        if (step === 1) {
-            $('#prevButton').hide();
-            $('#nextButton').show();
-            $('#clearButton').hide();
-            $('#finishButton').hide();
-        } else if (step === totalSteps) {
-            $('#prevButton').show();
-            $('#nextButton').hide();
-            $('#clearButton').hide();
-            $('#finishButton').show();
-        } else {
-            $('#prevButton').show();
-            $('#nextButton').show();
-            $('#clearButton').show();
-            $('#finishButton').hide();
+        var currentStep = 1;
+        var totalSteps = $('.step').length;
+
+        function showStep(step) {
+            $('.step').hide();
+            $('#step' + step).show();
+
+            if (step === 1) {
+                $('#prevButton').hide();
+                $('#nextButton').show();
+                $('#clearButton').hide();
+                $('#saveButton').hide();
+            } else if (step === totalSteps) {
+                $('#prevButton').show();
+                $('#nextButton').hide();
+                $('#clearButton').hide();
+                $('#saveButton').show();
+            } else {
+                $('#prevButton').show();
+                $('#nextButton').show();
+                $('#clearButton').show();
+                $('#saveButton').hide();
+            }
         }
-    }
 
-    $('#nextButton').click(function() {
-        if (currentStep < totalSteps) {
-            currentStep++;
-            showStep(currentStep);
-        }
-    });
+        $('#nextButton').click(function() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
 
-    $('#prevButton').click(function() {
-        if (currentStep > 1) {
-            currentStep--;
-            showStep(currentStep);
-        }
-    });
+        $('#prevButton').click(function() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
 
-    showStep(currentStep);
+        showStep(currentStep);
 
-    $('#finishButton').click(function() {
-            var formData = $('#statusLanjutForm').serialize();
+        // Tambahan: Reset form dan kembali ke langkah pertama
+        $('#clearButton').click(function() {
+            $('#statusLanjutForm')[0].reset(); // Reset form
+            currentStep = 1; // Reset ke langkah pertama
+            showStep(currentStep); // Tampilkan langkah pertama
+        });
+
+        $('#saveButton').on('click', function() {
+            var modal = $('#statusLanjutModal');
+            var formData = {
+                _token: '{{ csrf_token() }}', // Include CSRF token
+                no_rm: $('#statno_rm').val(),
+                nama: $('#stanama').val(),
+                poliid: $('#poliid').val(),
+                doctorid: $('#doctorid').val(),
+                penjabid: $('#penjabid').val(),
+                alamat: $('#alamat').val(),
+                telepon: $('#statelepon').val(),
+                tanggal_rawat: $('#tanggal_rawat').find('input').val(), // Get value from datetimepicker input
+                r_perawatan: $('#r_perawatan').val(),
+                dokter_dpjb: $('#dokter_dpjb').val(),
+                hub_pasien: $('#hub_pasien').val(),
+                nama_keluarga: $('#nama_keluarga').val(),
+                alamat_penjamin: $('#alamat_penjamin').val(),
+                jenis_kartu: $('#jenis_kartu').val(),
+                no_kartu: $('#no_kartu').val()
+            };
+
+            modal.modal('hide');
 
             $.ajax({
-                url: '/regis/status-lanjut',
-                type: 'POST',
-                data: formData,
+                url: '/regis/status-lanjut', // URL endpoint for saving data
+                method: 'POST',
+                data: $.param(formData), // Convert array to URL-encoded string
                 success: function(response) {
-                    // Handle success response
-                    console.log(response);
-                    // Optionally close the modal
-                    $('#statusLanjutModal').modal('hide');
+
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 10000,
+                        timerProgressBar: true
+                    });
+
+                    Toast.fire({
+                        title: response.message,
+                        icon: 'success',
+                    });
+                    location.reload(); // Reload the page to reflect changes
+
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     // Handle error response
-                    console.error(error);
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 10000,
+                        timerProgressBar: true
+                    });
+
+                    Toast.fire({
+                        title: 'Gagal menyimpan data. Silakan coba lagi. isi semua data',
+                        icon: 'error',
+                    });
                 }
             });
         });
+    });
 </script>
+
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

@@ -22,6 +22,7 @@ class rajal extends Model
         'tgl_lahir',
         'seks',
         'telepon',
+        'Rawat Inap',
         'status',
     ];
 
