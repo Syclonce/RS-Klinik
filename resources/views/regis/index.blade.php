@@ -14,58 +14,13 @@
                         @csrf
                     <div class="col-12 mt-3">
                         <div class="row">
-                            <div class="col-md-12" id="kecelakaan-col" style="display: none;">
-                                <div class="card" id="kecelakaan-card" style="display: none;">
-                                    <div class="card-header" id="kecelakan-header" style="display: none;">
-                                        <h5><i class="fa fa-user"></i> Pasien Kecelakan</h5>
-                                    </div>
-                                    <div class="card-body" id="kecelakan-section" style="display: none;">
-                                        <div class="form-group row">
-                                            <div class="col-md-6">
-                                                <label for="jeskec">Jenis Kecelakaan</label>
-                                                <select id="jeskec" name="jeskec" class="form-control">
-                                                    <option value="">--- Pilih Jenis Kecelakaan ---</option>
-                                                    <option value="BKLL">Bukan Kecelakaan Lalu Lintas (BKLL)</option>
-                                                    <option value="KLL">KLL dan Bukan Kecelakaan Kerja (BKK)</option>
-                                                    <option value="KLL_KK">KLL dan KK</option>
-                                                    <option value="KK">KK</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="nopol">No Pol</label>
-                                                <input type="text" class="form-control" id="nopol" name="nopol">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-6">
-                                                <label for="tglkej">Tanggal Kejadian</label>
-                                                <input type="date" class="form-control" id="tglkej" name="tglkej">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="penjamin_kec">Penjamin Kecelakaan</label>
-                                                <select id="penjamin_kec" name="penjamin_kec" class="form-control">
-                                                    <option value="">--- Cari Penjamin ---</option>
-                                                    <option value="Jasaraharja">Jasaraharja</option>
-                                                    <option value="BPJS_ketenagakerjaan">BPJS Ketenagakerjaan</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-12">
-                                                <label for="ketkec">Keterangan Kecelakaan</label>
-                                                <input type="text" class="form-control" id="ketkec" name="ketkec">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <!-- Identitas Pasien -->
                             <div class="col-md-6 d-flex">
                                 <div class="card w-100 h-100">
                                     <div class="card-header bg-light d-flex align-items-center">
                                         <h5 class="mb-0"><i class="fa fa-user"></i> Identitas Pasien</h5>
                                         <div class="ml-auto">
-                                            <a href="{{ route('patient') }}" class="btn btn-success" id="pasien-baru-button">Pasien Baru</a>
+                                            <a href="{{ route('regis.patient') }}" class="btn btn-success" id="pasien-baru-button">Pasien Baru</a>
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -151,6 +106,7 @@
                                         <div class="flex-grow-1"></div>
                                     </div>
                                     <div class="card-body">
+                                        <!-- Tanggal dan Dokter -->
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="tanggal_pendaftaran">Tanggal</label>
@@ -169,6 +125,8 @@
                                                 <input type="text" class="form-control" id="kode_dokter" name="kode_dokter" placeholder="Kode Dokter" readonly>
                                             </div>
                                         </div>
+
+                                        <!-- Poli dan Penjamin -->
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="poli">Poli</label>
@@ -179,7 +137,7 @@
                                                 <select id="penjamin" name="penjamin" class="form-control">
                                                     <option value="">--- Pilih Penjamin ---</option>
                                                     @foreach ($penjab as $data)
-                                                            <option value="{{ $data->id }}">{{ $data->pj }}</option>
+                                                        <option value="{{ $data->id }}">{{ $data->pj }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -188,10 +146,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="card-header">
-                                            <h5><i class="fa fa-user"></i> Penanggung jawab</h5>
+                                        <!-- Penanggung Jawab Section -->
+                                        <div class="card-header mt-3">
+                                            <h5><i class="fa fa-user"></i> Penanggung Jawab</h5>
                                         </div>
                                         <div class="card-body">
+                                            <!-- Hubungan Pasien -->
                                             <div class="form-group row">
                                                 <div class="col-md-12">
                                                     <label for="hubungan_pasien">Hubungan Pasien</label>
@@ -209,18 +169,24 @@
                                                     </select>
                                                 </div>
                                             </div>
+
+                                            <!-- Nama Keluarga -->
                                             <div class="form-group row">
                                                 <div class="col-md-12">
                                                     <label for="nama_keluarga">Nama Keluarga</label>
                                                     <input type="text" class="form-control" id="nama_keluarga" name="nama_keluarga" placeholder="Nama Keluarga">
                                                 </div>
                                             </div>
+
+                                            <!-- Alamat Keluarga -->
                                             <div class="form-group row">
                                                 <div class="col-md-12">
                                                     <label for="alamat_keluarga">Alamat</label>
                                                     <input type="text" class="form-control" id="alamat_keluarga" name="alamat_keluarga" placeholder="Alamat">
                                                 </div>
                                             </div>
+
+                                            <!-- Jenis Kartu dan No Kartu -->
                                             <div class="form-group row">
                                                 <div class="col-md-8">
                                                     <label for="jenis_kartu">Jenis Kartu</label>
@@ -243,8 +209,60 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Pasien Kecelakaan -->
+                            <div class="col-md-12 mt-3 d-flex" id="kecelakaan-col" style="display: none;">
+                                <div class="card w-100 h-100" id="kecelakaan-card" style="display: none;">
+                                    <div class="card-header" id="kecelakan-header" style="display: none;">
+                                        <h5><i class="fa fa-user"></i> Pasien Kecelakaan</h5>
+                                    </div>
+                                    <div class="card-body" id="kecelakan-section" style="display: none;">
+                                        <!-- Jenis Kecelakaan dan No Pol -->
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="jeskec">Jenis Kecelakaan</label>
+                                                <select id="jeskec" name="jeskec" class="form-control">
+                                                    <option value="">--- Pilih Jenis Kecelakaan ---</option>
+                                                    <option value="BKLL">Bukan Kecelakaan Lalu Lintas (BKLL)</option>
+                                                    <option value="KLL">KLL dan Bukan Kecelakaan Kerja (BKK)</option>
+                                                    <option value="KLL_KK">KLL dan KK</option>
+                                                    <option value="KK">KK</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="nopol">No Pol</label>
+                                                <input type="text" class="form-control" id="nopol" name="nopol">
+                                            </div>
+                                        </div>
+
+                                        <!-- Tanggal Kejadian dan Penjamin Kecelakaan -->
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="tglkej">Tanggal Kejadian</label>
+                                                <input type="date" class="form-control" id="tglkej" name="tglkej">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="penjamin_kec">Penjamin Kecelakaan</label>
+                                                <select id="penjamin_kec" name="penjamin_kec" class="form-control">
+                                                    <option value="">--- Cari Penjamin ---</option>
+                                                    <option value="Jasaraharja">Jasaraharja</option>
+                                                    <option value="BPJS_ketenagakerjaan">BPJS Ketenagakerjaan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Keterangan Kecelakaan -->
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <label for="ketkec">Keterangan Kecelakaan</label>
+                                                <input type="text" class="form-control" id="ketkec" name="ketkec">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- Button section as a separate card -->
-                            <div class="col-md-12 mt-4 d-flex justify-content-center">
+                            <div class="col-md-12 mt-3 d-flex justify-content-center">
                                 <div class="card w-100">
                                     <div class="card-body d-flex justify-content-center">
                                         <button type="button" class="btn btn-light mr-2" style="background-color: #17a2b8; color: white;">

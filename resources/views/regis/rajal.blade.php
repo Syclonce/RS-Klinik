@@ -132,14 +132,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                                 <label for="no_rm">Nomor RM</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" id="no_rm" name="no_rm" placeholder="Nomor Rekam Medis" readonly>
-                                                    <div class="input-group-append" id="button-container" style="display: none;">
-                                                        <button class="btn btn-primary dropdown-toggle" type="button" id="action-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <span id="action-button-text">Pilihan</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                                <input type="text" class="form-control" id="no_rm" name="no_rm" placeholder="Nomor Rekam Medis" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -212,24 +205,26 @@
                                         <tr>
                                             <td>
                                                 <div class="btn-group">
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{ $data->no_rm }}</button>
-                                                <div class="dropdown-menu" role="menu">
-                                                    <a class="dropdown-item" href="{{ route('soap',['norm' => $data->no_rm ]) }}">SOAP & Pemeriksaan    </a>
-                                                    <a class="dropdown-item" href="{{ route('layanan',['norm' => $data->no_rm ]) }}">Layanan & Tindakan</a>
-                                                    <a class="dropdown-item" href="{{ route('regis.berkas',['norm' => $data->no_rm ]) }}">Berkas Digital</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#statusRawatModal" data-status="{{ $data->status }}" data-id="{{ $data->no_rm }}">Status Rawat</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#statusLanjutModal"
+                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{ $data->no_rm }}</button>
+                                                    <div class="dropdown-menu" role="menu">
+                                                        <a class="dropdown-item" href="{{ route('soap',['norm' => $data->no_rm ]) }}">SOAP & Pemeriksaan</a>
+                                                        <a class="dropdown-item" href="{{ route('layanan',['norm' => $data->no_rm ]) }}">Layanan & Tindakan</a>
+                                                        <a class="dropdown-item" href="{{ route('regis.berkas',['norm' => $data->no_rm ]) }}">Berkas Digital</a>
+                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#statusRawatModal" data-status="{{ $data->status }}" data-id="{{ $data->no_rm }}">Status Rawat</a>
+                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#statusLanjutModal"
                                                         data-norm="{{ $data->no_rm }}"
-                                                        data-nama="{{$data->nama_pasien}}"
-                                                        data-poliid="{{$data->poli_id}}"
-                                                        data-doctorid="{{$data->doctor_id}}"
-                                                        data-penjabid="{{$data->penjab_id}}"
-                                                        data-alamat="{{$data->pasien->Alamat}}"
-                                                        data-telepon="{{$data->telepon}}">Status Lanjut</a>
-                                                  <div class="dropdown-divider"></div>
-                                                  <a class="dropdown-item" href="#">Separated link</a>
+                                                        data-nama="{{ $data->nama_pasien }}"
+                                                        data-poliid="{{ $data->poli_id }}"
+                                                        data-doctorid="{{ $data->doctor_id }}"
+                                                        data-penjabid="{{ $data->penjab_id }}"
+                                                        data-alamat="{{ $data->pasien->Alamat }}"
+                                                        data-telepon="{{ $data->telepon }}">Status Lanjut</a>
+                                                        <div class="dropdown-divider"></div>
+
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#">Separated link</a>
+                                                    </div>
                                                 </div>
-                                              </div>
                                             </td>
                                             <td>{{ $data->nama_pasien }}</td>
                                             <td>{{ $data->no_rawat }}</td>
@@ -345,76 +340,14 @@
                             <input type="hidden"" class="form-control" id="penjabid" name="penjabid" readonly>
                             <input type="hidden"" class="form-control" id="alamat" name="alamat" readonly>
                             <input type="hidden"" class="form-control" id="statelepon" name="statelepon" readonly>
-
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label for="tanggal_rawat">Tanggal Rawat</label>
-                                <div class="input-group date" id="tanggal_rawat" data-target-input="nearest">
-                                    <input type="text" id="tanggal_rawat" name="tanggal_rawat" class="form-control datetimepicker-input" data-target="#tanggal_rawat">
-                                    <div class="input-group-append" data-target="#tanggal_rawat" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label for="r_perawatan">Ruangan</label>
-                                <select id="r_perawatan" name="r_perawatan" class="form-control">
-                                    <option value="">-- Pilih --</option>
-                                    @foreach ($bangsal as $bangsal)
-                                        <option value="{{ $bangsal->id }}">{{ $bangsal->nama_bangsal }}</option>
-                                    @endforeach
+                                <select id="status_ljt" name="status_ljt" class="form-control">
+                                    <option value="-">-- Pilih --</option>
+                                    <option value="Rajal"> Rawat Jalan </option>
+                                    <option value="Ranap"> Rawat Inap </option>
+                                    <option value="RJRS"> Rujukan Ke RS </option>
                                 </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="dokter_dpjb">Dokter DPJB</label>
-                                <select id="dokter_dpjb" name="dokter_dpjb" class="form-control">
-                                    <option value="">-- Pilih --</option>
-                                    @foreach ($dokter as $dokterItem)
-                                        <option value="{{ $dokterItem->id }}">{{ $dokterItem->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <label for="hub_pasien">Hub Dengan Pasien</label>
-                                <select id="hub_pasien" name="hub_pasien" class="form-control">
-                                    <option value="">--- Pilih ---</option>
-                                    <option value="kepala_keluarga">Kepala Keluarga</option>
-                                    <option value="suami">Suami</option>
-                                    <option value="istri">Istri</option>
-                                    <option value="anak">Anak</option>
-                                    <option value="menantu">Menantu</option>
-                                    <option value="cucu">Cucu</option>
-                                    <option value="orang_tua">Orang Tua</option>
-                                    <option value="mertua">Mertua</option>
-                                    <option value="keluarga_lain">Keluarga Lain</option>
-                                </select>
-                            </div>
-                            <div class="col-md-12">
-                                <label for="nama_keluarga">Nama Keluarga</label>
-                                <input type="text" class="form-control" id="nama_keluarga" name="nama_keluarga">
-                            </div>
-                            <div class="col-md-12">
-                                <label for="alamat_penjamin">Alamat</label>
-                                <input type="text" class="form-control" id="alamat_penjamin" name="alamat_penjamin">
-                            </div>
-                            <div class="col-md-5">
-                                <label for="jenis_kartu">Jenis Kartu</label>
-                                <select id="jenis_kartu" name="jenis_kartu" class="form-control">
-                                    <option value="">--- Pilih Jenis Kartu ---</option>
-                                    <option value="ktp">Kartu Tanda Penduduk (KTP)</option>
-                                    <option value="kartu_pelajar">Kartu Pelajar</option>
-                                    <option value="passport">Passport</option>
-                                    <option value="kitas">Kartu Izin Tinggal Sementara (KITAS)</option>
-                                    <option value="kitt">Kartu Izin Tinggal Tetap</option>
-                                    <option value="ktp_wna">KTP WNA</option>
-                                </select>
-                            </div>
-                            <div class="col-md-7 d-flex align-items-end">
-                                <input type="text" class="form-control" id="no_kartu" name="no_kartu" placeholder="No. Kartu">
                             </div>
                         </div>
                     </form>
@@ -520,14 +453,7 @@
                 penjabid: $('#penjabid').val(),
                 alamat: $('#alamat').val(),
                 telepon: $('#statelepon').val(),
-                tanggal_rawat: $('#tanggal_rawat').find('input').val(), // Get value from datetimepicker input
-                r_perawatan: $('#r_perawatan').val(),
-                dokter_dpjb: $('#dokter_dpjb').val(),
-                hub_pasien: $('#hub_pasien').val(),
-                nama_keluarga: $('#nama_keluarga').val(),
-                alamat_penjamin: $('#alamat_penjamin').val(),
-                jenis_kartu: $('#jenis_kartu').val(),
-                no_kartu: $('#no_kartu').val()
+                status_ljt: $('#status_ljt').val(),
             };
 
             modal.modal('hide');
@@ -807,9 +733,11 @@
         });
     </script>
 
+
+
     <script>
         $(document).ready(function() {
-            $("#patient-visit-table").DataTable({
+            $("#kunjungan-table").DataTable({
                 "responsive": true,
                 "autoWidth": false,
                 "paging": true,

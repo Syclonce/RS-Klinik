@@ -27,6 +27,524 @@
                 </a>
             </li>
 
+            {{-- Registaris Menu --}}
+            <li class="nav-item {{ \Route::is('regis*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('regis*') ? 'active' : '' }}">
+                    <i class="fas fa-fw fa-solid fa-user-doctor" style="color: #63E6BE; font-size: 1.2rem;"></i>
+                  <p style="margin-left: 10px;">
+                    Registrasi
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('regis.patient') }}" class="nav-link {{ \Route::is('regis.patient') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-book-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;">
+                      Pasien Baru
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('regis.rajal') }}" class="nav-link {{ \Route::is('regis.rajal') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Rawat Jalan
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('regis.ranap') }}" class="nav-link {{ \Route::is('regis.ranap') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Rawat Inap
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('regis') }}" class="nav-link {{ \Route::is('regis') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;">
+                        UGD/IGD
+                      </p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
+            {{-- Keuangan Menu --}}
+            <li class="nav-item {{ \Route::is('doctor*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('doctor*') ? 'active' : '' }}">
+                    <i class="fas fa-fw fa-solid fa-user-doctor" style="color: #63E6BE; font-size: 1.2rem;"></i>
+                  <p style="margin-left: 10px;">
+                    Keuangan
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.spesiali') }}" class="nav-link {{ \Route::is('doctor.spesiali') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-book-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;">
+                      Kasir
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.visit') }}" class="nav-link {{ \Route::is('doctor.visit') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Keuangan
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.poli') }}" class="nav-link {{ \Route::is('doctor.poli') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Akutansi
+                      </p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
+
+            {{-- APOTIK --}}
+
+            {{-- Penjualan Menu --}}
+            <li class="nav-item {{ \Route::is('doctor*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('doctor*') ? 'active' : '' }}">
+                    <i class="fas fa-fw fa-solid fa-user-doctor" style="color: #63E6BE; font-size: 1.2rem;"></i>
+                  <p style="margin-left: 10px;">
+                    Penjualan
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.spesiali') }}" class="nav-link {{ \Route::is('doctor.spesiali') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-book-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;">
+                      Laboratorium
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.visit') }}" class="nav-link {{ \Route::is('doctor.visit') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Radiologi
+                      </p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
+            {{-- Layanan Menu --}}
+            <li class="nav-item {{ \Route::is('doctor*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('doctor*') ? 'active' : '' }}">
+                    <i class="fas fa-fw fa-solid fa-user-doctor" style="color: #63E6BE; font-size: 1.2rem;"></i>
+                  <p style="margin-left: 10px;">
+                    Layanan
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.spesiali') }}" class="nav-link {{ \Route::is('doctor.spesiali') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-book-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;">
+                      Rawat Jalan
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.visit') }}" class="nav-link {{ \Route::is('doctor.visit') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Rawat Inap
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.visit') }}" class="nav-link {{ \Route::is('doctor.visit') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        UGD/IGD
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.visit') }}" class="nav-link {{ \Route::is('doctor.visit') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Kamar Operasi
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.visit') }}" class="nav-link {{ \Route::is('doctor.visit') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Ruang VK
+                      </p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
+            {{-- SMD Menu --}}
+            <li class="nav-item {{ \Route::is('doctor*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('doctor*') ? 'active' : '' }}">
+                    <i class="fas fa-fw fa-solid fa-user-doctor" style="color: #63E6BE; font-size: 1.2rem;"></i>
+                  <p style="margin-left: 10px;">
+                    Sumber Daya Manusia
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.spesiali') }}" class="nav-link {{ \Route::is('doctor.spesiali') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-book-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;">
+                      Personalia
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.visit') }}" class="nav-link {{ \Route::is('doctor.visit') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Payroll
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.visit') }}" class="nav-link {{ \Route::is('doctor.visit') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Absebsi
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.visit') }}" class="nav-link {{ \Route::is('doctor.visit') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Cuti
+                      </p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
+            {{-- Gizi Menu --}}
+            <li class="nav-item {{ \Route::is('doctor*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('doctor*') ? 'active' : '' }}">
+                    <i class="fas fa-fw fa-solid fa-user-doctor" style="color: #63E6BE; font-size: 1.2rem;"></i>
+                  <p style="margin-left: 10px;">
+                    Gizi
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.spesiali') }}" class="nav-link {{ \Route::is('doctor.spesiali') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-book-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;">
+                      Gizi klinik
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.visit') }}" class="nav-link {{ \Route::is('doctor.visit') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Penyediaan Makanan
+                      </p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
+            {{-- Gudang Menu --}}
+            <li class="nav-item {{ \Route::is('doctor*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('doctor*') ? 'active' : '' }}">
+                    <i class="fas fa-fw fa-solid fa-user-doctor" style="color: #63E6BE; font-size: 1.2rem;"></i>
+                  <p style="margin-left: 10px;">
+                    Gudang
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.spesiali') }}" class="nav-link {{ \Route::is('doctor.spesiali') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-book-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;">
+                      Gudang Obat
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('doctor.visit') }}" class="nav-link {{ \Route::is('doctor.visit') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Gudang Umum
+                      </p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
+
+            {{-- Data Master --}}
+            <li class="nav-item {{ \Route::is('datmas.*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('datmas.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
+                  <p style="margin-left: 10px;">
+                    Data Master
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.icd') }}" class="nav-link {{ \Route::is('datmas.icd') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">ICD 9 dan 10</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.bangsal') }}" class="nav-link {{ \Route::is('datmas.bangsal') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Bangsal</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.dabar') }}" class="nav-link {{ \Route::is('datmas.dabar') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Data Barang</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.perjal') }}" class="nav-link {{ \Route::is('datmas.perjal') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Perawatan Rawat Jalan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.pernap') }}" class="nav-link {{ \Route::is('datmas.pernap') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Perawatan Rawat Inap</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.perlogi') }}" class="nav-link {{ \Route::is('datmas.perlogi') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Perawatan Radiologi</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.katbar') }}" class="nav-link {{ \Route::is('datmas.katbar') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Kategori Barang</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.katpen') }}" class="nav-link {{ \Route::is('datmas.katpen') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Kategori Penyakit</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.katper') }}" class="nav-link {{ \Route::is('datmas.katper') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Kategori Perawatan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.satuan') }}" class="nav-link {{ \Route::is('datmas.satuan') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Kode Satuan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.jenbar') }}" class="nav-link {{ \Route::is('datmas.jenbar') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Jenis Barang</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.industri') }}" class="nav-link {{ \Route::is('datmas.industri') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Industri Farmasi</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.golbar') }}" class="nav-link {{ \Route::is('datmas.golbar') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Golongan Barang</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.penjab') }}" class="nav-link {{ \Route::is('datmas.penjab') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Penanggung Jawab</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.cacat') }}" class="nav-link {{ \Route::is('datmas.cacat') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Cacat Fisik</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.perusahaan') }}" class="nav-link {{ \Route::is('datmas.perusahaan') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Perusahaan Pasien</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.aturanpake') }}" class="nav-link {{ \Route::is('datmas.aturanpake') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Aturan Pakai</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.berkas') }}" class="nav-link {{ \Route::is('datmas.berkas') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Berkas Digital</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.bank') }}" class="nav-link {{ \Route::is('datmas.bank') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Bank</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.bidang') }}" class="nav-link {{ \Route::is('datmas.bidang') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Bidang</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.depart') }}" class="nav-link {{ \Route::is('datmas.depart') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Departemen</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.emergency') }}" class="nav-link {{ \Route::is('datmas.emergency') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Emergency</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.jenjab') }}" class="nav-link {{ \Route::is('datmas.jenjab') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Jenjang Jabatan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.keljab') }}" class="nav-link {{ \Route::is('datmas.keljab') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Kelompok Jabatan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.pendidikan') }}" class="nav-link {{ \Route::is('datmas.pendidikan') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Pendidikan Pegawai</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.resiko') }}" class="nav-link {{ \Route::is('datmas.resiko') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Resiko Kerja</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.statker') }}" class="nav-link {{ \Route::is('datmas.statker') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Status Kerja</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.statwp') }}" class="nav-link {{ \Route::is('datmas.statwp') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Status Wajib Pajak</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.metcik') }}" class="nav-link {{ \Route::is('datmas.metcik') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Metode Racik</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.ok') }}" class="nav-link {{ \Route::is('datmas.ok') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Ruang OK</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('datmas.rujukan') }}" class="nav-link {{ \Route::is('datmas.rujukan') ? 'active' : '' }}">
+                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
+                          <p style="margin-left: 10px;">Rujukan</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            {{-- P-Care --}}
+            <li class="nav-item {{ \Route::is('pcare*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ \Route::is('pcare*') ? 'active' : '' }}">
+                    <i class="fas fa-fw fa-solid fa-user-doctor" style="color: #63E6BE; font-size: 1.2rem;"></i>
+                  <p style="margin-left: 10px;">
+                    P-Care
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('pcare.dokter') }}" class="nav-link {{ \Route::is('pcare.dokter') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-book-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;">
+                      Dokter
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('pcare.polifktp') }}" class="nav-link {{ \Route::is('pcare.polifktp') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Poli FKTP
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('pcare.polifktl') }}" class="nav-link {{ \Route::is('pcare.polifktl') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Poli FKTL
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('pcare.icd10') }}" class="nav-link {{ \Route::is('pcare.icd10') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        ICD 10
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('pcare.icd9') }}" class="nav-link {{ \Route::is('pcare.icd9') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        ICD 9
+                      </p>
+                    </a>
+                  </li>
+                </ul>
+            </li>
+
+            <hr>
+
             <li class="nav-item {{ \Route::is('doctor*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('doctor*') ? 'active' : '' }}">
                     <i class="fas fa-fw fa-solid fa-user-doctor" style="color: #63E6BE; font-size: 1.2rem;"></i>
@@ -51,7 +569,7 @@
                   <li class="nav-item">
                     <a href="{{ route('doctor.visit') }}" class="nav-link {{ \Route::is('doctor.visit') ? 'active' : '' }}">
                         <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
-                      <p>Kunjungan Dokter</p>
+                      <p>Tarif Kunjungan Dokter</p>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -75,7 +593,7 @@
                 </ul>
             </li>
 
-            <li class="nav-item {{ \Route::is('patient*') ? 'menu-open' : '' }}">
+            {{-- <li class="nav-item {{ \Route::is('patient*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('patient*') ? 'active' : '' }}">
                     <i class="fas fa-fw fa-hospital-user" style="color: #63E6BE; font-size: 1.2rem;"></i>
                     <p style="margin-left: 10px;">
@@ -127,9 +645,9 @@
                     </a>
                   </li>
                 </ul>
-            </li>
+            </li> --}}
 
-            <li class="nav-item {{ \Route::is('regis*') ? 'menu-open' : '' }}">
+            {{-- <li class="nav-item {{ \Route::is('regis*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('regis*') ? 'active' : '' }}">
                     <i class="fa-solid fa-clock" style="color: #63E6BE; font-size: 1.2rem;"></i>
                     <p style="margin-left: 10px;">
@@ -157,7 +675,7 @@
                     </a>
                   </li>
                 </ul>
-            </li>
+            </li> --}}
 
 
             {{-- <li class="nav-item {{ \Route::is('schedule*') ? 'menu-open' : '' }}">
@@ -220,7 +738,7 @@
 
             <li class="nav-item {{ \Route::is('sdm*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ \Route::is('sdm*') ? 'active' : '' }}">
-                  <i class="fas fa-fw fa-solid fa-clock" style="color: #63E6BE; font-size: 1.2rem;"></i>
+                    <i class="fa-solid fa-people-group" style="color: #63E6BE;"></i>
                   <p style="margin-left: 10px;">
                     Sumber Daya Manusia
                     <i class="right fas fa-angle-left"></i>
@@ -571,203 +1089,7 @@
                 </ul>
             </li> --}}
 
-            <li class="nav-item {{ \Route::is('datmas.*') ? 'menu-open' : '' }}">
-                <a href="#" class="nav-link {{ \Route::is('datmas.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-bed" style="color: #63E6BE;"></i>
-                  <p style="margin-left: 10px;">
-                    Data Master
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.icd') }}" class="nav-link {{ \Route::is('datmas.icd') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>icd 9 dan 10</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.bangsal') }}" class="nav-link {{ \Route::is('datmas.bangsal') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Bangsal</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.dabar') }}" class="nav-link {{ \Route::is('datmas.dabar') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Data Barang</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.perjal') }}" class="nav-link {{ \Route::is('datmas.perjal') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Perawatan Rawat Jalan</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.pernap') }}" class="nav-link {{ \Route::is('datmas.pernap') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Perawatan Rawat Inap</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.perlogi') }}" class="nav-link {{ \Route::is('datmas.perlogi') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Perawatan Radiologi</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.katbar') }}" class="nav-link {{ \Route::is('datmas.katbar') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Kategori Barang</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.katpen') }}" class="nav-link {{ \Route::is('datmas.katpen') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Kategori Penyakit</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.katper') }}" class="nav-link {{ \Route::is('datmas.katper') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Kategori Perawatan</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.satuan') }}" class="nav-link {{ \Route::is('datmas.satuan') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Kode Satuan</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.jenbar') }}" class="nav-link {{ \Route::is('datmas.jenbar') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Jenis Barang</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.industri') }}" class="nav-link {{ \Route::is('datmas.industri') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Industri Farmasi</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.golbar') }}" class="nav-link {{ \Route::is('datmas.golbar') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Golongan Barang</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.penjab') }}" class="nav-link {{ \Route::is('datmas.penjab') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Penanggung Jawab</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.cacat') }}" class="nav-link {{ \Route::is('datmas.cacat') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Cacat Fisik</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.perusahaan') }}" class="nav-link {{ \Route::is('datmas.perusahaan') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Perusahaan Pasien</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.aturanpake') }}" class="nav-link {{ \Route::is('datmas.aturanpake') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Aturan Pakai</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.berkas') }}" class="nav-link {{ \Route::is('datmas.berkas') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Berkas Digital</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.bank') }}" class="nav-link {{ \Route::is('datmas.bank') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Bank</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.bidang') }}" class="nav-link {{ \Route::is('datmas.bidang') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Bidang</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.depart') }}" class="nav-link {{ \Route::is('datmas.depart') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Departemen</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.emergency') }}" class="nav-link {{ \Route::is('datmas.emergency') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Emergency</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.jenjab') }}" class="nav-link {{ \Route::is('datmas.jenjab') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Jenjang Jabatan</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.keljab') }}" class="nav-link {{ \Route::is('datmas.keljab') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Kelompok Jabatan</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.pendidikan') }}" class="nav-link {{ \Route::is('datmas.pendidikan') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Pendidikan Pegawai</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.resiko') }}" class="nav-link {{ \Route::is('datmas.resiko') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Resiko Kerja</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.statker') }}" class="nav-link {{ \Route::is('datmas.statker') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Status Kerja</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.statwp') }}" class="nav-link {{ \Route::is('datmas.statwp') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Status Wajib Pajak</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.metcik') }}" class="nav-link {{ \Route::is('datmas.metcik') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Metode Racik</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.ok') }}" class="nav-link {{ \Route::is('datmas.ok') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Ruang OK</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('datmas.rujukan') }}" class="nav-link {{ \Route::is('datmas.rujukan') ? 'active' : '' }}">
-                            <i class="fa-solid fa-hand-point-right" style="color: #63E6BE;"></i>
-                          <p>Rujukan</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+
 
 
             <li class="nav-item">

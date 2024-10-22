@@ -19,6 +19,8 @@ use App\Models\Kabupaten;
 use App\Models\Kecamatan;
 use App\Models\Desa;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\QueryException;
+
 
 class PatientController extends Controller
 {
@@ -68,8 +70,8 @@ class PatientController extends Controller
     {
         $data = $request->validate([
             "nomor_rm" => 'required',
-            "nik" => 'required',
-            "kode_ihs" => 'required',
+            "nik" => 'required|unique:pasiens',
+            "kode_ihs" => 'required|unique:pasiens',
             "nama" => 'required',
             "tempat_lahir" => 'required',
             "tanggal_lahir" => 'required|date_format:d/m/Y',
@@ -89,55 +91,99 @@ class PatientController extends Controller
             "pernikahan" => 'required',
             "pekerjaan" => 'required',
             "telepon" => 'required|string|regex:/^\(\d{2}\) \d{3}-\d{3}-\d{3}$/',
+        ],[
+            'nomor_rm.required' => 'Nomor RM harus diisi.',
+            'nik.required' => 'NIK harus diisi.',
+            'nik.unique' => 'NIK sudah terdaftar.',
+            'kode_ihs.required' => 'Kode IHS harus diisi.',
+            'kode_ihs.unique' => 'Kode IHS sudah terdaftar.',
+            'nama.required' => 'Nama harus diisi.',
+            'tempat_lahir.required' => 'Tempat lahir harus diisi.',
+            'tanggal_lahir.required' => 'Tanggal lahir harus diisi.',
+            'tanggal_lahir.date_format' => 'Format tanggal lahir harus dd/mm/yyyy.',
+            'Alamat.required' => 'Alamat harus diisi.',
+            'rt.required' => 'RT harus diisi.',
+            'rw.required' => 'RW harus diisi.',
+            'kode_pos.required' => 'Kode pos harus diisi.',
+            'kewarganegaraan.required' => 'Kewarganegaraan harus diisi.',
+            'provinsi.required' => 'Provinsi harus diisi.',
+            'kota_kabupaten.required' => 'Kota/Kabupaten harus diisi.',
+            'kecamatan.required' => 'Kecamatan harus diisi.',
+            'desa.required' => 'Desa harus diisi.',
+            'seks.required' => 'Seks harus diisi.',
+            'agama.required' => 'Agama harus diisi.',
+            'pendidikan.required' => 'Pendidikan harus diisi.',
+            'goldar.required' => 'Golongan darah harus diisi.',
+            'pernikahan.required' => 'Status pernikahan harus diisi.',
+            'pekerjaan.required' => 'Pekerjaan harus diisi.',
+            'telepon.required' => 'Telepon harus diisi.',
+            'telepon.regex' => 'Format telepon tidak valid. Gunakan format (XX) XXX-XXX-XXX.',
         ]);
-
+    
         $datauser = $request->validate([
             "nama" => 'required',
             "username" => 'required|string|max:255',
             "email" => 'required|string|max:255',
-            "password" => 'required',
+            "password" => 'required|min:8',
             "telepon" => 'required',
+        ],[
+            'nama.required' => 'Nama harus diisi.',
+            'username.required' => 'Username harus diisi.',
+            'username.string' => 'Username harus berupa teks.',
+            'username.max' => 'Username tidak boleh lebih dari 255 karakter.',
+            'email.required' => 'Email harus diisi.',
+            'email.string' => 'Email harus berupa teks.',
+            'email.email' => 'Email tidak valid.',
+            'email.max' => 'Email tidak boleh lebih dari 255 karakter.',
+            'email.unique' => 'Email sudah digunakan.',
+            'password.required' => 'Password harus diisi.',
+            'password.string' => 'Password harus berupa teks.',
+            'password.min' => 'Password harus terdiri dari minimal 8 karakter.',            
+            'telepon.required' => 'Telepon harus diisi.',
         ]);
-
-        $user = new User();
-        $user->name = $datauser['nama'];
-        $user->username = $datauser['username'];
-        $user->email = $datauser['email'];
-        $user->password = Hash::make($datauser['password']); // Hash the password
-        $user->profile = 'default.jpg';
-        $user->phone = $datauser['telepon'];
-        $user->save();
-        $user->assignRole('User');
-
-        $pasien = new pasien();
-        $pasien->no_rm = $data['nomor_rm'];
-        $pasien->nik = $data['nik'];
-        $pasien->kode_ihs = $data['kode_ihs'];
-        $pasien->nama = $data['nama'];
-        $pasien->tempat_lahir = $data['tempat_lahir'];
-        $pasien->tanggal_lahir = $data['tanggal_lahir'];
-        $pasien->no_bpjs = $request->no_bpjs;
-        $pasien->tgl_akhir = $request->tgl_akhir;
-        $pasien->Alamat = $data['Alamat'];
-        $pasien->rt = $data['rt'];
-        $pasien->rw = $data['rw'];
-        $pasien->kode_pos = $data['kode_pos'];
-        $pasien->kewarganegaraan = $data['kewarganegaraan'];
-        $pasien->provinsi_kode = $data['provinsi'];
-        $pasien->kabupaten_kode = $data['kota_kabupaten'];
-        $pasien->kecamatan_kode = $data['kecamatan'];
-        $pasien->desa_kode = $data['desa'];
-        $pasien->seks = $data['seks'];
-        $pasien->agama = $data['agama'];
-        $pasien->pendidikan = $data['pendidikan'];
-        $pasien->goldar_id = $data['goldar'];
-        $pasien->pernikahan = $data['pernikahan'];
-        $pasien->pekerjaan = $data['pekerjaan'];
-        $pasien->telepon = $data['telepon'];
-        $pasien->save();
-
-        return redirect()->route('patient')->with('Success', 'Pasien berhasi di tambahkan');
+            
+            // Create a new user
+            $user = new User();
+            $user->name = $datauser['nama'];
+            $user->username = $datauser['username'];
+            $user->email = $datauser['email'];
+            $user->password = Hash::make($datauser['password']);
+            $user->profile = 'default.jpg';
+            $user->phone = $datauser['telepon'];
+            $user->save();
+            $user->assignRole('User');
+    
+            // Create a new pasien
+            $pasien = new Pasien();
+            $pasien->no_rm = $data['nomor_rm'];
+            $pasien->nik = $data['nik'];
+            $pasien->kode_ihs = $data['kode_ihs'];
+            $pasien->nama = $data['nama'];
+            $pasien->tempat_lahir = $data['tempat_lahir'];
+            $pasien->tanggal_lahir = $data['tanggal_lahir'];
+            $pasien->no_bpjs = $request->no_bpjs;
+            $pasien->tgl_akhir = $request->tgl_akhir;
+            $pasien->Alamat = $data['Alamat'];
+            $pasien->rt = $data['rt'];
+            $pasien->rw = $data['rw'];
+            $pasien->kode_pos = $data['kode_pos'];
+            $pasien->kewarganegaraan = $data['kewarganegaraan'];
+            $pasien->provinsi_kode = $data['provinsi'];
+            $pasien->kabupaten_kode = $data['kota_kabupaten'];
+            $pasien->kecamatan_kode = $data['kecamatan'];
+            $pasien->desa_kode = $data['desa'];
+            $pasien->seks = $data['seks'];
+            $pasien->agama = $data['agama'];
+            $pasien->pendidikan = $data['pendidikan'];
+            $pasien->goldar_id = $data['goldar'];
+            $pasien->pernikahan = $data['pernikahan'];
+            $pasien->pekerjaan = $data['pekerjaan'];
+            $pasien->telepon = $data['telepon'];
+            $pasien->save();
+    
+            return redirect()->route('patient')->with('Success', 'Pasien berhasil ditambahkan');    
     }
+    
 
     public function seks()
     {
@@ -171,6 +217,7 @@ class PatientController extends Controller
     {
         $data = $request->validate([
             "nama" => 'required|unique:goldars,nama',
+            "resus" => 'required',
         ]);
 
         goldar::create($data);

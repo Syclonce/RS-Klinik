@@ -19,6 +19,7 @@ use App\Http\Controllers\Modules\RadiologiController;
 use App\Http\Controllers\Modules\LaboratoriumController;
 use App\Http\Controllers\Modules\UtdController;
 use App\Http\Controllers\Modules\PenjualanController;
+use App\Http\Controllers\Modules\PCareController;
 use App\Http\Controllers\Modules\WagatweyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
@@ -49,12 +50,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/getsatusehat/{nik}', [SatusehatController::class, 'getPatientByNik'])->name('getPatientByNik');
     Route::get('/decompress', [SatusehatController::class, 'decompress'])->name('decompress');
-    Route::get('/polis', [SatusehatController::class, 'polis'])->name('polis');
 
 
     Route::get('/jenisKartu/{jenisKartu}', [SatusehatController::class, 'jenisKartu'])->name('jenisKartu');
     Route::get('/practitionejenisKartu/{jenisKartu}', [SatusehatController::class, 'getPractitionerByNik'])->name('practitionejenisKartu');
     Route::get('/getPractitionerByNikall', [SatusehatController::class, 'getPractitionerByNikall'])->name('getPractitionerByNikall');
+    Route::get('/search-matching-names/{Nama}', [SatusehatController::class, 'searchMatchingNames'])->name('getPractitioner');
     Route::get('/bpjs/{poli}', [SatusehatController::class, 'bpjs'])->name('bpjs');
     Route::get('/poli', [SatusehatController::class, 'poli'])->name('poli');
     Route::get('/comparePolisAndPoli', [SatusehatController::class, 'comparePolisAndPoli'])->name('comparePolisAndPoli');
@@ -87,7 +88,7 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/doctor/status', [DoctorController::class, 'status'])->name('doctor.status');
     Route::post('/doctor/status/add', [DoctorController::class, 'statusadd'])->name('doctor.status.add');
 
-    Route::get('/patient', [PatientController::class, 'index'])->name('patient');
+    Route::get('/patient', [PatientController::class, 'index'])->name('regis.patient');
     Route::get('/patient/generate-nomor-rm', [PatientController::class, 'generate'])->name('patient.generate');
     Route::get('/get-kabupaten', [PatientController::class, 'getKabupaten'])->name('wilayah.getKabupaten');
     Route::get('/get-kecamatan', [PatientController::class, 'getKecamatan'])->name('wilayah.getKecamatan');
@@ -378,6 +379,21 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
 
     Route::get('/regis/berkas/{norm}', [RegisController::class, 'berkas'])->name('regis.berkas');
     Route::post('/regis/berkas/add', [RegisController::class, 'berkasadd'])->name('regis.berkas.add');
+
+    Route::get('/regis/kontrol/{norm}', [RegisController::class, 'kontrol'])->name('regis.kontrol');
+    Route::post('/regis/kontrol/add', [RegisController::class, 'kontroladd'])->name('regis.kontrol.add');
+
+    Route::get('/pcare', [PCareController::class, 'index'])->name('pcare');
+    Route::get('/pcare/dokter', [PCareController::class, 'dokter'])->name('pcare.dokter');
+    Route::get('/pcare/polifktp', [PCareController::class, 'polifktp'])->name('pcare.polifktp');
+    Route::get('/pcare/polifktp/get', [SatusehatController::class, 'polifktp'])->name('pcare.polifktp.get');
+    Route::get('/pcare/polifktl', [PCareController::class, 'polifktl'])->name('pcare.polifktl');
+    Route::get('/pcare/polifktl/get', [SatusehatController::class, 'polifktl'])->name('pcare.polifktl.get');
+    Route::get('/pcare/icd10', [PCareController::class, 'icd10'])->name('pcare.icd10');
+    Route::get('/pcare/icd10/get/{nama}', [SatusehatController::class, 'icd10'])->name('pcare.icd10.get');
+    Route::get('/pcare/icd9', [PCareController::class, 'icd9'])->name('pcare.icd9');
+    Route::get('/pcare/icd9/get/{nama}', [SatusehatController::class, 'icd9'])->name('pcare.icd9.get');
+
 
     Route::get('/antrian/loket-1', [AntrianController::class, 'loket1'])->name('loket1');
 

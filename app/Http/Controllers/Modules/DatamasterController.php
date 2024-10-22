@@ -896,6 +896,7 @@ class DatamasterController extends Controller
         $data = $request->validate([
             "kode" => 'required',
             "nama" => 'required',
+            "harga" => 'required',
         ]);
         icd9::create($data);
         return redirect()->route('datmas.icd')->with('success', 'ICD 9 berhasi di tambahkan');

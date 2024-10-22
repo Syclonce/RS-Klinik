@@ -69,7 +69,7 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Tambah Dokter</h5>
+                    <h5 class="modal-title" id="addModalLabel">Tambah Pasien</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -77,17 +77,28 @@
                 <div class="modal-body">
                     <form id="addFormpermesion" action="{{ route('patient.add') }}" method="POST">
                         @csrf
-                        <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Pertama</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Kedua</a>
-                        </li>
-                        </ul>
-                        <div class="tab-content" id="custom-content-above-tabContent">
-                        <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+                        <div>
                             <div class="row">
+                                <!-- Tempat untuk menampilkan pesan kesalahan -->
+                                <style>
+                                    .alert {
+                                        padding: 15px;
+                                        margin-bottom: 20px;
+                                        border: 1px solid transparent;
+                                        border-radius: 4px;
+                                    }
+                                    .alert-danger {
+                                        color: #721c24;
+                                        background-color: #f8d7da;
+                                        border-color: #f5c6cb;
+                                    }
+                                </style>
+
+                                <div class="text-right col-sm-12">
+                                    <div class="form-group">
+                                        <div id="bpjs_error" class="alert alert-danger" style="display: none;"></div>
+                                    </div>
+                                </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Nomor RM</label>
@@ -103,10 +114,7 @@
                                     <div class="form-group">
                                         <label>NIK</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="nik" name="nik" oninput="cekniksth()">
-                                            <span class="input-group-btn">
-                                                <button type="button" class="btn btn-primary" onclick="ceknikBPJS()">Cek BPJS</button>
-                                            </span>
+                                            <input type="text" class="form-control" id="nik" name="nik" oninput="NIkdanNOKA()">                                            
                                         </div>
                                     </div>
                                 </div>
@@ -275,7 +283,7 @@
                                         <label>Golongan Darah </label>
                                         <select class="form-control select2bs4"  style="width: 100%;"  id="goldar" name="goldar">
                                             @foreach ($goldar as $goldar)
-                                            <option value="{{$goldar->id}}">{{$goldar->nama}}</option>
+                                            <option value="{{$goldar->id}}">{{$goldar->nama}} {{ $goldar->resus }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -315,48 +323,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
-                            <div class="row">
-                                {{-- <div class="col-sm-5">
-                                    <div class="form-group">
-                                        <label>Nama </label>
-                                        <input type="text" class="form-control" id="nama" name="nama" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label>Nomor BPJS</label>
-                                        <input type="text" class="form-control" id="no_bpjs" name="no_bpjs" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label>Tanggal Akhir Berlaku</label>
-                                        <input type="text" class="form-control" id="tgl_akhir" name="tgl_akhir" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-sm-1">
-                                    <div class="form-group">
-                                        <label>COB</label>
-                                        <input type="text" class="form-control" id="cob" name="cob" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Kode Asuransi</label>
-                                        <input type="text" class="form-control" id="kd_asuransi" name="kd_asuransi" disabled>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Nama Asuransi</label>
-                                        <input type="text" class="form-control" id="nm_asuransi" name="nm_asuransi" disabled>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Nomor Asuransi</label>
-                                        <input type="text" class="form-control" id="no_asuransi" name="no_asuransi" disabled>
-                                    </div>
-                                </div> --}}
-                            </div>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -368,107 +334,159 @@
         </div>
     </div>
 
+
 <script>
-    function cekniksth(attempts = 0) {
-        var jenisKartus = document.getElementById('nik').value;
-        $.ajax({
-            url: '/getsatusehat/' + jenisKartus,
-            method: 'GET', // Use 'POST' if your server expects POST requests
-            success: function(response) {
-                if (response && response.patient_data.entry.length > 0) {
-                    var patient = response.patient_data.entry[0].resource;
-                    var id = patient.id;
-                    // Tampilkan hasil ke input IHS dan Nama
-                    $('#kode_ihs').val(id);
-                } else if (attempts < 3) {
-                    // Retry if the response data is not as expected
-                    cekniksth(attempts + 1);
-                } else {
-                    // Handle case when data is still not found after 3 attempts
-                    $('#kode_ihs').val('Tidak ditemukan');
-                }
-            },
-            error: function(xhr, status, error) {
-                // Retry if there is an error and attempts are less than 3
-                if (attempts < 3) {
-                    cekniksth(attempts + 1);
-                } else {
-                    // Handle error case after 3 attempts
-                    console.error('Error:', status, error);
-                    $('#kode_ihs').val('Error');
-                    alert('Jaringan BPJS mungkin tidak stabil Silahkan Coba Kembali');
-                }
-            }
-        });
-    }
+    function NIkdanNOKA() {
 
-    function ceknikBPJS() {
         var jenisKartu = document.getElementById('nik').value;
-        $.ajax({
-            url: '/jenisKartu/' + jenisKartu,
-            method: 'GET', // Use 'POST' if your server expects POST requests
-            success: function(response) {
-                if (response && response.data.aktif === true) {
-                    var datas = response.data;
-                    var name = datas.nama || 'Nama tidak tersedia';
-                    var tglLahir = datas.tglLahir || 'Tanggal Lahir tidak tersedia';
-                    var noBPJS = datas.noKartu || 'No BPJS tidak tersedia';
-                    var Kadaluarsa = datas.tglAkhirBerlaku || 'Tanggal Akhir Berlaku tidak tersedia';
-                    // var Cob = datas.asuransi.cob || 'COB tidak tersedia';
-                    // var Sex = datas.sex || 'Goldar tidak tersedia';
-                    // var KodeAs = datas.asuransi.kdAsuransi || 'Kode Asuransi tidak tersedia';
-                    // var NamaAs = datas.asuransi.nmAsuransi || 'Nama Asuransi tidak tersedia';
-                    // var NoAs = datas.asuransi.noAsuransi || 'No Asuransi tidak tersedia';
 
-                    // getSexDescription(Sex);
+        if (jenisKartu.length === 16) {
 
-                    $('#nama').val(name);
-                    $('#tanggal_lahir').val(tglLahir);
-                    $('#no_bpjs').val(noBPJS);
-                    $('#tgl_akhir').val(Kadaluarsa);
-                    // $('#cob').val(Cob);
-                    // $('#kd_asuransi').val(KodeAs);
-                    // $('#nm_asuransi').val(NamaAs);
-                    // $('#no_asuransi').val(NoAs);
-                }
-            },
-            error: function(xhr, status, error) {
+            $.ajax({
+                url: '/getsatusehat/' + jenisKartu,
+                method: 'GET',
+                success: function(response) {
+                    if (response && response.patient_data.entry.length > 0) {
+                        var patient = response.patient_data.entry[0].resource;
+                        var id = patient.id;
 
-                    // Handle error case after 3 attempts
+                        $('#kode_ihs').val(id);
+                    } else {
+                        $('#kode_ihs').val('Tidak ditemukan');
+                    }
+                    $.ajax({
+                        url: '/jenisKartu/' + jenisKartu,
+                        method: 'GET', 
+                        success: function(response) {
+                            if (response) {
+                                var datas = response.data;
+                                var name = datas.nama || 'Nama tidak tersedia';
+                                var tglLahir = datas.tglLahir || 'Tanggal Lahir tidak tersedia';
+                                var noBPJS = datas.noKartu || 'No BPJS tidak tersedia';
+                                var Kadaluarsa = datas.tglAkhirBerlaku || 'Tanggal Akhir Berlaku tidak tersedia';
+                                var noktp = datas.noKTP || 'No KTP tidak tersedia';
+                                var ket = datas.aktif || 'tidak ada data';
+
+
+
+                                $('#nama').val(name);
+                                $('#tanggal_lahir').val(tglLahir);
+                                $('#no_bpjs').val(noBPJS);
+                                $('#tgl_akhir').val(Kadaluarsa);
+
+                                if (ket === 'aktif') {
+                                    console.log("Status: Aktif");
+
+                                    $('#bpjs_error').hide();
+                                } else {
+                                    console.log("Status: Tidak aktif");
+
+                                    $('#bpjs_error').text(datas.ketAktif).show(); // Gunakan statusket sebagai pesan
+
+                                }
+                            }
+                        },
+                        error: function(xhr, status, error) {
+
+                            $('#nama').val('Tidak ditemukan');
+                            $('#tanggal_lahir').val('Tidak ditemukan');
+                            $('#no_bpjs').val('Tidak ditemukan');
+                            $('#tgl_akhir').val('Tidak ditemukan');                            
+                        }
+                    });                    
+                },
+                error: function(xhr, status, error) {
                     console.error('Error:', status, error);
-                    $('#nama').val('Error');
-                    $('#tanggal_lahir').val('Error');
-                    $('#no_bpjs').val('Error');
-                    $('#tgl_akhir').val('Error');
-                    // $('#cob').val('Error');
-                    // $('#kd_asuransi').val('Error');
-                    // $('#nm_asuransi').val('Error');
-                    // $('#no_asuransi').val('Error');
-                    alert('Jaringan BPJS mungkin tidak stabil Silahkan Coba Kembali');
+                    $('#kode_ihs').val('Error');                   
+                }
+            });
 
-            }
-        });
+        } else if (jenisKartu.length === 13) {
+            
+            $.ajax({
+                url: '/jenisKartu/' + jenisKartu,
+                method: 'GET', 
+                success: function(response) {
+                    if (response.data == null)
+                    {
+                        $('#nama').val('Tidak ditemukan');
+                        $('#tanggal_lahir').val('Tidak ditemukan');
+                        $('#no_bpjs').val('Tidak ditemukan');
+                        $('#tgl_akhir').val('Tidak ditemukan');
+                        $('#kode_ihs').val('Tidak ditemukan');
+
+                    } else {
+                        if (response) {
+                        var datas = response.data;
+                        var name = datas.nama || 'Nama tidak tersedia';
+                        var tglLahir = datas.tglLahir || 'Tanggal Lahir tidak tersedia';
+                        var noBPJS = datas.noKartu || 'No BPJS tidak tersedia';
+                        var Kadaluarsa = datas.tglAkhirBerlaku || 'Tanggal Akhir Berlaku tidak tersedia';
+                        var noktp = datas.noKTP || 'No KTP tidak tersedia';
+                        var ket = datas.aktif || 'tidak ada data';
+
+
+
+                        $('#nama').val(name);
+                        $('#tanggal_lahir').val(tglLahir);
+                        $('#no_bpjs').val(noBPJS);
+                        $('#tgl_akhir').val(Kadaluarsa);
+
+                        if (ket === 'aktif') {
+                            console.log("Status: Aktif");
+                            // Hide error message if status is active
+                            $('#bpjs_error').hide();
+                        } else {
+                            console.log("Status: Tidak aktif");
+                            // Show error message if status is not active
+                            $('#bpjs_error').text(datas.ketAktif).show(); // Gunakan statusket sebagai pesan
+
+                        }
+
+                        $.ajax({
+                            url: '/getsatusehat/' + noktp,
+                            method: 'GET', // Use 'POST' if your server expects POST requests
+                            success: function(response) {
+                                if (response && response.patient_data.entry.length > 0) {
+
+                                    var patient = response.patient_data.entry[0].resource;
+                                    var id = patient.id;
+
+                                    // Display result in the input fields
+                                    $('#kode_ihs').val(id);
+                                } else if (attempts < 3) {
+                                    // Retry if the response data is not as expected
+                                    cekniksth(jenisKartus, attempts + 1);
+                                } else {
+                                    // Handle case when data is still not found after 3 attempts
+                                    $('#kode_ihs').val('Tidak ditemukan');
+                                }
+                            },
+                            error: function(xhr, status, error) {            
+                                console.error('Error:', status, error);
+                                $('#kode_ihs').val('Tidak ditemukan');
+                                alert('data tidak di temukan');
+                               
+                            }
+                        });
+
+                    }
+                    }                
+                },
+                error: function(xhr, status, error) {
+                        // Handle error case after 3 attempts
+                        console.error('Error:', status, error);
+                        $('#nama').val('Tidak ditemukan');
+                        $('#tanggal_lahir').val('Tidak ditemukan');
+                        $('#no_bpjs').val('Tidak ditemukan');
+                        $('#tgl_akhir').val('Tidak ditemukan');
+                        alert('Jaringan BPJS mungkin tidak stabil Silahkan Coba Kembali');
+
+                }
+            });
+
+        }
     }
-
-    // function getSexDescription(Sex) {
-    //     $.ajax({
-    //         url: '/check-sex',  // Endpoint untuk memeriksa kode Sex di database
-    //         type: 'POST',
-    //         data: {
-    //             sex_code: Sex,
-    //             _token: '{{ csrf_token() }}' // Jangan lupa sertakan token CSRF untuk Laravel
-    //         },
-    //         success: function(response) {
-    //             // Tampilkan deskripsi sex ke input field #seks
-    //             $('#seks').val(response.description);
-    //         },
-    //         error: function(xhr) {
-    //             // Jika gagal, tampilkan error
-    //             $('#seks').val('Deskripsi tidak ditemukan');
-    //             console.error('Error:', xhr.responseJSON.message);
-    //         }
-    //     });
-    // }
 </script>
 
     <script>

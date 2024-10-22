@@ -25,7 +25,8 @@ class DoctorController extends Controller
         $jabatan = jabatan::all();
         $status = statdok::all();
         $doctors = doctor::with('user','poli','jabatan','statdok')->get();
-        return view('doctor.index', compact('title','poli','jabatan','status','doctors'));
+        $sex = seks::all();
+        return view('doctor.index', compact('title','poli','jabatan','status','doctors','sex'));
     }
 
     public function doctoradd(Request $request)
@@ -47,14 +48,48 @@ class DoctorController extends Controller
             "status_kerja" => 'required|string|max:255',
             "kode" => 'required|string|max:255',
             "telepon" => 'required|string|regex:/^\(\d{2}\) \d{3}-\d{3}-\d{3}$/',
+        ],[
+            'nik.required' => 'NIK harus diisi.',
+            'nama.required' => 'Nama harus diisi.',
+            'nama.string' => 'Nama harus berupa teks.',
+            'nama.max' => 'Nama tidak boleh lebih dari 255 karakter.',
+            'jabatan.required' => 'Jabatan harus diisi.',
+            'aktivasi.required' => 'Aktivasi harus diisi.',
+            'poli.required' => 'Poli harus diisi.',
+            'tglawal.required' => 'Tanggal awal harus diisi.',
+            'Alamat.required' => 'Alamat harus diisi.',
+            'seks.required' => 'Jenis kelamin harus diisi.',
+            'sip.required' => 'SIP harus diisi.',
+            'str.required' => 'STR harus diisi.',
+            'npwp.required' => 'NPWP harus diisi.',
+            'tempat_lahir.required' => 'Tempat lahir harus diisi.',
+            'tgllahir.required' => 'Tanggal lahir harus diisi.',
+            'status_kerja.required' => 'Status kerja harus diisi.',
+            'kode.required' => 'Kode harus diisi.',
+            'telepon.required' => 'Telepon harus diisi.',
+            'telepon.regex' => 'Format telepon tidak valid. Gunakan format (XX) XXX-XXX-XXX.',
         ]);
 
         $datauser = $request->validate([
             "nama" => 'required|string|max:255',
             "username" => 'required|string|max:255',
             "email" => 'required|string|max:255',
-            "password" => 'required',
+            "password" => 'required|min:8',
             "telepon" => 'required',
+        ],[
+            'nama.required' => 'Nama harus diisi.',
+            'username.required' => 'Username harus diisi.',
+            'username.string' => 'Username harus berupa teks.',
+            'username.max' => 'Username tidak boleh lebih dari 255 karakter.',
+            'email.required' => 'Email harus diisi.',
+            'email.string' => 'Email harus berupa teks.',
+            'email.email' => 'Email tidak valid.',
+            'email.max' => 'Email tidak boleh lebih dari 255 karakter.',
+            'email.unique' => 'Email sudah digunakan.',
+            'password.required' => 'Password harus diisi.',
+            'password.string' => 'Password harus berupa teks.',
+            'password.min' => 'Password harus terdiri dari minimal 8 karakter.',            
+            'telepon.required' => 'Telepon harus diisi.',
         ]);
 
         $user = new User();
@@ -88,25 +123,7 @@ class DoctorController extends Controller
         $doctor->save();
 
         return redirect()->route('doctor')->with('Success', 'dokter berhasi di tambahkan');
-    }
-
-    public function checkSexdoctor(Request $request)
-    {
-        // Dapatkan kode sex dari input
-        $inputSexCode = $request->input('sex_code');
-
-        // Cari kode sex di database
-        $sex = Seks::where('kode', $inputSexCode)->first();
-
-        if ($sex) {
-            // Jika ditemukan, kembalikan deskripsi sex
-            return response()->json(['description' => $sex->nama], 200);
-        } else {
-            // Jika tidak ditemukan
-            return response()->json(['message' => 'Sex tidak ditemukan'], 404);
-        }
-    }
-
+    }    
 
     public function spesiali()
     {

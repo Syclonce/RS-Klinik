@@ -11,6 +11,7 @@ class goldar extends Model
     protected $table = 'goldars';
     protected $fillable = [
         'nama',
+        'resus',
     ];
 
     public function pasien()

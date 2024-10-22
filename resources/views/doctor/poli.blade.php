@@ -16,10 +16,7 @@
                                 <div class="text-right card-tools d-flex justify-content-end">
                                     <button type="button" class="mr-2 btn btn-primary" data-toggle="modal" data-target="#adddoctor">
                                         <i class="fas fa-plus"></i> Tambah Baru
-                                    </button>
-                                    <form action="{{ route('comparePolisAndPoli') }}" method="GET">
-                                        <button type="submit" class="btn btn-primary">Sinkronisasi</button>
-                                    </form>
+                                    </button>                                    
                                 </div>
                             </div>
 

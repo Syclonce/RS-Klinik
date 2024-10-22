@@ -12,6 +12,7 @@ class icd9 extends Model
     protected $fillable = [
         'kode',
         'nama',
+        'harga',
     ];
 
     public function prosedurPasien()

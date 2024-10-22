@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\icd10;
+use App\Models\icd10_bpjs;
+use App\Models\icd10_ss;
+use App\Models\icd9;
 use App\Models\poli;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use LZCompressor\LZString;
-
+use App\Models\kadok;
+use App\Models\kopol;
 use function Laravel\Prompts\error;
 
 class SatusehatController extends Controller
@@ -157,7 +162,7 @@ class SatusehatController extends Controller
         $BASE_URL = env('BPJS_PCARE_BASE_URL');
         $SERVICE_NAME = env('BPJS_PCARE_SERVICE_NAME');
         $feature = 'peserta';
-        $params = 'nik';
+        // $params = '';
         // $patientData = $this->getPatientByNik($jenisKartu);
 
         try {
@@ -168,7 +173,8 @@ class SatusehatController extends Controller
 
             // Make the API request
             $response = Http::withHeaders($headers)
-                ->get("{$BASE_URL}/{$SERVICE_NAME}/{$feature}/{$params}/{$jenisKartu}");
+                // ->get("{$BASE_URL}/{$SERVICE_NAME}/{$feature}/{$params}/{$jenisKartu}");
+                ->get("{$BASE_URL}/{$SERVICE_NAME}/{$feature}/{$jenisKartu}");
 
             // Decode the response body
             $responseBody = json_decode($response->body(), true);
@@ -204,13 +210,13 @@ class SatusehatController extends Controller
     }
 
 
-    public function polis()
+    public function polifktp()
     {
         $BASE_URL = env('BPJS_PCARE_BASE_URL');
         $SERVICE_NAME = env('BPJS_PCARE_SERVICE_NAME');
         $feature = 'poli/fktp';
-        $params = 'poli';
-        $params1 = 'Umum';
+        $params = '0';
+        $params1 = '500';
 
         try {
             // Assuming $this->generateHeaders() returns an array of headers
@@ -244,25 +250,216 @@ class SatusehatController extends Controller
 
         // Decompress the string
         $data = json_decode($jsonString, true);
-        // Filter the list to include only items where 'poliSakit' is true
-        $filteredList = array_filter($data['list'], function($item) {
-            return isset($item['poliSakit']) && $item['poliSakit'] === true;
-        });
+        
+        // Check if data is null or empty
+        if (empty($data) || !isset($data['list']) || empty($data['list'])) {
+            return response()->json(['status' => 'error', 'message' => 'No data found'], 400);
+        }
 
-        // Prepare the response data
-        $responseData = [
-            "count" => count($filteredList), // Count of filtered items
-            "list" => array_values($filteredList), // Re-index the filtered array
-        ];
-
-        // Return only 'nmPoli' in an array for comparison
-        $names = array_column($responseData['list'], 'nmPoli'); // Extract 'nmPoli'
-
-        return response()->json([
-            "data" => $responseData,
-            "names" => $names, // Include names for later comparison
-        ]);
+        // Insert data into the database
+        foreach ($data['list'] as $practitioner) {
+            // Check if the practitioner already exists
+            $existingPractitioner = kopol::where('nama', $practitioner['nmPoli'])->first();
+            if (!$existingPractitioner) {
+                // If it doesn't exist, save the new record
+                $newPractitioner = new kopol();
+                $newPractitioner->kode = $practitioner['kdPoli'];
+                $newPractitioner->nama = $practitioner['nmPoli'];
+                $newPractitioner->save();
+            } else {
+                // Optionally, update the existing record
+                $existingPractitioner->kode = $practitioner['kdPoli'];
+                $existingPractitioner->nama = $practitioner['nmPoli'];
+                $existingPractitioner->save();
+            }
+        }
+        
+        return response()->json( $data );
     }
+
+
+    public function polifktl()
+    {
+        $BASE_URL = env('BPJS_PCARE_BASE_URL');
+        $SERVICE_NAME = env('BPJS_PCARE_SERVICE_NAME');
+        $feature = 'poli/fktl';
+        $params = '0';
+        $params1 = '500';
+
+        try {
+            // Assuming $this->generateHeaders() returns an array of headers
+            $headers = array_merge([
+                'Content-Type' => 'application/json; charset=utf-8'
+            ], $this->generateHeaders()['headers']);
+
+            // Make the API request
+            $response = Http::withHeaders($headers)
+                ->get("{$BASE_URL}/{$SERVICE_NAME}/{$feature}/{$params}/{$params1}");
+
+            // Decode the response body
+            $responseBody = json_decode($response->body(), true);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 400);
+        }
+
+        // Fetch the encrypted response data
+        $encryptedString = $responseBody['response'];
+
+        // Decrypt the string using AES-256-CBC
+        $key = $this->generateHeaders()['key_decrypt'];
+        $encrypt_method = 'AES-256-CBC';
+        $key_hash = hex2bin(hash('sha256', $key));  // Get key hash
+        $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);  // Get IV
+
+        // Decrypt the base64-encoded encrypted string
+        $decryptedString = openssl_decrypt(base64_decode($encryptedString), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
+
+        $jsonString = $this->decompress($decryptedString);
+
+        // Decompress the string
+        $data = json_decode($jsonString, true);
+        
+        // Check if data is null or empty
+        if (empty($data) || !isset($data['list']) || empty($data['list'])) {
+            return response()->json(['status' => 'error', 'message' => 'No data found'], 400);
+        }
+
+        // Insert data into the database
+        foreach ($data['list'] as $practitioner) {
+            // Check if the practitioner already exists
+            $existingPractitioner = kopoltl::where('nama', $practitioner['nmPoli'])->first();
+            if (!$existingPractitioner) {
+                // If it doesn't exist, save the new record
+                $newPractitioner = new kopoltl();
+                $newPractitioner->kode = $practitioner['kdPoli'];
+                $newPractitioner->nama = $practitioner['nmPoli'];
+                $newPractitioner->save();
+            } else {
+                // Optionally, update the existing record
+                $existingPractitioner->kode = $practitioner['kdPoli'];
+                $existingPractitioner->nama = $practitioner['nmPoli'];
+                $existingPractitioner->save();
+            }
+        }
+        
+        return response()->json( $data );
+    }
+
+    public function icd10($nama)
+    {
+        $BASE_URL = env('BPJS_PCARE_BASE_URL');
+        $SERVICE_NAME = env('BPJS_PCARE_SERVICE_NAME');
+        $feature = 'diagnosa';
+        $params = $nama;
+        $params1 = '0';
+        $params2 = '500';
+
+        try {
+            // Assuming $this->generateHeaders() returns an array of headers
+            $headers = array_merge([
+                'Content-Type' => 'application/json; charset=utf-8'
+            ], $this->generateHeaders()['headers']);
+
+            // Make the API request
+            $response = Http::withHeaders($headers)
+                ->get("{$BASE_URL}/{$SERVICE_NAME}/{$feature}/{$params}/{$params1}/{$params2}");
+
+            // Decode the response body
+            $responseBody = json_decode($response->body(), true);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 400);
+        }
+
+        // Fetch the encrypted response data
+        $encryptedString = $responseBody['response'];
+
+        // Decrypt the string using AES-256-CBC
+        $key = $this->generateHeaders()['key_decrypt'];
+        $encrypt_method = 'AES-256-CBC';
+        $key_hash = hex2bin(hash('sha256', $key));  // Get key hash
+        $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);  // Get IV
+
+        // Decrypt the base64-encoded encrypted string
+        $decryptedString = openssl_decrypt(base64_decode($encryptedString), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
+
+        $jsonString = $this->decompress($decryptedString);
+
+        // Decompress the string
+        $data = json_decode($jsonString, true);
+        
+        // Check if data is null or empty
+        if (empty($data) || !isset($data['list']) || empty($data['list'])) {
+            return response()->json(['status' => 'error', 'message' => 'No data found'], 400);
+        }
+
+        // Insert data into the database
+        foreach ($data['list'] as $practitioner) {
+            // Check if the practitioner already exists
+            $existingPractitioner = icd10_bpjs::where('kode', $practitioner['kdDiag'])->first();
+            if (!$existingPractitioner) {
+                // If it doesn't exist, save the new record
+                $newPractitioner = new icd10_bpjs();
+                $newPractitioner->kode = $practitioner['kdDiag'];
+                $newPractitioner->nama = $practitioner['nmDiag'];
+                $newPractitioner->save();
+            } else {
+                // Optionally, update the existing record
+                $existingPractitioner->kode = $practitioner['kdDiag'];
+                $existingPractitioner->nama = $practitioner['nmDiag'];
+                $existingPractitioner->save();
+            }
+        }
+        
+        return response()->json( $data );
+    }
+
+
+    public function icd9($nama)
+    {
+        $BASE_URL = env('BPJS_PCARE_BASE_URL');
+        $SERVICE_NAME = env('BPJS_PCARE_SERVICE_NAME');
+        $feature = 'referensi/procedure';
+        $params = $nama;
+        $params1 = '0';
+        $params2 = '50';
+
+        try {
+            // Assuming $this->generateHeaders() returns an array of headers
+            $headers = array_merge([
+                'Content-Type' => 'application/json; charset=utf-8'
+            ], $this->generateHeaders()['headers']);
+
+            // Make the API request
+            $response = Http::withHeaders($headers)
+                ->get("{$BASE_URL}/{$SERVICE_NAME}/{$feature}/{$params}/{$params1}/{$params2}");
+
+            // Decode the response body
+            $responseBody = json_decode($response->body(), true);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 400);
+        }
+
+        // Fetch the encrypted response data
+        $encryptedString = $responseBody['response'];
+
+        // Decrypt the string using AES-256-CBC
+        $key = $this->generateHeaders()['key_decrypt'];
+        $encrypt_method = 'AES-256-CBC';
+        $key_hash = hex2bin(hash('sha256', $key));  // Get key hash
+        $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);  // Get IV
+
+        // Decrypt the base64-encoded encrypted string
+        $decryptedString = openssl_decrypt(base64_decode($encryptedString), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
+
+        $jsonString = $this->decompress($decryptedString);
+
+        // Decompress the string
+        $data = json_decode($jsonString, true);
+
+        
+        return response()->json( $data );
+    }
+
 
     public function poli()
     {
@@ -478,23 +675,58 @@ class SatusehatController extends Controller
 
         // Decompress the string
         $data = json_decode($jsonString, true);
-        // // Filter the list to include only items where 'poliSakit' is true
-        // $filteredList = array_filter($data['list'], function($item) {
-        //     return isset($item['poliSakit']) && $item['poliSakit'] === true;
-        // });
 
-        // // Prepare the response data
-        // $responseData = [
-        //     "count" => count($filteredList), // Count of filtered items
-        //     "list" => array_values($filteredList), // Re-index the filtered array
-        // ];
+        // Check if data is null or empty
+        if (empty($data) || !isset($data['list']) || empty($data['list'])) {
+            return response()->json(['status' => 'error', 'message' => 'No data found'], 400);
+        }
 
-        // // Return only 'nmPoli' in an array for comparison
-        // $names = array_column($responseData['list'], 'nmPoli'); // Extract 'nmPoli'
+        // Insert data into the database
+        foreach ($data['list'] as $practitioner) {
+            // Check if the practitioner already exists
+            $existingPractitioner = kadok::where('nama', $practitioner['nmDokter'])->first();
+            if (!$existingPractitioner) {
+                // If it doesn't exist, save the new record
+                $newPractitioner = new kadok();
+                $newPractitioner->kode = $practitioner['kdDokter'];
+                $newPractitioner->nama = $practitioner['nmDokter'];
+                $newPractitioner->save();
+            } else {
+                // Optionally, update the existing record
+                $existingPractitioner->kode = $practitioner['kdDokter'];
+                $existingPractitioner->nama = $practitioner['nmDokter'];
+                $existingPractitioner->save();
+            }
+        }
 
         return response()->json([
             "data" => $data,
-            // "names" => $names, // Include names for later comparison
         ]);
     }
+
+
+    public function searchMatchingNames(Request $request)
+    {
+        // Validate the request input
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+
+        // Get the name from the request
+        $name = $request->input('name');
+
+
+        // Search for matching names in the 'kadok' table
+        $matchingKadoks = kadok::where('nama', 'LIKE', '%' . $name . '%')->get();
+
+        // Combine the results
+        $results = [
+            'kadoks' => $matchingKadoks,
+        ];
+
+        // Return the results as JSON
+        return response()->json($results);
+    }
+
+
 }

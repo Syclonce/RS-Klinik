@@ -12,7 +12,7 @@
                     <div class="mt-3 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="mb-0 card-title">Kunjungan</h3>
+                                <h3 class="mb-0 card-title">Tarif Kunjungan Dokter</h3>
                                 <div class="text-right card-tools">
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#adddoctor">
@@ -77,7 +77,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Tambah Kunjungan</h5>
+                    <h5 class="modal-title" id="addModalLabel">Tambah Tarif Kunjungan Dokter</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

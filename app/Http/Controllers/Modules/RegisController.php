@@ -5,6 +5,7 @@ namespace App\Http\Controllers\modules;
 use App\Http\Controllers\Controller;
 use App\Models\bangsal;
 use App\Models\berkas;
+use App\Models\kontrol;
 use App\Models\Berkasdigital;
 use Illuminate\Http\Request;
 use App\Models\setweb;
@@ -217,13 +218,7 @@ class RegisController extends Controller
             'alamat' => 'required|string',
             'telepon' => 'required|string',
             'tanggal_rawat' => 'required|date',
-            'r_perawatan' => 'required|string',
-            'dokter_dpjb' => 'required|string',
-            'hub_pasien' => 'required|string',
-            'nama_keluarga' => 'required|string',
-            'alamat_penjamin' => 'required|string',
-            'jenis_kartu' => 'required|string',
-            'no_kartu' => 'required|string',
+            'status_ljt' => 'required|string',
         ]);
 
         $ranap = ranap::where('pasien_id', $request->no_rm)->first();
@@ -266,7 +261,7 @@ class RegisController extends Controller
             'alamat_keluarga' => $request->alamat_penjamin,
             'jenis_kartu' => $request->jenis_kartu,
             'no_kartu' => $request->no_kartu,
-            'asal_rujukan' => 'Rawat Inap',
+            'asal_rujukan' => $request->status_ljt,
             'no_reg' => $newNoReg,
         ]);
 
@@ -664,6 +659,40 @@ class RegisController extends Controller
 
     }
 
+    public function kontrol($norm)
+    {
+        $setweb = setweb::first(); // Pastikan ini sudah benar
+        $title = $setweb->name_app . " - " . "kontrol";
+        $rajaldata = rajal::where('no_rm', $norm)->first();
+        $kontrol = kontrol::all();
+
+        if (!$rajaldata) {
+            return redirect()->back()->with('error', 'Data pasien tidak ditemukan ');
+        }
+
+        return view('regis.kontrol', compact('title','rajaldata','kontrol'));
+    }
+
+    public function kontroladd(Request $request)
+    {
+        $data = $request->validate([
+            "diagnosa" => 'required',
+            "tindakan" => 'required',
+            "alasan_kontrol" => 'required',
+            "rencana_tindak_lanjut" => 'required',
+            "tgl_datang" => 'required',
+        ]);
+        $kontrol = new kontrol();
+        $kontrol->diagnosa =  $request->diagnosa;
+        $kontrol->tindakan =  $request->tindakan;
+        $kontrol->alasan_kontrol =  $request->alasan_kontrol;
+        $kontrol->rencana_tindak_lanjut =  $request->rencana_tindak_lanjut;
+        $kontrol->tgl_datang =  $request->tgl_datang;
+        $kontrol->save();
+
+        // Mengalihkan ke route yang benar
+        return redirect()->route('regis.kontrol', ['norm' => $request->no_rm])->with('success', 'Data kontrol berhasil ditambahkan');
+    }
 
     public function ranap()
     {

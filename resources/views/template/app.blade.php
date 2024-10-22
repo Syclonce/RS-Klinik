@@ -632,26 +632,33 @@
 
         // Saat halaman dimuat, cek apakah ada pesan sukses atau error dari server dan tampilkan SweetAlert sesuai.
         document.addEventListener('DOMContentLoaded', function() {
-            if ("{{ session('Success') }}") {
+            // Cek pesan sukses
+            @if (session('Success'))
                 Toast.fire({
                     icon: 'success',
                     title: "{{ session('Success') }}"
                 });
-            }
+            @endif
 
-            if ("{{ session('error') }}") {
-                Toast.fire({
-                    icon: 'error',
-                    title: "{{ session('error') }}"
-                });
-            }
-            if ("{{ session('status') === 'profile-updated' }}") {
+            // Cek pesan error
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    Toast.fire({
+                        icon: 'error',
+                        title: "{{ $error }}"
+                    });
+                @endforeach
+            @endif
+
+            // Cek status untuk profil yang diperbarui
+            @if (session('status') === 'profile-updated')
                 Toast.fire({
                     icon: 'success',
                     title: "{{ session('Success') }}"
                 });
-            }
+            @endif
         });
+
 
         $(function() {
             $('#tahunBuat, #tanggalPajak, #tanggalStnk').datetimepicker({

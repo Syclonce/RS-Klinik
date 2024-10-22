@@ -30,6 +30,8 @@ return new class extends Migration
             $table->string('statdok_id');
             $table->string('kode');
             $table->string('telepon');
+            $table->string('kd_pcare')->nullable()->change();
+            $table->string('kd_vclaim')->nullable()->change();
             $table->timestamps();
         });
     }

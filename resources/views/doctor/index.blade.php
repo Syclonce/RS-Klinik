@@ -88,10 +88,7 @@
                             <div class="form-group">
                                 <label>Nomor Induk Kependudukan</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="nik" name="nik" required>
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary" onclick="cekSatuSehat()">Generate NIK</button>
-                                    </span>
+                                    <input type="text" class="form-control" id="nik" name="nik" required oninput="cekSatuSehat()">
                                 </div>
                             </div>
                         </div>
@@ -145,25 +142,29 @@
                                 <input type="text" class="form-control" id="Alamat" name="Alamat" required>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Seks</label>
-                                <input type="text" class="form-control" id="seks" name="seks" readonly>
+                                <select class="form-control select2bs4" style="width: 100%;" id="seks" name="seks">
+                                    @foreach ($sex as $data)
+                                        <option value="{{$data->id}}">{{$data->nama}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>SIP *</label>
                                 <input type="text" class="form-control" id="sip" name="sip" required>
                             </div>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>STR *</label>
                                 <input type="text" class="form-control" id="str" name="str" required>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <label>NPWP </label>
                                 <input type="text" class="form-control" id="npwp" name="npwp">
@@ -196,6 +197,12 @@
                             <div class="form-group">
                                 <label>ID Satu Sehat</label>
                                 <input type="text" class="form-control" id="kode" name="kode" readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Kode BPJS</label>
+                                <input type="text" class="form-control" id="kode_bpjs" name="kode_bpjs" readonly>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -236,74 +243,57 @@
 <script>
     function cekSatuSehat(attempts = 0) {
         var jenisKartu = $('#nik').val();
-        $.ajax({
-            url: '/practitionejenisKartu/' + jenisKartu,
-            method: 'GET',
-            success: function(response) {
-                console.log(response); // Debugging
-                if (response && response.patient_data && response.patient_data.entry && response.patient_data.entry.length > 0) {
-                    var data = response.patient_data.entry[0].resource; // Perbaikan di sini
-                    var Nama = data.name[0] ? data.name[0].text : 'Nama Dokter tidak tersedia';
-                    var TglLahir = data.birthDate || 'Tanggal Lahir tidak tersedia';
-                    var Sex = data.gender || 'Jenis Kelamin tidak tersedia';
-                    var Id = data.id || 'ID Satu Sehat tidak tersedia';
+        if (jenisKartu.length === 16) {
+            $.ajax({
+                url: '/practitionejenisKartu/' + jenisKartu,
+                method: 'GET',
+                success: function(response) {
+                    if (response && response.patient_data && response.patient_data.entry && response.patient_data.entry.length > 0) {
+                        var data = response.patient_data.entry[0].resource; // Perbaikan di sini
+                        var Nama = data.name[0] ? data.name[0].text : 'Nama Dokter tidak tersedia';
+                        var TglLahir = data.birthDate || 'Tanggal Lahir tidak tersedia';
+                        var Sex = data.gender || 'Jenis Kelamin tidak tersedia';
+                        var Id = data.id || 'ID Satu Sehat tidak tersedia';
 
-                    getSexDescription(Sex);
+                        var Namas = $('#nama').val();
+                        $.ajax({
+                            url: '/search-matching-names/' + Namas , // Update this URL to match your route
+                            type: 'GET',                           
+                            success: function(response) {
+                                if (response) {
+                                    consol.log(response);
+                                } else {
+                                    $('#nama').val('Tidak ditemukan');                                    
+                                }
+                            },
+                            error: function(xhr) {
+                                console.error(xhr.responseText);
+                            }
+                        });
 
-                    // Isi field
-                    $('#nama').val(Nama);
-                    $('#tgllahir').val(TglLahir);
-                    $('#kode').val(Id);
-                } else if (attempts < 3) {
-                    cekSatuSehat(attempts + 1);
-                } else {
-                    alert('Jaringan BPJS mungkin tidak stabil. Silahkan coba kembali.');
-                    $('#nama').val('Tidak ditemukan');
-                    $('#tgllahir').val('Tidak ditemukan');
-                    $('#kode').val('Tidak ditemukan');
+
+                        $('#nama').val(Nama);
+                        $('#tgllahir').val(TglLahir);
+                        $('#kode').val(Id);
+                    } else if (attempts < 3) {
+                        cekSatuSehat(attempts + 1);
+                    } else {
+                        $('#nama').val('Tidak ditemukan');
+                        $('#tgllahir').val('Tidak ditemukan');
+                        $('#kode').val('Tidak ditemukan');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', status, error);
+                    if (attempts < 3) {
+                        cekSatuSehat(attempts + 1);
+                    } else {
+                        alert('Jaringan BPJS mungkin tidak stabil. Silahkan coba kembali.');
+                    }
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error:', status, error);
-                if (attempts < 3) {
-                    cekSatuSehat(attempts + 1);
-                } else {
-                    alert('Jaringan BPJS mungkin tidak stabil. Silahkan coba kembali.');
-                }
-            }
-        });
-    }
-
-
-    function getSexDescription(Sex) {
-        // Ubah nilai 'male' menjadi 'L' dan 'female' menjadi 'P'
-        var sexCode;
-        if (Sex === 'male') {
-            sexCode = 'L'; // L untuk Laki-laki
-        } else if (Sex === 'female') {
-            sexCode = 'P'; // P untuk Perempuan
-        } else {
-            sexCode = 'Unknown'; // Jika tidak sesuai, bisa tambahkan logika handling
+            });
         }
-
-        $.ajax({
-            url: '/check-sex-doctor', // Endpoint untuk memeriksa kode Sex di database
-            type: 'POST',
-            data: {
-                sex_code: sexCode, // Gunakan sexCode yang sudah diubah
-                _token: '{{ csrf_token() }}' // Sertakan token CSRF untuk Laravel
-            },
-            success: function(response) {
-                $('#seks').val(response.description); // Update field 'seks' dengan deskripsi dari server
-            },
-            error: function(xhr) {
-                $('#seks').val('Deskripsi tidak ditemukan'); // Update jika ada error
-                console.error('Error:', xhr.responseJSON ? xhr.responseJSON.message : 'Unknown error');
-            }
-        });
     }
-
-
 </script>
 
 <script>

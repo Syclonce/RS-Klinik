@@ -23,13 +23,21 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <h3 class="mb-0 card-title">ICD 10</h3>
                                         <div class="text-right card-tools">
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#icd10add">
                                                 <i class="fas fa-plus"></i> Tambah Baru
                                             </button>
+                                        </div>
+                                    </div> --}}
+                                    <div class="col-md-6">
+                                        <h3 class="mb-0 card-title">ICD 10</h3>
+                                        <div class="text-right card-tools">
+                                            <a href="{{ route('pcare.icd10') }}" class="btn btn-primary">
+                                                <i class="fas fa-plus"></i> Cari Data
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -43,7 +51,8 @@
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">Kode</th>
-                                                    <th class="text-center">Nama Prosedur</th>
+                                                    <th class="text-center">Nama Tindakan</th>
+                                                    <th class="text-center">Harga</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -51,6 +60,7 @@
                                                     <tr>
                                                         <td>{{ $icd9->kode }}</td>
                                                         <td>{{ $icd9->nama }}</td>
+                                                        <td>{{ $icd9->harga }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -114,6 +124,12 @@
                                 <div class="form-group">
                                     <label>Nama</label>
                                     <input type="text" class="form-control" id="nama" name="nama">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Harga</label>
+                                    <input type="text" class="form-control" id="harga" name="harga">
                                 </div>
                             </div>
                         </div>

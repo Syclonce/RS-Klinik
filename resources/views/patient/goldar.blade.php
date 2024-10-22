@@ -27,13 +27,15 @@
                                     <thead>
                                         <tr>
                                             <th>Nama Golongan Darah</th>
-                                            <th width="50%">Pilihan</th>
+                                            <th>Rhesus Golongan Darah</th>
+                                            <th width="20%">Pilihan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($goldar as $goldar)
                                             <tr>
                                                 <td>{{ $goldar->nama }}</td>
+                                                <td>{{ $goldar->resus }}</td>
                                                 <td></td>
                                             </tr>
                                         @endforeach
@@ -68,10 +70,19 @@
                     <form id="addFormpermesion" action="{{ route('patient.goldar.add') }}" method="POST">
                         @csrf
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Nama Golongan Darah</label>
                                     <input type="text" class="form-control" id="nama" name="nama">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Rhesus Darah</label>
+                                    <select class="form-control select2bs4" id="resus" name="resus">                                        
+                                        <option value="+">Positif ( + )</option>                                        
+                                        <option value="-">Negatif ( - )</option>                                        
+                                    </select>
                                 </div>
                             </div>
                         </div>

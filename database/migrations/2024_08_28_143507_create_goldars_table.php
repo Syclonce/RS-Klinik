@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('goldars', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('resus');
             $table->timestamps();
         });
     }
