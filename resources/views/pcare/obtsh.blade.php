@@ -26,15 +26,17 @@
                             <table id="tabelkodedatabpjs" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="text-center" width="50%">Kode ICD 10</th>
-                                        <th class="text-center" width="50%">Nama ICD 10</th>
+                                        <th class="text-center" width="30%">Kode ICD 10</th>
+                                        <th class="text-center" width="40%">Nama ICD 10</th>
+                                        <th class="text-center" width="30%">Kesediaan</th>
                                     </tr>
                                 </thead>
                                 <tbody >
-                                    @foreach ($icd10_bpjs as $data)
+                                    @foreach ($obth as $data)
                                             <tr>
                                                 <td class="text-center">{{ $data->kode }}</td>
                                                 <td class="text-center">{{ $data->nama }}</td>
+                                                <td class="text-center">{{ $data->Kesediaan }}</td>
                                             </tr>
                                         @endforeach
                                 </tbody>
@@ -66,7 +68,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label>Nama ICD 10 </label>
+                                <label>Nama Obat </label>
                                 <input type="text" class="form-control" id="nama" name="nama">
                             </div>
                         </div>
@@ -90,7 +92,7 @@
                 var nama = $('#nama').val();
 
                 $.ajax({
-                    url: '/pcare/icd10/get/' + nama,
+                    url: '/pcare/obats/get/' + nama,
                     type: 'GET',
                     success: function(response) {
                         if(response.status == "error")

@@ -12,10 +12,9 @@
                 <div class="mt-3 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="mb-0 card-title">Refrensi ICD 10</h3>
+                            <h3 class="mb-0 card-title">Refrensi Kesadaran</h3>
                             <div class="text-right card-tools">
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#bpjs">
+                                <button id="singkrondata" type="submit" class="btn btn-primary">
                                     <i class="fas fa-plus"></i> Singkron
                                 </button>
                             </div>
@@ -26,12 +25,12 @@
                             <table id="tabelkodedatabpjs" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="text-center" width="50%">Kode ICD 10</th>
-                                        <th class="text-center" width="50%">Nama ICD 10</th>
+                                        <th class="text-center" width="50%">Kode Kesadaran</th>
+                                        <th class="text-center" width="50%">Nama Kesadaran</th>
                                     </tr>
                                 </thead>
                                 <tbody >
-                                    @foreach ($icd10_bpjs as $data)
+                                    @foreach ($kesadaran as $data)
                                             <tr>
                                                 <td class="text-center">{{ $data->kode }}</td>
                                                 <td class="text-center">{{ $data->nama }}</td>
@@ -49,48 +48,12 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
-<div class="modal fade" id="bpjs" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Singkron Data</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="singkrondata">
-                    @csrf
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label>Nama ICD 10 </label>
-                                <input type="text" class="form-control" id="nama" name="nama">
-                            </div>
-                        </div>
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary">Singkro</button> <!-- Submit button -->
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
 <script>
      $(document).ready(function() {
-            $('#singkrondata').submit(function(event) {
+            $('#singkrondata').on('click', function(event) {
                 event.preventDefault(); // Prevent the form from submitting via the browser
-
-                var nama = $('#nama').val();
-
                 $.ajax({
-                    url: '/pcare/icd10/get/' + nama,
+                    url: '/pcare/Kesadaran/get',
                     type: 'GET',
                     success: function(response) {
                         if(response.status == "error")
@@ -99,7 +62,6 @@
                         }else{
                             alert('Data berhasil di singkron!');
                             location.reload(); // Reload the page
-                            $('#adddoctor').modal('hide'); // Hide the modal
                         }
 
                     },

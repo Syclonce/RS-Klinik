@@ -383,6 +383,7 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/regis/kontrol/{norm}', [RegisController::class, 'kontrol'])->name('regis.kontrol');
     Route::post('/regis/kontrol/add', [RegisController::class, 'kontroladd'])->name('regis.kontrol.add');
 
+    // Route Pcare
     Route::get('/pcare', [PCareController::class, 'index'])->name('pcare');
     Route::get('/pcare/dokter', [PCareController::class, 'dokter'])->name('pcare.dokter');
     Route::get('/pcare/polifktp', [PCareController::class, 'polifktp'])->name('pcare.polifktp');
@@ -393,6 +394,23 @@ Route::middleware(['auth', 'verified', 'role:Super-Admin'])->group(function () {
     Route::get('/pcare/icd10/get/{nama}', [SatusehatController::class, 'icd10'])->name('pcare.icd10.get');
     Route::get('/pcare/icd9', [PCareController::class, 'icd9'])->name('pcare.icd9');
     Route::get('/pcare/icd9/get/{nama}', [SatusehatController::class, 'icd9'])->name('pcare.icd9.get');
+    Route::get('/pcare/kesadaran', [PCareController::class, 'kesadaran'])->name('pcare.kesadaran');
+    Route::get('/pcare/Kesadaran/get', [SatusehatController::class, 'Kesadaran'])->name('pcare.Kesadaran.get');
+    Route::get('/pcare/obats', [PCareController::class, 'obats'])->name('pcare.obats');
+    Route::get('/pcare/obats/get/{nama}', [SatusehatController::class, 'obats'])->name('pcare.obats.get');
+    Route::get('/pcare/provider', [PCareController::class, 'provider'])->name('pcare.provider');
+    Route::get('/pcare/provider/get', [SatusehatController::class, 'provider'])->name('pcare.provider.get');
+    Route::get('/pcare/spesialis', [PCareController::class, 'spesialis'])->name('pcare.spesialis');
+    Route::get('/pcare/spesialis/get', [SatusehatController::class, 'spesialis'])->name('pcare.spesialis.get');
+    Route::get('/pcare/subspesialis/{kode}', [PCareController::class, 'subspesialis'])->name('pcare.subspesialis');
+    Route::get('/pcare/subspesialis/get/{nama}', [SatusehatController::class, 'subspesialis'])->name('pcare.subspesialis.get');
+    Route::get('/pcare/sarana', [PCareController::class, 'sarana'])->name('pcare.sarana');
+    Route::get('/pcare/sarana/get', [SatusehatController::class, 'sarana'])->name('pcare.sarana.get');
+    Route::get('/pcare/khusus', [PCareController::class, 'khusus'])->name('pcare.khusus');
+    Route::get('/pcare/khusus/get', [SatusehatController::class, 'khusus'])->name('pcare.khusus.get');
+
+
+
 
 
     Route::get('/antrian/loket-1', [AntrianController::class, 'loket1'])->name('loket1');

@@ -540,6 +540,54 @@
                       </p>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="{{ route('pcare.kesadaran') }}" class="nav-link {{ \Route::is('pcare.kesadaran') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Kesadaran
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('pcare.obats') }}" class="nav-link {{ \Route::is('pcare.obats') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Obat DPHO
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('pcare.provider') }}" class="nav-link {{ \Route::is('pcare.provider') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Provider
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('pcare.spesialis') }}" class="nav-link {{ \Route::is('pcare.spesialis') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Spesiailis
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('pcare.sarana') }}" class="nav-link {{ \Route::is('pcare.sarana') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Sarana
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('pcare.khusus') }}" class="nav-link {{ \Route::is('pcare.khusus') ? 'active' : '' }}">
+                        <i class="fas fa-fw fa-solid fa-house-medical" style="color: #63E6BE;"></i>
+                      <p style="margin-left: 10px;" >
+                        Khusus
+                      </p>
+                    </a>
+                  </li>
                 </ul>
             </li>
 
